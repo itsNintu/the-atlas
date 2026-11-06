@@ -7,7 +7,7 @@ The chosen scope is a useful, complete ingestion → durable job → authorized 
 correction/history → forget/support-repair loop, with a JSON CLI and minimal real inspection UI.
 SQLite WAL (synchronous FULL) is a provisional single-node backend, not a scale/parity assertion.
 
-Verified locally on Bun 1.2.21 / Linux: typecheck; 22 tests / 117 assertions; real server+CLI+on-disk
+Verified locally on Bun 1.4.4 / SQLite 3.53.4 / Linux: typecheck; 24 tests / 134 assertions; real server+CLI+on-disk
 SIGKILL/restart/lease recovery; idempotency; cross-workspace and personal/shared isolation; async
 revocation/deletion races; offline backup/restore into a fresh directory; executable agent demo;
 Chromium desktop/mobile UI against actual APIs. Dependency audit reported no vulnerabilities.

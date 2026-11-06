@@ -5,7 +5,7 @@
   "type": "module",
   "license": "Apache-2.0",
   "engines": {
-    "bun": ">=1.2.21"
+    "bun": ">=1.4.4"
   },
   "scripts": {
     "start": "bun src/server.ts",
@@ -20,7 +20,7 @@
     "test:ui": "bun scripts/ui-test.ts"
   },
   "devDependencies": {
-    "@types/bun": "1.2.21",
+    "@types/bun": "1.4.4",
     "typescript": "5.9.2",
     "@playwright/test": "1.55.1"
   }

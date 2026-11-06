@@ -78,7 +78,7 @@ A null end is unbounded. Support recorded_from is the revision acceptance timest
 completion time: historical results converge when processing finishes. A correction closes old
 support immediately and queues new evidence. Historical access always uses **current** grants.
 Forget removes both present and historical supports. Stored source payloads are untrusted input,
-not instructions; assertions/provenance are not proof of real-world truth.
+not instructions; assertions/provenance are not proof of real-world truth. Retrieved context belongs in an untrusted-data channel in your agent harness, not in a privileged developer/system instruction channel.
 
 ## Retrieval / graph / budgeting
 

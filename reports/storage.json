@@ -1,0 +1,35 @@
+{
+  "run_at": "2026-11-06T22:04:06.343Z",
+  "bun": "1.4.4",
+  "sqlite_version": "3.53.4",
+  "journal_mode": {
+    "journal_mode": "wal"
+  },
+  "synchronous": {
+    "synchronous": 2
+  },
+  "secure_delete": {
+    "secure_delete": 1
+  },
+  "busy_timeout": {
+    "timeout": 5000
+  },
+  "long_reader": {
+    "forget_ms": 5.157,
+    "logical_context_empty": true,
+    "checkpoint_while_reader": {
+      "busy": 1,
+      "log": 102,
+      "checkpointed": 89
+    },
+    "checkpoint_after_reader": {
+      "busy": 0,
+      "log": 0,
+      "checkpointed": 0
+    }
+  },
+  "integrity_check": {
+    "integrity_check": "ok"
+  },
+  "note": "Logical forgetting does not revoke a previously opened MVCC snapshot or external backup. Checkpoint is nonblocking in the API; no forensic erasure claim."
+}

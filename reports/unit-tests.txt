@@ -1,34 +1,38 @@
-bun test v1.2.21 (7c45ed97)
+bun test v1.4.4 (38afee6c8)
 
 tests/graph.test.ts:
-(pass) bounded graph expansion follows only authorized live temporal edges with provenance [25.92ms]
+(pass) bounded graph expansion follows only authorized live temporal edges with provenance [16.60ms]
 
 tests/races.test.ts:
-(pass) hybrid context cannot return facts forgotten during embedding [11.34ms]
-(pass) credential revoked during streamed body is rejected before a write [6.41ms]
-(pass) credential and space-grant revocation during inference both fail closed [15.78ms]
-(pass) forget during extraction prevents a subsequent embedding call [7.96ms]
-(pass) calendar normalization rejects impossible dates [0.22ms]
+(pass) hybrid context cannot return facts forgotten during embedding [5.25ms]
+(pass) credential revoked during streamed body is rejected before a write [4.31ms]
+(pass) credential and space-grant revocation during inference both fail closed [9.28ms]
+(pass) forget during extraction prevents a subsequent embedding call [4.11ms]
+(pass) calendar normalization rejects impossible dates [0.06ms]
 
 tests/lifecycle.test.ts:
-(pass) ingests explicit assertions as durable source-linked facts, not NL extraction [6.15ms]
-(pass) source formats text, JSON and timestamped messages work without invented extraction [4.65ms]
-(pass) idempotency canonicalizes object key ordering and conflicts on changed request [3.72ms]
-(pass) workspace boundary denies source/job/provenance reads, writes and inference [6.57ms]
-(pass) personal spaces are owner-only, shared grants allow only explicit actions and revocation applies to replay [6.89ms]
-(pass) correction closes recorded-time interval, preserves historical evidence and enforces revision CAS [15.94ms]
-(pass) valid-time intervals are half-open and relative dates are not fabricated [3.58ms]
-(pass) forget erases revisions and orphan facts, preserves independent same-space support only [7.86ms]
-(pass) forgetting and correcting queued work cannot resurrect forgotten or superseded facts [4.93ms]
-(pass) job lease fencing rejects stale results and retries provider network failures [11.41ms]
-(pass) expired leases recover, and exhausted final crash becomes failed [3.23ms]
-(pass) budgets include Unicode code points and provenance handles, not response metadata [3.36ms]
-(pass) pagination is stable for unchanged data and binds cursor to caller/query [5.27ms]
-(pass) missing and revoked credentials fail without leaking source contents [3.22ms]
-(pass) no-provider mode is actionable and does not manufacture natural-language output [6.74ms]
-(pass) input contracts reject invalid intervals, message timestamps and malformed JSON [3.52ms]
+(pass) ingests explicit assertions as durable source-linked facts, not NL extraction [2.45ms]
+(pass) source formats text, JSON and timestamped messages work without invented extraction [2.15ms]
+(pass) idempotency canonicalizes object key ordering and conflicts on changed request [1.69ms]
+(pass) workspace boundary denies source/job/provenance reads, writes and inference [3.04ms]
+(pass) personal spaces are owner-only, shared grants allow only explicit actions and revocation applies to replay [2.86ms]
+(pass) correction closes recorded-time interval, preserves historical evidence and enforces revision CAS [7.99ms]
+(pass) valid-time intervals are half-open and relative dates are not fabricated [1.90ms]
+(pass) forget erases revisions and orphan facts, preserves independent same-space support only [3.09ms]
+(pass) forgetting and correcting queued work cannot resurrect forgotten or superseded facts [2.67ms]
+(pass) job lease fencing rejects stale results and retries provider network failures [5.28ms]
+(pass) expired leases recover, and exhausted final crash becomes failed [2.08ms]
+(pass) budgets include Unicode code points and provenance handles, not response metadata [1.87ms]
+(pass) pagination is stable for unchanged data and binds cursor to caller/query [2.13ms]
+(pass) missing and revoked credentials fail without leaking source contents [1.20ms]
+(pass) no-provider mode is actionable and does not manufacture natural-language output [2.23ms]
+(pass) input contracts reject invalid intervals, message timestamps and malformed JSON [1.38ms]
 
- 22 pass
+tests/storage.test.ts:
+(pass) WAL engine guard excludes known vulnerable versions and permits published fixes [0.16ms]
+(pass) long reader cannot prevent logical forget; checkpoint reports busy and succeeds after reader closes [60.54ms]
+
+ 24 pass
  0 fail
- 117 expect() calls
-Ran 22 tests across 3 files. [208.00ms]
+ 134 expect() calls
+Ran 24 tests across 4 files. [163.00ms]

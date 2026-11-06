@@ -7,7 +7,7 @@ Installed development dependencies (see bun.lock for exact resolved versions/int
 
 - TypeScript — Apache-2.0
 - Playwright / @playwright/test / playwright-core — Apache-2.0
-- @types/bun, bun-types, @types/node, @types/react, undici-types, csstype — MIT
+- @types/bun, bun-types, @types/node, undici-types — MIT
 
 Retain each package's notices when redistributing installed components. Bun is an external runtime
 under MIT with additional bundled component notices; refer to https://github.com/oven-sh/bun.

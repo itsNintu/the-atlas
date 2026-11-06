@@ -7,17 +7,20 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-24.04
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
         with:
-          bun-version: 1.2.21
+          bun-version: 1.4.4
       - run: bun install --frozen-lockfile
       - run: bun run check
       - run: bun run check:public
       - run: bun test tests
       - run: bun run test:e2e
-      - run: bunx playwright install --with-deps chromium
+      # Hosted runner already has Chromium shared libraries; avoid redundant font-package apt downloads.
+      - run: bunx playwright install chromium
+        timeout-minutes: 3
       - run: bun run test:ui
       - uses: actions/upload-artifact@v4
         if: always()

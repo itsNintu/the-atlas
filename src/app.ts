@@ -166,6 +166,7 @@ export class App {
           schema_version: 1,
           provider: providerStatus(),
           storage: "sqlite_wal_single_node",
+          sqlite_version: this.store.sqlite_version,
           extraction_modes: ["assertions", "natural_language"],
           queue: this.store.all(
             "SELECT j.status,COUNT(*) AS count FROM jobs j JOIN revisions r ON r.id=j.revision_id JOIN sources s ON s.id=r.source_id JOIN grants g ON g.space_id=s.space_id AND g.principal_id=? AND g.action='read' WHERE s.workspace_id=? GROUP BY j.status",
@@ -471,7 +472,7 @@ export class App {
           },
         );
         // Logical erasure is immediate. WAL checkpoint is best effort; backups are operator-owned.
-        this.store.db.exec("PRAGMA wal_checkpoint(TRUNCATE)");
+        this.store.checkpoint();
       } else if (method === "GET" && path === "/v1/jobs")
         result = listed(
           this.store.all(

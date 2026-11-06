@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-11-06T21:47:59.245Z",
+  "run_at": "2026-11-06T22:02:25.514Z",
   "result": "pass",
   "checks": [
     "Fresh browser authenticates using generated synthetic credential; input clears and no browser storage is used",

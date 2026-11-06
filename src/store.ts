@@ -58,13 +58,39 @@ export function assertions(input: unknown, fallback: string): Assertion[] {
     };
   });
 }
+export function patchedSQLite(version: string): boolean {
+  const parts = version.split(".").map(Number);
+  if (parts.length !== 3 || parts.some((x) => !Number.isInteger(x)))
+    return false;
+  const [major, minor, patch] = parts;
+  return (
+    major > 3 ||
+    (major === 3 &&
+      (minor > 51 ||
+        (minor === 51 && patch >= 3) ||
+        (minor === 50 && patch >= 7) ||
+        (minor === 44 && patch >= 6)))
+  );
+}
 export class Store {
   db: Database;
+  sqlite_version: string;
   constructor(public path: string) {
     if (path !== ":memory:") {
       mkdirSync(dirname(path), { recursive: true, mode: 0o700 });
     }
     this.db = new Database(path, { create: true });
+    this.sqlite_version = this.one(
+      "SELECT sqlite_version() AS version",
+    ).version;
+    if (path !== ":memory:" && !patchedSQLite(this.sqlite_version)) {
+      this.db.close();
+      fail(
+        500,
+        "unsupported_sqlite",
+        "SQLite lacks the WAL-reset corruption fix. Upgrade to Bun 1.4.4+ with patched SQLite (3.51.3+, or 3.50.7/3.44.6 backport). See docs/operations.md.",
+      );
+    }
     if (path !== ":memory:") chmodSync(path, 0o600);
     this.db.exec(
       "PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA foreign_keys=ON; PRAGMA busy_timeout=5000; PRAGMA secure_delete=ON;",
@@ -94,6 +120,15 @@ export class Store {
   }
   transaction<T>(fn: () => T): T {
     return this.db.transaction(fn).immediate();
+  }
+  checkpoint() {
+    // Long-lived readers must not block the synchronous request path for five seconds.
+    this.db.exec("PRAGMA busy_timeout=0");
+    try {
+      return this.one("PRAGMA wal_checkpoint(TRUNCATE)");
+    } finally {
+      this.db.exec("PRAGMA busy_timeout=5000");
+    }
   }
   close() {
     this.db.close();

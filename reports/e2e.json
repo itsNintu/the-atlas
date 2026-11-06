@@ -1,5 +1,5 @@
 {
-  "run_at": "2026-11-06T21:47:55.788Z",
+  "run_at": "2026-11-06T22:02:22.277Z",
   "result": "pass",
   "checks": [
     "CLI bootstrap writes exclusive mode-0600 generated credential without printing it",
@@ -11,9 +11,9 @@
     "Stopped-database backup restores into a new path with saved credential; runnable agent demo completes against restored server",
     "Second graceful restart preserves repaired context; SQLite integrity_check=ok and direct erased-column verification"
   ],
-  "duration_ms": 1540.6,
+  "duration_ms": 1139.93,
   "storage": "real on-disk SQLite WAL",
   "provider": "explicit assertions only; no natural-language claim",
-  "runtime": "1.2.21",
+  "runtime": "1.4.4",
   "platform": "linux"
 }

@@ -12,7 +12,7 @@ and explicit space/action grants keep separate callers and personal/shared space
 
 ## Try it
 
-Install [Bun](https://bun.sh/) 1.2.21 or newer, then:
+Install [Bun](https://bun.sh/) 1.4.4 or newer, then:
 
 ```sh
 git clone https://github.com/itsNintu/threadatlas.git

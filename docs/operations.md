@@ -2,7 +2,7 @@
 
 ## Runtime
 
-Use Bun 1.2.21+ on Linux/macOS (Linux is the tested release environment). Windows Bun is not yet a
+Use Bun 1.4.4+ on Linux/macOS (Linux is the tested release environment). Windows Bun is not yet a
 verified serving target. The runtime has no npm production dependencies. `bun install --production
 --frozen-lockfile` and `bun start` run source directly. Development tools/tests need a normal install.
 Default listener is loopback `127.0.0.1:8787`. Keep it there unless you configure a trusted TLS reverse
@@ -18,6 +18,21 @@ Use a private local directory, local filesystem (not network-shared SQLite), and
 for deployment. Workspace administrators are trusted to create shared grants but are not granted
 knowledge access automatically. Local OS/database access bypasses application permissions by design.
 Tokens are random high-entropy values hashed with SHA-256, not user passwords needing a password KDF.
+
+## SQLite engine and checkpoint behavior
+
+The release was reverified with Bun 1.4.4 and its SQLite 3.53.4. SQLite documents a rare WAL-reset
+corruption race in 3.7.0 through 3.51.2, fixed in 3.51.3+ and backports 3.50.7/3.44.6:
+https://sqlite.org/wal.html#walreset . Persistent WAL storage checks the actual engine version and
+fails actionably on a known-unpatched engine rather than claiming the restart tests fix it. In-memory
+fixtures are exempt because they do not use persistent WAL. Use the supported current Bun runtime;
+there is no need to replace another project's runtime or introduce an extra database service.
+
+Long-lived external SQLite readers can retain old MVCC snapshots and prevent WAL truncation. API
+forget repairs/redacts logical state immediately and attempts a nonblocking checkpoint; the writer's
+normal 5000 ms busy timeout is restored afterward. An existing reader may retain the old snapshot
+until it closes, just as an earlier API consumer may have retained a copy. The storage test exercises
+this on a real file and checks integrity afterward. Do not promise immediate forensic erasure.
 
 ## Diagnose / recover
 
