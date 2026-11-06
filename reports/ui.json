@@ -1,0 +1,13 @@
+{
+  "run_at": "2026-11-06T21:47:59.245Z",
+  "result": "pass",
+  "checks": [
+    "Fresh browser authenticates using generated synthetic credential; input clears and no browser storage is used",
+    "UI creates project and space, ingests a real source, inspects durable jobs, retrieves source-linked context",
+    "Browser correction and forgetting update actual API data and remove unsupported context",
+    "Desktop/mobile rendering has no page errors or horizontal overflow; reload disconnects"
+  ],
+  "page_errors": [],
+  "browser": "140.0.7339.186",
+  "synthetic_data_only": true
+}

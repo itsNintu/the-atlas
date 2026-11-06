@@ -1,0 +1,128 @@
+{
+  "run_at": "2026-11-06T21:40:10.560Z",
+  "runtime": {
+    "bun": "1.2.21",
+    "platform": "linux",
+    "os_release": "6.18.54.1-microsoft-standard-WSL2",
+    "logical_cpus": 16,
+    "cpu_model": "AMD Ryzen 7 3700X 8-Core Processor",
+    "total_memory_bytes": 33629818880
+  },
+  "method": "Generated deterministic assertions, real HTTP + on-disk SQLite WAL synchronous FULL, one server + one serial worker. Payload bodies contain padding; 1-4 explicit facts/source. Each query searches one authorized space. RSS sampled /proc at 10ms. Warm retrieval follows complete ingestion. No model, vector or quality/cost/parity claim. These are local measurements, not load guarantees.",
+  "scenarios": [
+    {
+      "name": "small",
+      "sources": 120,
+      "spaces": 3,
+      "sizes": [
+        512
+      ],
+      "concurrency": 4,
+      "reads": 100,
+      "total_payload_bytes": 61440,
+      "counts": {
+        "sources": 120,
+        "facts": 300,
+        "supports": 300,
+        "jobs_succeeded": 120
+      },
+      "ingest_ms": 1470.073,
+      "ingest_sources_per_s": 81.63,
+      "durable_jobs_ms": 1598.535,
+      "jobs_per_s": 75.07,
+      "ingest_receipt_latency": {
+        "count": 120,
+        "p50_ms": 29.356,
+        "p95_ms": 125.304,
+        "p99_ms": 129.492,
+        "max_ms": 132.091
+      },
+      "retrieval_latency": {
+        "count": 100,
+        "p50_ms": 19.447,
+        "p95_ms": 42.864,
+        "p99_ms": 47.304,
+        "max_ms": 54.611
+      },
+      "peak_server_rss_kib": 121512,
+      "database_plus_wal_bytes": 4869888
+    },
+    {
+      "name": "varied_multi_space",
+      "sources": 600,
+      "spaces": 12,
+      "sizes": [
+        512,
+        4096,
+        32768
+      ],
+      "concurrency": 24,
+      "reads": 240,
+      "total_payload_bytes": 7475200,
+      "counts": {
+        "sources": 600,
+        "facts": 1500,
+        "supports": 1500,
+        "jobs_succeeded": 600
+      },
+      "ingest_ms": 5929.578,
+      "ingest_sources_per_s": 101.19,
+      "durable_jobs_ms": 7760.051,
+      "jobs_per_s": 77.32,
+      "ingest_receipt_latency": {
+        "count": 600,
+        "p50_ms": 241.929,
+        "p95_ms": 273.531,
+        "p99_ms": 290.454,
+        "max_ms": 293.076
+      },
+      "retrieval_latency": {
+        "count": 240,
+        "p50_ms": 145.873,
+        "p95_ms": 211.787,
+        "p99_ms": 285.248,
+        "max_ms": 360.662
+      },
+      "peak_server_rss_kib": 126488,
+      "database_plus_wal_bytes": 14339984
+    },
+    {
+      "name": "larger_hot_space",
+      "sources": 1200,
+      "spaces": 4,
+      "sizes": [
+        1024,
+        8192
+      ],
+      "concurrency": 32,
+      "reads": 240,
+      "total_payload_bytes": 5529600,
+      "counts": {
+        "sources": 1200,
+        "facts": 3000,
+        "supports": 3000,
+        "jobs_succeeded": 1200
+      },
+      "ingest_ms": 9944.137,
+      "ingest_sources_per_s": 120.67,
+      "durable_jobs_ms": 14819.533,
+      "jobs_per_s": 80.97,
+      "ingest_receipt_latency": {
+        "count": 1200,
+        "p50_ms": 264.785,
+        "p95_ms": 301.15,
+        "p99_ms": 316.925,
+        "max_ms": 324.929
+      },
+      "retrieval_latency": {
+        "count": 240,
+        "p50_ms": 916.441,
+        "p95_ms": 1031.786,
+        "p99_ms": 1043.611,
+        "max_ms": 1048.098
+      },
+      "peak_server_rss_kib": 191600,
+      "database_plus_wal_bytes": 15097960
+    }
+  ]
+}

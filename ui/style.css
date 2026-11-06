@@ -1,0 +1,169 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: #0d1421;
+  color: #d8e4f4;
+  font:
+    15px/1.6 system-ui,
+    sans-serif;
+}
+header {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  padding: 28px 5vw;
+  border-bottom: 1px solid #2b3c53;
+  background: #111e30;
+}
+.mark {
+  background: #67e8bd;
+  color: #082d28;
+  font-weight: 800;
+  padding: 12px;
+  border-radius: 12px;
+}
+h1 {
+  margin: 0;
+  font-size: 24px;
+}
+h1 span {
+  font-size: 12px;
+  color: #84e4c0;
+  border: 1px solid #30564d;
+  border-radius: 12px;
+  padding: 4px 8px;
+}
+header p {
+  margin: 2px 0;
+  color: #a7b8cf;
+}
+header button {
+  margin-left: auto;
+}
+main {
+  max-width: 1280px;
+  margin: 30px auto;
+  padding: 0 24px;
+}
+section {
+  padding: 24px;
+  background: #142237;
+  border: 1px solid #2d415e;
+  border-radius: 14px;
+  margin-bottom: 22px;
+}
+h2 {
+  font-size: 19px;
+  margin-top: 0;
+}
+h3 {
+  font-size: 16px;
+}
+.columns {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 22px;
+}
+.columns section {
+  min-width: 0;
+}
+label {
+  display: block;
+  color: #b8cbe4;
+  margin: 12px 0;
+}
+input,
+textarea,
+select {
+  display: block;
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #415775;
+  border-radius: 6px;
+  background: #0c1829;
+  color: #edf5ff;
+  font: inherit;
+  margin-top: 6px;
+}
+textarea,
+pre {
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+}
+button {
+  background: #77e1be;
+  color: #082820;
+  border: 0;
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-weight: 700;
+  cursor: pointer;
+  margin: 5px 5px 5px 0;
+}
+button:hover {
+  background: #a4f0d6;
+}
+button:focus-visible,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid #97bbff;
+  outline-offset: 3px;
+}
+.danger {
+  background: #ffb3b3;
+  color: #4d1010;
+}
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: #0b1727;
+  padding: 16px;
+  border-radius: 7px;
+  max-height: 480px;
+  overflow: auto;
+}
+.row {
+  padding: 12px 0;
+  border-bottom: 1px solid #31445c;
+  overflow-wrap: anywhere;
+}
+.muted,
+p {
+  color: #b1c2d9;
+}
+summary {
+  cursor: pointer;
+  margin-top: 20px;
+}
+footer {
+  text-align: center;
+  color: #8ea5c2;
+  padding: 28px;
+}
+[hidden] {
+  display: none !important;
+}
+@media (max-width: 800px) {
+  .columns {
+    display: block;
+  }
+  header {
+    padding: 20px;
+  }
+  main {
+    padding: 0 12px;
+  }
+  section {
+    padding: 18px;
+  }
+  h1 span {
+    display: block;
+    width: fit-content;
+  }
+  header button {
+    font-size: 12px;
+  }
+}

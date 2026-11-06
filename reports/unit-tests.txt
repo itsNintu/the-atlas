@@ -1,0 +1,34 @@
+bun test v1.2.21 (7c45ed97)
+
+tests/graph.test.ts:
+(pass) bounded graph expansion follows only authorized live temporal edges with provenance [25.92ms]
+
+tests/races.test.ts:
+(pass) hybrid context cannot return facts forgotten during embedding [11.34ms]
+(pass) credential revoked during streamed body is rejected before a write [6.41ms]
+(pass) credential and space-grant revocation during inference both fail closed [15.78ms]
+(pass) forget during extraction prevents a subsequent embedding call [7.96ms]
+(pass) calendar normalization rejects impossible dates [0.22ms]
+
+tests/lifecycle.test.ts:
+(pass) ingests explicit assertions as durable source-linked facts, not NL extraction [6.15ms]
+(pass) source formats text, JSON and timestamped messages work without invented extraction [4.65ms]
+(pass) idempotency canonicalizes object key ordering and conflicts on changed request [3.72ms]
+(pass) workspace boundary denies source/job/provenance reads, writes and inference [6.57ms]
+(pass) personal spaces are owner-only, shared grants allow only explicit actions and revocation applies to replay [6.89ms]
+(pass) correction closes recorded-time interval, preserves historical evidence and enforces revision CAS [15.94ms]
+(pass) valid-time intervals are half-open and relative dates are not fabricated [3.58ms]
+(pass) forget erases revisions and orphan facts, preserves independent same-space support only [7.86ms]
+(pass) forgetting and correcting queued work cannot resurrect forgotten or superseded facts [4.93ms]
+(pass) job lease fencing rejects stale results and retries provider network failures [11.41ms]
+(pass) expired leases recover, and exhausted final crash becomes failed [3.23ms]
+(pass) budgets include Unicode code points and provenance handles, not response metadata [3.36ms]
+(pass) pagination is stable for unchanged data and binds cursor to caller/query [5.27ms]
+(pass) missing and revoked credentials fail without leaking source contents [3.22ms]
+(pass) no-provider mode is actionable and does not manufacture natural-language output [6.74ms]
+(pass) input contracts reject invalid intervals, message timestamps and malformed JSON [3.52ms]
+
+ 22 pass
+ 0 fail
+ 117 expect() calls
+Ran 22 tests across 3 files. [208.00ms]

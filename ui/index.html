@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ThreadAtlas · Evidence inspector</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/ui.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="mark">TA</div>
+      <div>
+        <h1>ThreadAtlas <span>M0 alpha</span></h1>
+        <p>Durable context. Inspectable evidence.</p>
+      </div>
+      <button id="disconnect">Disconnect</button>
+    </header>
+    <main>
+      <section id="connect">
+        <h2>Connect your workspace</h2>
+        <p>
+          Use a local bootstrap credential. It stays in this tab's memory, not
+          browser storage. Refresh disconnects.
+        </p>
+        <form id="login">
+          <label
+            >Bearer credential<input
+              id="token"
+              type="password"
+              required
+              autocomplete="off"
+              placeholder="From your private credential file" /></label
+          ><button>Connect</button>
+        </form>
+      </section>
+      <div id="workspace" hidden>
+        <section class="identity">
+          <h2 id="identity">Workspace</h2>
+          <p id="diagnostics"></p>
+          <button id="refresh">Refresh inspection</button>
+        </section>
+        <div class="columns">
+          <section>
+            <h2>Spaces & administration</h2>
+            <p>
+              Only explicitly granted spaces appear. Administration never
+              bypasses knowledge access.
+            </p>
+            <ul id="spaces"></ul>
+            <form id="project-form">
+              <label>New project name<input name="name" required /></label
+              ><button>Create project</button>
+            </form>
+            <form id="space-form">
+              <label
+                >Project<select id="projects" name="project_id"></select></label
+              ><label>New space name<input name="name" required /></label
+              ><label
+                >Visibility<select name="kind">
+                  <option>shared</option>
+                  <option>personal</option>
+                </select></label
+              ><button>Create space</button>
+            </form>
+            <details>
+              <summary>Principals & grants</summary>
+              <form id="principal-form">
+                <label>Agent name<input name="name" required /></label
+                ><button>Create agent principal</button>
+              </form>
+              <p>
+                Issue its credential with the local CLI. Principal creation does
+                not expose keys.
+              </p>
+              <pre id="principals"></pre>
+              <form id="grant-form">
+                <label>Space ID<input name="space_id" required /></label
+                ><label
+                  >Principal ID<input name="principal_id" required /></label
+                ><label
+                  >Actions (comma-separated; blank revokes)<input
+                    name="actions"
+                    value="read" /></label
+                ><button>Replace grants</button>
+              </form>
+            </details>
+          </section>
+          <section>
+            <h2>Ingest evidence</h2>
+            <p>
+              <strong
+                >Assertions mode is explicit structured input, not
+                natural-language extraction.</strong
+              >
+              Choose natural_language only after configuring a real provider.
+            </p>
+            <form id="ingest-form">
+              <label
+                >Space<select id="ingest-space" name="space_id"></select></label
+              ><label
+                >Source JSON<textarea
+                  id="source-json"
+                  rows="12"
+                  spellcheck="false"
+                ></textarea></label
+              ><button>Queue ingestion</button>
+            </form>
+            <h3>Durable jobs</h3>
+            <div id="jobs"></div>
+          </section>
+        </div>
+        <section>
+          <h2>Context playground</h2>
+          <form id="context-form">
+            <label
+              >Query<input name="query" placeholder="Mira location" /></label
+            ><label
+              >Character budget<input
+                name="budget_chars"
+                type="number"
+                min="0"
+                max="100000"
+                value="1200" /></label
+            ><button>Retrieve from selected space</button>
+          </form>
+          <pre id="context-output">Select a space and retrieve context.</pre>
+        </section>
+        <section>
+          <h2>Source & provenance inspection</h2>
+          <div id="sources"></div>
+          <pre id="source-output">
+Choose Inspect to view revisions and source payload.</pre
+          >
+          <form id="correction-form">
+            <label
+              >Source ID<input
+                id="correct-id"
+                name="source_id"
+                required /></label
+            ><label
+              >Replacement JSON (include expected_revision_number)<textarea
+                id="correction-json"
+                rows="7"
+                required
+              ></textarea></label
+            ><button>Queue correction</button
+            ><button id="forget" type="button" class="danger">
+              Forget source
+            </button>
+          </form>
+        </section>
+      </div>
+      <section aria-live="polite">
+        <h2>Last operation</h2>
+        <pre id="result">Not connected. Start with the CLI quickstart.</pre>
+      </section>
+    </main>
+    <footer>
+      Single-node bootstrap · No parity or production-scale claim · REST /v1 ·
+      Apache-2.0
+    </footer>
+  </body>
+</html>

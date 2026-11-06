@@ -1,0 +1,19 @@
+{
+  "run_at": "2026-11-06T21:45:37.839Z",
+  "configured": false,
+  "result": "provider_unavailable_or_failed",
+  "job": {
+    "status": "failed",
+    "error_code": "provider_unavailable",
+    "attempts": 1
+  },
+  "facts": [],
+  "diagnostic": {
+    "configured": false,
+    "provider": "openai_compatible",
+    "extraction_model": "gpt-4.1-mini",
+    "embedding_model": "text-embedding-3-small",
+    "action": "Set THREADATLAS_PROVIDER_API_KEY (or OPENAI_API_KEY), optional THREADATLAS_PROVIDER_BASE_URL and model variables; restart, then retry the failed job. Assertions mode works without any provider."
+  },
+  "note": "No mocked model output. Without configuration, this exercises the real production adapter failure path; deterministic workflows remain independently usable."
+}
