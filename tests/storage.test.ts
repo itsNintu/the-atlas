@@ -4,7 +4,7 @@ import { fixture } from "./helpers.ts";
 import { mkdtempSync, rmSync } from "node:fs";
 import { join } from "node:path";
 
-test("WAL engine guard excludes known vulnerable versions and permits published fixes", () => {
+test("WAL diagnostics identify known unpatched versions and published fixes", () => {
   for (const version of ["3.50.4", "3.51.2", "3.44.5", "invalid"])
     expect(patchedSQLite(version)).toBe(false);
   for (const version of ["3.51.3", "3.53.4", "3.50.7", "3.44.6"])

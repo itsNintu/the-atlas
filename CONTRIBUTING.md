@@ -1,6 +1,6 @@
 # Contributing
 
-Install Bun 1.4.4+, clone, and run `bun install --frozen-lockfile`. `bun run check`, `bun test tests`
+Install the recommended Bun 1.4.4 runtime, clone, and run `bun install --frozen-lockfile`. `bun run check`, `bun test tests`
 and `bun run test:e2e` need no private service. Browser checks use `bunx playwright install chromium`
 and `bun run test:ui`. `bun run bench` creates disclosed generated data and deletes private databases.
 

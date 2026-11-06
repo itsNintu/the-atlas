@@ -167,6 +167,7 @@ export class App {
           provider: providerStatus(),
           storage: "sqlite_wal_single_node",
           sqlite_version: this.store.sqlite_version,
+          sqlite_wal_reset_fix: this.store.sqlite_wal_reset_fix,
           extraction_modes: ["assertions", "natural_language"],
           queue: this.store.all(
             "SELECT j.status,COUNT(*) AS count FROM jobs j JOIN revisions r ON r.id=j.revision_id JOIN sources s ON s.id=r.source_id JOIN grants g ON g.space_id=s.space_id AND g.principal_id=? AND g.action='read' WHERE s.workspace_id=? GROUP BY j.status",

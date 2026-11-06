@@ -4,11 +4,11 @@ Measured 2026-11-06T22:02:53.176Z on Bun 1.4.4, SQLite 3.53.4, Linux/WSL2, 16 lo
 
 Generated deterministic assertions, real HTTP + on-disk SQLite WAL synchronous FULL, one server + one serial worker. Payload bodies contain padding; 1-4 explicit facts/source. Each query searches one authorized space. RSS sampled /proc at 10ms. Warm retrieval follows complete ingestion. No model, vector or quality/cost/parity claim. These are local measurements, not load guarantees.
 
-| Workload           | Sources / spaces / facts | Payload bytes | Concurrency | Receipts/s | Completed jobs/s | Retrieval p50 / p95 ms | Peak server RSS MiB |
-| ------------------ | -----------------------: | ------------: | ----------: | ---------: | ---------------: | ---------------------: | ------------------: |
-| small              |            120 / 3 / 300 |        61,440 |           4 |      92.19 |            88.04 |         9.492 / 18.983 |               60.18 |
-| varied_multi_space |          600 / 12 / 1500 |     7,475,200 |          24 |     128.99 |            98.26 |        85.714 / 97.189 |               75.38 |
-| larger_hot_space   |          1200 / 4 / 3000 |     5,529,600 |          32 |     134.84 |            93.51 |      657.243 / 836.969 |               89.09 |
+| Workload | Sources / spaces / facts | Payload bytes | Concurrency | Receipts/s | Completed jobs/s | Retrieval p50 / p95 ms | Peak server RSS MiB |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| small | 120 / 3 / 300 | 61,440 | 4 | 92.19 | 88.04 | 9.492 / 18.983 | 60.18 |
+| varied_multi_space | 600 / 12 / 1500 | 7,475,200 | 24 | 128.99 | 98.26 | 85.714 / 97.189 | 75.38 |
+| larger_hot_space | 1200 / 4 / 3000 | 5,529,600 | 32 | 134.84 | 93.51 | 657.243 / 836.969 | 89.09 |
 
 These are one-run warm, generated HTTP workloads on one development host, not published capacity guarantees. Request latency includes queueing under the stated concurrency; single-request service time was not separately measured. Job rate covers the whole ingest-to-completion interval, not just the worker kernel. Payload padding varies request/storage sizes; facts are supplied, not extracted from that padding.
 

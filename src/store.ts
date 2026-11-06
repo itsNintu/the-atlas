@@ -75,6 +75,10 @@ export function patchedSQLite(version: string): boolean {
 export class Store {
   db: Database;
   sqlite_version: string;
+  sqlite_wal_reset_fix:
+    | "known_patched"
+    | "upgrade_recommended"
+    | "not_applicable";
   constructor(public path: string) {
     if (path !== ":memory:") {
       mkdirSync(dirname(path), { recursive: true, mode: 0o700 });
@@ -83,12 +87,20 @@ export class Store {
     this.sqlite_version = this.one(
       "SELECT sqlite_version() AS version",
     ).version;
-    if (path !== ":memory:" && !patchedSQLite(this.sqlite_version)) {
-      this.db.close();
-      fail(
-        500,
-        "unsupported_sqlite",
-        "SQLite lacks the WAL-reset corruption fix. Upgrade to Bun 1.4.4+ with patched SQLite (3.51.3+, or 3.50.7/3.44.6 backport). See docs/operations.md.",
+    this.sqlite_wal_reset_fix =
+      path === ":memory:"
+        ? "not_applicable"
+        : patchedSQLite(this.sqlite_version)
+          ? "known_patched"
+          : "upgrade_recommended";
+    if (this.sqlite_wal_reset_fix === "upgrade_recommended") {
+      console.warn(
+        JSON.stringify({
+          event: "sqlite_upgrade_recommended",
+          sqlite_version: this.sqlite_version,
+          message:
+            "This version predates the published WAL-reset fix. Bun 1.4.4 with SQLite 3.53.4 is the verified release baseline; see docs/operations.md. Startup is not blocked.",
+        }),
       );
     }
     if (path !== ":memory:") chmodSync(path, 0o600);
