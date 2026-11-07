@@ -1,0 +1,32 @@
+[
+  {
+    "file": "creator-labs-white.svg",
+    "source": "/home/alex/work/projects/creators/docs/brand/assets/logos/Logo white.svg",
+    "sha256": "45df208b2b15569f2aead756fe4783ddf8008c7e6d6e7658ee1e844fbce553e0"
+  },
+  {
+    "file": "SpaceGrotesk-variable.ttf",
+    "source": "/home/alex/work/projects/creators/docs/brand/assets/fonts/space-grotesk/SpaceGrotesk-variable.ttf",
+    "sha256": "acad6de1fc93436f5c0f1f4137751ef04f1aea3063e7036535970ffcfbd79f72"
+  },
+  {
+    "file": "IBMPlexMono-Regular.ttf",
+    "source": "/home/alex/work/projects/creators/docs/brand/assets/fonts/ibm-plex-mono/IBMPlexMono-Regular.ttf",
+    "sha256": "6a3412f058c7d8dfd9170c41e85ade48e5156ecb89356110ca57a0a27734af46"
+  },
+  {
+    "file": "IBMPlexMono-Medium.ttf",
+    "source": "/home/alex/work/projects/creators/docs/brand/assets/fonts/ibm-plex-mono/IBMPlexMono-Medium.ttf",
+    "sha256": "a9b4c49bb299e05b5f6c481e7fb5e78943d2793249a0c8874ab574a2d1ea6755"
+  },
+  {
+    "file": "SpaceGrotesk-OFL.txt",
+    "source": "/home/alex/work/projects/creators/docs/brand/assets/fonts/space-grotesk/OFL.txt",
+    "sha256": "564ce565c371c5e5bbf286006565a7c9aa55a9f56e7ca58d56e05d649dd61a72"
+  },
+  {
+    "file": "IBMPlexMono-OFL.txt",
+    "source": "/home/alex/work/projects/creators/docs/brand/assets/fonts/ibm-plex-mono/OFL.txt",
+    "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+  }
+]

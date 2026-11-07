@@ -1,0 +1,397 @@
+{
+  "run_at": "2026-11-07T11:34:20.106Z",
+  "result": "pass",
+  "browser": "140.0.7339.186",
+  "synthetic_data_only": true,
+  "actual_http": true,
+  "actual_sqlite_disk": true,
+  "production_activation": false,
+  "checks": [
+    "Exact static allowlist serves identical CSS/SVG/font bytes with correct MIME/nosniff; unknown/private paths fail closed",
+    "Real on-disk graph: node keyboard selection, edge source attribution/history, focus/reset and zoom/fit; neutral entity/literal shapes and historical dashes remain distinct",
+    "Brain history/source controls, empty state and entry fit 390/320px; disconnect returns to private tab-only entry",
+    "Inspector real authenticated project/space creation, queue ingestion, source payload inspection, grants disclosure and correction form editing preserved; desktop/390/320 layout without overflow",
+    "No browser storage/cookies/URL credential persistence; reload disconnects and cross-view navigation works; no page/CSP/console errors"
+  ],
+  "metrics": [
+    {
+      "label": "brain entry desktop",
+      "width": 1500,
+      "scroll": 1500,
+      "bodyFont": "\"Space Grotesk\", Arial, sans-serif",
+      "buttonFont": "\"IBM Plex Mono\", ui-monospace, monospace",
+      "background": "rgb(11, 12, 12)",
+      "fonts": [
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        }
+      ],
+      "logo": true,
+      "transform": "none",
+      "accentButtons": 0,
+      "inputSizes": [
+        16,
+        16
+      ]
+    },
+    {
+      "label": "brain history desktop",
+      "width": 1500,
+      "scroll": 1500,
+      "bodyFont": "\"Space Grotesk\", Arial, sans-serif",
+      "buttonFont": "\"IBM Plex Mono\", ui-monospace, monospace",
+      "background": "rgb(11, 12, 12)",
+      "fonts": [
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        }
+      ],
+      "logo": true,
+      "transform": "none",
+      "accentButtons": 0,
+      "inputSizes": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "label": "brain history 390",
+      "width": 390,
+      "scroll": 390,
+      "bodyFont": "\"Space Grotesk\", Arial, sans-serif",
+      "buttonFont": "\"IBM Plex Mono\", ui-monospace, monospace",
+      "background": "rgb(11, 12, 12)",
+      "fonts": [
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        }
+      ],
+      "logo": true,
+      "transform": "none",
+      "accentButtons": 0,
+      "inputSizes": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "label": "brain history 320",
+      "width": 320,
+      "scroll": 320,
+      "bodyFont": "\"Space Grotesk\", Arial, sans-serif",
+      "buttonFont": "\"IBM Plex Mono\", ui-monospace, monospace",
+      "background": "rgb(11, 12, 12)",
+      "fonts": [
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        }
+      ],
+      "logo": true,
+      "transform": "none",
+      "accentButtons": 0,
+      "inputSizes": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "label": "brain empty 320",
+      "width": 320,
+      "scroll": 320,
+      "bodyFont": "\"Space Grotesk\", Arial, sans-serif",
+      "buttonFont": "\"IBM Plex Mono\", ui-monospace, monospace",
+      "background": "rgb(11, 12, 12)",
+      "fonts": [
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        }
+      ],
+      "logo": true,
+      "transform": "none",
+      "accentButtons": 0,
+      "inputSizes": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "label": "brain entry 320",
+      "width": 320,
+      "scroll": 320,
+      "bodyFont": "\"Space Grotesk\", Arial, sans-serif",
+      "buttonFont": "\"IBM Plex Mono\", ui-monospace, monospace",
+      "background": "rgb(11, 12, 12)",
+      "fonts": [
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        }
+      ],
+      "logo": true,
+      "transform": "none",
+      "accentButtons": 0,
+      "inputSizes": [
+        16,
+        16
+      ]
+    },
+    {
+      "label": "inspector entry desktop",
+      "width": 1440,
+      "scroll": 1440,
+      "bodyFont": "\"Space Grotesk\", Arial, sans-serif",
+      "buttonFont": "\"IBM Plex Mono\", ui-monospace, monospace",
+      "background": "rgb(11, 12, 12)",
+      "fonts": [
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        }
+      ],
+      "logo": true,
+      "transform": "none",
+      "accentButtons": 0,
+      "inputSizes": [
+        16
+      ]
+    },
+    {
+      "label": "inspector populated desktop",
+      "width": 1440,
+      "scroll": 1440,
+      "bodyFont": "\"Space Grotesk\", Arial, sans-serif",
+      "buttonFont": "\"IBM Plex Mono\", ui-monospace, monospace",
+      "background": "rgb(11, 12, 12)",
+      "fonts": [
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        }
+      ],
+      "logo": true,
+      "transform": "none",
+      "accentButtons": 0,
+      "inputSizes": [
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "label": "inspector populated 390",
+      "width": 390,
+      "scroll": 390,
+      "bodyFont": "\"Space Grotesk\", Arial, sans-serif",
+      "buttonFont": "\"IBM Plex Mono\", ui-monospace, monospace",
+      "background": "rgb(11, 12, 12)",
+      "fonts": [
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        }
+      ],
+      "logo": true,
+      "transform": "none",
+      "accentButtons": 0,
+      "inputSizes": [
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "label": "inspector populated 320",
+      "width": 320,
+      "scroll": 320,
+      "bodyFont": "\"Space Grotesk\", Arial, sans-serif",
+      "buttonFont": "\"IBM Plex Mono\", ui-monospace, monospace",
+      "background": "rgb(11, 12, 12)",
+      "fonts": [
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        }
+      ],
+      "logo": true,
+      "transform": "none",
+      "accentButtons": 0,
+      "inputSizes": [
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    {
+      "label": "inspector entry 320",
+      "width": 320,
+      "scroll": 320,
+      "bodyFont": "\"Space Grotesk\", Arial, sans-serif",
+      "buttonFont": "\"IBM Plex Mono\", ui-monospace, monospace",
+      "background": "rgb(11, 12, 12)",
+      "fonts": [
+        {
+          "family": "Space Grotesk",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        },
+        {
+          "family": "IBM Plex Mono",
+          "status": "loaded"
+        }
+      ],
+      "logo": true,
+      "transform": "none",
+      "accentButtons": 0,
+      "inputSizes": [
+        16
+      ]
+    }
+  ],
+  "page_errors": [],
+  "screenshots": [
+    "brain-entry-focus-desktop.png",
+    "brain-entry-hover-desktop.png",
+    "brain-desktop.png",
+    "brain-390.png",
+    "brain-320.png",
+    "brain-entry-320.png",
+    "inspector-entry-desktop.png",
+    "inspector-desktop.png",
+    "inspector-390.png",
+    "inspector-320.png",
+    "inspector-entry-focus-320.png"
+  ],
+  "reused_evidence": [
+    "evidence/brain-view/browser.json (full graph behavior)",
+    "reports/dreaming-source.json (unaffected memory/provider coverage)"
+  ]
+}

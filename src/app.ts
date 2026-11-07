@@ -66,7 +66,8 @@ export class App {
       const u = new URL(request.url),
         method = request.method,
         path = u.pathname;
-      if (method === "GET" && ["/", "/ui.js", "/style.css", "/brain", "/brain.js", "/brain.css"].includes(path)) {
+      // Deliberately exact: no arbitrary file/directory serving for brand assets.
+      if (method === "GET" && ["/", "/ui.js", "/style.css", "/brain", "/brain.js", "/brain.css", "/brand.css", "/brand/creator-labs-white.svg", "/brand/SpaceGrotesk-variable.ttf", "/brand/IBMPlexMono-Regular.ttf", "/brand/IBMPlexMono-Medium.ttf"].includes(path)) {
         const name = path === "/" ? "index.html" : path === "/brain" ? "brain.html" : path.slice(1);
         return new Response(
           readFileSync(new URL(`../ui/${name}`, import.meta.url)),
@@ -76,7 +77,11 @@ export class App {
                 ? "text/html; charset=utf-8"
                 : name.endsWith("js")
                   ? "text/javascript"
-                  : "text/css",
+                  : name.endsWith("svg")
+                    ? "image/svg+xml"
+                    : name.endsWith("ttf")
+                      ? "font/ttf"
+                      : "text/css",
               "Content-Security-Policy":
                 "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'",
               "X-Content-Type-Options": "nosniff",

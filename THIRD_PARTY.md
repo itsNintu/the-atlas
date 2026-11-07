@@ -22,4 +22,14 @@ Background comparisons, not compatibility or parity claims:
 - Zep public product documentation: https://help.getzep.com/
 - SQLite WAL and durability: https://sqlite.org/wal.html and https://sqlite.org/pragma.html#pragma_synchronous
 
-Names belong to their respective owners. No affiliation or endorsement is implied.
+## Bundled brand assets
+
+`ui/brand/` contains the selected Space Grotesk variable font and IBM Plex Mono
+Regular/Medium under their original SIL OFL licenses, included alongside them.
+The official Creator Labs white symbol is an owner-provided brand/trademark asset,
+not Apache-2.0 artwork. See `ui/brand/README.md` and `sources.json` for exact upstream
+sources, hashes and rights. Atlas code remains Apache-2.0; this does not relicense
+fonts or grant rights to the Creator Labs mark. No licensed UI vendor code is bundled.
+
+Names belong to their respective owners. Third-party research references do not
+imply affiliation or endorsement; Creator Labs is Atlas's identified parent/publisher.

@@ -4,18 +4,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>The Atlas · Evidence inspector</title>
+    <link rel="stylesheet" href="/brand.css" />
     <link rel="stylesheet" href="/style.css" />
     <script src="/ui.js" defer></script>
   </head>
   <body>
     <header>
-      <div class="mark">TA</div>
-      <div>
+      <a class="publisher" href="https://creator.gg" aria-label="Creator Labs home"><img src="/brand/creator-labs-white.svg" width="36" height="29" alt="Creator Labs"></a>
+      <div class="product">
         <h1>The Atlas <span>M0 alpha</span></h1>
         <p>Durable context. Inspectable evidence.</p>
       </div>
-      <a href="/brain">Explore durable brain →</a>
-      <button id="disconnect">Disconnect</button>
+      <nav aria-label="Workspace navigation"><a href="/brain">Explore durable brain</a>
+      <button id="disconnect">Disconnect</button></nav>
     </header>
     <main>
       <section id="connect">
@@ -32,7 +33,7 @@
               required
               autocomplete="off"
               placeholder="From your private credential file" /></label
-          ><button>Connect</button>
+          ><button class="primary">Connect</button>
         </form>
       </section>
       <div id="workspace" hidden>
@@ -158,8 +159,8 @@ Choose Inspect to view revisions and source payload.</pre
       </section>
     </main>
     <footer>
-      Single-node bootstrap · No parity or production-scale claim · REST /v1 ·
-      Apache-2.0
+      <span>Single-node bootstrap · REST /v1 · Apache-2.0</span>
+      <span class="publisher-credit"><span class="brand-slashes" aria-hidden="true">/////</span>By <a href="https://creator.gg">Creator Labs</a></span>
     </footer>
   </body>
 </html>

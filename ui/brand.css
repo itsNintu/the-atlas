@@ -1,0 +1,47 @@
+/* Creator Labs compact workspace foundation. Provenance: brand/README.md. */
+@font-face{font-family:"Space Grotesk";src:url('/brand/SpaceGrotesk-variable.ttf') format('truetype');font-weight:300 700;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url('/brand/IBMPlexMono-Regular.ttf') format('truetype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"IBM Plex Mono";src:url('/brand/IBMPlexMono-Medium.ttf') format('truetype');font-weight:500;font-style:normal;font-display:swap}
+:root{color-scheme:dark;--bg:#0B0C0C;--panel:#131515;--raised:#1B1E1C;--line:#393D39;--control:#797F76;--text:#F1F0EB;--muted:#A9ADA6;--body:#C2C5BE;--signal:#FF003D;--mono:"IBM Plex Mono",ui-monospace,monospace;font-synthesis:none}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;min-height:100dvh;background:var(--bg);color:var(--text);font:15px/1.6 "Space Grotesk",Arial,sans-serif}
+header{display:flex;align-items:center;gap:24px;padding:20px 40px;border-bottom:1px solid var(--line);background:var(--bg);min-width:0;flex-wrap:wrap}
+.publisher{display:flex;align-items:center;justify-content:center;flex:0 0 44px;min-height:44px}
+.publisher img{display:block;width:36px;height:auto}
+.product{border-left:1px solid var(--line);padding-left:24px;min-width:0;flex:1}
+.brand{color:var(--text);text-decoration:none;font-size:18px;font-weight:500;letter-spacing:-.025em}
+.brand span{font:12px/1.5 var(--mono);letter-spacing:.03em;color:var(--muted)}
+header nav{display:flex;gap:20px;align-items:center;margin-left:auto;flex-wrap:wrap}
+header nav a{font:12px/1.5 var(--mono);min-height:44px;display:flex;align-items:center}
+header p{margin:0;color:var(--muted);font-size:13px}
+main{max-width:1440px;margin:auto;padding:28px 40px;min-width:0}
+h1,h2,h3{font-weight:500;line-height:1.25;letter-spacing:-.025em}
+h1{font-size:clamp(26px,3vw,36px);margin:8px 0 20px}
+h2{font-size:22px;margin:0 0 12px}h3{font-size:16px}
+p{color:var(--body)}
+a{color:var(--text);text-underline-offset:4px}a:hover{text-decoration-thickness:2px}
+.eyebrow{font:12px/1.5 var(--mono);letter-spacing:.08em;color:var(--muted);overflow-wrap:anywhere}
+.muted{color:var(--muted)}
+.card{border:1px solid var(--line);background:var(--panel);padding:24px;min-width:0}
+label{color:var(--muted);font-size:13px}
+input,select,textarea{font:16px/1.5 "Space Grotesk",Arial,sans-serif;color:var(--text);background:var(--bg);border:1px solid var(--control);border-radius:0;padding:10px 12px;min-height:48px;min-width:0;max-width:100%}
+input::placeholder,textarea::placeholder{color:var(--muted);opacity:1}
+button{font:500 12px/1.5 var(--mono);letter-spacing:.035em;color:var(--text);background:var(--raised);border:1px solid var(--control);border-radius:0;padding:11px 16px;min-height:44px;cursor:pointer}
+button:hover{background:#292D29;border-color:var(--text)}
+button:disabled{opacity:.55;cursor:not-allowed}
+/* Clip visual backings, never the focus ring/hit box. Inset polygon traces both diagonals. */
+button.primary{position:relative;isolation:isolate;border:0;background:transparent;color:var(--bg);padding:12px 20px}
+button.primary::before,button.primary::after{content:"";position:absolute;z-index:-1;pointer-events:none;clip-path:polygon(0 0,calc(100% - 11px) 0,100% 11px,100% 100%,11px 100%,0 calc(100% - 11px))}
+button.primary::before{inset:0;background:var(--text)}
+button.primary::after{inset:1px;background:var(--text);clip-path:polygon(0 0,calc(100% - 10.414px) 0,100% 10.414px,100% 100%,10.414px 100%,0 calc(100% - 10.414px))}
+button.primary:hover::after{background:#D3D6CD}
+:where(button,a,input,textarea,select,summary):focus-visible{outline:2px solid var(--text);outline-offset:4px}
+input[type=checkbox]{accent-color:var(--text);width:18px;height:18px;min-height:18px;margin:0;flex-shrink:0}
+summary{cursor:pointer;min-height:44px;padding:10px 0;color:var(--text);font:12px/1.8 var(--mono)}
+pre,code{font-family:var(--mono);font-size:13px}pre{white-space:pre-wrap;overflow-wrap:anywhere}
+footer{border-top:1px solid var(--line);padding:20px 40px;color:var(--muted);font:12px/1.8 var(--mono);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.publisher-credit{white-space:nowrap}.brand-slashes{color:var(--signal);margin-right:8px}
+[hidden]{display:none!important}
+@media(max-width:700px){header{padding:16px 20px;gap:16px}.product{padding-left:16px}header nav{width:100%;margin-left:0;justify-content:space-between;gap:12px}main{padding:24px 20px}.card{padding:20px}footer{padding:20px;gap:12px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+@media(forced-colors:active){button.primary{background:ButtonFace;color:ButtonText;border:1px solid ButtonText}button.primary::before,button.primary::after{display:none}}
