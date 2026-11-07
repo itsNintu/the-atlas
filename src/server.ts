@@ -2,12 +2,13 @@ import { setting, databasePath } from "./config.ts";
 import { Store } from "./store.ts";
 import { App } from "./app.ts";
 import { Worker } from "./worker.ts";
+import { MemoryWorker } from "./memory.ts";
+import { SCHEMA_VERSION } from "./schema.ts";
 
-const store = new Store(
-  databasePath(),
-);
+const store = new Store(databasePath());
 const app = new App(store),
-  worker = new Worker(store);
+  worker = new Worker(store),
+  memoryWorker = new MemoryWorker(store);
 const server = Bun.serve({
   hostname: setting("HOST") ?? "127.0.0.1",
   port: Number(setting("PORT") ?? 8787),
@@ -16,12 +17,12 @@ const server = Bun.serve({
   fetch: (r) => app.fetch(r),
 });
 let stopping = false;
-async function work() {
+async function work(runOnce: () => Promise<boolean>) {
   let processed = 0;
   while (!stopping) {
     if (setting("WORKER") !== "false") {
       try {
-        if (await worker.runOnce()) {
+        if (await runOnce()) {
           if (++processed % 16 === 0) await Bun.sleep(1);
           continue;
         }
@@ -37,13 +38,21 @@ async function work() {
     await Bun.sleep(50);
   }
 }
-const loop = work();
+const concurrency = Number(setting("MEMORY_WORKERS") ?? 1);
+const memoryConcurrency =
+  Number.isInteger(concurrency) && concurrency > 0 ? concurrency : 1;
+const loop = Promise.all([
+  work(() => worker.runOnce()),
+  ...Array.from({ length: memoryConcurrency }, () =>
+    work(() => memoryWorker.runOnce()),
+  ),
+]);
 console.log(
   JSON.stringify({
     event: "listening",
     url: server.url.toString(),
     api_version: "v1",
-    schema_version: 1,
+    schema_version: SCHEMA_VERSION,
     worker_enabled: setting("WORKER") !== "false",
   }),
 );

@@ -3,6 +3,7 @@ import { mkdirSync, chmodSync } from "node:fs";
 import { dirname } from "node:path";
 import { createHash, randomBytes, randomUUID } from "node:crypto";
 import { schema, SCHEMA_VERSION } from "./schema.ts";
+import { memorySchema } from "./memory-schema.ts";
 import { fail, object, text, timestamp } from "./errors.ts";
 
 export const id = (prefix: string) => `${prefix}_${randomUUID()}`;
@@ -118,6 +119,11 @@ export class Store {
     }
     this.transaction(() => {
       this.db.exec(schema);
+      this.db.exec(memorySchema);
+      // Backfill source-root ownership for pre-release schema2 deployments without changing source payloads.
+      this.db.exec(
+        "INSERT OR IGNORE INTO memory_roots SELECT e.workspace_id,r.value,e.id,CASE WHEN e.operation='delete' THEN e.accepted_at ELSE NULL END FROM memory_events e,json_each(e.roots_json) r ORDER BY e.accepted_at,e.rowid",
+      );
       this.db.exec(`PRAGMA user_version=${SCHEMA_VERSION}`);
     });
   }

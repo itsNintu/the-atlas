@@ -3,6 +3,10 @@
 The Atlas application implementation is original Apache-2.0 code. No Graphiti code is bundled.
 A source distribution includes neither Bun, node_modules nor browser binaries.
 
+Installed runtime dependency: `tiktoken` (MIT), the WebAssembly tokenizer bindings from
+https://github.com/dqbd/tiktoken. See bun.lock for resolved integrity and retain installed notices.
+The native operator's separately configured inference/embedding commands are not bundled dependencies.
+
 Installed development dependencies (see bun.lock for exact resolved versions/integrity):
 
 - TypeScript — Apache-2.0

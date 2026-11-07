@@ -1,4 +1,7 @@
 import { setting } from "./config.ts";
+import { Memory } from "./memory.ts";
+import { inferenceStatus } from "./inference.ts";
+import { SCHEMA_VERSION } from "./schema.ts";
 import { Store, id, now, hash, canonical, type Actor } from "./store.ts";
 import { ApiError, fail, integer, object, text, timestamp } from "./errors.ts";
 import {
@@ -47,10 +50,13 @@ function page(rows: any[], url: URL, binding: string) {
   };
 }
 export class App {
+  memory: Memory;
   constructor(
     public store: Store,
     public provider: ExtractionProvider = new OpenAICompatible(),
-  ) {}
+  ) {
+    this.memory = new Memory(store);
+  }
   async fetch(request: Request): Promise<Response> {
     const request_id = id("req"),
       start = performance.now();
@@ -83,7 +89,7 @@ export class App {
         return this.json({
           status: "ok",
           api_version: "v1",
-          schema_version: 1,
+          schema_version: SCHEMA_VERSION,
           request_id,
         });
       if (!path.startsWith("/v1/")) fail(404, "not_found", "Route not found");
@@ -153,7 +159,65 @@ export class App {
         );
       let result: any;
       const match = (pattern: RegExp) => path.match(pattern)?.[1];
-      if (method === "GET" && path === "/v1/me")
+      if (method === "POST" && path === "/v1/events")
+        result = {
+          data: write(
+            () => {
+              this.memory.authorize(
+                a,
+                b.agent_id,
+                b.operation === "delete" ? "delete" : "write",
+              );
+            },
+            () => this.memory.event(a, b),
+          ),
+        };
+      else if (method === "POST" && path === "/v1/recall")
+        result = { data: await this.memory.recall(a, b) };
+      else if (method === "POST" && path === "/v1/feedback")
+        result = {
+          data: write(
+            () => {
+              this.memory.authorize(a, b.agent_id, "write");
+            },
+            () => this.memory.feedback(a, b),
+          ),
+        };
+      else if (method === "POST" && path === "/v1/memory/bind")
+        result = {
+          data: write(admin, () =>
+            this.memory.bind(
+              a,
+              text(b.principal_id, "principal_id"),
+              text(b.agent_id, "agent_id"),
+            ),
+          ),
+        };
+      else if (method === "GET" && path === "/v1/memory/jobs")
+        result = {
+          data: this.memory.diagnostics(
+            a,
+            u.searchParams.get("agent_id") ?? "",
+          ),
+        };
+      else if (
+        method === "POST" &&
+        match(/^\/v1\/memory\/jobs\/([^/]+)\/retry$/)
+      )
+        result = {
+          data: write(
+            () => {
+              this.memory.authorize(a, b.agent_id, "write");
+            },
+            () =>
+              this.memory.retry(
+                a,
+                b.agent_id,
+                match(/^\/v1\/memory\/jobs\/([^/]+)\/retry$/)!,
+              ),
+          ),
+        };
+      else if (method === "GET" && path === "/v1/me")
         result = {
           principal: a,
           workspace: this.store.one(
@@ -164,8 +228,9 @@ export class App {
       else if (method === "GET" && path === "/v1/status")
         result = {
           api_version: "v1",
-          schema_version: 1,
+          schema_version: SCHEMA_VERSION,
           provider: providerStatus(),
+          memory_inference: inferenceStatus(),
           storage: "sqlite_wal_single_node",
           sqlite_version: this.store.sqlite_version,
           sqlite_wal_reset_fix: this.store.sqlite_wal_reset_fix,

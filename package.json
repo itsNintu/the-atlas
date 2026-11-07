@@ -5,9 +5,14 @@
   "type": "module",
   "license": "Apache-2.0",
   "description": "The Atlas: standalone source-linked graph/context memory for agents",
-  "repository": { "type": "git", "url": "https://github.com/itsNintu/the-atlas.git" },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/itsNintu/the-atlas.git"
+  },
   "homepage": "https://github.com/itsNintu/the-atlas#readme",
-  "bugs": { "url": "https://github.com/itsNintu/the-atlas/issues" },
+  "bugs": {
+    "url": "https://github.com/itsNintu/the-atlas/issues"
+  },
   "engines": {
     "bun": ">=1.2.21"
   },
@@ -27,5 +32,8 @@
     "@types/bun": "1.4.4",
     "typescript": "5.9.2",
     "@playwright/test": "1.55.1"
+  },
+  "dependencies": {
+    "tiktoken": "1.0.22"
   }
 }

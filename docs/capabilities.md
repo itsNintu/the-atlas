@@ -1,4 +1,52 @@
-# What this alpha does — and does not
+# Capability map
+
+## Automatic event-memory path — schema 2
+
+Additive `/v1/events`, `/v1/recall`, `/v1/feedback`, `/v1/memory/bind` and memory job diagnostics/retry
+now implement durable revisioned intake, server-bound own/shared graphs, bounded contextual
+natural-language curation, temporal reversal/correction/conflict, visible entity aliases,
+semantic/lexical/entity-and-lineage association recall, token packing, pending freshness, salience
+fading, explicit outcome-linked utility, derived consolidation lineage, source-root dedupe and
+correction/forget repair. Capture acceptance is not extraction success. Role/source attribution is
+retained; retrieval and retelling do not manufacture independent support.
+
+The actual synthetic product exercise completed seven natural-language/tool events and eight recall
+checkpoints with `openai-codex/gpt-6.1-sol` curation through an authorized command bridge and real
+`sentence-transformers/all-MiniLM-L6-v2` CPU embeddings. It distinguished a contextual preference,
+one-turn override, later reversal/current/history, cross-agent pending correction, delayed business
+responsibility, and failed versus later dated verified tool outcomes. Native capture/pre-answer
+injection is a separate adapter/activation workstream: these explicit product calls are not proof
+of all-profile native behavior. Small-case evidence is not general accuracy, cognition or parity.
+Observed command-adapter curation plus embedding was roughly 5–15 seconds/event and recall about
+one second, including process startup. Provider dollar cost was unavailable. Busy capture may
+outpace processing; freshness reports disclose pending/included/omitted counts.
+
+`src/inference.ts` exports the curate types, validator and prompt. Configure OpenAI-compatible HTTP
+or `THE_ATLAS_INFERENCE_COMMAND` JSON executable/argument vector (no shell); an independent
+`THE_ATLAS_EMBED_COMMAND` and `THE_ATLAS_EMBEDDING_MODEL` may supply actual vectors. Commands have
+bounded timeout/output. Explicit embedding disablement degrades honestly, not to fake vectors.
+`THE_ATLAS_MEMORY_WORKERS` configures concurrency; related concurrent belief changes retry with fresh
+context rather than imposing a workspace-wide in-flight cap. The legacy worker has its own loop.
+
+Other configurable choices: `THE_ATLAS_CURATION_CANDIDATE_LIMIT` (96),
+`THE_ATLAS_CURATION_INPUT_TOKENS` (64000), `THE_ATLAS_CONSOLIDATE_EVERY` (16),
+`THE_ATLAS_SALIENCE_HALF_LIFE_DAYS` (30), `THE_ATLAS_WEIGHT_<RELEVANCE|SEMANTIC|ASSOCIATION|RECENCY|IMPORTANCE|USEFULNESS>`,
+`THE_ATLAS_TOKEN_ENCODING` (o200k_base or cl100k_base), `THE_ATLAS_RAW_RETENTION_DAYS` (30; nonpositive
+disables expiry). These are deployment defaults, not owner-imposed constants. Token counts include
+injected context framing; the native caller reserves outer message framing. Curation bounds its
+candidate/recent context; an oversize current event fails visibly and stays durable/unprocessed,
+requiring appropriate model-window configuration or client chunking, never silent partial success.
+
+Fading does not delete truth. Pending/failed events do not silently expire. Selected provenance is
+separate from raw retention. Forgetting is source-event deletion with root/dependent-retell,
+derivative, vector, version-content and pending repair; independent support remains. Already-sent
+provider requests, backups and previously delivered consumer copies cannot be recalled. Credential
+redaction recognizes common patterns, not perfect DLP. SQLite remains single-node and recall scans
+its permitted graphs; no scale/SLA/distributed architecture or general-quality claim is made.
+
+## Original alpha source/fact path (unchanged; historical verification)
+
+The following map describes the original API path, not the new event-memory capabilities above.
 
 This is a bounded, runnable context-memory product milestone. The map documents actual claims, not
 an imported platform checklist or a full-Zep completion standard.
