@@ -1179,7 +1179,10 @@ export class MemoryWorker {
             "Update target must be visible same-scope memory",
             true,
           );
-        if (["correction", "retraction"].includes(d.change!.type) &&
+        const sameClaim = normalize(d.subject!) === normalize(t.subject) && normalize(d.predicate!) === normalize(t.predicate) && normalize(d.object!) === normalize(t.object);
+        if (d.change!.aspect === "interval" && (!sameClaim || (d.valid_from === t.valid_from && d.valid_to === t.valid_to)))
+          fail(503, "curator_interval_correction_invalid", "Interval correction must preserve claim and change its bounds", true);
+        if (["correction", "retraction"].includes(d.change!.type) && d.change!.aspect !== "interval" &&
           normalize(d.subject!) === normalize(t.subject) && normalize(d.predicate!) === normalize(t.predicate) && normalize(d.object!) === normalize(t.object))
           fail(503, "curator_correction_repeats_target", "Correction must express corrected or withdrawn truth, not reassert the invalidated claim", true);
         if (d.change!.type === "state_change" && d.valid_from! <= t.valid_from)

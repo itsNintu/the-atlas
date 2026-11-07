@@ -153,7 +153,10 @@ full content/roots and source revision identity are not truncated. Fragment curs
 facts commit atomically; incomplete source stays pending and same job requeues for its next
 fragment. Only final completion sets processed time. Noise may create no memory. Correction or
 retraction cannot positively reassert the exact invalidated subject/predicate/object under a new
-date; such model output is a retryable `curator_correction_repeats_target` error. State changes keep
+date; such model output is a retryable `curator_correction_repeats_target` error. Genuine date-only
+correction remains supported with `change.aspect:"interval"`: the same claim and genuinely changed
+valid bounds are required. Other corrections default to `aspect:"claim"`; the optional aspect is
+an inference-seam distinction, while persisted `memory_changes.type` remains `correction`. State changes keep
 historical truth; corrections retract never-true belief while retaining recorded history until
 source deletion. Root/support/lineage and forget semantics are unchanged.
 

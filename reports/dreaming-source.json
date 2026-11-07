@@ -3,20 +3,20 @@
   "fictional": true,
   "baseline": "fb86855c2bd41a8a21e248ce577c0299234136e9",
   "source_sha256": {
-    "src/memory.ts": "a92e5a41e303126b25a93fc4e64b7bdafe5eb88fd0be3f347edab2315215d102",
+    "src/memory.ts": "c017f8b3bc4d09e4a9b6324e114045da19e523ba41f6ed088d338e6deb0d4b8f",
     "src/memory-index.ts": "0bfb8e87f449b951e571f5eb1983dffbe2a2f0814ca927df7deeaccb3c066f3d",
-    "src/inference.ts": "330d5a18b62b5fdfb94598827f080812ac1bfc251ea8c583efab2dbd3166cb22",
+    "src/inference.ts": "8421b037dca6f000f0220ec78e508eeedb79bb0b47ff238f36784dcf63e9e864",
     "src/store.ts": "336d9ae58eadc0900b6ad2cd1718fb8bc4991d5ea2b5539f457e6b18f59e9433",
     "scripts/dreaming-live.ts": "b16191877a29596e6bc498ff9a8876ef143f378b0d6194bbc67739f15c6e9ee6",
     "scripts/dreaming-bench.ts": "892cb8832ae5acbfa7d88500d7c50019a892dffe6808ae44e020794e2e369278",
     "scripts/dreaming-repair-fixture.ts": "1828ea2b99081d019670788990184f5e97843511a14a0a3b7e3d3224a7dcd0d3",
-    "tests/dreaming.test.ts": "3113652b4327ded0637ec2b00770c8ad0df650d17e51ce44bf43b20789e3ad43",
+    "tests/dreaming.test.ts": "cc92577d754d6156319700c1b87d6b6d52326eea6a9cd4c54aed96ddac3885f7",
     "tests/memory.test.ts": "298481668f387ed97805400e5eadd93e361e4ba3161370faa8abcf1890021d20",
     "tests/memory-repair.test.ts": "97a96014f1027198ac6ece9b3efff434bbc428db26d88eeccf44c92bcc0c7226",
     "tests/memory-responsiveness.test.ts": "90f8618ec1fa7f868d0c68f5d26f149caec9201be66cd948bf152d1f4a89c24a",
     "tests/recall-selection.test.ts": "1ad38084dbb66623b35d30ecc2de1566403e2cc25fda68874978966e899a62df",
     "tests/recall-completion.test.ts": "9136519017093de03431e76138b66322d5e8c574cf6571b6f1ed821312e6be86",
-    "docs/contract.md": "0edb01a245dd903afe812a4076e505234e62c7dff3fdc1ba57e70ee432db5e21",
+    "docs/contract.md": "427647308ce06868b839cf4fbb22ec7212f5263ce2c015e101559f1ca4b3da53",
     "docs/capabilities.md": "79ccf7a06f960736edbbfe1f30abdc6706d1a1274bb56bff048a9975bff2539c",
     "CONTEXT.md": "1df45e37d4d49ff07ebbb00e6b29125c6f67f72ea391a3564e02591dc8e5b0f1"
   },
@@ -24,8 +24,8 @@
     "frozen_install": "pass Bun1.4.4",
     "check": "pass",
     "suite": {
-      "tests": 80,
-      "assertions": 756,
+      "tests": 81,
+      "assertions": 762,
       "files": 13,
       "per_file": {
         "tests/memory-repair.test.ts": {
@@ -41,7 +41,7 @@
           "fail": 0
         },
         "tests/dreaming.test.ts": {
-          "pass": 7,
+          "pass": 8,
           "fail": 0
         },
         "tests/memory-responsiveness.test.ts": {
@@ -105,6 +105,7 @@
   },
   "curation": {
     "model": "openai-codex/gpt-6-luna",
+    "evidence_reuse": "Real claim-correction/selection and recall fixture reused across later explicit interval-only correction branch; that branch has an additional temporal lifecycle regression, unchanged paths not replayed",
     "calls": [
       {
         "event": "ownership",

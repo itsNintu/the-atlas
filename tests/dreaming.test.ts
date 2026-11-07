@@ -89,8 +89,27 @@ test("a correction cannot re-create the same invalidated positive claim under a 
   const target=f.s.one("SELECT * FROM memories");
   const decision:any={kind:"update",scope:"business:alex",subject:"Nola",predicate:"manages",object:"clay deliveries",valid_from:"2026-02-01T00:00:00.000Z",valid_to:null,importance:.9,confidence:.9,evidence_event_ids:["correct"],change:{type:"correction",target_ids:[target.id]}};
   expect(()=>f.w.validate([decision],{event_id:"correct",role:"user",agent_id:"builder"},["business:alex"],[target])).toThrow("Correction must express corrected");
+  decision.change.aspect="interval";
+  expect(()=>f.w.validate([decision],{event_id:"correct",role:"user",agent_id:"builder"},["business:alex"],[target])).not.toThrow();
+  decision.valid_from=target.valid_from;
+  expect(()=>f.w.validate([decision],{event_id:"correct",role:"user",agent_id:"builder"},["business:alex"],[target])).toThrow("Interval correction");
+  delete decision.change.aspect;
   decision.subject="Leda";
   expect(()=>f.w.validate([decision],{event_id:"correct",role:"user",agent_id:"builder"},["business:alex"],[target])).not.toThrow();
+  f.s.close();
+});
+
+test("date-only correction preserves same claim with corrected interval and recorded history", async () => {
+  const f=fixture();f.seed("original-date","kiln","owner","Mira");
+  const target=f.s.one("SELECT * FROM memories"), before=now();await Bun.sleep(2);
+  f.w.inference.curate=async(i:any)=>({decisions:[{kind:"update",scope:"business:alex",subject:"kiln",predicate:"owner",object:"Mira",valid_from:"2026-01-15T00:00:00.000Z",valid_to:null,importance:.8,confidence:.9,evidence_event_ids:[i.event.event_id],change:{type:"correction",aspect:"interval",target_ids:[target.id]}}]});
+  const receipt=f.event("date-correction","Correction: Mira started owning the kiln on January 15, not January 1.");
+  await f.w.runOnce();
+  expect(f.s.one("SELECT status FROM memory_jobs WHERE id=?",receipt.job_id).status).toBe("succeeded");
+  const recall=(valid_at:string,recorded_at?:string)=>f.m.recall(f.a,{agent_id:"builder",thread_id:"date",query:"kiln",valid_at,...(recorded_at?{recorded_at}:{})});
+  expect((await recall("2026-01-10T00:00:00Z")).memories).toEqual([]);
+  expect((await recall("2026-01-20T00:00:00Z")).memories.map((x:any)=>x.object)).toEqual(["Mira"]);
+  expect((await recall("2026-01-10T00:00:00Z",before)).memories.map((x:any)=>x.object)).toEqual(["Mira"]);
   f.s.close();
 });
 
