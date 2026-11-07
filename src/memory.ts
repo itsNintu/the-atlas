@@ -802,10 +802,18 @@ export class Memory {
     let context = "";
     const selected: any[] = [],
       tail: any[] = [];
+    // Records start with A (header), P (pending), or [ (memory). In both
+    // supported encodings, LF before these prefixes ends a pre-tokenization piece:
+    // encode(previous + LF) and encode(next) cannot merge across that boundary.
+    // Keep the exact closed-prefix count rather than re-encoding up to 100k
+    // tokens for every candidate and every pending-excerpt truncation.
+    let closedTokens = 0;
+    const tokensAfter = async (line: string, truncation = false) =>
+      closedTokens + await budgetTokens(!context && truncation ? "\n" + line : line);
     const add = async (line: string) => {
-      const next = context ? context + "\n" + line : line;
-      if ((await budgetTokens(next)) > budget) return false;
-      context = next;
+      if ((await tokensAfter(line)) > budget) return false;
+      closedTokens += await budgetTokens(line + "\n");
+      context = context ? context + "\n" + line : line;
       return true;
     };
     if (budget > 0)
@@ -822,7 +830,7 @@ export class Memory {
         (excerpt.length < e.content.length ? " [truncated]" : "");
       while (
         excerpt.length > 0 &&
-        (await budgetTokens(context + "\n" + line)) > budget
+        (await tokensAfter(line, true)) > budget
       ) {
         excerpt = excerpt.slice(0, Math.floor(excerpt.length * 0.7));
         line = label + JSON.stringify(excerpt) + " [truncated]";
