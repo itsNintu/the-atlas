@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-07T18:55:55.504Z",
+  "result": "pass",
+  "browser": "140.0.7339.186",
+  "method": "Actual Chromium with loopback HTTP App and isolated repaired exact-state copy; temporary key only in browser-copy DB, never production",
+  "checks": [
+    "direct typed reporting active with original-user sources",
+    "old closure rendered INVALIDATED PROCESSING DECISION, not later domain change",
+    "typed Nola remains positively historical at exact cutoff with unknown start"
+  ],
+  "errors": [],
+  "production_effects": false
+}

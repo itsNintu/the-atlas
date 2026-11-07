@@ -1,0 +1,421 @@
+{
+  "method": "Exact current readonly snapshot, copied-only supported repair; real resident MiniLM query embeddings and lexical fallback; NO new extraction/native session/model-curation calls",
+  "prestate_sha256": "3ee23cb0f63390460101e2b5a61f75f45f56d0ee1c66cf0661ae5cddcedce24d",
+  "prestate_copy": "/home/alex/.local/share/the-atlas/source-probes/t_c3cd6ab0/current.sqlite",
+  "at": "2026-11-07T18:47:25.155Z",
+  "before": {
+    "reporting": {
+      "id": "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94",
+      "status": "historical",
+      "valid_to": "2026-11-07T00:00:00.000Z",
+      "historical_start_unknown": true
+    },
+    "raw_reporting": {
+      "id": "memory_0f30a228-b97c-45b5-851a-d95441e81423",
+      "status": "superseded",
+      "valid_to": "2026-11-07T00:00:00.000Z",
+      "historical_start_unknown": false
+    },
+    "prior_owner": {
+      "id": "memory_94163b5d-e2de-4cfe-950c-e2d56fac632b",
+      "status": "historical",
+      "valid_to": "2026-11-07T00:00:00.000Z",
+      "historical_start_unknown": true
+    },
+    "owner": {
+      "id": "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+      "status": "active",
+      "valid_to": null,
+      "historical_start_unknown": false
+    },
+    "reviewer": {
+      "id": "memory_ab36996d-8abe-497d-8b9c-1d20196a37d8",
+      "status": "active",
+      "valid_to": null,
+      "historical_start_unknown": false
+    },
+    "cobalt": {
+      "id": "memory_36a62b9d-b757-48ed-8f92-7a65303eabbd",
+      "status": "corrected",
+      "valid_to": null,
+      "historical_start_unknown": false
+    }
+  },
+  "after": {
+    "reporting": {
+      "id": "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94",
+      "status": "active",
+      "valid_to": null,
+      "historical_start_unknown": false
+    },
+    "raw_reporting": {
+      "id": "memory_0f30a228-b97c-45b5-851a-d95441e81423",
+      "status": "superseded",
+      "valid_to": null,
+      "historical_start_unknown": false
+    },
+    "prior_owner": {
+      "id": "memory_94163b5d-e2de-4cfe-950c-e2d56fac632b",
+      "status": "historical",
+      "valid_to": "2026-11-07T00:00:00.000Z",
+      "historical_start_unknown": true
+    },
+    "owner": {
+      "id": "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+      "status": "active",
+      "valid_to": null,
+      "historical_start_unknown": false
+    },
+    "reviewer": {
+      "id": "memory_ab36996d-8abe-497d-8b9c-1d20196a37d8",
+      "status": "active",
+      "valid_to": null,
+      "historical_start_unknown": false
+    },
+    "cobalt": {
+      "id": "memory_36a62b9d-b757-48ed-8f92-7a65303eabbd",
+      "status": "corrected",
+      "valid_to": null,
+      "historical_start_unknown": false
+    }
+  },
+  "plan": {
+    "job_id": "mjob_f7df693a-b393-4944-8af8-8874fe402838",
+    "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+    "expected_revision": 1,
+    "change_ids": [
+      "change_28b1cf14-4272-44fc-a1e6-037a67300516",
+      "change_bae3bcc7-cb3b-44d2-ad0b-ed251005513d"
+    ],
+    "proof_sha256": "1e503f0a2c57ccacb307dc42659b9560bfa0af8161bd11ee8c6d32bb9e393b12",
+    "memory_only": true
+  },
+  "repair": {
+    "job_id": "mjob_f7df693a-b393-4944-8af8-8874fe402838",
+    "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+    "expected_revision": 1,
+    "change_ids": [
+      "change_28b1cf14-4272-44fc-a1e6-037a67300516",
+      "change_bae3bcc7-cb3b-44d2-ad0b-ed251005513d"
+    ],
+    "proof_sha256": "1e503f0a2c57ccacb307dc42659b9560bfa0af8161bd11ee8c6d32bb9e393b12",
+    "memory_only": true,
+    "invalidated_at": "2026-11-07T18:47:23.509Z",
+    "reason_code": "compiled_unaffected_conflict"
+  },
+  "prevented": [
+    {
+      "memory_id": "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+      "blocked": [
+        {
+          "type": "state_change",
+          "target_ids": [
+            "memory_0f30a228-b97c-45b5-851a-d95441e81423",
+            "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94"
+          ],
+          "reason": "incompatible_unaffected",
+          "unaffected_ids": [
+            "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94"
+          ]
+        },
+        {
+          "type": "state_change",
+          "target_ids": [
+            "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94",
+            "memory_0f30a228-b97c-45b5-851a-d95441e81423"
+          ],
+          "reason": "incompatible_unaffected",
+          "unaffected_ids": [
+            "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94"
+          ]
+        }
+      ],
+      "remaining_changes": [
+        {
+          "type": "state_change",
+          "target_ids": [
+            "memory_2d4241ab-1aea-41d4-a69e-e8e28bbd87d8"
+          ]
+        },
+        {
+          "type": "state_change",
+          "target_ids": [
+            "memory_94163b5d-e2de-4cfe-950c-e2d56fac632b",
+            "memory_a826fdb2-4310-40e3-8b39-387d212bbc63"
+          ]
+        },
+        {
+          "type": "state_change",
+          "target_ids": [
+            "memory_a826fdb2-4310-40e3-8b39-387d212bbc63",
+            "memory_94163b5d-e2de-4cfe-950c-e2d56fac632b"
+          ]
+        },
+        {
+          "type": "state_change",
+          "target_ids": [
+            "memory_a826fdb2-4310-40e3-8b39-387d212bbc63",
+            "memory_94163b5d-e2de-4cfe-950c-e2d56fac632b"
+          ]
+        },
+        {
+          "type": "state_change",
+          "target_ids": [
+            "memory_94163b5d-e2de-4cfe-950c-e2d56fac632b",
+            "memory_a826fdb2-4310-40e3-8b39-387d212bbc63"
+          ]
+        }
+      ]
+    },
+    {
+      "memory_id": "memory_3d426132-41a1-42cb-8a67-170ee7f32b01",
+      "blocked": [],
+      "remaining_changes": [
+        {
+          "type": "state_change",
+          "target_ids": [
+            "memory_5e3927a1-fc1d-4c52-bb58-30b0bb82d4de"
+          ]
+        }
+      ]
+    }
+  ],
+  "old_sources_jobs_changes_unchanged": true,
+  "recorded_history_retained": true,
+  "recall": [
+    {
+      "strategy": "minilm",
+      "label": "original",
+      "context_sha256": "e2d844a20572c115824664fb51523ef37f43b075011baa44718dd59f4034089c",
+      "tokens": 1118,
+      "pending_events": 0,
+      "retrieval": {
+        "semantic_status": "embedding_http_error",
+        "embedding_model": null,
+        "index": "fts5+random-hyperplane-lsh-v1",
+        "candidates_examined": 96,
+        "candidate_limit_per_index": 96,
+        "embedding_ms": 11.070562999999765,
+        "service_ms": 104.3740899999998,
+        "context_messages_used": 0,
+        "semantic_min": 0.42,
+        "weights": {
+          "relevance": 1,
+          "semantic": 1,
+          "association": 0.25,
+          "recency": 0.02,
+          "importance": 0.03,
+          "usefulness": 0.01
+        },
+        "fading": "salience only; dormant truth remains eligible",
+        "specificity": {
+          "topic_identifiers": [
+            "ldn7"
+          ],
+          "admission": "whole-query or independently grounded facet lexical; configured semantic threshold unchanged; topic hints rank only",
+          "source_time_focus": null,
+          "source_time_weight": 0.15,
+          "predicate_phrase_weight": 0.1,
+          "topic_match_weight": 0.12
+        }
+      },
+      "ids": [
+        "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+        "memory_e9140619-54f0-4523-83f6-d5621cca8525",
+        "memory_94163b5d-e2de-4cfe-950c-e2d56fac632b",
+        "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94",
+        "memory_ab36996d-8abe-497d-8b9c-1d20196a37d8",
+        "memory_2d4241ab-1aea-41d4-a69e-e8e28bbd87d8",
+        "memory_38cdfb28-9fc8-41df-a8b1-1659345e6a0b"
+      ],
+      "corrections": [
+        {
+          "change_id": "change_c4f35d11-1ab5-48b0-ac47-55ef874bd21d",
+          "target_id": "memory_976e0aff-cf1d-4938-ba99-d73f8a1602f4",
+          "subject": "LDN7 Lantern",
+          "predicate": "uses",
+          "object": "cobalt",
+          "type": "correction",
+          "meaning": "never_true_not_former_state",
+          "effective_at": "2026-11-07T11:40:26.912Z",
+          "recorded_at": "2026-11-07T18:26:55.340Z",
+          "source": {
+            "client_id": "hermes",
+            "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+            "revision": 1,
+            "role": "user",
+            "author_id": "alex",
+            "occurred_at": "2026-11-07T11:40:26.912Z"
+          },
+          "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt."
+        }
+      ],
+      "flags": {
+        "current_reporting": true,
+        "never_true": true,
+        "always_amber": true,
+        "never_cobalt": true
+      }
+    },
+    {
+      "strategy": "minilm",
+      "label": "irrelevant",
+      "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tokens": 0,
+      "pending_events": 0,
+      "retrieval": {
+        "semantic_status": "embedding_http_error",
+        "embedding_model": null,
+        "index": "fts5+random-hyperplane-lsh-v1",
+        "candidates_examined": 0,
+        "candidate_limit_per_index": 96,
+        "embedding_ms": 1.4579100000000835,
+        "service_ms": 29.056350999999722,
+        "context_messages_used": 0,
+        "semantic_min": 0.42,
+        "weights": {
+          "relevance": 1,
+          "semantic": 1,
+          "association": 0.25,
+          "recency": 0.02,
+          "importance": 0.03,
+          "usefulness": 0.01
+        },
+        "fading": "salience only; dormant truth remains eligible",
+        "specificity": {
+          "topic_identifiers": [],
+          "admission": "whole-query or independently grounded facet lexical; configured semantic threshold unchanged; topic hints rank only",
+          "source_time_focus": null,
+          "source_time_weight": 0.15,
+          "predicate_phrase_weight": 0.1,
+          "topic_match_weight": 0.12
+        }
+      },
+      "ids": [],
+      "corrections": [],
+      "flags": {
+        "current_reporting": false,
+        "never_true": false,
+        "always_amber": false,
+        "never_cobalt": false
+      }
+    },
+    {
+      "strategy": "lexical-only",
+      "label": "original",
+      "context_sha256": "e2d844a20572c115824664fb51523ef37f43b075011baa44718dd59f4034089c",
+      "tokens": 1118,
+      "pending_events": 0,
+      "retrieval": {
+        "semantic_status": "disabled",
+        "embedding_model": "disabled",
+        "index": "fts5+random-hyperplane-lsh-v1",
+        "candidates_examined": 96,
+        "candidate_limit_per_index": 96,
+        "embedding_ms": 0.09642100000019127,
+        "service_ms": 78.60094200000049,
+        "context_messages_used": 0,
+        "semantic_min": 0.42,
+        "weights": {
+          "relevance": 1,
+          "semantic": 1,
+          "association": 0.25,
+          "recency": 0.02,
+          "importance": 0.03,
+          "usefulness": 0.01
+        },
+        "fading": "salience only; dormant truth remains eligible",
+        "specificity": {
+          "topic_identifiers": [
+            "ldn7"
+          ],
+          "admission": "whole-query or independently grounded facet lexical; configured semantic threshold unchanged; topic hints rank only",
+          "source_time_focus": null,
+          "source_time_weight": 0.15,
+          "predicate_phrase_weight": 0.1,
+          "topic_match_weight": 0.12
+        }
+      },
+      "ids": [
+        "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+        "memory_e9140619-54f0-4523-83f6-d5621cca8525",
+        "memory_94163b5d-e2de-4cfe-950c-e2d56fac632b",
+        "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94",
+        "memory_ab36996d-8abe-497d-8b9c-1d20196a37d8",
+        "memory_2d4241ab-1aea-41d4-a69e-e8e28bbd87d8",
+        "memory_38cdfb28-9fc8-41df-a8b1-1659345e6a0b"
+      ],
+      "corrections": [
+        {
+          "change_id": "change_c4f35d11-1ab5-48b0-ac47-55ef874bd21d",
+          "target_id": "memory_976e0aff-cf1d-4938-ba99-d73f8a1602f4",
+          "subject": "LDN7 Lantern",
+          "predicate": "uses",
+          "object": "cobalt",
+          "type": "correction",
+          "meaning": "never_true_not_former_state",
+          "effective_at": "2026-11-07T11:40:26.912Z",
+          "recorded_at": "2026-11-07T18:26:55.340Z",
+          "source": {
+            "client_id": "hermes",
+            "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+            "revision": 1,
+            "role": "user",
+            "author_id": "alex",
+            "occurred_at": "2026-11-07T11:40:26.912Z"
+          },
+          "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt."
+        }
+      ],
+      "flags": {
+        "current_reporting": true,
+        "never_true": true,
+        "always_amber": true,
+        "never_cobalt": true
+      }
+    },
+    {
+      "strategy": "lexical-only",
+      "label": "irrelevant",
+      "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tokens": 0,
+      "pending_events": 0,
+      "retrieval": {
+        "semantic_status": "disabled",
+        "embedding_model": "disabled",
+        "index": "fts5+random-hyperplane-lsh-v1",
+        "candidates_examined": 0,
+        "candidate_limit_per_index": 96,
+        "embedding_ms": 0.007859999999709544,
+        "service_ms": 26.982097000000067,
+        "context_messages_used": 0,
+        "semantic_min": 0.42,
+        "weights": {
+          "relevance": 1,
+          "semantic": 1,
+          "association": 0.25,
+          "recency": 0.02,
+          "importance": 0.03,
+          "usefulness": 0.01
+        },
+        "fading": "salience only; dormant truth remains eligible",
+        "specificity": {
+          "topic_identifiers": [],
+          "admission": "whole-query or independently grounded facet lexical; configured semantic threshold unchanged; topic hints rank only",
+          "source_time_focus": null,
+          "source_time_weight": 0.15,
+          "predicate_phrase_weight": 0.1,
+          "topic_match_weight": 0.12
+        }
+      },
+      "ids": [],
+      "corrections": [],
+      "flags": {
+        "current_reporting": false,
+        "never_true": false,
+        "always_amber": false,
+        "never_cobalt": false
+      }
+    }
+  ]
+}

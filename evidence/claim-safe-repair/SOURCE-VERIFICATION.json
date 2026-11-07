@@ -1,0 +1,256 @@
+{
+  "generated_at": "2026-11-07T19:02:20.845488+00:00",
+  "task": "t_c3cd6ab0",
+  "root": "t_5f7f3afb",
+  "activation_owner": "t_d281231f",
+  "source": {
+    "product_commit": "8350dc62876b5c65093fa238aa24123687529f0a",
+    "tree": "0554619bb6babecbc139048819c79a4ded599942",
+    "paths": 41,
+    "sha256": {
+      "CONTEXT.md": "d5cb3b9861ac6fec082f4331d30753478e5291fd6b0eb666d5d9fb5e1ae07e6f",
+      "docs/capabilities.md": "5181f330e783f8cbe84dbacca324cf0b3abe34fa6b543d6df673dbdc4e282365",
+      "docs/contract.md": "f38b33727fbf65b2689ee8c697df528832777bbc29fccfce78d3d3d6e9946cab",
+      "src/app.ts": "d07c381f2eb529845af67c66c855c0c2625196cab810e713589a11af13348392",
+      "src/cli.ts": "1df371e5d018b81b16fbf5ba4ab6b0d3c6224c7e15bdb0694f6535d35b316ee6",
+      "src/config.ts": "3727b6e3bb7e931102d8ff5897e1cd5b93a8bc4a30e6d76c533f0352474d601e",
+      "src/errors.ts": "53de4c55b5c12d69beb532cca667871831e604657ba1e155fae539e6bd458ae4",
+      "src/inference.ts": "6af16d6e17d8847d694d578e94ef4c8532b51d32c902bbadf4f6483fa144fe7c",
+      "src/memory-correction-lookup.ts": "0f24801cd705eeb4b44f2d2b3c139f2a0738d31b46b7af2939027c304ffb8d7c",
+      "src/memory-corrections.ts": "256ecb267b3d75673b65be81571f928562d3fdf34047f4e76a5b466163f45df0",
+      "src/memory-graph.ts": "69976fb0b4b5ef33b4920565d5b2bf7bd730542e8803ace320ebe9aaa2f35787",
+      "src/memory-identity.ts": "4aa3912d37d2384b38756d71cb04e9f4fd5f4709338c6078144f58bb924b9017",
+      "src/memory-index.ts": "9f1499ad9b28e4aa6f879005a224c29d0313befebc889860f26811dbfa295c65",
+      "src/memory-reconciliation.ts": "e0ff4fe4fbc4ef609a30f27ebf29cf5ab30397fe8a7919f928111f708a8f992c",
+      "src/memory-repair.ts": "764e2afd07caa203d5e9c260f5cb4990a53195225abddd5c187a5ecdc1529f75",
+      "src/memory-scheduler.ts": "210fc21dba8d42a2a8f54cdf19d58a59aad768be241a7d62d1e4ae03b7183efc",
+      "src/memory-schema.ts": "82e947537cd8bc0cdc5b1c46596d850aefb1154c1494880b7ff70cbb23aa4e11",
+      "src/memory-truth.ts": "e9a8875bc55e644df9f4647bdbbbb561b104fa7dc13f851e80f2eb61bcbc4ffe",
+      "src/memory.ts": "8d3a3fb033fe7b5dcdfd82357ec21dc6d52bb4a9288dd00a68273947887652c0",
+      "src/provider.ts": "dcc5123a4d0351033f0fbb08e8e11a99f36718a352c1786a42e069743d265641",
+      "src/recall-query.ts": "dedcc79fcc57d79c20c95f0cabf2dc951fcbb12c9a7bbae41960b4ad78916ede",
+      "src/schema.ts": "54fc690ae330842b8da0a93d7d49ee229c73850ff63cbfff3fba5a3c43fa96b1",
+      "src/server.ts": "8a15edd79bc018ad8dac67d1677707449200c616048ee988dbc15a2488457137",
+      "src/store.ts": "336d9ae58eadc0900b6ad2cd1718fb8bc4991d5ea2b5539f457e6b18f59e9433",
+      "src/worker.ts": "81121b0055c1b430d8a07958742ba05fd3515655c9dfc31e91ab9caffb023bbc",
+      "tests/claim-safe-repair.test.ts": "ad52698697f69a92cdc5f1668b2de8a29e1324f30a031f63cf5b93e885825e43",
+      "ui/brain.css": "6dfdd6fc67dad9fe1b15a2e8d3024507843f11fe1af194e7e7da0985c5043c55",
+      "ui/brain.html": "e03b6d31a9c763850d6d30a4dd4b54bc519f38bd2c2d4ddd45d0f653522b7804",
+      "ui/brain.js": "36f68e977b2e78e1da41de06076cf3b70962c744c76f37ca9726bdf1269a65ca",
+      "ui/brand.css": "2e067a076e9659d1c2504d9ed4625ea6e9aaeaa9eadb658c88ab828b91a4d366",
+      "ui/brand/IBMPlexMono-Medium.ttf": "a9b4c49bb299e05b5f6c481e7fb5e78943d2793249a0c8874ab574a2d1ea6755",
+      "ui/brand/IBMPlexMono-OFL.txt": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da",
+      "ui/brand/IBMPlexMono-Regular.ttf": "6a3412f058c7d8dfd9170c41e85ade48e5156ecb89356110ca57a0a27734af46",
+      "ui/brand/README.md": "70bef7654412a94758b34e9230ca7be02d585217def43efbbb80c5eb30d191d2",
+      "ui/brand/SpaceGrotesk-OFL.txt": "564ce565c371c5e5bbf286006565a7c9aa55a9f56e7ca58d56e05d649dd61a72",
+      "ui/brand/SpaceGrotesk-variable.ttf": "acad6de1fc93436f5c0f1f4137751ef04f1aea3063e7036535970ffcfbd79f72",
+      "ui/brand/creator-labs-white.svg": "45df208b2b15569f2aead756fe4783ddf8008c7e6d6e7658ee1e844fbce553e0",
+      "ui/brand/sources.json": "e0c1688565bbc66fadd38c65021482afc671cc8a4ededea157422f7af8a25dfd",
+      "ui/index.html": "11e958903a424886a2ef833747649aa312cff67c90ddccc4344eb05dec88b4e0",
+      "ui/style.css": "0528a062eebb2e93a44fe512cf02082884c4746e7cf5771ce724fecf7180da4f",
+      "ui/ui.js": "4a81020a667407c275ac53055a3317b5dea514761f5208429013073d38ac96b2"
+    }
+  },
+  "checks": {
+    "frozen_install": "pass",
+    "typecheck": "pass",
+    "full_suite_before_final_nearest_identical_clause_metadata_refinement": {
+      "tests": 142,
+      "assertions": 1203,
+      "failures": 0
+    },
+    "final_affected": {
+      "tests": 5,
+      "assertions": 47,
+      "failures": 0
+    },
+    "on_disk_http_cli_e2e": "pass; before scope-safe-excerpt-only fix; unchanged lifecycle paths reused",
+    "real_copied_http_chromium": "pass",
+    "diff_check": "pass"
+  },
+  "current_copy": {
+    "readonly_prestate_sha256": "3ee23cb0f63390460101e2b5a61f75f45f56d0ee1c66cf0661ae5cddcedce24d",
+    "old_source_job_change_values_unchanged": true,
+    "pre_repair_recorded_history_retained": true,
+    "invalidated_change_ids": [
+      "change_28b1cf14-4272-44fc-a1e6-037a67300516",
+      "change_bae3bcc7-cb3b-44d2-ad0b-ed251005513d"
+    ],
+    "before": {
+      "reporting": {
+        "id": "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94",
+        "status": "historical",
+        "valid_to": "2026-11-07T00:00:00.000Z",
+        "historical_start_unknown": true
+      },
+      "raw_reporting": {
+        "id": "memory_0f30a228-b97c-45b5-851a-d95441e81423",
+        "status": "superseded",
+        "valid_to": "2026-11-07T00:00:00.000Z",
+        "historical_start_unknown": false
+      },
+      "prior_owner": {
+        "id": "memory_94163b5d-e2de-4cfe-950c-e2d56fac632b",
+        "status": "historical",
+        "valid_to": "2026-11-07T00:00:00.000Z",
+        "historical_start_unknown": true
+      },
+      "owner": {
+        "id": "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+        "status": "active",
+        "valid_to": null,
+        "historical_start_unknown": false
+      },
+      "reviewer": {
+        "id": "memory_ab36996d-8abe-497d-8b9c-1d20196a37d8",
+        "status": "active",
+        "valid_to": null,
+        "historical_start_unknown": false
+      },
+      "cobalt": {
+        "id": "memory_36a62b9d-b757-48ed-8f92-7a65303eabbd",
+        "status": "corrected",
+        "valid_to": null,
+        "historical_start_unknown": false
+      }
+    },
+    "after": {
+      "reporting": {
+        "id": "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94",
+        "status": "active",
+        "valid_to": null,
+        "historical_start_unknown": false
+      },
+      "raw_reporting": {
+        "id": "memory_0f30a228-b97c-45b5-851a-d95441e81423",
+        "status": "superseded",
+        "valid_to": null,
+        "historical_start_unknown": false
+      },
+      "prior_owner": {
+        "id": "memory_94163b5d-e2de-4cfe-950c-e2d56fac632b",
+        "status": "historical",
+        "valid_to": "2026-11-07T00:00:00.000Z",
+        "historical_start_unknown": true
+      },
+      "owner": {
+        "id": "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+        "status": "active",
+        "valid_to": null,
+        "historical_start_unknown": false
+      },
+      "reviewer": {
+        "id": "memory_ab36996d-8abe-497d-8b9c-1d20196a37d8",
+        "status": "active",
+        "valid_to": null,
+        "historical_start_unknown": false
+      },
+      "cobalt": {
+        "id": "memory_36a62b9d-b757-48ed-8f92-7a65303eabbd",
+        "status": "corrected",
+        "valid_to": null,
+        "historical_start_unknown": false
+      }
+    },
+    "recall": [
+      {
+        "strategy": "minilm",
+        "query": "original",
+        "tokens": 1118,
+        "flags": {
+          "current_reporting": true,
+          "never_true": true,
+          "always_amber": true,
+          "never_cobalt": true
+        },
+        "semantic_status": "available",
+        "context_sha256": "e2d844a20572c115824664fb51523ef37f43b075011baa44718dd59f4034089c",
+        "service_ms": 150.40445999999974
+      },
+      {
+        "strategy": "minilm",
+        "query": "irrelevant",
+        "tokens": 0,
+        "flags": {
+          "current_reporting": false,
+          "never_true": false,
+          "always_amber": false,
+          "never_cobalt": false
+        },
+        "semantic_status": "available",
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "service_ms": 46.77822800000013
+      },
+      {
+        "strategy": "lexical-only",
+        "query": "original",
+        "tokens": 1118,
+        "flags": {
+          "current_reporting": true,
+          "never_true": true,
+          "always_amber": true,
+          "never_cobalt": true
+        },
+        "semantic_status": "disabled",
+        "context_sha256": "e2d844a20572c115824664fb51523ef37f43b075011baa44718dd59f4034089c",
+        "service_ms": 123.44471699999986
+      },
+      {
+        "strategy": "lexical-only",
+        "query": "irrelevant",
+        "tokens": 0,
+        "flags": {
+          "current_reporting": false,
+          "never_true": false,
+          "always_amber": false,
+          "never_cobalt": false
+        },
+        "semantic_status": "disabled",
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "service_ms": 27.409286000000066
+      }
+    ]
+  },
+  "model_evidence": {
+    "new_luna_curation_calls": 0,
+    "new_native_sessions": 0,
+    "new_embedding_queries": "existing resident MiniLM, final available plus lexical-only cases",
+    "basis": "Actual persisted compiled dispositions/current damaged state; focused injected regression outputs are labeled synthetic, not model outputs",
+    "failed_production_raw_bytes_available": false,
+    "initial_copy_probe_embedding_error_retained": true
+  },
+  "migration": {
+    "schema": 2,
+    "new_tables": [
+      "memory_change_invalidations"
+    ],
+    "original_changes_deleted": false,
+    "writer_rollback": "Stopped full database backup, not old source over new projection"
+  },
+  "no_production_effects": true,
+  "remaining_limits": [
+    "Conservative consistency is not deterministic universal natural-language entailment.",
+    "Repair accepts persisted compiled unaffected/changed contradiction proofs, not arbitrary operator facts.",
+    "Invalidated derived descendants are not automatically regenerated.",
+    "Source/copy results are not runtime/native answer or full-callback acceptance."
+  ],
+  "evidence_sha256": {
+    "HANDOFF.md": "4cd020dc5e2dbdc2c788195ab23ed20ad55368b2414bf1e0bed0933541b00632",
+    "CURRENT-COPY.json": "9642e1fbc8c14f13b5c674b7e47177e3c66b3b658c8784cb69800368ba0a1620",
+    "BROWSER.json": "295a2c77ba1752165a1aec86c85e58d55c51b3b14746cf57e35fa513b0fc1d24",
+    "current-copy.ts": "7440bada1f0015d7c3cc9d74272109a2f07d1de86f9e24379b5dec4960b34277",
+    "browser.ts": "95b04f5be2cecc5c09d85abd7764b1e62cbe38d56b09b1fce3357d5d2dfe7030",
+    "restored-reporting.png": "6952ddf8c4d3bda3cf1d8fe052fc6097454675068214f82bf060838cf6cf3882",
+    "preserved-history.png": "5ab809d782712aa697199e5f4d5c115bb8dd0ffb5ff5b86a246020b375db4bd5",
+    "install.log": "239c21c87616fc3354ac32308b2c364c97bfe644f0da1d17914b37efd957b6aa",
+    "check-final.log": "8366207267355d3e3d5bf3bf6e8c94c5f93f6078c34f08973fa2b38cdda6cc92",
+    "tests-final.log": "c58de29f879f8ea421a54b9fb4aa1d0b682455b60e4c09b8abfb3b57107536eb",
+    "affected-final.log": "84f82ab38e055a574fc7cc8cbf276ada91ca7437c5bdcc6e2449b843a8b1464c",
+    "e2e.json": "42c839a60e48494c32719e9fd8d4f746c0d97e9dc1746847ce3139b4a1694b79",
+    "e2e.log": "2f1a3419488ca9a64d68316ec44305f76cd41b0973b38ce02da44748f75c2f0f",
+    "copy-initial.log": "6fdc70c9990a957c67f66bfe21dff92156fcb1852ef541031f0847c87e61d460",
+    "copy-v2.log": "7a4126ab514c1f95a744d877910e84194b10c5afe69e1d9827933c88f9949892",
+    "copy-final.log": "9642e1fbc8c14f13b5c674b7e47177e3c66b3b658c8784cb69800368ba0a1620",
+    "browser.log": "295a2c77ba1752165a1aec86c85e58d55c51b3b14746cf57e35fa513b0fc1d24"
+  }
+}

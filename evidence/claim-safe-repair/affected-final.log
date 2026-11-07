@@ -1,0 +1,13 @@
+bun test v1.4.4 (38afee6c8)
+
+tests/claim-safe-repair.test.ts:
+(pass) raw/typed disagreement cannot propagate across an explicit unaffected disposition; unrelated ownership still closes [97.25ms]
+(pass) consistency is symmetric, preserves legitimate predicate/entity rewrites and never creates a vocabulary gate [0.35ms]
+(pass) already-damaged on-disk graph repairs via authenticated exact-proof API, preserves custody/history and rejects stale/ungranted repair [288.05ms]
+(pass) relevant atomic recall carries never-true scope through representation normalization; irrelevant recall empty and false claim never historical [72.81ms]
+(pass) shared correction metadata never publishes private source siblings; interval corrections are not never-true claims [43.47ms]
+
+ 5 pass
+ 0 fail
+ 47 expect() calls
+Ran 5 tests across 1 file. [760.00ms]

@@ -1,0 +1,20 @@
+$ bun scripts/e2e.ts
+{
+  "run_at": "2026-11-07T18:51:03.480Z",
+  "result": "pass",
+  "checks": [
+    "CLI bootstrap writes exclusive mode-0600 generated credential without printing it",
+    "Server + CLI + REST ingest text and JSON and replay idempotently",
+    "SIGKILL + new server recovers both queued and expired leased work from real SQLite WAL",
+    "HTTP cross-workspace read/write/inference isolation and source provenance verified",
+    "CLI correction and historical recorded-time retrieval across durable source revisions",
+    "Forget erases all revision payload/assertions, removes unsupported facts, retains independent live support, honors context budget",
+    "Stopped-database backup restores into a new path with saved credential; runnable agent demo completes against restored server",
+    "Second graceful restart preserves repaired context; SQLite integrity_check=ok and direct erased-column verification"
+  ],
+  "duration_ms": 1849.81,
+  "storage": "real on-disk SQLite WAL",
+  "provider": "explicit assertions only; no natural-language claim",
+  "runtime": "1.4.4",
+  "platform": "linux"
+}
