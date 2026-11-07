@@ -143,7 +143,15 @@ Their JSON responses preserve `decisions:[]` for the existing native bridge, plu
 honor the supplied task prompt; the existing Luna bridge does. Custom inference implementations
 without the optional `resolveEntities`/`reconcile` methods retain their existing Decision seam.
 There is no silent un-reconciled fallback if a configured model returns an invalid phase shape.
-HTTP providers receive the same phase prompt. These are product payload limits, not a promise that
+HTTP providers receive the same phase prompt. Each native phase also receives a per-call
+`response_contract`: identity specifies an exact literal and omits all candidate-object bindings
+for literal input; reconciliation specifies the single local index0 and exact dispositions.
+Representation retirement is `superseded_ids`, never `change.type:"superseded"`. Older-source
+reprocessing is not a handover at its observation-time default. Both actual identity and
+reconciliation serialized inputs are packed against4096, rather than assuming which prompt is
+larger. These contracts guide inference; unchanged literal/source/ID/time validators still reject
+violations visibly. They are not deterministic semantic acceptance or a fallback.
+These are product payload limits, not a promise that
 external provider framing/billing also totals at most4096 tokens.
 
 Reconciliation can jointly normalize duplicate representations and close multiple explicitly

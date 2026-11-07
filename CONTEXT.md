@@ -1,5 +1,25 @@
 # Current project context
 
+## Actual native Luna phase contract repair — 2026-11-07
+
+Source continuation t_6200b4e1 reproduces the affected native call seam on an exact private
+SQLite copy through the unchanged host Luna bridge. Literal qualification candidate rewrites
+failed invalid_identity; an intermediate result also emitted invalid change.type superseded.
+Per-call response contracts now specify exact literals, allowed candidate fields, local item0,
+valid truth enums and separate representation disposition. Temporal guidance distinguishes a
+same-source/event-time default from a genuine handover. Both actual phase payload sizes are
+packed, instead of assuming identity is shorter. Validators and no-fallback behavior remain.
+Real copied-original Luna runs plus final-source recorded-output integration retain source
+custody and a positively historical typed prior owner ending2026-11-07T00:00:00.000Z, current
+Leda, reporting/reviewer links and FEN9 relations. This is not native runtime activation.
+At readonly production16:16:26Z the first original failed5 invalid_identity, the other four
+original jobs had naturally succeeded, but both known stale LDN7 targets still had no changes.
+Do not repeat reprocess submissions. Existing runtime owner t_b3950651 can activate changed
+source then use supported failed-job retry only if still needed, with graph/history evidence.
+Read evidence/native-phase-repair/HANDOFF.md; root t_5f7f3afb owns overall settlement. Historical
+raw production attempts were not retained, so isolated reproductions are not exact reconstructions
+of their outputs. Helper recall/native timing/brand/preview evidence stays applicable unchanged.
+
 ## Relational identity/truth reconciliation source repair — 2026-11-07
 
 Source task t_d7c1e270 separates atomic extraction, focused same-scope identity resolution and

@@ -19,7 +19,7 @@ import { cosine } from "./provider.ts";
 import { indexedCandidates, queryTerms } from "./memory-index.ts";
 import { claimMemoryJob } from "./memory-scheduler.ts";
 import { EXTRACT_PROMPT, RECONCILE_PROMPT, validateReconciliations, normalizeReconciliation, type Reconciliation } from './memory-reconciliation.ts';
-import { IDENTITY_PROMPT, resolvedIdentity, candidateIdentities } from './memory-identity.ts';
+import { IDENTITY_PROMPT, identityResponseContract, resolvedIdentity, candidateIdentities } from './memory-identity.ts';
 import { recallFocus, needsRecallContext, asksAboutRecallProcess, isContextAvailabilityNote } from "./recall-query.ts";
 
 // Share a turn budget across recalls and workers. Promise/microtask yields alone
@@ -1212,23 +1212,25 @@ export class MemoryWorker {
       unique.sort((a,b)=>relationRank(b)-relationRank(a)||a.id.localeCompare(b.id));
       const sources=new Map<string,any>();
       const input:any={schema_version:1,task_schema:'atlas-reconciliation-v1',phase:'reconcile',system_prompt:RECONCILE_PROMPT,event,recent_events:recent,
+        response_contract:{decisions:[],item_indices:[0],duplicate_ids:'same truth AND identical valid bounds only',change:'incoming replaces earlier truth; not an observation-time/default-bound difference',superseded_by:'actual later original replacement only; effective_at from its source'},
         incoming:[d],source_relations:ds.filter(x=>x.scope===d.scope).map(x=>({subject:x.subject,predicate:x.predicate,object:x.object,valid_from:x.valid_from,valid_to:x.valid_to})),candidates:unique.slice(0,12).map(c=>({id:c.id,scope:c.scope,subject:c.subject,predicate:c.predicate,object:c.object,kind:c.kind,valid_from:c.valid_from,valid_to:c.valid_to,changes:c.changes,
           sources:c.supports.slice(0,2).map((s:any)=>{const key=`${s.client_id}:${s.event_id}@${s.revision}`;sources.set(key,{key,event_id:s.event_id,role:s.role,author_id:s.author_id,occurred_at:s.occurred_at,excerpt:s.excerpt?.slice(0,600)});return key;})})),sources:[...sources.values()]};
       const trimSources=()=>{const keys=new Set(input.candidates.flatMap((c:any)=>c.sources));input.sources=input.sources.filter((s:any)=>keys.has(s.key));};
-      while (input.candidates.length && await budgetTokens(JSON.stringify(input))>budget) {input.candidates.pop();trimSources();}
-      while(input.recent_events.length && await budgetTokens(JSON.stringify(input))>budget)input.recent_events=input.recent_events.slice(1);
+      const identityInput=()=>({...input,task_schema:'atlas-identity-v1',phase:'identity',system_prompt:IDENTITY_PROMPT,response_contract:identityResponseContract(d)});
+      // Pack the actual larger phase, not an assumption about prompt lengths.
+      const phaseTokens=async()=>Math.max(await budgetTokens(JSON.stringify(input)),this.inference.resolveEntities?await budgetTokens(JSON.stringify(identityInput())):0);
+      while (input.candidates.length && await phaseTokens()>budget) {input.candidates.pop();trimSources();}
+      while(input.recent_events.length && await phaseTokens()>budget)input.recent_events=input.recent_events.slice(1);
       // Very dense fragments still reconcile one atomic relation at a time.
       // Without the complete siblings, no compound refinement is permitted.
       let completeRelations=true;
-      if(await budgetTokens(JSON.stringify(input))>budget){input.source_relations=[{subject:d.subject,predicate:d.predicate,object:d.object,valid_from:d.valid_from,valid_to:d.valid_to}];completeRelations=false;}
-      if(await budgetTokens(JSON.stringify(input))>budget)fail(503,'curation_budget_too_small','Reconciliation framing exceeds input window',false);
+      if(await phaseTokens()>budget){input.source_relations=[{subject:d.subject,predicate:d.predicate,object:d.object,valid_from:d.valid_from,valid_to:d.valid_to}];completeRelations=false;}
+      if(await phaseTokens()>budget)fail(503,'curation_budget_too_small','Reconciliation framing exceeds input window',false);
       let included=unique.filter(c=>input.candidates.some((s:any)=>s.id===c.id));
       if(!live())fail(409,'curation_context_changed','Source changed',true);
       this.reconciliationCurrent(included);
       if(this.inference.resolveEntities){
-        const identityInput={...input,task_schema:'atlas-identity-v1',phase:'identity',system_prompt:IDENTITY_PROMPT};
-        if(await budgetTokens(JSON.stringify(identityInput))>budget)fail(503,'curation_budget_too_small','Identity framing exceeds input window',false);
-        const identity=await this.inference.resolveEntities(identityInput);
+        const identity=await this.inference.resolveEntities(identityInput());
         if(!live())fail(409,'curation_context_changed','Source changed',true);
         this.reconciliationCurrent(included);
         d=resolvedIdentity(identity,d,included,{event,recent,sources:input.sources});ds[index]=d;
