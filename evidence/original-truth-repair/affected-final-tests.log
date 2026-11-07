@@ -1,0 +1,47 @@
+bun test v1.4.4 (38afee6c8)
+
+tests/native-phase-contract.test.ts:
+(pass) native literal qualification identity receives an exact response contract, not an invitation to rewrite candidate literals [56.16ms]
+(pass) actual invalid literal candidate binding and ambiguous truth disposition stay fail-visible [0.48ms]
+(pass) same-source observation defaults cannot reverse time; real earlier supported prior truth still permits explicit handover [0.23ms]
+(pass) directional native schema compiles duplicate replacement and separate old truth without ambiguous target ownership [0.31ms]
+(pass) native exhaustive candidate contract rejects duplicate-only omissions and preserves mixed truth dispositions [0.15ms]
+
+tests/recall-intent.test.ts:
+(pass) prior lack-of-evidence answers cannot dominate factual questions, even with identical embeddings [18.12ms]
+(pass) unrelated recall does not turn boilerplate into a match to a previous denial [6.23ms]
+(pass) fully specified question does not import its own answer instructions as pronoun context [7.66ms]
+(pass) real followup context and ordinary technical tools/memory questions remain searchable [6.51ms]
+(pass) a strong maintenance facet cannot prune an admitted reporting relation on the same entity [9.47ms]
+(pass) substantive conditional queries, long followups and domain negatives are not response boilerplate [17.91ms]
+(pass) historical context limitations remain retrievable without prescribed process wording [9.57ms]
+(pass) nonadjacent short lexical facts and long fully matched notes survive lexical-only fallback [12.70ms]
+(pass) long partial lexical relevance is unchanged even when a compatible embedding is weak [6.55ms]
+(pass) requested predicate alone cannot rescue another archive; independent semantic and lexical facets remain useful [15.24ms]
+(pass) lexical multifacet admission retains direct reporting without assistant recaps or literal scenario-code prerequisite [10.48ms]
+
+tests/relational-reconciliation.test.ts:
+(pass) atomic typed object entities include never-subject targets; literals stay literals; scope/scenario identities do not pool [52.70ms]
+(pass) never-true correction targets all stale aliases/wordings, not the already-correct history narrative; unrelated/co-owner facts survive [73.65ms]
+(pass) handover closes duplicate alias claims at actual effective date even before observation default; retains prior truth with unknown start [46.55ms]
+(pass) late original reprocess cannot reopen a later-supported correction or handover; audit cites later original not delivery order [32.96ms]
+(pass) semantic duplicate normalization preserves roots and prior correction; compatible co-owners remain separate [45.22ms]
+(pass) reconciliation fences changed evidence after await, rejects unsupported IDs and preserves interval corrections [60.62ms]
+(pass) on-disk reopen migrates supported old aliases by scope, typed targets survive reopen and forget removes support/targets/audit [110.13ms]
+(pass) focused relation windows retain actual ownership targets amid duplicate long qualification narratives; duplicate and change can combine [398.35ms]
+(pass) focused sourced identities canonicalize launch wording before handover and late original reconciliation without merging namesakes [66.72ms]
+(pass) write-only shared scope still accepts new knowledge but supplies no unreadable reconciliation candidates [20.22ms]
+(pass) identity proof is scoped and recorded, actor retargeting is quarantined, and forgetting removes alias/equivalence proof [63.25ms]
+(pass) canonical same-claim same-interval state output normalizes to duplicate, not false handover; distinct actors and dates do not [0.19ms]
+(pass) three phase packing reserves headroom and advances oversized Unicode without changing accepted source [289.65ms]
+(pass) repeated alias-format reconciliation preserves a positive prior state instead of supersession cycles hiding every representation [71.57ms]
+(pass) all retained relation candidates drain through bounded windows; duplicate correct replacement does not hide stale targets [218.75ms]
+(pass) window merge preserves independent correction and formerly-true closure, including omitted versus explicit claim aspect [0.33ms]
+(pass) recorded live semantic equivalence propagates handover to typed original group; representation retirement alone is not equivalence [51.24ms]
+(pass) source-backed unknown historical start preserves raw bounds and recorded history without endorsing legacy precision [57.21ms]
+(pass) later truth disposition reaches original semantic duplicate as well as newly normalized representation [29.61ms]
+
+ 35 pass
+ 0 fail
+ 213 expect() calls
+Ran 35 tests across 3 files. [2.10s]

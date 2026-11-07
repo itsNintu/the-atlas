@@ -1,0 +1,76 @@
+{
+  "task": "t_eeafcd2f",
+  "product_source_commit": "26958d0c24de567eb1bd5fc4e0a3d88989e03175",
+  "git_tree": "4085cb1cd6e608cd23220c11a1fd13800bb1d1ee",
+  "runtime_source_file_count": 21,
+  "changed_file_count": 15,
+  "sha256": {
+    "bun.lock": "7dee688fd5d0236b7c768f90e4dbe0b125239375f9b8fe2599f98bb071ac1219",
+    "docs/capabilities.md": "818ac1b8b1161018a9f34c7f0071d1aab834464bb52246177057ca234ee29bf1",
+    "docs/contract.md": "f3c7b96fd6cc333e5d9082af4f4fbad4d1b71429b79fe992f3756616ad5148ca",
+    "package.json": "a0f73b16e0428d6ab62bc4866a3e64b2c6294607c91944259c601b543d871789",
+    "scripts/original-truth-copy.ts": "a54d3a995405906e7bcc90b5da9e69c24a4e76f646d95fe40c981236a259ac88",
+    "scripts/original-truth-final.ts": "a2027133fcf26c72ed0c9d185ff1ae4da47ea294518e07f41cbb1784584b0c95",
+    "scripts/original-truth-recall.ts": "e369aeb5c916471b86eb63cc029fa8c360616ab011b267064a533798edd8863a",
+    "scripts/original-truth-report.py": "6db2d5f8b309d536224790461392075ce424657a5ea4a96ab378c37d5dcb343f",
+    "scripts/original-truth-snapshot.py": "ab638de266f80d7e17110b552fff7b03e265441e0c315b370405a58767673abe",
+    "src/app.ts": "38ce1ecad85df33d596838a75f62811ae91b39f86898480b79353a2633842a2f",
+    "src/cli.ts": "1df371e5d018b81b16fbf5ba4ab6b0d3c6224c7e15bdb0694f6535d35b316ee6",
+    "src/config.ts": "3727b6e3bb7e931102d8ff5897e1cd5b93a8bc4a30e6d76c533f0352474d601e",
+    "src/errors.ts": "53de4c55b5c12d69beb532cca667871831e604657ba1e155fae539e6bd458ae4",
+    "src/inference.ts": "6af16d6e17d8847d694d578e94ef4c8532b51d32c902bbadf4f6483fa144fe7c",
+    "src/memory-graph.ts": "b8a0f7e25ca4b4cdf8d735aa18439494a120cc32ef4e0c1b7b32895aca45bd96",
+    "src/memory-identity.ts": "4aa3912d37d2384b38756d71cb04e9f4fd5f4709338c6078144f58bb924b9017",
+    "src/memory-index.ts": "9f1499ad9b28e4aa6f879005a224c29d0313befebc889860f26811dbfa295c65",
+    "src/memory-reconciliation.ts": "7ba3e8e0fbaba636d3868785766966cef1cecb772d536c5e020adf11bf80e692",
+    "src/memory-scheduler.ts": "210fc21dba8d42a2a8f54cdf19d58a59aad768be241a7d62d1e4ae03b7183efc",
+    "src/memory-schema.ts": "c6dac5c7941eae1b34a544e8aa0b927cfb11d05252fbf96b90e67c50cf76ef35",
+    "src/memory.ts": "7aa829e3e42fdf08535dd8d389906019d68bcd9073fa6fa930b84c047b243334",
+    "src/provider.ts": "dcc5123a4d0351033f0fbb08e8e11a99f36718a352c1786a42e069743d265641",
+    "src/recall-query.ts": "dedcc79fcc57d79c20c95f0cabf2dc951fcbb12c9a7bbae41960b4ad78916ede",
+    "src/schema.ts": "54fc690ae330842b8da0a93d7d49ee229c73850ff63cbfff3fba5a3c43fa96b1",
+    "src/server.ts": "8a15edd79bc018ad8dac67d1677707449200c616048ee988dbc15a2488457137",
+    "src/store.ts": "336d9ae58eadc0900b6ad2cd1718fb8bc4991d5ea2b5539f457e6b18f59e9433",
+    "src/worker.ts": "81121b0055c1b430d8a07958742ba05fd3515655c9dfc31e91ab9caffb023bbc",
+    "tests/native-phase-contract.test.ts": "3b48e3cb5ac24b5ce601f76d2e72736cc59612e7233d867245f19aac855530eb",
+    "tests/recall-intent.test.ts": "7cf1b45c27371ac17c840686109b745645cd55b87922c8069a03075cabb04f00",
+    "tests/relational-reconciliation.test.ts": "c610381a0f543daf8ba760e5b8a746983a74762c7b916450d6b7d145a38f8e71",
+    "tsconfig.json": "8280d18ee691f33fb34e59090086b9653e9900deeba23487b08cc8be1c574e10"
+  },
+  "private_prestate_sha256": "15c267c189f58276868d8eed2d2aec4066b722b0bb52c3b53f762b4458b6eae1",
+  "actual_luna_calls": 70,
+  "actual_luna_max_product_tokens": 4087,
+  "final_integration": {
+    "jobs": [
+      {
+        "id": "mjob_7fab755f-8daa-4072-b0e3-db92bb5bd855",
+        "status": "succeeded",
+        "error_code": null
+      },
+      {
+        "id": "mjob_2580e8bb-f0bb-4a94-975b-1a0c036ffa14",
+        "status": "succeeded",
+        "error_code": null
+      }
+    ],
+    "calls": 66,
+    "native_calls": 0,
+    "max_tokens": 3947,
+    "custody_preserved": true
+  },
+  "checks": {
+    "frozen_install": "pass",
+    "typecheck": "pass",
+    "full_tests": 137,
+    "full_assertions": 1156,
+    "affected_tests": 35,
+    "affected_assertions": 213,
+    "e2e": "pass",
+    "corrected_recall_cases": 8,
+    "all_exact_reporting_id": true
+  },
+  "no_production_effects": true,
+  "activation_owner": "t_4fe812c6",
+  "root": "t_5f7f3afb",
+  "source_only_not_native_acceptance": true
+}

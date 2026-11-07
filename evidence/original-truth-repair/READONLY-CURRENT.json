@@ -1,0 +1,249 @@
+{
+  "at": "2026-11-07T16:46:50.158802+00:00",
+  "read_only_production": true,
+  "private_snapshot_sha256": "15c267c189f58276868d8eed2d2aec4066b722b0bb52c3b53f762b4458b6eae1",
+  "originals": [
+    {
+      "index": 0,
+      "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+      "event_pk": "event_9b624f14-2115-405f-adf2-e5626d99dbb9",
+      "job_id": "mjob_3d9c6e05-803f-402b-82fc-074d15383406",
+      "original_fields_equal": true,
+      "jobs": [
+        {
+          "id": "mjob_1f31f83c-7c42-42ac-a01d-61d1bd3f6398",
+          "event_pk": "event_9b624f14-2115-405f-adf2-e5626d99dbb9",
+          "status": "succeeded",
+          "attempts": 1,
+          "max_attempts": 5,
+          "error_code": null,
+          "created_at": "2026-11-07T11:40:04.982Z",
+          "completed_at": "2026-11-07T12:46:18.213Z"
+        },
+        {
+          "id": "mjob_d98092db-dc14-44e2-bbea-f1c235b84c77",
+          "event_pk": "event_9b624f14-2115-405f-adf2-e5626d99dbb9",
+          "status": "succeeded",
+          "attempts": 1,
+          "max_attempts": 5,
+          "error_code": null,
+          "created_at": "2026-11-07T13:40:32.176Z",
+          "completed_at": "2026-11-07T13:40:55.520Z"
+        },
+        {
+          "id": "mjob_3d9c6e05-803f-402b-82fc-074d15383406",
+          "event_pk": "event_9b624f14-2115-405f-adf2-e5626d99dbb9",
+          "status": "succeeded",
+          "attempts": 1,
+          "max_attempts": 5,
+          "error_code": null,
+          "created_at": "2026-11-07T15:33:06.650Z",
+          "completed_at": "2026-11-07T16:30:00.429Z"
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+      "event_pk": "event_cee9d8f9-d02c-44f2-9410-251b37d515f9",
+      "job_id": "mjob_15bf34a4-2421-4a19-ab79-dcaca5cafa70",
+      "original_fields_equal": true,
+      "jobs": [
+        {
+          "id": "mjob_5e1e7074-7334-4bdc-b622-e5552e993007",
+          "event_pk": "event_cee9d8f9-d02c-44f2-9410-251b37d515f9",
+          "status": "succeeded",
+          "attempts": 1,
+          "max_attempts": 5,
+          "error_code": null,
+          "created_at": "2026-11-07T11:40:12.248Z",
+          "completed_at": "2026-11-07T12:51:12.372Z"
+        },
+        {
+          "id": "mjob_0dcd39fe-5dcc-4db1-8935-b473cfa1ecac",
+          "event_pk": "event_cee9d8f9-d02c-44f2-9410-251b37d515f9",
+          "status": "succeeded",
+          "attempts": 1,
+          "max_attempts": 5,
+          "error_code": null,
+          "created_at": "2026-11-07T13:41:29.651Z",
+          "completed_at": "2026-11-07T13:42:51.546Z"
+        },
+        {
+          "id": "mjob_15bf34a4-2421-4a19-ab79-dcaca5cafa70",
+          "event_pk": "event_cee9d8f9-d02c-44f2-9410-251b37d515f9",
+          "status": "succeeded",
+          "attempts": 1,
+          "max_attempts": 5,
+          "error_code": null,
+          "created_at": "2026-11-07T15:45:10.951Z",
+          "completed_at": "2026-11-07T16:02:01.336Z"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+      "event_pk": "event_98ef9b91-196b-40fa-b6c2-1bf4844a6f22",
+      "job_id": "mjob_9158c319-c251-48e2-9237-8e3a32e4f268",
+      "original_fields_equal": true,
+      "jobs": [
+        {
+          "id": "mjob_96883d9f-a6f9-468e-9faa-400aa8dfd5ee",
+          "event_pk": "event_98ef9b91-196b-40fa-b6c2-1bf4844a6f22",
+          "status": "succeeded",
+          "attempts": 1,
+          "max_attempts": 5,
+          "error_code": null,
+          "created_at": "2026-11-07T11:40:20.578Z",
+          "completed_at": "2026-11-07T12:54:55.899Z"
+        },
+        {
+          "id": "mjob_96100b74-9c39-47d5-a6eb-be704ff8d37c",
+          "event_pk": "event_98ef9b91-196b-40fa-b6c2-1bf4844a6f22",
+          "status": "succeeded",
+          "attempts": 1,
+          "max_attempts": 5,
+          "error_code": null,
+          "created_at": "2026-11-07T13:42:04.087Z",
+          "completed_at": "2026-11-07T13:44:50.539Z"
+        },
+        {
+          "id": "mjob_65a38b83-70e3-41fa-9bd8-0f48903d5ae3",
+          "event_pk": "event_98ef9b91-196b-40fa-b6c2-1bf4844a6f22",
+          "status": "succeeded",
+          "attempts": 1,
+          "max_attempts": 5,
+          "error_code": null,
+          "created_at": "2026-11-07T15:45:10.983Z",
+          "completed_at": "2026-11-07T16:05:12.203Z"
+        },
+        {
+          "id": "mjob_9158c319-c251-48e2-9237-8e3a32e4f268",
+          "event_pk": "event_98ef9b91-196b-40fa-b6c2-1bf4844a6f22",
+          "status": "succeeded",
+          "attempts": 1,
+          "max_attempts": 5,
+          "error_code": null,
+          "created_at": "2026-11-07T16:30:48.463Z",
+          "completed_at": "2026-11-07T16:33:27.793Z"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+      "event_pk": "event_9a170ec1-2c22-4f30-b976-c5baf9a0dd04",
+      "job_id": "mjob_fa36d91d-88ed-426b-ba43-0a35c449a790",
+      "original_fields_equal": true,
+      "jobs": [
+        {
+          "id": "mjob_f3b6ba2b-aa22-4c69-9fbf-b7d3137a6827",
+          "event_pk": "event_9a170ec1-2c22-4f30-b976-c5baf9a0dd04",
+          "status": "succeeded",
+          "attempts": 1,
+          "max_attempts": 5,
+          "error_code": null,
+          "created_at": "2026-11-07T11:40:27.839Z",
+          "completed_at": "2026-11-07T12:58:27.192Z"
+        },
+        {
+          "id": "mjob_95914af0-1fc3-44a2-988e-fdad9b9c5465",
+          "event_pk": "event_9a170ec1-2c22-4f30-b976-c5baf9a0dd04",
+          "status": "succeeded",
+          "attempts": 1,
+          "max_attempts": 5,
+          "error_code": null,
+          "created_at": "2026-11-07T13:42:24.621Z",
+          "completed_at": "2026-11-07T13:46:52.388Z"
+        },
+        {
+          "id": "mjob_4d41cd33-131d-443f-afc0-bca2e12ac9d3",
+          "event_pk": "event_9a170ec1-2c22-4f30-b976-c5baf9a0dd04",
+          "status": "succeeded",
+          "attempts": 2,
+          "max_attempts": 5,
+          "error_code": null,
+          "created_at": "2026-11-07T15:45:11.015Z",
+          "completed_at": "2026-11-07T16:13:10.785Z"
+        },
+        {
+          "id": "mjob_fa36d91d-88ed-426b-ba43-0a35c449a790",
+          "event_pk": "event_9a170ec1-2c22-4f30-b976-c5baf9a0dd04",
+          "status": "succeeded",
+          "attempts": 2,
+          "max_attempts": 5,
+          "error_code": null,
+          "created_at": "2026-11-07T16:30:48.497Z",
+          "completed_at": "2026-11-07T16:42:09.951Z"
+        }
+      ]
+    }
+  ],
+  "targets": [
+    {
+      "memory": {
+        "id": "memory_36a62b9d-b757-48ed-8f92-7a65303eabbd",
+        "subject": "LDN7 Lantern",
+        "predicate": "uses",
+        "object": "Cobalt, according to the imaginary LDN7 archive only.",
+        "valid_from": "2026-11-07T11:40:04.339Z",
+        "valid_to": null
+      },
+      "changes": []
+    },
+    {
+      "memory": {
+        "id": "memory_a826fdb2-4310-40e3-8b39-387d212bbc63",
+        "subject": "LDN7 Nola",
+        "predicate": "owns",
+        "object": "LDN7 Lantern launch; a claim in the imaginary LDN7 archive only.",
+        "valid_from": "2026-11-07T11:40:04.339Z",
+        "valid_to": null
+      },
+      "changes": [
+        {
+          "id": "change_d17c6c7a-548c-49b2-b060-9cec5057dc52",
+          "event_pk": "event_9b624f14-2115-405f-adf2-e5626d99dbb9",
+          "target_id": "memory_a826fdb2-4310-40e3-8b39-387d212bbc63",
+          "replacement_id": "memory_94163b5d-e2de-4cfe-950c-e2d56fac632b",
+          "type": "superseded",
+          "effective_at": "2026-11-07T11:40:04.339Z",
+          "recorded_at": "2026-11-07T16:30:00.382Z"
+        }
+      ]
+    },
+    {
+      "memory": {
+        "id": "memory_94163b5d-e2de-4cfe-950c-e2d56fac632b",
+        "subject": "LDN7 Nola",
+        "predicate": "owns",
+        "object": "LDN7 Lantern",
+        "valid_from": "2026-11-07T11:40:04.339Z",
+        "valid_to": null
+      },
+      "changes": []
+    },
+    {
+      "memory": {
+        "id": "memory_2d4241ab-1aea-41d4-a69e-e8e28bbd87d8",
+        "subject": "Nola",
+        "predicate": "owns",
+        "object": "LDN7 Lantern in the fictional LDN7 story",
+        "valid_from": "2026-01-01T00:00:00.000Z",
+        "valid_to": "2026-11-07T00:00:00.000Z"
+      },
+      "changes": [
+        {
+          "id": "change_6557b648-4b75-4885-9831-625cae2d8fd5",
+          "event_pk": "event_98ef9b91-196b-40fa-b6c2-1bf4844a6f22",
+          "target_id": "memory_2d4241ab-1aea-41d4-a69e-e8e28bbd87d8",
+          "replacement_id": "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+          "type": "state_change",
+          "effective_at": "2026-11-07T00:00:00.000Z",
+          "recorded_at": "2026-11-07T16:05:12.176Z"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2558 @@
+{
+  "base": ".private/original-truth-repair/final-integrated/copy.sqlite",
+  "source_copy_not_native_acceptance": true,
+  "results": [
+    {
+      "engine": "baseline",
+      "disabled": false,
+      "original_only": false,
+      "query": "In the fictional LDN7 archive, who owns Lantern now, who owned it before, and was cobalt ever its true color? Also, who does Mira report to, and who reviews the checklist? If no relevant memory is supplied, say you lack evidence. Answer from automatically supplied context only. Do not call tools, browse or save memory.",
+      "context_sha256": "10cfd8491b64601f603b1435738d8ea6e87151c0a9589f7eb60bb3be30218f6f",
+      "tokens": 987,
+      "original_memories": [
+        {
+          "id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "subject": "Fictional LDN7 Lantern",
+          "predicate": "color",
+          "object": "Within the fictional LDN7 scenario, LDN7 Lantern has always used amber and never used cobalt; Alex says the earlier cobalt claim was mistaken, not a formerly true state.",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_56af764a-b7b9-4398-a863-d1e059b068c5",
+          "subject": "LDN7 Lantern",
+          "predicate": "uses_color",
+          "object": "amber",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            },
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_94163b5d-e2de-4cfe-950c-e2d56fac632b",
+          "subject": "LDN7 Nola",
+          "predicate": "owns",
+          "object": "LDN7 Lantern",
+          "historical": true,
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": "2026-11-07T00:00:00.000Z",
+          "historical_start_unknown": true,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+          "subject": "LDN7 Leda",
+          "predicate": "owns",
+          "object": "LDN7 Lantern",
+          "historical": false,
+          "valid_from": "2026-11-07T00:00:00.000Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_2d4241ab-1aea-41d4-a69e-e8e28bbd87d8",
+          "subject": "Nola",
+          "predicate": "owns",
+          "object": "LDN7 Lantern in the fictional LDN7 story",
+          "historical": true,
+          "valid_from": "2026-01-01T00:00:00.000Z",
+          "valid_to": "2026-11-07T00:00:00.000Z",
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_ab36996d-8abe-497d-8b9c-1d20196a37d8",
+          "subject": "LDN7 Nola",
+          "predicate": "reviews",
+          "object": "LDN7 Lantern checklist",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:11.302Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Still fictional LDN7: haha, the paper moon tastes like hiccups! Anyway, she also reviews the LDN7 Lantern checklist; by she I mean the person Mira reports to. No tools; acknowledge only.",
+              "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:11.302Z",
+              "accepted_at": "2026-11-07T11:40:12.248Z",
+              "evidence_root_ids": [
+                "native:reaver:d170bd72645c4a829261bef9878b8d2a"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_62ab77c1-2cea-457e-9d75-6930b96ab2a5",
+          "subject": "LDN7 Lantern",
+          "predicate": "qualification",
+          "object": "fictional-only context, not real-world truth",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            },
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        }
+      ],
+      "total_selected": 8,
+      "reporting": false,
+      "context_messages": 0
+    },
+    {
+      "engine": "baseline",
+      "disabled": false,
+      "original_only": true,
+      "query": "In the fictional LDN7 archive, who owns Lantern now, who owned it before, and was cobalt ever its true color? Also, who does Mira report to, and who reviews the checklist? If no relevant memory is supplied, say you lack evidence. Answer from automatically supplied context only. Do not call tools, browse or save memory.",
+      "context_sha256": "6a3392282c2222c1d53de2ac4fb3737f201b81a1077c3ec24298595b3348a3e1",
+      "tokens": 780,
+      "original_memories": [
+        {
+          "id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "subject": "Fictional LDN7 Lantern",
+          "predicate": "color",
+          "object": "Within the fictional LDN7 scenario, LDN7 Lantern has always used amber and never used cobalt; Alex says the earlier cobalt claim was mistaken, not a formerly true state.",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_56af764a-b7b9-4398-a863-d1e059b068c5",
+          "subject": "LDN7 Lantern",
+          "predicate": "uses_color",
+          "object": "amber",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            },
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_94163b5d-e2de-4cfe-950c-e2d56fac632b",
+          "subject": "LDN7 Nola",
+          "predicate": "owns",
+          "object": "LDN7 Lantern",
+          "historical": true,
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": "2026-11-07T00:00:00.000Z",
+          "historical_start_unknown": true,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+          "subject": "LDN7 Leda",
+          "predicate": "owns",
+          "object": "LDN7 Lantern",
+          "historical": false,
+          "valid_from": "2026-11-07T00:00:00.000Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_2d4241ab-1aea-41d4-a69e-e8e28bbd87d8",
+          "subject": "Nola",
+          "predicate": "owns",
+          "object": "LDN7 Lantern in the fictional LDN7 story",
+          "historical": true,
+          "valid_from": "2026-01-01T00:00:00.000Z",
+          "valid_to": "2026-11-07T00:00:00.000Z",
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_ab36996d-8abe-497d-8b9c-1d20196a37d8",
+          "subject": "LDN7 Nola",
+          "predicate": "reviews",
+          "object": "LDN7 Lantern checklist",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:11.302Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Still fictional LDN7: haha, the paper moon tastes like hiccups! Anyway, she also reviews the LDN7 Lantern checklist; by she I mean the person Mira reports to. No tools; acknowledge only.",
+              "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:11.302Z",
+              "accepted_at": "2026-11-07T11:40:12.248Z",
+              "evidence_root_ids": [
+                "native:reaver:d170bd72645c4a829261bef9878b8d2a"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_62ab77c1-2cea-457e-9d75-6930b96ab2a5",
+          "subject": "LDN7 Lantern",
+          "predicate": "qualification",
+          "object": "fictional-only context, not real-world truth",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            },
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        }
+      ],
+      "total_selected": 7,
+      "reporting": false,
+      "context_messages": 0
+    },
+    {
+      "engine": "corrected",
+      "disabled": false,
+      "original_only": false,
+      "query": "In the fictional LDN7 archive, who owns Lantern now, who owned it before, and was cobalt ever its true color? Also, who does Mira report to, and who reviews the checklist? If no relevant memory is supplied, say you lack evidence. Answer from automatically supplied context only. Do not call tools, browse or save memory.",
+      "context_sha256": "735977bfe25348a35c51d0dcf8676812e2e285c60b4cc65c784d403697003fa1",
+      "tokens": 1133,
+      "original_memories": [
+        {
+          "id": "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+          "subject": "LDN7 Leda",
+          "predicate": "owns",
+          "object": "LDN7 Lantern",
+          "historical": false,
+          "valid_from": "2026-11-07T00:00:00.000Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "subject": "Fictional LDN7 Lantern",
+          "predicate": "color",
+          "object": "Within the fictional LDN7 scenario, LDN7 Lantern has always used amber and never used cobalt; Alex says the earlier cobalt claim was mistaken, not a formerly true state.",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_94163b5d-e2de-4cfe-950c-e2d56fac632b",
+          "subject": "LDN7 Nola",
+          "predicate": "owns",
+          "object": "LDN7 Lantern",
+          "historical": true,
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": "2026-11-07T00:00:00.000Z",
+          "historical_start_unknown": true,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94",
+          "subject": "LDN7 Mira",
+          "predicate": "reports_to",
+          "object": "LDN7 Nola",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_ab36996d-8abe-497d-8b9c-1d20196a37d8",
+          "subject": "LDN7 Nola",
+          "predicate": "reviews",
+          "object": "LDN7 Lantern checklist",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:11.302Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Still fictional LDN7: haha, the paper moon tastes like hiccups! Anyway, she also reviews the LDN7 Lantern checklist; by she I mean the person Mira reports to. No tools; acknowledge only.",
+              "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:11.302Z",
+              "accepted_at": "2026-11-07T11:40:12.248Z",
+              "evidence_root_ids": [
+                "native:reaver:d170bd72645c4a829261bef9878b8d2a"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_2d4241ab-1aea-41d4-a69e-e8e28bbd87d8",
+          "subject": "Nola",
+          "predicate": "owns",
+          "object": "LDN7 Lantern in the fictional LDN7 story",
+          "historical": true,
+          "valid_from": "2026-01-01T00:00:00.000Z",
+          "valid_to": "2026-11-07T00:00:00.000Z",
+          "historical_start_unknown": true,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_56af764a-b7b9-4398-a863-d1e059b068c5",
+          "subject": "LDN7 Lantern",
+          "predicate": "uses_color",
+          "object": "amber",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            },
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        }
+      ],
+      "total_selected": 8,
+      "reporting": true,
+      "context_messages": 0
+    },
+    {
+      "engine": "corrected",
+      "disabled": false,
+      "original_only": true,
+      "query": "In the fictional LDN7 archive, who owns Lantern now, who owned it before, and was cobalt ever its true color? Also, who does Mira report to, and who reviews the checklist? If no relevant memory is supplied, say you lack evidence. Answer from automatically supplied context only. Do not call tools, browse or save memory.",
+      "context_sha256": "f1d21ae2a8fcc9636c48d159a517ed9dd95379ac770ad8302e7f3d11b9a66000",
+      "tokens": 980,
+      "original_memories": [
+        {
+          "id": "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+          "subject": "LDN7 Leda",
+          "predicate": "owns",
+          "object": "LDN7 Lantern",
+          "historical": false,
+          "valid_from": "2026-11-07T00:00:00.000Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "subject": "Fictional LDN7 Lantern",
+          "predicate": "color",
+          "object": "Within the fictional LDN7 scenario, LDN7 Lantern has always used amber and never used cobalt; Alex says the earlier cobalt claim was mistaken, not a formerly true state.",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_94163b5d-e2de-4cfe-950c-e2d56fac632b",
+          "subject": "LDN7 Nola",
+          "predicate": "owns",
+          "object": "LDN7 Lantern",
+          "historical": true,
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": "2026-11-07T00:00:00.000Z",
+          "historical_start_unknown": true,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94",
+          "subject": "LDN7 Mira",
+          "predicate": "reports_to",
+          "object": "LDN7 Nola",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_ab36996d-8abe-497d-8b9c-1d20196a37d8",
+          "subject": "LDN7 Nola",
+          "predicate": "reviews",
+          "object": "LDN7 Lantern checklist",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:11.302Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Still fictional LDN7: haha, the paper moon tastes like hiccups! Anyway, she also reviews the LDN7 Lantern checklist; by she I mean the person Mira reports to. No tools; acknowledge only.",
+              "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:11.302Z",
+              "accepted_at": "2026-11-07T11:40:12.248Z",
+              "evidence_root_ids": [
+                "native:reaver:d170bd72645c4a829261bef9878b8d2a"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_2d4241ab-1aea-41d4-a69e-e8e28bbd87d8",
+          "subject": "Nola",
+          "predicate": "owns",
+          "object": "LDN7 Lantern in the fictional LDN7 story",
+          "historical": true,
+          "valid_from": "2026-01-01T00:00:00.000Z",
+          "valid_to": "2026-11-07T00:00:00.000Z",
+          "historical_start_unknown": true,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_56af764a-b7b9-4398-a863-d1e059b068c5",
+          "subject": "LDN7 Lantern",
+          "predicate": "uses_color",
+          "object": "amber",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            },
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_62ab77c1-2cea-457e-9d75-6930b96ab2a5",
+          "subject": "LDN7 Lantern",
+          "predicate": "qualification",
+          "object": "fictional-only context, not real-world truth",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            },
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_af935bc5-2b9d-48b3-900d-7547c61880bf",
+          "subject": "LDN7 Nola",
+          "predicate": "qualification",
+          "object": "Fictional LDN7 archive context only; not real-world truth.",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:11.302Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Still fictional LDN7: haha, the paper moon tastes like hiccups! Anyway, she also reviews the LDN7 Lantern checklist; by she I mean the person Mira reports to. No tools; acknowledge only.",
+              "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:11.302Z",
+              "accepted_at": "2026-11-07T11:40:12.248Z",
+              "evidence_root_ids": [
+                "native:reaver:d170bd72645c4a829261bef9878b8d2a"
+              ]
+            }
+          ]
+        }
+      ],
+      "total_selected": 9,
+      "reporting": true,
+      "context_messages": 0
+    },
+    {
+      "engine": "baseline",
+      "disabled": true,
+      "original_only": false,
+      "query": "In the fictional LDN7 archive, who owns Lantern now, who owned it before, and was cobalt ever its true color? Also, who does Mira report to, and who reviews the checklist? If no relevant memory is supplied, say you lack evidence. Answer from automatically supplied context only. Do not call tools, browse or save memory.",
+      "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tokens": 0,
+      "original_memories": [],
+      "total_selected": 0,
+      "reporting": false,
+      "context_messages": 0
+    },
+    {
+      "engine": "baseline",
+      "disabled": true,
+      "original_only": true,
+      "query": "In the fictional LDN7 archive, who owns Lantern now, who owned it before, and was cobalt ever its true color? Also, who does Mira report to, and who reviews the checklist? If no relevant memory is supplied, say you lack evidence. Answer from automatically supplied context only. Do not call tools, browse or save memory.",
+      "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tokens": 0,
+      "original_memories": [],
+      "total_selected": 0,
+      "reporting": false,
+      "context_messages": 0
+    },
+    {
+      "engine": "corrected",
+      "disabled": true,
+      "original_only": false,
+      "query": "In the fictional LDN7 archive, who owns Lantern now, who owned it before, and was cobalt ever its true color? Also, who does Mira report to, and who reviews the checklist? If no relevant memory is supplied, say you lack evidence. Answer from automatically supplied context only. Do not call tools, browse or save memory.",
+      "context_sha256": "735977bfe25348a35c51d0dcf8676812e2e285c60b4cc65c784d403697003fa1",
+      "tokens": 1133,
+      "original_memories": [
+        {
+          "id": "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+          "subject": "LDN7 Leda",
+          "predicate": "owns",
+          "object": "LDN7 Lantern",
+          "historical": false,
+          "valid_from": "2026-11-07T00:00:00.000Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "subject": "Fictional LDN7 Lantern",
+          "predicate": "color",
+          "object": "Within the fictional LDN7 scenario, LDN7 Lantern has always used amber and never used cobalt; Alex says the earlier cobalt claim was mistaken, not a formerly true state.",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_94163b5d-e2de-4cfe-950c-e2d56fac632b",
+          "subject": "LDN7 Nola",
+          "predicate": "owns",
+          "object": "LDN7 Lantern",
+          "historical": true,
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": "2026-11-07T00:00:00.000Z",
+          "historical_start_unknown": true,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94",
+          "subject": "LDN7 Mira",
+          "predicate": "reports_to",
+          "object": "LDN7 Nola",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_ab36996d-8abe-497d-8b9c-1d20196a37d8",
+          "subject": "LDN7 Nola",
+          "predicate": "reviews",
+          "object": "LDN7 Lantern checklist",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:11.302Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Still fictional LDN7: haha, the paper moon tastes like hiccups! Anyway, she also reviews the LDN7 Lantern checklist; by she I mean the person Mira reports to. No tools; acknowledge only.",
+              "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:11.302Z",
+              "accepted_at": "2026-11-07T11:40:12.248Z",
+              "evidence_root_ids": [
+                "native:reaver:d170bd72645c4a829261bef9878b8d2a"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_2d4241ab-1aea-41d4-a69e-e8e28bbd87d8",
+          "subject": "Nola",
+          "predicate": "owns",
+          "object": "LDN7 Lantern in the fictional LDN7 story",
+          "historical": true,
+          "valid_from": "2026-01-01T00:00:00.000Z",
+          "valid_to": "2026-11-07T00:00:00.000Z",
+          "historical_start_unknown": true,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_56af764a-b7b9-4398-a863-d1e059b068c5",
+          "subject": "LDN7 Lantern",
+          "predicate": "uses_color",
+          "object": "amber",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            },
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        }
+      ],
+      "total_selected": 8,
+      "reporting": true,
+      "context_messages": 0
+    },
+    {
+      "engine": "corrected",
+      "disabled": true,
+      "original_only": true,
+      "query": "In the fictional LDN7 archive, who owns Lantern now, who owned it before, and was cobalt ever its true color? Also, who does Mira report to, and who reviews the checklist? If no relevant memory is supplied, say you lack evidence. Answer from automatically supplied context only. Do not call tools, browse or save memory.",
+      "context_sha256": "f1d21ae2a8fcc9636c48d159a517ed9dd95379ac770ad8302e7f3d11b9a66000",
+      "tokens": 980,
+      "original_memories": [
+        {
+          "id": "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+          "subject": "LDN7 Leda",
+          "predicate": "owns",
+          "object": "LDN7 Lantern",
+          "historical": false,
+          "valid_from": "2026-11-07T00:00:00.000Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "subject": "Fictional LDN7 Lantern",
+          "predicate": "color",
+          "object": "Within the fictional LDN7 scenario, LDN7 Lantern has always used amber and never used cobalt; Alex says the earlier cobalt claim was mistaken, not a formerly true state.",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_94163b5d-e2de-4cfe-950c-e2d56fac632b",
+          "subject": "LDN7 Nola",
+          "predicate": "owns",
+          "object": "LDN7 Lantern",
+          "historical": true,
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": "2026-11-07T00:00:00.000Z",
+          "historical_start_unknown": true,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94",
+          "subject": "LDN7 Mira",
+          "predicate": "reports_to",
+          "object": "LDN7 Nola",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_ab36996d-8abe-497d-8b9c-1d20196a37d8",
+          "subject": "LDN7 Nola",
+          "predicate": "reviews",
+          "object": "LDN7 Lantern checklist",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:11.302Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Still fictional LDN7: haha, the paper moon tastes like hiccups! Anyway, she also reviews the LDN7 Lantern checklist; by she I mean the person Mira reports to. No tools; acknowledge only.",
+              "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:11.302Z",
+              "accepted_at": "2026-11-07T11:40:12.248Z",
+              "evidence_root_ids": [
+                "native:reaver:d170bd72645c4a829261bef9878b8d2a"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_2d4241ab-1aea-41d4-a69e-e8e28bbd87d8",
+          "subject": "Nola",
+          "predicate": "owns",
+          "object": "LDN7 Lantern in the fictional LDN7 story",
+          "historical": true,
+          "valid_from": "2026-01-01T00:00:00.000Z",
+          "valid_to": "2026-11-07T00:00:00.000Z",
+          "historical_start_unknown": true,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_56af764a-b7b9-4398-a863-d1e059b068c5",
+          "subject": "LDN7 Lantern",
+          "predicate": "uses_color",
+          "object": "amber",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            },
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_62ab77c1-2cea-457e-9d75-6930b96ab2a5",
+          "subject": "LDN7 Lantern",
+          "predicate": "qualification",
+          "object": "fictional-only context, not real-world truth",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            },
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_af935bc5-2b9d-48b3-900d-7547c61880bf",
+          "subject": "LDN7 Nola",
+          "predicate": "qualification",
+          "object": "Fictional LDN7 archive context only; not real-world truth.",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:11.302Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Still fictional LDN7: haha, the paper moon tastes like hiccups! Anyway, she also reviews the LDN7 Lantern checklist; by she I mean the person Mira reports to. No tools; acknowledge only.",
+              "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:11.302Z",
+              "accepted_at": "2026-11-07T11:40:12.248Z",
+              "evidence_root_ids": [
+                "native:reaver:d170bd72645c4a829261bef9878b8d2a"
+              ]
+            }
+          ]
+        }
+      ],
+      "total_selected": 9,
+      "reporting": true,
+      "context_messages": 0
+    },
+    {
+      "engine": "baseline",
+      "disabled": false,
+      "original_only": false,
+      "query": "Who does LDN7 Mira report to? Who owns LDN7 Lantern now, and what is its true color?",
+      "context_sha256": "a3e486f3e7201b86a8e3791c3991715312e58a5ef8734fb61c05740a059d3893",
+      "tokens": 862,
+      "original_memories": [
+        {
+          "id": "memory_56af764a-b7b9-4398-a863-d1e059b068c5",
+          "subject": "LDN7 Lantern",
+          "predicate": "uses_color",
+          "object": "amber",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            },
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+          "subject": "LDN7 Leda",
+          "predicate": "owns",
+          "object": "LDN7 Lantern",
+          "historical": false,
+          "valid_from": "2026-11-07T00:00:00.000Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "subject": "Fictional LDN7 Lantern",
+          "predicate": "color",
+          "object": "Within the fictional LDN7 scenario, LDN7 Lantern has always used amber and never used cobalt; Alex says the earlier cobalt claim was mistaken, not a formerly true state.",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_ab36996d-8abe-497d-8b9c-1d20196a37d8",
+          "subject": "LDN7 Nola",
+          "predicate": "reviews",
+          "object": "LDN7 Lantern checklist",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:11.302Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Still fictional LDN7: haha, the paper moon tastes like hiccups! Anyway, she also reviews the LDN7 Lantern checklist; by she I mean the person Mira reports to. No tools; acknowledge only.",
+              "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:11.302Z",
+              "accepted_at": "2026-11-07T11:40:12.248Z",
+              "evidence_root_ids": [
+                "native:reaver:d170bd72645c4a829261bef9878b8d2a"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94",
+          "subject": "LDN7 Mira",
+          "predicate": "reports_to",
+          "object": "LDN7 Nola",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_62ab77c1-2cea-457e-9d75-6930b96ab2a5",
+          "subject": "LDN7 Lantern",
+          "predicate": "qualification",
+          "object": "fictional-only context, not real-world truth",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            },
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        }
+      ],
+      "total_selected": 7,
+      "reporting": true,
+      "context_messages": 0
+    },
+    {
+      "engine": "baseline",
+      "disabled": false,
+      "original_only": true,
+      "query": "Who does LDN7 Mira report to? Who owns LDN7 Lantern now, and what is its true color?",
+      "context_sha256": "7131e34e99d88a18cbb4cdb767eb02abaaf2ad1b6b6cf47cdc4e11466f3af253",
+      "tokens": 655,
+      "original_memories": [
+        {
+          "id": "memory_56af764a-b7b9-4398-a863-d1e059b068c5",
+          "subject": "LDN7 Lantern",
+          "predicate": "uses_color",
+          "object": "amber",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            },
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+          "subject": "LDN7 Leda",
+          "predicate": "owns",
+          "object": "LDN7 Lantern",
+          "historical": false,
+          "valid_from": "2026-11-07T00:00:00.000Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "subject": "Fictional LDN7 Lantern",
+          "predicate": "color",
+          "object": "Within the fictional LDN7 scenario, LDN7 Lantern has always used amber and never used cobalt; Alex says the earlier cobalt claim was mistaken, not a formerly true state.",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_ab36996d-8abe-497d-8b9c-1d20196a37d8",
+          "subject": "LDN7 Nola",
+          "predicate": "reviews",
+          "object": "LDN7 Lantern checklist",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:11.302Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Still fictional LDN7: haha, the paper moon tastes like hiccups! Anyway, she also reviews the LDN7 Lantern checklist; by she I mean the person Mira reports to. No tools; acknowledge only.",
+              "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:11.302Z",
+              "accepted_at": "2026-11-07T11:40:12.248Z",
+              "evidence_root_ids": [
+                "native:reaver:d170bd72645c4a829261bef9878b8d2a"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94",
+          "subject": "LDN7 Mira",
+          "predicate": "reports_to",
+          "object": "LDN7 Nola",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_62ab77c1-2cea-457e-9d75-6930b96ab2a5",
+          "subject": "LDN7 Lantern",
+          "predicate": "qualification",
+          "object": "fictional-only context, not real-world truth",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            },
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        }
+      ],
+      "total_selected": 6,
+      "reporting": true,
+      "context_messages": 0
+    },
+    {
+      "engine": "corrected",
+      "disabled": false,
+      "original_only": false,
+      "query": "Who does LDN7 Mira report to? Who owns LDN7 Lantern now, and what is its true color?",
+      "context_sha256": "a4dd83caf36ad0296261423d920786ee9a1ed8d88a9eb3352ec0f9d5f70bcf85",
+      "tokens": 1125,
+      "original_memories": [
+        {
+          "id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "subject": "Fictional LDN7 Lantern",
+          "predicate": "color",
+          "object": "Within the fictional LDN7 scenario, LDN7 Lantern has always used amber and never used cobalt; Alex says the earlier cobalt claim was mistaken, not a formerly true state.",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94",
+          "subject": "LDN7 Mira",
+          "predicate": "reports_to",
+          "object": "LDN7 Nola",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+          "subject": "LDN7 Leda",
+          "predicate": "owns",
+          "object": "LDN7 Lantern",
+          "historical": false,
+          "valid_from": "2026-11-07T00:00:00.000Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_56af764a-b7b9-4398-a863-d1e059b068c5",
+          "subject": "LDN7 Lantern",
+          "predicate": "uses_color",
+          "object": "amber",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            },
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_ab36996d-8abe-497d-8b9c-1d20196a37d8",
+          "subject": "LDN7 Nola",
+          "predicate": "reviews",
+          "object": "LDN7 Lantern checklist",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:11.302Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Still fictional LDN7: haha, the paper moon tastes like hiccups! Anyway, she also reviews the LDN7 Lantern checklist; by she I mean the person Mira reports to. No tools; acknowledge only.",
+              "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:11.302Z",
+              "accepted_at": "2026-11-07T11:40:12.248Z",
+              "evidence_root_ids": [
+                "native:reaver:d170bd72645c4a829261bef9878b8d2a"
+              ]
+            }
+          ]
+        }
+      ],
+      "total_selected": 7,
+      "reporting": true,
+      "context_messages": 0
+    },
+    {
+      "engine": "corrected",
+      "disabled": false,
+      "original_only": true,
+      "query": "Who does LDN7 Mira report to? Who owns LDN7 Lantern now, and what is its true color?",
+      "context_sha256": "3f6ef144f18cf91950d3b5c0aa9ade50ae7fc9a3171006605a60fe4d5083d1e0",
+      "tokens": 655,
+      "original_memories": [
+        {
+          "id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "subject": "Fictional LDN7 Lantern",
+          "predicate": "color",
+          "object": "Within the fictional LDN7 scenario, LDN7 Lantern has always used amber and never used cobalt; Alex says the earlier cobalt claim was mistaken, not a formerly true state.",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94",
+          "subject": "LDN7 Mira",
+          "predicate": "reports_to",
+          "object": "LDN7 Nola",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+          "subject": "LDN7 Leda",
+          "predicate": "owns",
+          "object": "LDN7 Lantern",
+          "historical": false,
+          "valid_from": "2026-11-07T00:00:00.000Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_56af764a-b7b9-4398-a863-d1e059b068c5",
+          "subject": "LDN7 Lantern",
+          "predicate": "uses_color",
+          "object": "amber",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            },
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_ab36996d-8abe-497d-8b9c-1d20196a37d8",
+          "subject": "LDN7 Nola",
+          "predicate": "reviews",
+          "object": "LDN7 Lantern checklist",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:11.302Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Still fictional LDN7: haha, the paper moon tastes like hiccups! Anyway, she also reviews the LDN7 Lantern checklist; by she I mean the person Mira reports to. No tools; acknowledge only.",
+              "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:11.302Z",
+              "accepted_at": "2026-11-07T11:40:12.248Z",
+              "evidence_root_ids": [
+                "native:reaver:d170bd72645c4a829261bef9878b8d2a"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_62ab77c1-2cea-457e-9d75-6930b96ab2a5",
+          "subject": "LDN7 Lantern",
+          "predicate": "qualification",
+          "object": "fictional-only context, not real-world truth",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            },
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        }
+      ],
+      "total_selected": 6,
+      "reporting": true,
+      "context_messages": 0
+    },
+    {
+      "engine": "baseline",
+      "disabled": true,
+      "original_only": false,
+      "query": "Who does LDN7 Mira report to? Who owns LDN7 Lantern now, and what is its true color?",
+      "context_sha256": "916d3cfc1330d5982b802dba164dbc26f2deb98e5c4bca0561fa37ce87b787aa",
+      "tokens": 146,
+      "original_memories": [
+        {
+          "id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "subject": "Fictional LDN7 Lantern",
+          "predicate": "color",
+          "object": "Within the fictional LDN7 scenario, LDN7 Lantern has always used amber and never used cobalt; Alex says the earlier cobalt claim was mistaken, not a formerly true state.",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        }
+      ],
+      "total_selected": 1,
+      "reporting": false,
+      "context_messages": 0
+    },
+    {
+      "engine": "baseline",
+      "disabled": true,
+      "original_only": true,
+      "query": "Who does LDN7 Mira report to? Who owns LDN7 Lantern now, and what is its true color?",
+      "context_sha256": "916d3cfc1330d5982b802dba164dbc26f2deb98e5c4bca0561fa37ce87b787aa",
+      "tokens": 146,
+      "original_memories": [
+        {
+          "id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "subject": "Fictional LDN7 Lantern",
+          "predicate": "color",
+          "object": "Within the fictional LDN7 scenario, LDN7 Lantern has always used amber and never used cobalt; Alex says the earlier cobalt claim was mistaken, not a formerly true state.",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        }
+      ],
+      "total_selected": 1,
+      "reporting": false,
+      "context_messages": 0
+    },
+    {
+      "engine": "corrected",
+      "disabled": true,
+      "original_only": false,
+      "query": "Who does LDN7 Mira report to? Who owns LDN7 Lantern now, and what is its true color?",
+      "context_sha256": "117249f8b5f133b1cc2a0dab02fddf1e5bbdda635ddcf042977523a7c3de69bc",
+      "tokens": 1104,
+      "original_memories": [
+        {
+          "id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "subject": "Fictional LDN7 Lantern",
+          "predicate": "color",
+          "object": "Within the fictional LDN7 scenario, LDN7 Lantern has always used amber and never used cobalt; Alex says the earlier cobalt claim was mistaken, not a formerly true state.",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94",
+          "subject": "LDN7 Mira",
+          "predicate": "reports_to",
+          "object": "LDN7 Nola",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+          "subject": "LDN7 Leda",
+          "predicate": "owns",
+          "object": "LDN7 Lantern",
+          "historical": false,
+          "valid_from": "2026-11-07T00:00:00.000Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ]
+        }
+      ],
+      "total_selected": 6,
+      "reporting": true,
+      "context_messages": 0
+    },
+    {
+      "engine": "corrected",
+      "disabled": true,
+      "original_only": true,
+      "query": "Who does LDN7 Mira report to? Who owns LDN7 Lantern now, and what is its true color?",
+      "context_sha256": "bb885cf3ddf98ee6fd3932fe538bc1a47fb965eb5c58a72a60ad4a8b30f3787d",
+      "tokens": 655,
+      "original_memories": [
+        {
+          "id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "subject": "Fictional LDN7 Lantern",
+          "predicate": "color",
+          "object": "Within the fictional LDN7 scenario, LDN7 Lantern has always used amber and never used cobalt; Alex says the earlier cobalt claim was mistaken, not a formerly true state.",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_2a0ddab2-4d0d-4dfd-b064-adad79b97b94",
+          "subject": "LDN7 Mira",
+          "predicate": "reports_to",
+          "object": "LDN7 Nola",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_c11e1ee2-cc69-490c-853e-f7b2dd630761",
+          "subject": "LDN7 Leda",
+          "predicate": "owns",
+          "object": "LDN7 Lantern",
+          "historical": false,
+          "valid_from": "2026-11-07T00:00:00.000Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_ab36996d-8abe-497d-8b9c-1d20196a37d8",
+          "subject": "LDN7 Nola",
+          "predicate": "reviews",
+          "object": "LDN7 Lantern checklist",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:11.302Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Still fictional LDN7: haha, the paper moon tastes like hiccups! Anyway, she also reviews the LDN7 Lantern checklist; by she I mean the person Mira reports to. No tools; acknowledge only.",
+              "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:11.302Z",
+              "accepted_at": "2026-11-07T11:40:12.248Z",
+              "evidence_root_ids": [
+                "native:reaver:d170bd72645c4a829261bef9878b8d2a"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_56af764a-b7b9-4398-a863-d1e059b068c5",
+          "subject": "LDN7 Lantern",
+          "predicate": "uses_color",
+          "object": "amber",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            },
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "memory_62ab77c1-2cea-457e-9d75-6930b96ab2a5",
+          "subject": "LDN7 Lantern",
+          "predicate": "qualification",
+          "object": "fictional-only context, not real-world truth",
+          "historical": false,
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "historical_start_unknown": false,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            },
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ]
+        }
+      ],
+      "total_selected": 6,
+      "reporting": true,
+      "context_messages": 0
+    }
+  ]
+}

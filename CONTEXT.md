@@ -1,5 +1,38 @@
 # Current project context
 
+## Retained original-claim reconciliation and direct-facet repair — 2026-11-07
+
+Source task t_eeafcd2f committed product26958d0c24de567eb1bd5fc4e0a3d88989e03175.
+The bounded indexed candidate pool now drains through at-most4-candidate identity/reconciliation
+windows instead of silently packing away retained originals. Native reconciliation-v2 requires
+one directional assessment per supplied ID; separate per-target truth types compile without
+forcing correction and formerly-true closure into one type. Live recorded semantic-duplicate
+proof propagates truth across supplied raw/typed claim groups; generic format supersession is
+not equivalence. Existing target/time/scope/support and no-fallback fences remain. Source-backed
+start_unknown audit qualifies legacy unsupported precision without rewriting raw IDs/dates.
+Multifacet lexical admission and complete-predicate packing restore direct reporting evidence;
+ordinary full-query lexical/moderate semantic/lexical-only fallback remain available.
+
+Exact current private prestate SHA25615c267c189f58276868d8eed2d2aec4066b722b0bb52c3b53f762b4458b6eae1
+at16:46:50Z reconciled correction succeeded2 but original cobalt/typed Nola still current.
+Real unchanged native-Luna outputs and final-source recorded-output integration on that prestate
+show corrected ORIGINAL cobalt, positive typed historical Nola ending2026-11-07T00:00:00.000Z,
+current Leda/reporting/review support, and unknown rather than endorsed legacy January precision.
+Intermediate model and replay-harness failures are retained. Final integration structurally
+projects independent recorded candidate outputs across final token windows with exact fingerprint
+identity mapping; it is not another model run or production acceptance. Full137tests/1156assertions,
+affected35/213, typecheck/frozen install and isolated on-disk E2E pass. Exact original native query
+copy recall includes typed Mira with normal and original-user-only evidence, MiniLM or lexical-only.
+
+No production writes/retry/reprocess/restart/session/config/grant/model/tunnel changes by Builder.
+Prior runtime t_b3950651 stays complete with failed/partial semantics. Root t_5f7f3afb assigned
+necessary activation/live outcome to Overwatch t_4fe812c6; source completion releases that lane,
+not same-card review. Reuse unchanged FEN9/helper/all-six/brand/preview/timing evidence. Increased
+candidate-window inference cost is not a freshness/latency guarantee. Read
+`evidence/original-truth-repair/HANDOFF.md` and SOURCE-VERIFICATION.json for hashes, actual outputs,
+finite evidence, limitations and minimal supported original-only remediation.
+
+
 ## Actual native Luna phase contract repair — 2026-11-07
 
 Source continuation t_6200b4e1 reproduces the affected native call seam on an exact private

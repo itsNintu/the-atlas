@@ -1,0 +1,188 @@
+bun test v1.4.4 (38afee6c8)
+
+tests/memory-repair.test.ts:
+(pass) forget root repairs echoes and pending retells but not independent later tool observations [83.25ms]
+(pass) forgotten support cannot return through in-flight consolidation with a surviving unrelated root [33.15ms]
+(pass) shared pending tail honors current read grants before content and freshness counts [4.04ms]
+(pass) private alias cannot reveal another agent canonical label and forgetting erases orphan entities [15.86ms]
+(pass) forgetting an intermediate state preserves independently observed later transition closure [34.53ms]
+(pass) populated original schema1 upgrade preserves auth, source provenance and facts; pristine backup remains rollbackable [255.72ms]
+(pass) independent concurrent subjects commit without a workspace cap; related concurrent beliefs retry [44.76ms]
+(pass) successive consolidation versions retain parent revisions and forget repairs every descendant [33.17ms]
+(pass) oversize current inference input fails visibly and stays durable rather than partial-success [8.91ms]
+
+tests/native-phase-contract.test.ts:
+(pass) native literal qualification identity receives an exact response contract, not an invitation to rewrite candidate literals [23.04ms]
+(pass) actual invalid literal candidate binding and ambiguous truth disposition stay fail-visible [0.34ms]
+(pass) same-source observation defaults cannot reverse time; real earlier supported prior truth still permits explicit handover [0.19ms]
+(pass) directional native schema compiles duplicate replacement and separate old truth without ambiguous target ownership [0.27ms]
+(pass) native exhaustive candidate contract rejects duplicate-only omissions and preserves mixed truth dispositions [0.13ms]
+
+tests/curation-time.test.ts:
+(pass) curator UTC fractions and zero offset project to existing millisecond storage without altering source text [0.22ms]
+(pass) curator date adaptation retains calendar/UTC/interval validation and never invents a widened interval [0.39ms]
+(pass) both dated tool representations process with unchanged identities, attribution and one evidence root [20.68ms]
+(pass) accepting natural dates does not relax current-event lineage checks [11.42ms]
+
+tests/recall-focus-repair.test.ts:
+(pass) exact native FEN9 new intake embeds substance, not fiction and reply wrappers [0.21ms]
+(pass) substantive declarations and ordinary questions do not implicitly request prior denials [0.21ms]
+(pass) focus retains factual negatives, temporal distinctions, exact names and ordinary technical requests [0.07ms]
+(pass) new intake excludes pure assistant availability denials but preserves real history and mixed useful notes [12.41ms]
+(pass) availability classification does not discard domain negatives or user/tool supported evidence [0.19ms]
+(pass) useful semantic aliases without literal overlap survive at 0.42 [6.84ms]
+(pass) useful semantic aliases without literal overlap survive at 0.5 [5.54ms]
+(pass) useful semantic aliases without literal overlap survive at 0.619 [6.26ms]
+(pass) lexical-only nonadjacent terms and ordinary followups remain supported [5.32ms]
+
+tests/recall-intent.test.ts:
+(pass) prior lack-of-evidence answers cannot dominate factual questions, even with identical embeddings [11.58ms]
+(pass) unrelated recall does not turn boilerplate into a match to a previous denial [4.62ms]
+(pass) fully specified question does not import its own answer instructions as pronoun context [7.07ms]
+(pass) real followup context and ordinary technical tools/memory questions remain searchable [5.87ms]
+(pass) a strong maintenance facet cannot prune an admitted reporting relation on the same entity [6.79ms]
+(pass) substantive conditional queries, long followups and domain negatives are not response boilerplate [15.75ms]
+(pass) historical context limitations remain retrievable without prescribed process wording [8.59ms]
+(pass) nonadjacent short lexical facts and long fully matched notes survive lexical-only fallback [9.62ms]
+(pass) long partial lexical relevance is unchanged even when a compatible embedding is weak [6.59ms]
+(pass) requested predicate alone cannot rescue another archive; independent semantic and lexical facets remain useful [11.83ms]
+(pass) lexical multifacet admission retains direct reporting without assistant recaps or literal scenario-code prerequisite [10.18ms]
+
+tests/recall-selection.test.ts:
+{"regression":"mixed-selection","budget":2000,"tokens":217,"memories":2,"pending":0,"omitted":943}
+{"regression":"mixed-selection","budget":99744,"tokens":217,"memories":2,"pending":0,"omitted":943}
+(pass) busy pending intake cannot enter or starve relevant own/shared processed recall [491.24ms]
+(pass) large pending intake does not displace an indivisible processed record [9.16ms]
+(pass) semantic-only evidence cannot be starved by a large pending backlog [82.14ms]
+
+tests/dreaming.test.ts:
+(pass) oversized Unicode event advances coherent bounded chunks without changing durable source or roots [251.39ms]
+(pass) indexed semantic paraphrase and one-hop relations are useful; unrelated and empty queries return none [303.62ms]
+(pass) FTS and semantic indexes enforce scope and delete/update cleanup synchronously [9.57ms]
+(pass) a correction cannot re-create the same invalidated positive claim under a new date [3.67ms]
+(pass) date-only correction preserves same claim with corrected interval and recorded history [20.04ms]
+(pass) query plans use serving indexes and LSH is deterministic/model-dimension fenced [3.30ms]
+(pass) additive serving migration backfills populated schema2 with unchanged custody/auth and resumes committed chunks [247.41ms]
+(pass) persistent embedding HTTP uses exact protocol/identity and rejects mismatched replies [5.58ms]
+
+tests/memory-responsiveness.test.ts:
+{"regression":"curation-http","max_http_ms":101,"probes":2,"preflights_at_response":0}
+(pass) health and authenticated jobs respond during four long curation preflights with a queued backlog [389.68ms]
+{"regression":"recall-http","max_http_ms":1,"probes":2,"tokens":0}
+(pass) health and authenticated jobs respond while recall packs 230 pending excerpts with exact tokens [84.13ms]
+(pass) forget during packing cannot reach the curator with cached support [57.85ms]
+(pass) forget of a packed pending event fails closed without a recall receipt [13.50ms]
+(pass) credential revocation during packing blocks returned context [13.17ms]
+(pass) unrelated capture and unused grant removal do not invalidate packed context [12.61ms]
+(pass) mutable usage feedback does not invalidate selected memory evidence [62.49ms]
+(pass) forget during recall packing cannot return selected belief text [14.86ms]
+
+tests/graph.test.ts:
+(pass) bounded graph expansion follows only authorized live temporal edges with provenance [6.68ms]
+
+tests/races.test.ts:
+(pass) hybrid context cannot return facts forgotten during embedding [5.94ms]
+(pass) credential revoked during streamed body is rejected before a write [5.08ms]
+(pass) credential and space-grant revocation during inference both fail closed [11.11ms]
+(pass) forget during extraction prevents a subsequent embedding call [5.38ms]
+(pass) calendar normalization rejects impossible dates [0.06ms]
+
+tests/lifecycle.test.ts:
+(pass) ingests explicit assertions as durable source-linked facts, not NL extraction [3.78ms]
+(pass) source formats text, JSON and timestamped messages work without invented extraction [3.58ms]
+(pass) idempotency canonicalizes object key ordering and conflicts on changed request [3.01ms]
+(pass) workspace boundary denies source/job/provenance reads, writes and inference [3.93ms]
+(pass) personal spaces are owner-only, shared grants allow only explicit actions and revocation applies to replay [3.94ms]
+(pass) correction closes recorded-time interval, preserves historical evidence and enforces revision CAS [9.77ms]
+(pass) valid-time intervals are half-open and relative dates are not fabricated [3.35ms]
+(pass) forget erases revisions and orphan facts, preserves independent same-space support only [4.33ms]
+(pass) forgetting and correcting queued work cannot resurrect forgotten or superseded facts [3.87ms]
+(pass) job lease fencing rejects stale results and retries provider network failures [7.66ms]
+(pass) expired leases recover, and exhausted final crash becomes failed [3.24ms]
+(pass) budgets include Unicode code points and provenance handles, not response metadata [3.46ms]
+(pass) pagination is stable for unchanged data and binds cursor to caller/query [3.46ms]
+(pass) missing and revoked credentials fail without leaking source contents [2.65ms]
+(pass) no-provider mode is actionable and does not manufacture natural-language output [3.56ms]
+(pass) input contracts reject invalid intervals, message timestamps and malformed JSON [2.66ms]
+
+tests/recall-specificity.test.ts:
+(pass) coded-topic syntax does not raise semantic admission for moderate paraphrases or aliases [82.55ms]
+(pass) below-threshold unrelated evidence is excluded with or without a named code [4.26ms]
+(pass) coded-topic syntax preserves ordinary lexical-only fallback without matching marker [4.86ms]
+(pass) named topic can recall strong semantic alias and linked relationship without literal code; incidental code is not a gate [9.84ms]
+(pass) explicit source topic/action/time beats generic older or wrong-topic receipt, without a newest-outcome rule [8.20ms]
+
+tests/recall-completion.test.ts:
+(pass) closed LF counts equal full encoding for actual record prefixes in both supported encodings [202.22ms]
+(pass) all budgets exclude pending transcript while preserving custody and metadata [7.03ms]
+{"regression":"recall-completion","elapsed_ms":4858,"pending":643,"memories":161,"concurrent":3,"tokens":[54019,1785,54019]}
+(pass) three recalls complete inside native 25s timeout with 643 large pending events and 161 ranked memories [5159.17ms]
+(pass) semantic-ranked processed evidence remains useful alongside a large short-pending backlog [2513.21ms]
+
+tests/relational-reconciliation.test.ts:
+(pass) atomic typed object entities include never-subject targets; literals stay literals; scope/scenario identities do not pool [52.04ms]
+(pass) never-true correction targets all stale aliases/wordings, not the already-correct history narrative; unrelated/co-owner facts survive [74.25ms]
+(pass) handover closes duplicate alias claims at actual effective date even before observation default; retains prior truth with unknown start [42.57ms]
+(pass) late original reprocess cannot reopen a later-supported correction or handover; audit cites later original not delivery order [39.48ms]
+(pass) semantic duplicate normalization preserves roots and prior correction; compatible co-owners remain separate [42.37ms]
+(pass) reconciliation fences changed evidence after await, rejects unsupported IDs and preserves interval corrections [53.06ms]
+(pass) on-disk reopen migrates supported old aliases by scope, typed targets survive reopen and forget removes support/targets/audit [98.76ms]
+(pass) focused relation windows retain actual ownership targets amid duplicate long qualification narratives; duplicate and change can combine [373.37ms]
+(pass) focused sourced identities canonicalize launch wording before handover and late original reconciliation without merging namesakes [69.58ms]
+(pass) write-only shared scope still accepts new knowledge but supplies no unreadable reconciliation candidates [19.44ms]
+(pass) identity proof is scoped and recorded, actor retargeting is quarantined, and forgetting removes alias/equivalence proof [67.52ms]
+(pass) canonical same-claim same-interval state output normalizes to duplicate, not false handover; distinct actors and dates do not [0.18ms]
+(pass) three phase packing reserves headroom and advances oversized Unicode without changing accepted source [278.06ms]
+(pass) repeated alias-format reconciliation preserves a positive prior state instead of supersession cycles hiding every representation [67.90ms]
+(pass) all retained relation candidates drain through bounded windows; duplicate correct replacement does not hide stale targets [209.89ms]
+(pass) window merge preserves independent correction and formerly-true closure, including omitted versus explicit claim aspect [0.31ms]
+(pass) recorded live semantic equivalence propagates handover to typed original group; representation retirement alone is not equivalence [45.86ms]
+(pass) source-backed unknown historical start preserves raw bounds and recorded history without endorsing legacy precision [48.46ms]
+(pass) later truth disposition reaches original semantic duplicate as well as newly normalized representation [29.67ms]
+
+tests/freshness.test.ts:
+(pass) fresh coherent conversations advance behind inherited backlog while old work has reserved service [603.82ms]
+(pass) single-flight chronology includes retry backoff and expired claims across workers [5.23ms]
+(pass) fairness survives reopen and active fresh arrivals cannot starve inherited work [384.63ms]
+(pass) named topics retain configured semantic admission and prefer directly matching facts when available [17.54ms]
+(pass) explicit history query includes closed state but never retracted false belief [10.39ms]
+
+tests/memory.test.ts:
+(pass) HTTP capture is durable; shared freshness, bindings and revision fences are deterministic [8.23ms]
+(pass) state reversal, current/history, never-true correction and delayed older state do not last-arrival-win [50.52ms]
+(pass) compatible additions, conflicts, entity aliases and private hypotheses stay scoped [44.64ms]
+(pass) edit/delete repair removes derived vectors/versions/pending, retains independent support and undo changes [30.63ms]
+(pass) retrieval is not utility or evidence; explicit outcome-linked feedback reinforces only selected IDs [12.82ms]
+(pass) budget includes framing and pending; fading does not erase dormant truth; retention never erases failed/pending work [14.74ms]
+(pass) in-flight forget, credential revocation, scope violations and transient retries are fenced [25.81ms]
+(pass) recall rechecks authorization and forget after semantic await [11.60ms]
+(pass) schema1 upgrade preserves saved credentials/facts; on-disk pending and lease recover [220.24ms]
+(pass) provider schema failures are safe retryable failures and recognized JSON/assignment secrets redact [0.34ms]
+(pass) command adapter enforces identity/JSON/output timeout without shell [116.06ms]
+
+tests/identity.test.ts:
+(pass) The Atlas configuration takes precedence and keeps legacy aliases [0.13ms]
+(pass) database defaults preserve existing legacy data and reject ambiguous copies [3.85ms]
+(pass) CLI reports the current product and package version [19.34ms]
+
+tests/memory-reprocess.test.ts:
+(pass) audited HTTP memory reprocess retains original custody/outcome, idempotency and on-disk lifecycle [89.23ms]
+(pass) reprocessing cannot cross bindings, overlap work, use missing content or resurrect deleted source [10.99ms]
+
+tests/memory-graph.test.ts:
+(pass) persisted scoped graph connects real entities; text stays literal; pending intake is only diagnostics [11.40ms]
+(pass) bindings, mixed scopes, revocation, admin and cross-workspace fences precede graph counts [13.46ms]
+(pass) valid/recorded snapshot, state changes, never-true corrections, provenance and real versions remain distinct [7.03ms]
+(pass) forget/edit removes graph and historical evidence, keeps independent supported claims, repairs changes [6.21ms]
+(pass) entity identity never leaks across scopes; search/limit/truncation and malformed inputs are honest [5.50ms]
+(pass) retained known historical entities stay connected; source redaction and provenance bounds are explicit [4.56ms]
+(pass) HTTP v1 envelope, authentication, no idempotency requirement and private static asset policy [10.10ms]
+
+tests/storage.test.ts:
+(pass) WAL diagnostics identify known unpatched versions and published fixes [0.09ms]
+(pass) long reader cannot prevent logical forget; checkpoint reports busy and succeeds after reader closes [65.00ms]
+
+ 137 pass
+ 0 fail
+ 1156 expect() calls
+Ran 137 tests across 20 files. [14.53s]
