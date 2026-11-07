@@ -1,2 +1,4 @@
 * text=auto eol=lf
 *.png binary
+# Preserve upstream font license bytes recorded in ui/brand/sources.json.
+ui/brand/*-OFL.txt binary
