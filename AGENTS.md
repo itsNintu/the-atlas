@@ -1,4 +1,4 @@
-# ThreadAtlas engineering
+# The Atlas engineering
 
 Apache-2.0 source-linked graph/context-memory product. M0 is a bounded alpha, not Zep parity.
 Use Bun/TypeScript. Canonical code is this repository; no Hermes runtime dependency.

@@ -3,7 +3,7 @@ const proc = Bun.spawn(["git", "ls-files", "-z"], { stdout: "pipe" });
 const files = (await new Response(proc.stdout).text()).split("\0").filter(Boolean);
 if (await proc.exited) throw Error("git ls-files failed");
 const rules: [string, RegExp][] = [
-  ["threadatlas_token", /ta_[A-Za-z0-9_-]{40,}/],
+  ["the-atlas_token", /ta_[A-Za-z0-9_-]{40,}/],
   ["github_token", /gh[pousr]_[A-Za-z0-9]{25,}/],
   ["openai_key", /sk-(?:proj-)?[A-Za-z0-9_-]{30,}/],
   ["private_key", /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/],

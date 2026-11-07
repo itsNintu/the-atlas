@@ -425,8 +425,10 @@ test("missing and revoked credentials fail without leaking source contents", asy
   expect(JSON.stringify(audit)).not.toContain(key.token);
 });
 test("no-provider mode is actionable and does not manufacture natural-language output", async () => {
-  const old = process.env.THREADATLAS_PROVIDER_API_KEY,
+  const old = process.env.THE_ATLAS_PROVIDER_API_KEY,
+    legacy = process.env.THREADATLAS_PROVIDER_API_KEY,
     old2 = process.env.OPENAI_API_KEY;
+  delete process.env.THE_ATLAS_PROVIDER_API_KEY;
   delete process.env.THREADATLAS_PROVIDER_API_KEY;
   delete process.env.OPENAI_API_KEY;
   try {
@@ -440,13 +442,14 @@ test("no-provider mode is actionable and does not manufacture natural-language o
     expect(job.error_code).toBe("provider_unavailable");
     expect((await f.context()).body.facts).toHaveLength(0);
     expect((await f.call("GET", "/v1/status")).body.provider.action).toContain(
-      "THREADATLAS_PROVIDER_API_KEY",
+      "THE_ATLAS_PROVIDER_API_KEY",
     );
     expect(
       (await f.call("POST", `/v1/jobs/${r.job_id}/retry`, {})).body.status,
     ).toBe("queued");
   } finally {
-    if (old !== undefined) process.env.THREADATLAS_PROVIDER_API_KEY = old;
+    if (old !== undefined) process.env.THE_ATLAS_PROVIDER_API_KEY = old;
+    if (legacy !== undefined) process.env.THREADATLAS_PROVIDER_API_KEY = legacy;
     if (old2 !== undefined) process.env.OPENAI_API_KEY = old2;
   }
 });

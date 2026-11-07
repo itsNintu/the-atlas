@@ -113,7 +113,7 @@ export class Store {
       fail(
         500,
         "schema_too_new",
-        "Upgrade ThreadAtlas before opening this database",
+        "Upgrade The Atlas before opening this database",
       );
     }
     this.transaction(() => {

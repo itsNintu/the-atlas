@@ -1,4 +1,6 @@
 #!/usr/bin/env bun
+import { setting, databasePath } from "./config.ts";
+import { version } from "../package.json";
 import { Store, id } from "./store.ts";
 import {
   mkdirSync,
@@ -24,17 +26,14 @@ function option(name: string, fallback?: string): string | undefined {
   args.splice(i, 2);
   return value;
 }
-const db = option(
-  "db",
-  process.env.THREADATLAS_DB ?? "./data/threadatlas.sqlite",
-)!;
+const db = option("db");
 const credential_file = option(
   "credential-file",
-  process.env.THREADATLAS_CREDENTIAL_FILE ?? "./data/admin.credentials.json",
+  setting("CREDENTIAL_FILE") ?? "./data/admin.credentials.json",
 )!;
 const base = option(
   "url",
-  process.env.THREADATLAS_URL ?? "http://127.0.0.1:8787",
+  setting("URL") ?? "http://127.0.0.1:8787",
 )!;
 function output(x: unknown) {
   console.log(JSON.stringify(x, null, 2));
@@ -91,7 +90,7 @@ try {
     const fd = openSync(credential_file, "wx", 0o600); // Reserve file before changing the DB; never overwrite an existing key.
     let store: Store | undefined;
     try {
-      store = new Store(db);
+      store = new Store(db ?? databasePath());
       const result = store.transaction(() => {
         const result =
           command === "bootstrap"
@@ -182,8 +181,8 @@ try {
     }
   } else {
     output({
-      product: "ThreadAtlas",
-      version: "0.1.0-alpha.0",
+      product: "The Atlas",
+      version,
       commands: [
         "bootstrap --name NAME --credential-file FILE [--db FILE]",
         "issue-key --principal-id ID --credential-file NEW_FILE [--db FILE] (local OS operator)",

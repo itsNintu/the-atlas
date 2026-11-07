@@ -38,8 +38,8 @@ try {
   );
   live = await server(db, false);
   const env = {
-    THREADATLAS_CREDENTIAL_FILE: credentials,
-    THREADATLAS_URL: live.url,
+    THE_ATLAS_CREDENTIAL_FILE: credentials,
+    THE_ATLAS_URL: live.url,
   };
   const project = await cli(
     ["api", "POST", "/v1/projects"],
@@ -93,7 +93,7 @@ try {
   await live.proc.exited;
   await Bun.sleep(300);
   live = await server(db, true);
-  env.THREADATLAS_URL = live.url;
+  env.THE_ATLAS_URL = live.url;
   assert.equal(
     (await waitJob(live.url, token, first.job_id)).status,
     "succeeded",
@@ -217,7 +217,7 @@ try {
     if (existsSync(db + suffix)) copyFileSync(db + suffix, restoredDB + suffix);
   copyFileSync(credentials, join(restored, "admin.credentials.json"));
   live = await server(restoredDB, true);
-  env.THREADATLAS_URL = live.url;
+  env.THE_ATLAS_URL = live.url;
   const demo = await Bun.spawn([process.execPath, "examples/workflow.ts"], {
     cwd: repo,
     env: { ...process.env, ...env },

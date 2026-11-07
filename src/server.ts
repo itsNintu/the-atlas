@@ -1,15 +1,16 @@
+import { setting, databasePath } from "./config.ts";
 import { Store } from "./store.ts";
 import { App } from "./app.ts";
 import { Worker } from "./worker.ts";
 
 const store = new Store(
-  process.env.THREADATLAS_DB ?? "./data/threadatlas.sqlite",
+  databasePath(),
 );
 const app = new App(store),
   worker = new Worker(store);
 const server = Bun.serve({
-  hostname: process.env.THREADATLAS_HOST ?? "127.0.0.1",
-  port: Number(process.env.THREADATLAS_PORT ?? 8787),
+  hostname: setting("HOST") ?? "127.0.0.1",
+  port: Number(setting("PORT") ?? 8787),
   maxRequestBodySize: 1_000_000,
   idleTimeout: 60,
   fetch: (r) => app.fetch(r),
@@ -18,7 +19,7 @@ let stopping = false;
 async function work() {
   let processed = 0;
   while (!stopping) {
-    if (process.env.THREADATLAS_WORKER !== "false") {
+    if (setting("WORKER") !== "false") {
       try {
         if (await worker.runOnce()) {
           if (++processed % 16 === 0) await Bun.sleep(1);
@@ -43,7 +44,7 @@ console.log(
     url: server.url.toString(),
     api_version: "v1",
     schema_version: 1,
-    worker_enabled: process.env.THREADATLAS_WORKER !== "false",
+    worker_enabled: setting("WORKER") !== "false",
   }),
 );
 async function stop() {

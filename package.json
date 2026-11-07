@@ -1,9 +1,13 @@
 {
-  "name": "threadatlas",
-  "version": "0.1.0-alpha.0",
+  "name": "the-atlas",
+  "version": "0.1.0-alpha.1",
   "private": true,
   "type": "module",
   "license": "Apache-2.0",
+  "description": "The Atlas: standalone source-linked graph/context memory for agents",
+  "repository": { "type": "git", "url": "https://github.com/itsNintu/the-atlas.git" },
+  "homepage": "https://github.com/itsNintu/the-atlas#readme",
+  "bugs": { "url": "https://github.com/itsNintu/the-atlas/issues" },
   "engines": {
     "bun": ">=1.2.21"
   },

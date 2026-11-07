@@ -1,8 +1,8 @@
-# ThreadAtlas
+# The Atlas
 
 **Source-linked graph memory for agents, with durable jobs and a bounded context response.**
 
-ThreadAtlas is a standalone, self-hosted **0.1 alpha**. An agent can ingest text, JSON or timestamped
+The Atlas is a standalone, self-hosted **0.1 alpha**. An agent can ingest text, JSON or timestamped
 messages, supply explicit relationship assertions, retrieve evidence under a character budget, inspect
 provenance, correct a source, and forget it without leaving unsupported facts behind. It needs Bun and
 a local filesystem, not Hermes, Docker, a hosted graph database, or a private account.
@@ -10,13 +10,16 @@ a local filesystem, not Hermes, Docker, a hosted graph database, or a private ac
 A small browser inspector uses the same real REST APIs as the JSON CLI. Workspace-bound credentials
 and explicit space/action grants keep separate callers and personal/shared spaces isolated.
 
+Current version: **0.1.0-alpha.1**. Formerly ThreadAtlas; see the
+[rename and upgrade notes](docs/rename.md). API/schema and existing credentials are unchanged.
+
 ## Try it
 
 Install [Bun](https://bun.sh/) (1.4.4 is the verified, recommended baseline), then:
 
 ```sh
-git clone https://github.com/itsNintu/threadatlas.git
-cd threadatlas
+git clone https://github.com/itsNintu/the-atlas.git
+cd the-atlas
 bun install --frozen-lockfile
 bun run cli bootstrap --name 'My workspace'
 bun start

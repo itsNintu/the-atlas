@@ -1,3 +1,4 @@
+import { setting } from "./config.ts";
 import { Store, id, now, hash, canonical, type Actor } from "./store.ts";
 import { ApiError, fail, integer, object, text, timestamp } from "./errors.ts";
 import {
@@ -604,7 +605,7 @@ export class App {
         status,
       );
     } finally {
-      if (process.env.THREADATLAS_LOG_REQUESTS === "true")
+      if (setting("LOG_REQUESTS") === "true")
         console.log(
           JSON.stringify({
             request_id,

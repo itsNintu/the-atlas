@@ -1,3 +1,4 @@
+import { setting } from "./config.ts";
 import { ApiError, fail } from "./errors.ts";
 import { assertions, type Assertion } from "./store.ts";
 
@@ -10,15 +11,15 @@ export interface ExtractionProvider {
 export function providerStatus() {
   return {
     configured: !!(
-      process.env.THREADATLAS_PROVIDER_API_KEY || process.env.OPENAI_API_KEY
+      setting("PROVIDER_API_KEY") || process.env.OPENAI_API_KEY
     ),
     provider: "openai_compatible",
     extraction_model:
-      process.env.THREADATLAS_EXTRACTION_MODEL ?? "gpt-4.1-mini",
+      setting("EXTRACTION_MODEL") ?? "gpt-4.1-mini",
     embedding_model:
-      process.env.THREADATLAS_EMBEDDING_MODEL ?? "text-embedding-3-small",
+      setting("EMBEDDING_MODEL") ?? "text-embedding-3-small",
     action:
-      "Set THREADATLAS_PROVIDER_API_KEY (or OPENAI_API_KEY), optional THREADATLAS_PROVIDER_BASE_URL and model variables; restart, then retry the failed job. Assertions mode works without any provider.",
+      "Set THE_ATLAS_PROVIDER_API_KEY (or OPENAI_API_KEY), optional THE_ATLAS_PROVIDER_BASE_URL and model variables; restart, then retry the failed job. Assertions mode works without any provider.",
   };
 }
 export class OpenAICompatible implements ExtractionProvider {
@@ -26,10 +27,10 @@ export class OpenAICompatible implements ExtractionProvider {
   readonly embedding_model = providerStatus().embedding_model;
   private async call(path: string, body: unknown): Promise<any> {
     const key =
-      process.env.THREADATLAS_PROVIDER_API_KEY || process.env.OPENAI_API_KEY;
+      setting("PROVIDER_API_KEY") || process.env.OPENAI_API_KEY;
     if (!key) fail(503, "provider_unavailable", providerStatus().action, false);
     const base =
-      process.env.THREADATLAS_PROVIDER_BASE_URL ?? "https://api.openai.com/v1";
+      setting("PROVIDER_BASE_URL") ?? "https://api.openai.com/v1";
     const url = new URL(base);
     if (
       url.protocol !== "https:" &&

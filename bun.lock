@@ -3,7 +3,7 @@
   "configVersion": 0,
   "workspaces": {
     "": {
-      "name": "threadatlas",
+      "name": "the-atlas",
       "devDependencies": {
         "@playwright/test": "1.55.1",
         "@types/bun": "1.4.4",

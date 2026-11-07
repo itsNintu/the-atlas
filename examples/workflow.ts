@@ -1,11 +1,12 @@
+import { setting } from "../src/config.ts";
 import { readFileSync, statSync } from "node:fs";
 import assert from "node:assert/strict";
 const credential_file =
-  process.env.THREADATLAS_CREDENTIAL_FILE ?? "./data/admin.credentials.json";
+  setting("CREDENTIAL_FILE") ?? "./data/admin.credentials.json";
 if (process.platform !== "win32" && statSync(credential_file).mode & 0o077)
   throw Error("Credential file must be mode 0600");
 const { token } = JSON.parse(readFileSync(credential_file, "utf8"));
-const base = process.env.THREADATLAS_URL ?? "http://127.0.0.1:8787",
+const base = setting("URL") ?? "http://127.0.0.1:8787",
   url = new URL(base);
 if (
   url.protocol !== "https:" &&

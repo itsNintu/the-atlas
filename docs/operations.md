@@ -9,9 +9,10 @@ Default listener is loopback `127.0.0.1:8787`. Keep it there unless you configur
 proxy. No CORS is enabled. The static UI has a restrictive self-only CSP and uses textContent for
 untrusted content. Browser tokens stay in tab memory; XSS and compromised OS access remain threats.
 
-Variables: THREADATLAS_DB, THREADATLAS_HOST, THREADATLAS_PORT, THREADATLAS_WORKER (false disables job
-processing), THREADATLAS_LOG_REQUESTS=true (safe request ID/method/status/duration, no body/headers).
-Provider variables are in .env.example. CLI adds THREADATLAS_URL and THREADATLAS_CREDENTIAL_FILE.
+Variables: THE_ATLAS_DB, THE_ATLAS_HOST, THE_ATLAS_PORT, THE_ATLAS_WORKER (false disables job
+processing), THE_ATLAS_LOG_REQUESTS=true (safe request ID/method/status/duration, no body/headers).
+Provider variables are in .env.example. CLI adds THE_ATLAS_URL and THE_ATLAS_CREDENTIAL_FILE.
+Legacy `THREADATLAS_` variables and existing data/credentials remain usable; see [rename notes](rename.md).
 Never share a real .env, database, credential file, or source export in an issue.
 
 Use a private local directory, local filesystem (not network-shared SQLite), and a dedicated OS user
@@ -49,12 +50,12 @@ model output with fabricated facts to make a job green. Superseded/forgotten rev
 
 ## Backup / restore (tested offline workflow)
 
-1. Stop every ThreadAtlas process using the database. This is important: copying only the live .sqlite
+1. Stop every The Atlas process using the database. This is important: copying only the live .sqlite
    file while WAL is active is not a safe backup.
 2. Keep a protected copy of the database **and** its -wal/-shm siblings if present, or checkpoint using
    SQLite while no server is running. Treat all of them as sensitive, as well as credential files.
 3. Copy the complete stopped data directory to a protected destination. Start the service again.
-4. Restore to a **new private directory** while the server is stopped. Set THREADATLAS_DB and the CLI
+4. Restore to a **new private directory** while the server is stopped. Set THE_ATLAS_DB and the CLI
    credential path to the restored location. Start, run doctor and verify a known source-linked query.
 5. For integrity inspection, use Bun's sqlite API or SQLite `PRAGMA integrity_check` on the stopped copy.
 

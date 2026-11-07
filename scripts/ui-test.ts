@@ -20,6 +20,8 @@ try {
     page = await context.newPage();
   page.on("pageerror", (e) => errors.push(e.message));
   await page.goto(live.url);
+  await expect(page).toHaveTitle("The Atlas · Evidence inspector");
+  await expect(page.locator("h1")).toContainText("The Atlas");
   await expect(
     page.getByRole("heading", { name: "Connect your workspace" }),
   ).toBeVisible();

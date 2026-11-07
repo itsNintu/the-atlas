@@ -1,6 +1,6 @@
 # Third-party components and references
 
-ThreadAtlas application implementation is original Apache-2.0 code. No Graphiti code is bundled.
+The Atlas application implementation is original Apache-2.0 code. No Graphiti code is bundled.
 A source distribution includes neither Bun, node_modules nor browser binaries.
 
 Installed development dependencies (see bun.lock for exact resolved versions/integrity):

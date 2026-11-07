@@ -14,7 +14,7 @@ bun start
 bun run cli doctor
 ```
 
-The default database is `data/threadatlas.sqlite`. Bootstrap creates a workspace and a human
+The default database is `data/the-atlas.sqlite`. Bootstrap creates a workspace and a human
 administrator and exclusively writes `data/admin.credentials.json`. Repeating it with that filename
 fails rather than overwriting a credential. An OS operator may bootstrap another workspace using a
 **new** credential filename against the same database. Local filesystem access is the operator trust
@@ -187,10 +187,10 @@ Set variables in your process or an untracked `.env`:
 
 ```sh
 # Set the key through your normal secret manager, not shell history.
-# THREADATLAS_PROVIDER_API_KEY=...
-# THREADATLAS_PROVIDER_BASE_URL=https://api.openai.com/v1
-# THREADATLAS_EXTRACTION_MODEL=gpt-4.1-mini
-# THREADATLAS_EMBEDDING_MODEL=text-embedding-3-small
+# THE_ATLAS_PROVIDER_API_KEY=...
+# THE_ATLAS_PROVIDER_BASE_URL=https://api.openai.com/v1
+# THE_ATLAS_EXTRACTION_MODEL=gpt-4.1-mini
+# THE_ATLAS_EMBEDDING_MODEL=text-embedding-3-small
 bun run provider:probe
 ```
 
