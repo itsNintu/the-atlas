@@ -144,7 +144,12 @@ test("semantic-ranked processed evidence remains useful alongside a large short-
     expect(evidence.scope).toBe("agent:default");
     expect(evidence.evidence_roots).toHaveLength(1);
     expect(evidence.supports[0].event_id).toBe("seed");
-    expect(r.pending_events).toHaveLength(643);
+    // Mixed selection now gives processed evidence turns instead of exhausting
+    // the budget with all 643 pending notes first. Both remain useful and every
+    // omitted pending item stays durable/visible in freshness diagnostics.
+    expect(r.pending_events.length).toBeGreaterThan(0);
+    expect(r.freshness.pending_count).toBe(643);
+    expect(r.freshness.pending_included + r.freshness.pending_omitted).toBe(643);
     expect(r.tokens_used).toBe(memoryTokens(r.context));
     expect(r.tokens_used).toBeLessThanOrEqual(99744);
   } finally { f.store.close(); }
