@@ -12,8 +12,34 @@ function fixture(){
   return s.one('SELECT memory_id id FROM memory_supports WHERE event_pk=?',e.id).id;
  };
  const recall=(query:string,extra:any={})=>m.recall(a,{agent_id:'builder',thread_id:'query',query,token_budget:1200,...extra});
- return {s,seed,recall};
+ return {s,seed,recall,m};
 }
+test('coded-topic syntax does not raise semantic admission for moderate paraphrases or aliases',async()=>{
+ for(const topic of ['fictional','project','exercise','task','ticket','fixture'])for(const similarity of [.42,.5,.619]){
+  const f=fixture();
+  const alias=f.seed('moderate-alias','Candle Archive','calibrated_by','Nola','2026-01-01T00:00:00.000Z',similarity);
+  const r=await f.recall(`What does ${topic} LDN7 say about furnace technicians?`);
+  expect(r.memories.map(x=>x.id)).toContain(alias);
+  expect(r.memories[0].semantic).toBeCloseTo(similarity,6);
+  f.s.close();
+ }
+});
+test('below-threshold unrelated evidence is excluded with or without a named code',async()=>{
+ const f=fixture();
+ f.seed('unrelated','Candle Archive','calibrated_by','Nola','2026-01-01T00:00:00.000Z',.419);
+ for(const query of ['What does fictional LDN7 say about furnace technicians?','Who handles furnace maintenance?']){
+  const r=await f.recall(query);expect(r.memories).toEqual([]);expect(r.pending_events).toEqual([]);expect(r.tokens_used).toBe(0);
+ }
+ f.s.close();
+});
+test('coded-topic syntax preserves ordinary lexical-only fallback without matching marker',async()=>{
+ const f=fixture();
+ const id=f.seed('lexical','kiln calibration','owner','Mira','2026-01-01T00:00:00.000Z',0);
+ f.m.inference.embed=async()=>({vectors:[],model:'disabled'});
+ const r=await f.recall('project LDN7 kiln calibration');
+ expect(r.memories.map(x=>x.id)).toContain(id);expect(r.memories[0].semantic).toBe(0);expect(r.memories[0].lexical).toBeGreaterThanOrEqual(.34);
+ f.s.close();
+});
 test('named topic can recall strong semantic alias and linked relationship without literal code; incidental code is not a gate',async()=>{
  const f=fixture(),at='2026-01-01T00:00:00.000Z';
  const owner=f.seed('owner','Lantern','owner','Nola',at,1,'fictional LDN7 archive: Lantern is owned by Nola');

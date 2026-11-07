@@ -689,16 +689,15 @@ export class Memory {
     scopes = this.authorize(a, b.agent_id);
     const rows = budget ? indexedCandidates(this.store, a.workspace_id, scopes, searchQuery, qvector, qmodel) : [];
     const ts = queryTerms(searchQuery);
-    // Named coded topics need stronger evidence than generic fixture overlap.
-    // A literal identifier is not mandatory: high-confidence semantic aliases
-    // and exact entity relationships remain eligible without repeating a code.
+    // Named topics contribute ranking specificity only. They must not change
+    // lexical/semantic admission or require literal code repetition by aliases.
     const dated = query.match(/\b\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})?/i)?.[0];
     const queryTime = dated ? Date.parse(/[zZ]|[+-]\d{2}:\d{2}$/.test(dated) ? dated : dated + 'Z') : NaN;
     // ISO date fragments such as 07t07 are not topic identifiers.
     const withoutDates = query.replace(/\b\d{4}-\d{2}-\d{2}(?:T[\d:.]+(?:Z|[+-]\d{2}:\d{2})?)?/gi, ' ');
-    // Only syntactically named topics, not every incidental model/version code
-    // (e.g. 'For GPT4, explain the furnace'). Support or a selected seed's
-    // exact entity relationship can also establish coded-topic relevance.
+    // Only syntactically named topics receive a ranking hint, not every
+    // incidental model/version code (e.g. 'For GPT4, explain the furnace').
+    // Claim/support matches are optional bonuses, never eligibility fences.
     const anchors = [...withoutDates.matchAll(/\b(?:fictional|project|exercise|task|ticket|fixture)\s+([\p{L}_][\p{L}\p{N}_]*)/giu)]
       .map(x => x[1]!.normalize('NFKC').toLowerCase()).filter(t => /\p{N}/u.test(t));
     const anchored = (m:any) => {
@@ -724,7 +723,7 @@ export class Memory {
       const semantic = qvector && m.embedding_model === qmodel && m.embedding_json
         ? Math.max(0, cosine(qvector, parse(m.embedding_json))) : 0;
       return { ...m, lexical, semantic, direct: Math.max(lexical, semantic) };
-    }).filter(m => query.trim() && (anchored(m) || m.semantic >= Math.max(semanticMin, 0.62)) && (m.lexical >= 0.34 || m.semantic >= semanticMin))
+    }).filter(m => query.trim() && (m.lexical >= 0.34 || m.semantic >= semanticMin))
       .map(m => { const effective = recallState(m); return effective ? { ...effective, lexical: m.lexical, semantic: m.semantic, direct: m.direct, association: 0 } : null; }).filter(Boolean);
     // Prominence only breaks relevance ties; it cannot admit irrelevant truth.
     const halfLife = positiveSetting("SALIENCE_HALF_LIFE_DAYS", 30);
@@ -807,7 +806,7 @@ export class Memory {
         index: "fts5+random-hyperplane-lsh-v1", candidates_examined: rows.length, candidate_limit_per_index: 96,
         embedding_ms, service_ms: performance.now() - started, context_messages_used: snippets.length,
         semantic_min: semanticMin, weights, fading: "salience only; dormant truth remains eligible",
-        specificity: { topic_identifiers: anchors, unanchored_semantic_min: anchors.length ? Math.max(semanticMin, 0.62) : null,
+        specificity: { topic_identifiers: anchors, admission: 'unchanged lexical or configured semantic threshold; topic hints rank only',
           source_time_focus: Number.isFinite(queryTime) ? new Date(queryTime).toISOString() : null,
           source_time_weight: 0.15, predicate_phrase_weight: 0.1, topic_match_weight: 0.12 },
       },

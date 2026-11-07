@@ -157,10 +157,11 @@ fencing and resumable atomic cursors remain. Additive non-content schedule table
 `memory_schedule_clock(singleton,sequence)` and
 `memory_thread_schedule(workspace_id,agent_id,thread_id,last_claim)`. Fairness is not a latency SLA.
 
-Recall `retrieval.specificity` discloses named topic identifiers, stronger semantic admission when a
-coded topic lacks a claim/support match, optional ISO source-time focus and ranking weights. See
-capabilities.md for exact heuristic limits; incidental model codes and timestamp fragments do not
-create a literal-token gate, and strong semantic aliases/seed-linked relationships remain eligible.
+Recall `retrieval.specificity` discloses named topic identifiers, unchanged lexical/configured semantic
+admission, optional ISO source-time focus and ranking weights. Named topics affect ranking only, not
+eligibility: moderate semantic aliases/paraphrases and lexical-only fallback need not repeat a code.
+See capabilities.md for heuristic limits; incidental model codes and timestamp fragments are not
+named-topic ranking hints. Same-scope seed-linked relationships remain eligible.
 Explicit before/previous/history/ever queries can include supported closed states as
 `historical:true`, labelled HISTORICAL in injected context with their closed valid interval. They
 still cannot include corrected/retracted never-true beliefs. Current queries remain current-only.

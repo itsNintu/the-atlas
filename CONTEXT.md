@@ -6,16 +6,19 @@ Replaced global event FIFO with persisted3fair-thread:1oldest-work service: leas
 conversation heads, unseen ties favor newest intake, original oldest accepted work reserved every
 fourth claim. No expiry cutoff, source dropping or queue edits. Same-conversation leases/backoff/
 cursors serialize chronological source processing; separate conversations remain concurrent.
-Additive schedule metadata preserves all source/credential/graph identities. Recall distinguishes
-named topic codes from generic fixture overlap without requiring literal identifiers for strong
-semantic aliases or linked relationships. Explicit query source time, topic and predicate phrase
-specificity prevent generic/older dated receipts from crowding the requested one; this is not a
-newest-first outcome rule. Explicit history queries can include closed states, not corrected false
-beliefs. Source-only readonly real-corpus probe returns0tokens for unprocessedLDN7 and ranks correct
-comment2030 first (1144tokens), keeping posting distinct from repair completion/acceptance.
-Frozen install/check,88tests810assertions and on-disk E2E pass; final metadata-only addition checked
-with typecheck plus7affected tests48assertions. Runtime/native activation and finite original8LDN7
-outcome belong to existing Overwatch t_13dac1a6; no production restart or native proof in this phase.
+Additive schedule metadata preserves all source/credential/graph identities. Named topic/support
+matches are ranking hints only: lexical and configured semantic admission are unchanged, including
+moderate paraphrases/aliases and lexical-only fallback. The earlier coded-topic0.62 prerequisite
+and its gate-dependent empty LDN7 packet in7082fe2 are explicitly withdrawn, not accepted evidence.
+Explicit query source time, topic and predicate phrase specificity rank the requested dated event;
+this is not a newest-first outcome rule. Explicit history queries can include closed supported states,
+not corrected false beliefs. A fresh readonly same-snapshot baseline/corrected comparison still
+returns the unrelated329token receipt for unprocessedLDN7: this relevance failure remains unresolved.
+Correct comment2030 is first (1144tokens); Neptune returns0tokens. No pending transcript is supplied.
+Correction frozen install/check,90tests849assertions and on-disk E2E pass; after adding one final
+below-threshold negative regression, typecheck plus10affected tests93assertions pass. No source
+behavior changed after the full run. Runtime/native activation and finite original8LDN7 outcome
+belong to existing Overwatch t_13dac1a6; no production restart or native proof in this source phase.
 See docs/capabilities.md and D:/Projects/TheAtlas/evidence/freshness/ for exact source handoff.
 
 ## Current engineering handoff — 2026-11-07 dreaming revision
