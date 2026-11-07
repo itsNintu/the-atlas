@@ -235,7 +235,7 @@
     "Source/copy results are not runtime/native answer or full-callback acceptance."
   ],
   "evidence_sha256": {
-    "HANDOFF.md": "4cd020dc5e2dbdc2c788195ab23ed20ad55368b2414bf1e0bed0933541b00632",
+    "HANDOFF.md": "6e8b6f71e05ffc85d85753d1dcc9796cbf0d4b31e673ec0c60211fa7d9a0e1ec",
     "CURRENT-COPY.json": "9642e1fbc8c14f13b5c674b7e47177e3c66b3b658c8784cb69800368ba0a1620",
     "BROWSER.json": "295a2c77ba1752165a1aec86c85e58d55c51b3b14746cf57e35fa513b0fc1d24",
     "current-copy.ts": "7440bada1f0015d7c3cc9d74272109a2f07d1de86f9e24379b5dec4960b34277",
