@@ -77,3 +77,13 @@ test('long partial lexical relevance is unchanged even when a compatible embeddi
  const f=fixture();const id=f.seed('Lantern','owner','Nola '+Array.from({length:30},(_,i)=>`detail${i}`).join(' '),0);
  const r=await f.recall('Lantern owner launch date');expect(r.memories.map(x=>x.id)).toContain(id);expect(r.memories.find(x=>x.id===id).lexical).toBe(.5);f.s.close();
 });
+test('requested predicate alone cannot rescue another archive; independent semantic and lexical facets remain useful',async()=>{
+ const f=fixture();
+ const maintenance=f.seed('FEN9 Iona','maintains','FEN9 Copper beacon',.875);
+ const reporting=f.seed('FEN9 Iona','reports_to','FEN9 Remy',.44);
+ const review=f.seed('FEN9 Remy','reviews','FEN9 Copper beacon checklist',0);
+ const unrelated=f.seed('LDN7 Nola','reviews','LDN7 Lantern checklist within the fictional LDN7 archive; Alex clarifies that she refers to the person Mira reports to.',.264);
+ const query='In the fictional FEN9 archive, who maintains the Copper beacon, whom do they report to, and who reviews its checklist? Use automatically supplied memory only, keeping fiction fictional. Do not call tools, browse or save memory.';
+ const r=await f.recall(query);for(const id of [maintenance,reporting,review])expect(r.memories.map(m=>m.id)).toContain(id);expect(r.memories.map(m=>m.id)).not.toContain(unrelated);
+ f.m.inference.embed=async()=>({vectors:[],model:'disabled'});expect((await f.recall(query)).memories.map(m=>m.id)).toContain(review);f.s.close();
+});

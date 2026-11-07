@@ -1,6 +1,6 @@
 import {test,expect} from 'bun:test';
 import {Store,now,hash} from '../src/store.ts';
-import {Memory,MemoryWorker} from '../src/memory.ts';
+import {Memory,MemoryWorker,memoryPromptHash} from '../src/memory.ts';
 import {CURATE_PROMPT} from '../src/inference.ts';
 import {App} from '../src/app.ts';
 import {mkdtempSync,rmSync} from 'node:fs';
@@ -29,7 +29,7 @@ test('audited HTTP memory reprocess retains original custody/outcome, idempotenc
   expect(s.one('SELECT * FROM memory_jobs WHERE id=?',receipt.job_id)).toEqual(oldJob);
   const pending=s.one('SELECT * FROM memory_events WHERE id=?',original.id);
   for(const key of ['id','event_id','revision','content','body_hash','accepted_at','processed_at','roots_json','causal_json','credential_id'])expect(pending[key]).toEqual(original[key]);
-  const audit=s.one('SELECT * FROM memory_reprocess_requests');expect(audit.previous_job_id).toBe(receipt.job_id);expect(audit.prompt_sha256).toBe(hash(CURATE_PROMPT));expect(audit.previous_processed_at).toBe(original.processed_at);
+  const audit=s.one('SELECT * FROM memory_reprocess_requests');expect(audit.previous_job_id).toBe(receipt.job_id);expect(audit.prompt_sha256).toBe(memoryPromptHash());expect(audit.previous_processed_at).toBe(original.processed_at);
   expect(s.one("SELECT COUNT(*) n FROM audit WHERE operation LIKE '%reprocess%'").n).toBe(1);
   s.close();s=new Store(path);
   const inf={async curate(i:any){n++;return {decisions:[{kind:'episode' as const,scope:'agent:builder',subject:'Fictional Ember relay',predicate:'maintained_by',object:'Fictional Suri',valid_from:at,valid_to:null,importance:.6,confidence:.9,evidence_event_ids:[i.event.event_id]}]}},async embed(texts:string[]){return {vectors:texts.map(()=>[1,0]),model:'reprocess-double'}}};

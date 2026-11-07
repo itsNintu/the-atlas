@@ -1,0 +1,25 @@
+// Final-source integration check reusing recorded REAL Luna output; no new Luna calls.
+import assert from 'node:assert/strict';import {mkdirSync} from 'node:fs';
+import {Store,now,hash} from '../src/store.ts';import {Memory,MemoryWorker,memoryTokens} from '../src/memory.ts';import {Inference,validateDecisions} from '../src/inference.ts';import {validateReconciliations,EXTRACT_PROMPT,RECONCILE_PROMPT} from '../src/memory-reconciliation.ts';import {IDENTITY_PROMPT} from '../src/memory-identity.ts';import {memoryGraph} from '../src/memory-graph.ts';
+const from=process.argv[2],dir=process.argv[3];if(!from?.startsWith('.private/')||!dir?.startsWith('.private/')||from===dir)throw Error('Separate isolated fixture copy required');
+mkdirSync(dir,{recursive:true,mode:0o700});
+const copier=Bun.spawnSync(['python3','-c','import sqlite3,sys; a=sqlite3.connect("file:"+sys.argv[1]+"?mode=ro",uri=True); b=sqlite3.connect(sys.argv[2]); a.backup(b); b.close(); a.close()',`${from}/fixture.sqlite`,`${dir}/fixture.sqlite`]);assert.equal(copier.exitCode,0);
+const raw=await Bun.file(`${from}/followup-raw.json`).json();let start=-1;raw.forEach((r:any,i:number)=>{if(r.phase==='extract')start=i});assert(start>=0);const recorded=raw.slice(start);let cursor=0;const calls:any[]=[];
+const s=new Store(`${dir}/fixture.sqlite`),p=s.one('SELECT id FROM principals WHERE is_admin=1'),a=s.authenticate(s.issueKey(p.id).token),real=new Inference();
+function next(phase:string,input:any){const r=recorded[cursor++];assert.equal(r?.phase,phase);const tokens=memoryTokens(JSON.stringify(input));assert(tokens<=4096);calls.push({phase,tokens,recorded_index:start+cursor-1,original_usage:r.usage,response_sha256:hash(JSON.stringify(r.output))});return r.output}
+const inf={async curate(i:any){return validateDecisions(next('extract',i))},async resolveEntities(i:any){return next('identity',i)},async reconcile(i:any){return validateReconciliations(next('reconcile',i),i.incoming.length)},embed:(t:string[])=>real.embed(t)};
+const m=new Memory(s,inf),w=new MemoryWorker(s,inf),e=s.one("SELECT * FROM memory_events WHERE content LIKE 'Fictional Atlas dreaming fixture LDN7 only%'");assert(e);const original={...e},oldJobs=s.all('SELECT * FROM memory_jobs ORDER BY id');
+try{
+ const r=m.reprocess(a,'builder',e.job_id,1,'final_source_recorded_luna_replay');await w.runOnce();const job=s.one('SELECT * FROM memory_jobs WHERE id=?',r.job_id);assert.equal(job.status,'succeeded',job.error_code);assert.equal(cursor,recorded.length);
+ const current=memoryGraph(m,a,{agent_id:'builder',limit:100}),history=memoryGraph(m,a,{agent_id:'builder',limit:100,include_history:true});const nodes=new Map(current.nodes.map(n=>[n.id,n]));const triples=current.edges.map(e=>({subject:nodes.get(e.source)!.label,predicate:e.predicate,object:nodes.get(e.target)!.label,object_kind:nodes.get(e.target)!.kind}));
+ assert(triples.some(t=>t.subject==='LDN7 Leda'&&t.predicate==='owns'&&t.object==='LDN7 Lantern'&&t.object_kind==='entity'));
+ assert(!triples.some(t=>/Nola/.test(t.subject)&&/^(owns|owner_of)$/.test(t.predicate)));
+ assert(!triples.some(t=>/Lantern/.test(t.subject)&&/uses|color/.test(t.predicate)&&/^cobalt\b/i.test(t.object)));
+ assert(triples.some(t=>t.subject==='LDN7 Mira'&&t.predicate==='reports_to'&&t.object==='LDN7 Nola'&&t.object_kind==='entity'));
+ assert(triples.some(t=>t.subject==='FEN9 Remy'&&t.predicate==='audits'&&t.object_kind==='entity'));
+ assert(history.edges.some(e=>e.status==='corrected'));assert(history.edges.some(e=>e.status==='historical'&&e.valid_to==='2026-11-07T00:00:00.000Z'));
+ const after=s.one('SELECT * FROM memory_events WHERE id=?',e.id);for(const key of ['id','event_id','revision','content','roots_json','body_hash','occurred_at','accepted_at'])assert.equal(after[key],original[key]);for(const j of oldJobs)assert.deepEqual(s.one('SELECT * FROM memory_jobs WHERE id=?',j.id),j);
+ const recall=await m.recall(a,{agent_id:'builder',thread_id:'final-replay',query:'In fictional LDN7, who owns Lantern now and previously, was cobalt ever true, who does Mira report to and who reviews the checklist?',token_budget:4000});
+ const result={recorded_real_luna_output_replay:true,new_luna_calls:0,source_fixture_not_native:true,prompt_hashes:{extract:hash(EXTRACT_PROMPT),identity:hash(IDENTITY_PROMPT),reconcile:hash(RECONCILE_PROMPT)},calls,current,history,triples,recall,audit:s.all('SELECT * FROM memory_reconciliations WHERE job_id=?',r.job_id),source_custody_preserved:true,old_jobs_preserved:true,original_support_counts:s.all('SELECT e.role,COUNT(DISTINCT e.id) events,COUNT(DISTINCT p.memory_id) memories FROM memory_supports p JOIN memory_events e ON e.id=p.event_pk GROUP BY e.role')};
+ await Bun.write(`${dir}/result.json`,JSON.stringify(result,null,2));console.log(JSON.stringify({report:`${dir}/result.json`,phases:calls.map(c=>c.phase),tokens:calls.map(c=>c.tokens),current:current.edges.length,history:history.edges.length,source_custody_preserved:true,old_jobs_preserved:true}));
+}finally{s.close()}

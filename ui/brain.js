@@ -104,7 +104,7 @@
   }
   function inspectEdge(e){
     selected=e.id;const d=$("detail");d.replaceChildren(el("p",`${e.scope} / ${e.kind}`,"eyebrow"),el("h2",e.predicate.replaceAll("_"," ")),el("p",meaning(e)));
-    const dl=el("dl");for(const [k,v] of Object.entries({Status:e.status,"Valid from":e.valid_from,"Valid until":e.valid_to||"Open interval","Recorded from":e.recorded_from,"Memory ID":e.id,Confidence:e.confidence,Importance:e.importance})){dl.append(el("dt",k),el("dd",String(v)));}d.append(dl,el("h3","Attributed sources"));
+    const dl=el("dl");for(const [k,v] of Object.entries({Status:e.status,"Valid from":e.historical_start_unknown?`Unknown start (initial observation ${e.valid_from})`:e.valid_from,"Valid until":e.valid_to||"Open interval","Recorded from":e.recorded_from,"Memory ID":e.id,Confidence:e.confidence,Importance:e.importance})){dl.append(el("dt",k),el("dd",String(v)));}d.append(dl,el("h3","Attributed sources"));
     for(const s of e.sources){const block=el("div",undefined,"source");block.append(el("strong",`${s.role} / ${s.author_id}`),el("p",`${s.client_id}:${s.event_id}@${s.revision} · agent ${s.agent_id}`),el("p",`Occurred ${s.occurred_at} · accepted ${s.accepted_at}`));block.append(s.excerpt?el("blockquote",s.excerpt):el("p","No safe supported excerpt retained. Attribution remains available."));block.append(el("p",`Evidence roots: ${s.evidence_root_ids.join(", ")}`));d.append(block);}
     if(e.sources_truncated)d.append(el("p","Source list bounded to 20 entries."));
     d.append(el("h3","Persisted versions"));for(const v of e.versions)d.append(el("p",`v${v.version} · ${v.reason} · ${v.recorded_at}`));

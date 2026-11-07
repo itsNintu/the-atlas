@@ -43,13 +43,13 @@ export function memoryGraph(memory: Memory, actor: Actor, body: any) {
       const supports = memory.support(m, recorded_at);
       if (!supports.length) continue;
       const changes = store.all("SELECT type,effective_at FROM memory_changes WHERE target_id=? AND recorded_at<=? ORDER BY recorded_at,id", m.id, recorded_at);
-      const invalidation = changes.find((c) => ["correction", "retraction"].includes(c.type));
+      const invalidation = changes.find((c) => ["correction", "retraction", "superseded"].includes(c.type));
       let end = m.valid_to;
-      for (const c of changes) if (c.type === "state_change" && c.effective_at > m.valid_from && (!end || c.effective_at < end)) end = c.effective_at;
+      for (const c of changes) if (c.type === "state_change" && (!end || c.effective_at < end)) end = c.effective_at;
       // A derived assertion whose lineage is no longer effective is not a
       // historical truth merely because its own validity interval is open.
-      const status = invalidation ? (invalidation.type === "correction" ? "corrected" : "retracted") : end && end <= valid_at ? "historical" : "inactive_lineage";
-      visible.push({ ...m, valid_to: end, supports, status });
+      const status = invalidation ? (invalidation.type === "correction" ? "corrected" : invalidation.type === 'superseded' ? 'superseded' : "retracted") : end && end <= valid_at ? "historical" : "inactive_lineage";
+      visible.push({ ...m, valid_to: end, supports, status, historical_start_unknown:status==='historical'&&end<=m.valid_from });
     }
     if (visible.length > limit) break;
   }
@@ -57,6 +57,7 @@ export function memoryGraph(memory: Memory, actor: Actor, body: any) {
   const selected = visible.slice(0, limit);
   const nodes = new Map<string, any>();
   const node = (m: any, label: string, entity?: string) => {
+    if(entity){entity=memory.canonicalEntity(actor.workspace_id,m.scope,entity,recorded_at);label=store.one('SELECT canonical FROM memory_entities WHERE id=?',entity).canonical;}
     const id = (entity ? "entity:" : "literal:") + hash(JSON.stringify([actor.workspace_id, m.scope, entity ?? label]));
     if (!nodes.has(id)) nodes.set(id, { id, label, kind: entity ? "entity" : "literal", scope: m.scope });
     return id;
@@ -71,13 +72,17 @@ export function memoryGraph(memory: Memory, actor: Actor, body: any) {
     );
     const targetEntity = targets.slice(0, 100).find((t) => memory.support(t, recorded_at).length > 0);
     if (targets.length > 100) truncated = true;
-    const target = node(m, m.object, targetEntity?.subject_id);
+    // Explicit typed targets are supported by this very edge, including when
+    // the target has never been a subject. Legacy rows keep exact-only lookup.
+    const explicit = store.one('SELECT entity_id FROM memory_entity_targets WHERE memory_id=?',m.id);
+    const target = node(m, m.object, explicit ? explicit.entity_id ?? undefined : targetEntity?.subject_id);
     const supports = m.supports ?? memory.support(m, recorded_at);
     const versions = store.all("SELECT version,reason,recorded_at FROM memory_versions WHERE memory_id=? AND scope=? AND recorded_at<=? AND snapshot_json IS NOT NULL ORDER BY version DESC LIMIT 21", m.id, m.scope, recorded_at);
     return {
       id: m.id, source, target, predicate: m.predicate, scope: m.scope, kind: m.kind,
       valid_from: m.valid_from, valid_to: m.valid_to, recorded_from: m.recorded_from,
       status: m.status, confidence: m.confidence, importance: m.importance,
+      ...(m.historical_start_unknown ? {historical_start_unknown:true} : {}),
       sources: supports.slice(0, 20).map((s: any) => ({ ...s, excerpt: s.excerpt ? redact(s.excerpt).slice(0, 2000) : null })),
       sources_truncated: supports.length > 20,
       versions: versions.slice(0, 20), versions_truncated: versions.length > 20,

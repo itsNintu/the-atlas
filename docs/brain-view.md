@@ -6,6 +6,13 @@ The credential is used only in Authorization headers and tab memory. Never put i
 
 ## Explore
 
+Explicit entity objects are linked even when they have never been a subject; explicit literals
+remain literals. Supported same-scope identity equivalences project canonical nodes without
+rewriting the original memory/entity IDs or pooling private/shared identities. History also shows
+`superseded` representations (not false claims). A prior state with a known handover end but no
+honest start is marked `historical_start_unknown`; its initial observation timestamp is not shown
+as an invented valid start. Source evidence and original versions remain inspectable.
+
 - Select authorized agent/shared scopes. Each scope has distinct node identities, even when labels match.
 - Search a literal phrase in subject, predicate or object; results are persisted knowledge, not the incoming transcript. Blank search shows the newest retained eligible assertions.
 - Select a node for full label and incident relationships; **Focus this neighborhood** filters to its incident edges within the current result set. **All results** restores the bounded result. The accessible relationship list exposes the same full labels without relying on the drawing.

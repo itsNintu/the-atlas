@@ -14,9 +14,12 @@ const tokenEncoding =
   setting("TOKEN_ENCODING") === "cl100k_base" ? "cl100k_base" : "o200k_base";
 const tokenizer = get_encoding(tokenEncoding);
 export const memoryTokens = (s: string) => tokenizer.encode(s, [], []).length;
+export const memoryPromptHash = (focused=true) => hash(focused ? canonical({extract:EXTRACT_PROMPT,identity:IDENTITY_PROMPT,reconcile:RECONCILE_PROMPT,task_schema:'atlas-reconciliation-v1'}) : CURATE_PROMPT);
 import { cosine } from "./provider.ts";
 import { indexedCandidates, queryTerms } from "./memory-index.ts";
 import { claimMemoryJob } from "./memory-scheduler.ts";
+import { EXTRACT_PROMPT, RECONCILE_PROMPT, validateReconciliations, normalizeReconciliation, type Reconciliation } from './memory-reconciliation.ts';
+import { IDENTITY_PROMPT, resolvedIdentity, candidateIdentities } from './memory-identity.ts';
 import { recallFocus, needsRecallContext, asksAboutRecallProcess, isContextAvailabilityNote } from "./recall-query.ts";
 
 // Share a turn budget across recalls and workers. Promise/microtask yields alone
@@ -420,6 +423,8 @@ export class Memory {
       ))
         this.invalidateChildren(c.target_id, "change_repaired");
       this.store.run("DELETE FROM memory_changes WHERE event_pk=?", source);
+      this.store.run('DELETE FROM memory_entity_equivalences WHERE event_pk=?',source);
+      this.store.run('DELETE FROM memory_alias_sources WHERE event_pk=?',source);
       for (const x of this.store.all(
         "SELECT memory_id FROM memory_supports WHERE event_pk=?",
         source,
@@ -455,11 +460,12 @@ export class Memory {
         this.deleteMemory(memory_id, forget ? "forgotten" : "revised");
     }
     this.store.run(
-      "DELETE FROM memory_aliases WHERE entity_id IN (SELECT id FROM memory_entities e WHERE NOT EXISTS(SELECT 1 FROM memories m WHERE m.subject_id=e.id))",
+      "DELETE FROM memory_aliases WHERE entity_id IN (SELECT id FROM memory_entities e WHERE NOT EXISTS(SELECT 1 FROM memories m WHERE m.subject_id=e.id) AND NOT EXISTS(SELECT 1 FROM memory_entity_targets t WHERE t.entity_id=e.id))",
     );
     this.store.run(
-      "DELETE FROM memory_entities WHERE NOT EXISTS(SELECT 1 FROM memories m WHERE m.subject_id=memory_entities.id)",
+      "DELETE FROM memory_entities WHERE NOT EXISTS(SELECT 1 FROM memories m WHERE m.subject_id=memory_entities.id) AND NOT EXISTS(SELECT 1 FROM memory_entity_targets t WHERE t.entity_id=memory_entities.id)",
     );
+    this.store.run('DELETE FROM memory_scoped_aliases WHERE NOT EXISTS(SELECT 1 FROM memory_alias_sources s WHERE s.workspace_id=memory_scoped_aliases.workspace_id AND s.scope=memory_scoped_aliases.scope AND s.alias=memory_scoped_aliases.alias AND s.entity_id=memory_scoped_aliases.entity_id)');
     this.store.run(
       "UPDATE memories SET use_count=(SELECT COUNT(*) FROM memory_feedback f,json_each(f.used_ids_json) u WHERE u.value=memories.id),last_used_at=(SELECT MAX(f.created_at) FROM memory_feedback f,json_each(f.used_ids_json) u WHERE u.value=memories.id)",
     );
@@ -549,7 +555,7 @@ export class Memory {
         fail(409, "conversation_busy", "Conversation has active curation; retry after its current claim");
       const job_id = id("mjob"), at = now();
       this.store.run("INSERT INTO memory_jobs (id,event_pk,status,available_at,created_at) VALUES (?,?,'queued',?,?)",job_id,e.id,Date.now(),at);
-      this.store.run("INSERT INTO memory_reprocess_requests VALUES (?,?,?,?,?,?,?,?)",job_id,previous_job_id,e.id,a.id,reason,hash(CURATE_PROMPT),e.processed_at,at);
+      this.store.run("INSERT INTO memory_reprocess_requests VALUES (?,?,?,?,?,?,?,?)",job_id,previous_job_id,e.id,a.id,reason,memoryPromptHash(!!this.inference.reconcile),e.processed_at,at);
       // Keep source identity/content/roots, original accepted time, old job and
       // metrics, existing knowledge and recorded history. Only memory digestion
       // is queued; no original tool/action is executable through this route.
@@ -557,11 +563,18 @@ export class Memory {
       return {job_id,previous_job_id,event_id:e.event_id,revision:e.revision,status:"queued",memory_only:true};
     });
   }
+  canonicalEntity(workspace:string,scope:string,entity:string,recorded_at=now(),path:string[]=[]):string {
+    if(path.includes(entity)||path.length>=16)return entity;
+    const rows=this.store.all(`SELECT DISTINCT q.canonical_id FROM memory_entity_equivalences q JOIN memory_events e ON e.id=q.event_pk JOIN memory_heads h ON h.event_pk=e.id WHERE q.workspace_id=? AND q.scope=? AND q.entity_id=? AND q.recorded_at<=? AND e.status NOT IN ('forgotten','deleted','superseded')`,workspace,scope,entity,recorded_at);
+    const roots=[...new Set<string>(rows.map(r=>this.canonicalEntity(workspace,scope,r.canonical_id,recorded_at,[...path,entity])))];
+    return roots.length===1&&!path.includes(roots[0]) ? roots[0] : entity;
+  }
   entity(
     workspace: string,
     label: string,
     aliases: { canonical: string; aliases: string[] }[] = [],
     scopes: string[] = [],
+    source?:string,
   ) {
     let canonicalName = label;
     const found = aliases.find(
@@ -570,37 +583,21 @@ export class Memory {
         x.aliases.some((a) => normalize(a) === normalize(label)),
     );
     if (found) canonicalName = found.canonical;
-    const slots = scopes.map(() => "?").join(",");
-    const existing =
-      this.store.one(
-        `SELECT e.* FROM memory_entities e JOIN memory_aliases a ON a.entity_id=e.id WHERE a.workspace_id=? AND a.alias=? AND EXISTS(SELECT 1 FROM memories m WHERE m.subject_id=e.id AND m.scope IN (${slots || "''"}))`,
-        workspace,
-        normalize(canonicalName),
-        ...scopes,
-      ) ??
-      this.store.one(
-        "SELECT * FROM memory_entities WHERE workspace_id=? AND canonical=?",
-        workspace,
-        canonicalName,
-      );
-    const entity_id = existing?.id ?? id("entity");
-    if (!existing)
-      this.store.run(
-        "INSERT INTO memory_entities VALUES (?,?,?)",
-        entity_id,
-        workspace,
-        canonicalName,
-      );
+    // Scope is an identity fence, not merely a visibility filter. Never consult
+    // the old workspace-global alias registry (retained for custody only).
+    if (scopes.length !== 1) fail(503,'entity_scope_required','Entity resolution needs exactly one target scope',true);
+    const scope = scopes[0];
+    const existing = this.store.one(`SELECT e.* FROM memory_entities e JOIN memory_scoped_aliases a ON a.entity_id=e.id
+      WHERE a.workspace_id=? AND a.scope=? AND a.alias=? AND EXISTS(SELECT 1 FROM memory_alias_sources p JOIN memory_events x ON x.id=p.event_pk JOIN memory_heads h ON h.event_pk=x.id WHERE p.workspace_id=a.workspace_id AND p.scope=a.scope AND p.alias=a.alias AND p.entity_id=a.entity_id AND x.status NOT IN ('forgotten','deleted','superseded'))`,workspace,scope,normalize(canonicalName)) ??
+      this.store.one('SELECT * FROM memory_entities WHERE workspace_id=? AND canonical=?',workspace,canonicalName);
+    const entity_id = existing?.id ?? id('entity');
+    if (!existing) this.store.run('INSERT INTO memory_entities VALUES (?,?,?)',entity_id,workspace,canonicalName);
     for (const alias of [label, canonicalName, ...(found?.aliases ?? [])]) {
-      // Ambiguous established aliases are NOT merged/reassigned by a model.
-      this.store.run(
-        "INSERT OR IGNORE INTO memory_aliases VALUES (?,?,?)",
-        workspace,
-        normalize(alias),
-        entity_id,
-      );
+      this.store.run('INSERT OR IGNORE INTO memory_scoped_aliases VALUES (?,?,?,?)',workspace,scope,normalize(alias),entity_id);
+      if(source)this.store.run('INSERT OR IGNORE INTO memory_alias_sources VALUES (?,?,?,?,?)',workspace,scope,normalize(alias),entity_id,source);
     }
-    return { id: entity_id, label: existing?.canonical ?? canonicalName };
+    const resolved=this.canonicalEntity(workspace,scope,entity_id);
+    return {id:resolved,label:this.store.one('SELECT canonical FROM memory_entities WHERE id=?',resolved).canonical};
   }
   support(m: any, recorded_at = now()) {
     return this.store
@@ -624,13 +621,12 @@ export class Memory {
       m.id,
       recorded_at,
     );
-    if (changes.some((c) => ["correction", "retraction"].includes(c.type)))
+    if (changes.some((c) => ["correction", "retraction", "superseded"].includes(c.type)))
       return null;
     let end = m.valid_to;
     for (const c of changes)
       if (
         c.type === "state_change" &&
-        c.effective_at > m.valid_from &&
         (!end || c.effective_at < end)
       )
         end = c.effective_at;
@@ -666,10 +662,10 @@ export class Memory {
       evidence_roots: [...new Set(support.flatMap((s) => s.evidence_root_ids))],
     };
   }
-  candidates(workspace: string, scopes: string[], query: string) {
-    return indexedCandidates(this.store, workspace, scopes, query, undefined, undefined, 24)
-      .sort((a,b) => relevance(query, `${b.subject} ${b.predicate} ${b.object}`) - relevance(query, `${a.subject} ${a.predicate} ${a.object}`) || b.recorded_from.localeCompare(a.recorded_from))
-      .slice(0, Math.min(12, positiveSetting("CURATION_CANDIDATE_LIMIT", 8)))
+  candidates(workspace: string, scopes: string[], query: string, count = Math.min(12, positiveSetting("CURATION_CANDIDATE_LIMIT", 8)), rank?: (row:any)=>number) {
+    return indexedCandidates(this.store, workspace, scopes, query, undefined, undefined, Math.max(24,count*2))
+      .sort((a,b) => (rank ? rank(b)-rank(a) : relevance(query, `${b.subject} ${b.predicate} ${b.object}`) - relevance(query, `${a.subject} ${a.predicate} ${a.object}`)) || b.recorded_from.localeCompare(a.recorded_from))
+      .slice(0, Math.min(24,count))
       .map(m => ({ id: m.id, scope: m.scope, kind: m.kind, subject: m.subject,
         predicate: m.predicate, object: m.object, version: m.version,
         valid_from: m.valid_from, valid_to: m.valid_to, derived: m.derived,
@@ -741,7 +737,16 @@ export class Memory {
       // Only closed states, not corrections/retractions. effective() still
       // applies recorded-time, lineage and current live-support fences.
       const prior = this.effective(m, m.valid_from, recorded_at);
-      return prior?.valid_to && prior.valid_to <= valid_at ? { ...prior, historical: true } : null;
+      if (prior?.valid_to && prior.valid_to <= valid_at) return {...prior,historical:true};
+      // A later source can establish an earlier handover boundary than the
+      // initial claim's observation-time default. Do not invent its start.
+      const changes=this.store.all('SELECT * FROM memory_changes WHERE target_id=? AND recorded_at<=?',m.id,recorded_at);
+      const end=changes.filter(c=>c.type==='state_change').map(c=>c.effective_at).sort()[0];
+      if(!m.derived && end && end<=m.valid_from && end<=valid_at && m.recorded_from<=recorded_at && !changes.some(c=>['correction','retraction','superseded'].includes(c.type))){
+        const supports=this.support(m,recorded_at);
+        if(supports.length)return {...m,valid_to:end,historical:true,historical_start_unknown:true,supports,changes,lineage:[],conflict:false,evidence_roots:[...new Set(supports.flatMap(s=>s.evidence_root_ids))]};
+      }
+      return null;
     };
     const semanticMin = Math.min(1, positiveSetting("RECALL_SEMANTIC_MIN_MILLI", 420) / 1000);
     const words = new Map(rows.map(m => [m.id, queryTerms(`${m.subject} ${m.predicate} ${m.object}`)]));
@@ -782,10 +787,16 @@ export class Memory {
     // and spare tokens cannot rescue them. Do not let a strong match for one
     // requested facet erase an admitted relationship for another facet or the
     // same entity (e.g. maintains AND reports_to). This is not topic-code gating.
+    const usefulFacet=(m:any)=>{
+      const requested=queryTerms(m.predicate.replaceAll('_',' ')).some(p=>ts.some(t=>matches([p],t)));
+      const fields=queryTerms(`${m.subject} ${m.object}`);
+      const independentLexical=ts.length ? ts.filter(t=>matches(fields,t)).length/ts.length : 0;
+      return requested&&(m.semantic>=semanticMin||independentLexical>=0.34);
+    };
     for (let i = ranked.length - 1; i >= 0; i--)
       if (ranked[i].direct < strongest * 0.8 && ranked[i].lexical < 0.6 &&
           !leadingEntities.has(`${ranked[i].scope}\n${ranked[i].subject_id}`) &&
-          !queryTerms(ranked[i].predicate.replaceAll('_',' ')).some(p => ts.some(t => matches([p],t)))) ranked.splice(i, 1);
+          !usefulFacet(ranked[i])) ranked.splice(i, 1);
     // One-hop useful relationships are a bounded indexed expansion from direct
     // seeds, never a workspace scan or an excuse to add every fact about Alex.
     const expanded: any[] = [];
@@ -816,7 +827,7 @@ export class Memory {
     for (const m of [...ranked, ...expanded]) {
       // Compact injected citation; full supports/roots remain in typed output.
       const support = m.supports[0];
-      const line = `[${m.id}] ${m.scope} ${m.kind}${m.historical ? " HISTORICAL" : ""}${m.conflict ? " CONFLICT" : ""}: ${m.subject} | ${m.predicate} | ${m.object}; valid [${m.valid_from},${m.valid_to ?? "open"}); source ${support.client_id}:${support.event_id}@${support.revision} ${support.role}/${support.author_id}${m.derived ? " DERIVED" : ""}`;
+      const line = `[${m.id}] ${m.scope} ${m.kind}${m.historical ? " HISTORICAL" : ""}${m.conflict ? " CONFLICT" : ""}: ${m.subject} | ${m.predicate} | ${m.object}; valid [${m.historical_start_unknown ? 'unknown start' : m.valid_from},${m.valid_to ?? "open"}); source ${support.client_id}:${support.event_id}@${support.revision} ${support.role}/${support.author_id}${m.derived ? " DERIVED" : ""}`;
       const next = context ? context + "\n" + line : header + "\n" + line;
       if (await budgetTokens(next) > budget) continue;
       context = next;
@@ -1017,18 +1028,22 @@ export class MemoryWorker {
       // sees only the focused fragment plus explicitly explanatory continuity.
       const input = {
         schema_version: 1, consolidation_due: candidates.length >= 3 && (processed + 1) % cadence === 0,
-        system_prompt: CURATE_PROMPT,
+        system_prompt: this.inference.reconcile ? EXTRACT_PROMPT : CURATE_PROMPT,
         event: { event_id: e.event_id, agent_id: e.agent_id, role: e.role, author_id: e.author_id,
           occurred_at: e.occurred_at, observed_at: e.observed_at, content: content.slice(offset, end),
           metadata_excerpt: e.metadata_json?.slice(0,400) ?? null, metadata_truncated: (e.metadata_json?.length ?? 0)>400,
           chunk: { start: offset, end, total_chars: content.length, previous_context: content.slice(Math.max(0, offset - 500), offset) } },
         recent_events: recent.map(x => ({ event_id: x.event_id, client_id: x.client_id, role: x.role, author_id: x.author_id,
           occurred_at: x.occurred_at, content: x.content.slice(-800), context_truncated: x.content.length > 800 })),
-        candidates: candidates.map(({supports, ...c}) => ({ ...c,
+        candidates: candidates.filter(c=>!this.inference.reconcile||c.supports.some(s=>s.occurred_at<=e.occurred_at)).map(({supports, ...c}) => ({ ...c,
           sources: supports.slice(0, 2).map(s => ({ event_id: s.event_id, role: s.role, author_id: s.author_id })) })),
         allowed_scopes: scopes,
       };
       const inputBudget = Math.min(4096, positiveSetting("CURATION_INPUT_TOKENS", 4096));
+      // Leave room for each extracted atom plus its source in later phases.
+      // This changes fragment size, never durable source custody/admission.
+      const extractionBudget = this.inference.reconcile ? Math.min(inputBudget,Math.max(memoryTokens(EXTRACT_PROMPT)+512,Math.floor(inputBudget/2))) : inputBudget;
+      const reconciliationScopes = new Set<string>();
       const contextCurrent = () => {
         const current = this.live(j);
         if (!current) return false;
@@ -1038,6 +1053,7 @@ export class MemoryWorker {
         ));
         if (
           scopes.some((scope) => !current.scopes.includes(scope)) ||
+          [...reconciliationScopes].some(scope=>!reads.includes(scope)) ||
           candidates.filter(c => input.candidates.some(sent => sent.id === c.id)).some((c) => !reads.includes(c.scope)) ||
           includedRecent.some((x) => !this.memory.visibleEvent(x, e.agent_id, reads))
         ) fail(409, "curation_context_changed", "Memory grants changed", true);
@@ -1060,22 +1076,22 @@ export class MemoryWorker {
       };
       while (
         input.candidates.length &&
-        (await budgetTokens(JSON.stringify(input))) > inputBudget
+        (await budgetTokens(JSON.stringify(input))) > extractionBudget
       )
         input.candidates.pop();
       while (
         input.recent_events.length &&
-        (await budgetTokens(JSON.stringify(input))) > inputBudget
+        (await budgetTokens(JSON.stringify(input))) > extractionBudget
       )
         input.recent_events.shift();
-      while ((await budgetTokens(JSON.stringify(input))) > inputBudget && input.event.content.length > 64) {
+      while ((await budgetTokens(JSON.stringify(input))) > extractionBudget && input.event.content.length > 64) {
         input.event.content = input.event.content.slice(0, Math.floor(input.event.content.length * 0.8));
         if (/[\uD800-\uDBFF]/.test(input.event.content.at(-1) ?? "")) input.event.content = input.event.content.slice(0, -1);
         end = offset + input.event.content.length;
         input.event.chunk.end = end;
       }
       const inputTokens = await budgetTokens(JSON.stringify(input));
-      if (inputTokens > inputBudget) fail(503, "curation_budget_too_small", "Configured window cannot fit curator framing", false);
+      if (inputTokens > extractionBudget) fail(503, "curation_budget_too_small", "Configured window cannot fit curator framing", false);
       const included = candidates.filter(c => input.candidates.some(sent => sent.id === c.id));
       // No provider sees stale/forgotten input after a cooperative packing yield.
       if (!contextCurrent()) return this.cancel(j);
@@ -1092,6 +1108,10 @@ export class MemoryWorker {
         );
       const nonempty = result.decisions.filter((d) => d.kind !== "nothing");
       this.validate(nonempty, e, scopes, included);
+      for(const d of nonempty)if(stillReadable.includes(d.scope!))reconciliationScopes.add(d.scope!);
+      const reconciled = this.inference.reconcile && nonempty.length
+        ? await this.reconcileFragment(e, nonempty, candidates, input.event, input.recent_events, inputBudget, contextCurrent,stillReadable)
+        : null;
       const embedding = await this.inference.embed(
         nonempty.map((d) => `${d.subject} ${d.predicate} ${d.object}`),
       );
@@ -1101,14 +1121,15 @@ export class MemoryWorker {
         for (const d of nonempty) {
           const labels = [
             d.subject!,
+            ...(d.object_entity ? [d.object!] : []),
             ...(d.entity_aliases ?? []).flatMap((x) => [
               x.canonical,
               ...x.aliases,
             ]),
           ].map(normalize);
           const added = this.store.one(
-            `SELECT 1 FROM memories WHERE rowid>? AND workspace_id=? AND scope=? AND lower(subject) IN (${labels.map(() => "?").join(",")}) LIMIT 1`,
-            knownRowid, e.workspace_id, d.scope, ...labels,
+            `SELECT 1 FROM memories WHERE rowid>? AND workspace_id=? AND scope=? AND (lower(subject) IN (${labels.map(() => "?").join(",")}) OR lower(object) IN (${labels.map(() => "?").join(",")})) LIMIT 1`,
+            knownRowid, e.workspace_id, d.scope, ...labels, ...labels,
           );
           if (added)
             fail(
@@ -1119,15 +1140,19 @@ export class MemoryWorker {
             );
         }
         if (!contextCurrent()) return;
-        nonempty.forEach((d, i) =>
-          this.apply(
+        if (reconciled) this.reconciliationCurrent(reconciled.candidates);
+        nonempty.forEach((d, i) => {
+          const disposition = reconciled?.items[i];
+          const changed = disposition?.change ? {...d,change:disposition.change} : d;
+          const memoryId = this.apply(
             { ...e, content: input.event.content },
-            d,
+            changed,
             embedding.vectors[i],
             embedding.model,
             this.memory.authorize(a, e.agent_id, "read"),
-          ),
-        );
+          );
+          if (disposition) this.applyReconciliation(j,e,memoryId,disposition,reconciled!.candidates);
+        });
         this.store.run("INSERT INTO memory_curation_metrics VALUES (?,?,?,?,?,?,?,?,?,?,?)", j.id, e.id, offset, end, inputTokens, Buffer.byteLength(JSON.stringify(input)), input.candidates.length, input.recent_events.length, nonempty.length, performance.now() - started, now());
         if (end < content.length) {
           this.store.run("INSERT INTO memory_chunk_progress VALUES (?,?) ON CONFLICT(event_pk) DO UPDATE SET offset_chars=excluded.offset_chars", e.id, end);
@@ -1164,6 +1189,112 @@ export class MemoryWorker {
       clearInterval(hb);
     }
     return true;
+  }
+  reconciliationCurrent(candidates: any[]) {
+    for (const old of candidates) {
+      const current = this.store.one('SELECT * FROM memories WHERE id=?',old.id);
+      const changes = this.store.all('SELECT type,effective_at,replacement_id FROM memory_changes WHERE target_id=?',old.id);
+      if (!current || current.version!==old.version || canonical(this.memory.support(current))!==canonical(old.supports) || canonical(changes)!==canonical(old.changes))
+        fail(409,'curation_context_changed','Reconciliation evidence changed',true);
+    }
+  }
+  async reconcileFragment(e: any, ds: Decision[], prior: any[], event: any, recent: any[], budget: number, live: ()=>boolean,readable:string[]) {
+    const items: Reconciliation[] = [], snapshots = new Map<string,any>();
+    for (let index=0;index<ds.length;index++) {
+      let d=ds[index];
+      // Indexed relation lookup, not whole graph/pending transcript. Include
+      // opposite/inverse wording via the current source and exact identities.
+      const relationRank=(c:any)=>3*relevance(d.predicate!.replaceAll('_',' '),c.predicate.replaceAll('_',' '))+relevance(`${d.subject} ${d.object}`,`${c.subject} ${c.object}`);
+      const pool = readable.includes(d.scope!) ? [...prior,...this.memory.candidates(e.workspace_id,[d.scope!],`${d.subject} ${d.predicate} ${d.object}`,24,relationRank),...this.memory.candidates(e.workspace_id,[d.scope!],event.content,24,relationRank)] : [];
+      const unique=[...new Map(pool.filter(c=>c.scope===d.scope).map(c=>[c.id,c])).values()];
+      unique.sort((a,b)=>relationRank(b)-relationRank(a)||a.id.localeCompare(b.id));
+      const sources=new Map<string,any>();
+      const input:any={schema_version:1,task_schema:'atlas-reconciliation-v1',phase:'reconcile',system_prompt:RECONCILE_PROMPT,event,recent_events:recent,
+        incoming:[d],source_relations:ds.filter(x=>x.scope===d.scope).map(x=>({subject:x.subject,predicate:x.predicate,object:x.object,valid_from:x.valid_from,valid_to:x.valid_to})),candidates:unique.slice(0,12).map(c=>({id:c.id,scope:c.scope,subject:c.subject,predicate:c.predicate,object:c.object,kind:c.kind,valid_from:c.valid_from,valid_to:c.valid_to,changes:c.changes,
+          sources:c.supports.slice(0,2).map((s:any)=>{const key=`${s.client_id}:${s.event_id}@${s.revision}`;sources.set(key,{key,event_id:s.event_id,role:s.role,author_id:s.author_id,occurred_at:s.occurred_at,excerpt:s.excerpt?.slice(0,600)});return key;})})),sources:[...sources.values()]};
+      const trimSources=()=>{const keys=new Set(input.candidates.flatMap((c:any)=>c.sources));input.sources=input.sources.filter((s:any)=>keys.has(s.key));};
+      while (input.candidates.length && await budgetTokens(JSON.stringify(input))>budget) {input.candidates.pop();trimSources();}
+      while(input.recent_events.length && await budgetTokens(JSON.stringify(input))>budget)input.recent_events=input.recent_events.slice(1);
+      // Very dense fragments still reconcile one atomic relation at a time.
+      // Without the complete siblings, no compound refinement is permitted.
+      let completeRelations=true;
+      if(await budgetTokens(JSON.stringify(input))>budget){input.source_relations=[{subject:d.subject,predicate:d.predicate,object:d.object,valid_from:d.valid_from,valid_to:d.valid_to}];completeRelations=false;}
+      if(await budgetTokens(JSON.stringify(input))>budget)fail(503,'curation_budget_too_small','Reconciliation framing exceeds input window',false);
+      let included=unique.filter(c=>input.candidates.some((s:any)=>s.id===c.id));
+      if(!live())fail(409,'curation_context_changed','Source changed',true);
+      this.reconciliationCurrent(included);
+      if(this.inference.resolveEntities){
+        const identityInput={...input,task_schema:'atlas-identity-v1',phase:'identity',system_prompt:IDENTITY_PROMPT};
+        if(await budgetTokens(JSON.stringify(identityInput))>budget)fail(503,'curation_budget_too_small','Identity framing exceeds input window',false);
+        const identity=await this.inference.resolveEntities(identityInput);
+        if(!live())fail(409,'curation_context_changed','Source changed',true);
+        this.reconciliationCurrent(included);
+        d=resolvedIdentity(identity,d,included,{event,recent,sources:input.sources});ds[index]=d;
+        input.incoming=[d];input.identity_aliases=d.entity_aliases;
+        input.candidate_identities=candidateIdentities(identity,d,included,{event,recent,sources:input.sources});
+        input.candidates=input.candidates.map((c:any)=>{
+          const binding=input.candidate_identities.find((b:any)=>b.id===c.id);
+          return binding ? {...c,original_subject:c.subject,original_object:c.object,subject:binding.subject??c.subject,object:binding.object??c.object} : c;
+        });
+        for(const c of included)snapshots.set(c.id,c);
+        while(input.candidates.length&&await budgetTokens(JSON.stringify(input))>budget){input.candidates.pop();trimSources();}
+        if(await budgetTokens(JSON.stringify(input))>budget)fail(503,'curation_budget_too_small','Resolved relation exceeds input window',false);
+        included=unique.filter(c=>input.candidates.some((s:any)=>s.id===c.id));
+      }
+      const result=normalizeReconciliation(validateReconciliations({items:await this.inference.reconcile!(input)},1)[0],d,input.candidates);
+      if(!live())fail(409,'curation_context_changed','Source changed',true);
+      this.reconciliationCurrent(included);
+      const allowed=new Map(included.map(c=>[c.id,c]));
+      for(const target of [...result.duplicate_ids,...(result.superseded_ids??[]),...(result.change?.target_ids??[]),...(result.superseded_by?[result.superseded_by.id]:[])])
+        if(!allowed.has(target))fail(503,'curator_target_violation','Reconciliation target must be supplied same-scope evidence',true);
+      for(const target of result.superseded_ids??[])
+        if(!completeRelations||!allowed.get(target)!.supports.some((s:any)=>s.event_id===e.event_id&&s.client_id===e.client_id))fail(503,'curator_target_violation','Representation refinement needs complete original source coverage',true);
+      if(result.change)this.validate([{...d,change:result.change}],e,[d.scope!],included);
+      if(result.superseded_by){
+        const t=allowed.get(result.superseded_by.id)!;
+        // Later source authority cannot be manufactured from an assistant recap.
+        if(t.derived || !t.supports.some((s:any)=>s.occurred_at>e.occurred_at))
+          fail(503,'curator_time_violation','Later replacement needs supported later original evidence',true);
+      }
+      for(const c of included)snapshots.set(c.id,c);
+      items.push({...result,index,identity_aliases:d.entity_aliases,candidate_identities:input.candidate_identities});
+    }
+    return {items,candidates:[...snapshots.values()]};
+  }
+  applyReconciliation(j:any,e:any,memoryId:string,r:Reconciliation,candidates:any[]) {
+    const add=(event_pk:string,target:string,replacement:string,type:string,effective:string)=>{
+      if(target===replacement)return;
+      this.memory.invalidateChildren(target,'parent_changed');
+      if(!this.store.one('SELECT 1 FROM memory_changes WHERE event_pk=? AND target_id=? AND replacement_id=? AND type=? AND effective_at=?',event_pk,target,replacement,type,effective))
+        this.store.run('INSERT INTO memory_changes VALUES (?,?,?,?,?,?,?)',id('change'),event_pk,target,replacement,type,effective,now());
+    };
+    const incoming=this.store.one('SELECT * FROM memories WHERE id=?',memoryId);
+    for(const binding of r.candidate_identities??[]){
+      const c=this.store.one('SELECT * FROM memories WHERE id=?',binding.id);
+      const pairs:[string|undefined,string|undefined][]=[[c.subject_id,binding.subject],[this.store.one('SELECT entity_id FROM memory_entity_targets WHERE memory_id=?',c.id)?.entity_id,binding.object]];
+      for(const [from,label] of pairs){
+        if(!from||!label)continue;
+        const to=this.memory.entity(e.workspace_id,label,[],[incoming.scope],e.id).id;
+        if(from!==to&&this.memory.canonicalEntity(e.workspace_id,incoming.scope,to)!==from)
+          this.store.run('INSERT OR IGNORE INTO memory_entity_equivalences VALUES (?,?,?,?,?,?)',e.workspace_id,incoming.scope,from,to,e.id,now());
+      }
+    }
+    for(const duplicate of r.duplicate_ids){
+      if(duplicate===memoryId)continue;
+      // Equivalent representation, not a declaration that the old truth was
+      // false. Preserve original supports/roots and all prior invalidations.
+      this.store.run('INSERT OR IGNORE INTO memory_supports SELECT ?,event_pk,roots_json,excerpt FROM memory_supports WHERE memory_id=?',memoryId,duplicate);
+      for(const c of this.store.all('SELECT * FROM memory_changes WHERE target_id=?',duplicate))
+        add(c.event_pk,memoryId,c.replacement_id,c.type,c.effective_at);
+      add(e.id,duplicate,memoryId,'superseded',e.occurred_at);
+    }
+    for(const target of r.superseded_ids??[])add(e.id,target,memoryId,'superseded',e.occurred_at);
+    if(r.superseded_by){
+      const later=candidates.find(c=>c.id===r.superseded_by!.id);
+      const source=this.store.one(`SELECT e.id FROM memory_supports s JOIN memory_events e ON e.id=s.event_pk WHERE s.memory_id=? AND e.occurred_at>? ORDER BY e.occurred_at LIMIT 1`,later.id,e.occurred_at);
+      add(source.id,memoryId,later.id,r.superseded_by.type,r.superseded_by.effective_at);
+    }
+    this.store.run('INSERT INTO memory_reconciliations VALUES (?,?,?,?,?)',j.id,e.id,memoryId,JSON.stringify({...r,prompt_sha256:memoryPromptHash()}),now());
   }
   cancel(j: any) {
     this.finish(j, "cancelled");
@@ -1251,7 +1382,7 @@ export class MemoryWorker {
         if (["correction", "retraction"].includes(d.change!.type) && d.change!.aspect !== "interval" &&
           normalize(d.subject!) === normalize(t.subject) && normalize(d.predicate!) === normalize(t.predicate) && normalize(d.object!) === normalize(t.object))
           fail(503, "curator_correction_repeats_target", "Correction must express corrected or withdrawn truth, not reassert the invalidated claim", true);
-        if (d.change!.type === "state_change" && d.valid_from! <= t.valid_from)
+        if (d.change!.type === "state_change" && d.valid_from! <= t.valid_from && !t.supports?.some((s:any)=>s.occurred_at<e.occurred_at))
           fail(
             503,
             "curator_time_violation",
@@ -1272,13 +1403,16 @@ export class MemoryWorker {
       e.workspace_id,
       d.subject!,
       d.entity_aliases,
-      readable,
+      [d.scope!],
+      e.id,
     );
+    const target = d.object_entity ? this.memory.entity(e.workspace_id,d.object!,d.entity_aliases,[d.scope!],e.id) : null;
     const fp = hash(
       canonical({
         subject: entity.id,
         predicate: normalize(d.predicate!),
-        object: normalize(d.object!),
+        object: normalize(target?.label ?? d.object!),
+        ...(d.object_entity!==undefined ? {object_entity:d.object_entity} : {}),
         kind: d.kind === "update" ? "assertion" : d.kind,
         valid_from: d.valid_from,
         valid_to: d.valid_to,
@@ -1304,7 +1438,7 @@ export class MemoryWorker {
         entity.id,
         entity.label,
         d.predicate,
-        d.object,
+        target?.label ?? d.object,
         d.valid_from,
         d.valid_to,
         at,
@@ -1356,6 +1490,7 @@ export class MemoryWorker {
         );
       }
     }
+    if (d.object_entity!==undefined) this.store.run('INSERT OR REPLACE INTO memory_entity_targets VALUES (?,?)',m.id,target?.id ?? null);
     let roots = parse(e.roots_json);
     // Resolve declared causal roots to their original support roots where they are in this workspace.
     for (const source of [...roots]) {
@@ -1458,5 +1593,6 @@ export class MemoryWorker {
             now(),
           );
       }
+    return m.id as string;
   }
 }

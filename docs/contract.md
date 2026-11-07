@@ -119,6 +119,64 @@ Bun before the structured API envelope; ordinary API validation uses the envelop
 
 ## Automatic event memory: durable intake, selective graph and indexed recall
 
+### Focused identity/reconciliation extension
+
+REST endpoints/envelopes and original Decision fields remain compatible. Decisions may add
+`object_entity:boolean`: true marks an exact canonical entity object, including a never-subject
+target; false is an explicit literal, even if its text matches an entity name. Omitted retains the
+legacy exact-subject graph lookup. Typed target metadata belongs to the new memory fingerprint,
+not a retroactive change to an old recorded claim.
+
+The default inference path separates extraction, entity identity and truth reconciliation. Each
+serialized product input (including its system prompt) is checked against the same exact maximum
+4096 tokens. No whole graph or pending corpus is sent. Extraction uses coherent source fragments,
+earlier explanatory context and earlier/same-time candidate support; later truth cannot rewrite
+what the original source said. Identity/reconciliation use bounded indexed same-scope relation
+windows and a deduplicated source registry, with original roles/authors/times/excerpts. Identity
+co-reference is an explicit model decision, not string similarity or automatic cross-scope pooling.
+Property values are not silently upgraded to entities. Actual source support remains authoritative.
+
+Command transport remains `atlas-inference-v1`/`curate`, following the supplied system prompt;
+the task bodies are explicitly versioned `atlas-identity-v1` and `atlas-reconciliation-v1`.
+Their JSON responses preserve `decisions:[]` for the existing native bridge, plus `identity`/
+`candidate_identities` or `items` respectively. An adapter must pass structured JSON through and
+honor the supplied task prompt; the existing Luna bridge does. Custom inference implementations
+without the optional `resolveEntities`/`reconcile` methods retain their existing Decision seam.
+There is no silent un-reconciled fallback if a configured model returns an invalid phase shape.
+HTTP providers receive the same phase prompt. These are product payload limits, not a promise that
+external provider framing/billing also totals at most4096 tokens.
+
+Reconciliation can jointly normalize duplicate representations and close multiple explicitly
+affected assertions; compatible additions/co-owners remain independent. `memory_changes.type`
+adds `superseded` for redundant/decomposed representations, distinct from false `correction`,
+withdrawn `retraction`, or formerly true `state_change`. A compound refinement requires its actual
+original support and complete supplied atomic coverage. Original source/job/version/root history
+is retained. Supported later replacements can bound/retract a reprocessed older assertion using
+the later original source as audit authority, rather than ingestion/retry order. Date-only
+`change.aspect:"interval"`, conflicts and grounded derived consolidation remain supported.
+
+A handover may explicitly predate the initial claim's observation-time default. The persisted
+initial bound remains custody, not an invented historical start. Such history adds
+`historical_start_unknown:true`, retains the actual exclusive `valid_to`, and renders "unknown
+start" in recall/UI. It never remains current merely because the old default start was later.
+An exact historical start is not inferred when the source did not supply one.
+
+Additive schema-2 tables are `memory_scoped_aliases`, `memory_alias_sources`,
+`memory_entity_targets`, `memory_entity_equivalences`, and `memory_reconciliations`.
+Original knowledge tables/IDs/credentials are not remapped. Legacy aliases migrate only into
+scopes with supported subject identity. New aliases/equivalences retain original event proof;
+forget/revision removes that proof. Graph canonical projections require same-scope live proof
+visible at the requested recorded time; ambiguous equivalences are not silently pooled. Entity
+objects are supported by their actual incoming edge. Reconciliation audit stores job/event/memory
+IDs and selected dispositions/identity bindings; reprocess prompt hashes identify all phase prompts.
+Current source/grant/lease, candidate support/version/change, post-await and concurrent related
+memory fences remain. An unsupported actor rewrite in a target-identity result is quarantined and
+audited, not applied. Exact canonical same-claim/same-interval state output is audited as duplicate
+representation rather than a fictional handover; different actors/intervals are never coalesced by
+that rule. A write-only shared destination does not grant read access to its candidates.
+Use the stopped full custody backup for writer rollback; do not treat source-only completion as
+runtime activation or proof of owner-native outcomes.
+
 This is distinct from the original `/v1/context` and `/v1/graph` source/fact APIs above.
 `POST /v1/events` durably stores revisioned capture before asynchronous curation;
 `POST /v1/recall` is read-only (no idempotency key), with the existing `{api_version,request_id,data}`

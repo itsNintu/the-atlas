@@ -1,5 +1,35 @@
 # Current project context
 
+## Relational identity/truth reconciliation source repair — 2026-11-07
+
+Source task t_d7c1e270 separates atomic extraction, focused same-scope identity resolution and
+truth reconciliation; each phase enforces exact4096 product input tokens, with extraction
+headroom and resumable source fragments. Meaningful entity targets can exist without becoming
+subjects; explicit literal values stay literals. Original source roles/authors/roots and stored
+entity/memory IDs remain. Five additive schema-2 tables retain scoped alias proof, typed targets,
+recorded source-backed equivalences and reconciliation audit. No production DB/job/config/model/
+grant writes, restart or native session was performed here. Runtime completion remains Overwatch
+t_b3950651 under owner root t_5f7f3afb; source completion is not activated owner completion.
+
+Real isolated Luna testing copied the reported synthetic LDN7 rows/supports, not production data.
+It exposed and then repaired predicate-window starvation, duplicate-versus-change exclusivity,
+and Lantern-launch/short-name co-reference. Final real current graph has Leda ownership, no stale
+current Nola ownership/cobalt, actual linked reporting/review entities, and correct correction vs
+historical handover ending2026-11-07T00:00:00.000Z. New FEN9 is atomic linked knowledge, including
+the contextual Remy reviewer/auditor. Earlier fixture/model failures remain evidence, not erased.
+Final-source integration reuses the recorded successful Luna output on an isolated copy, with no
+new Luna calls, and verifies current/history, exact source custody, old jobs and4096 phase bounds.
+Unknown prior start remains unknown rather than inventing a date. These are source-fixture
+observations, not native callback timing, production freshness or all-history truth guarantees.
+
+The parallel recall helper's committed seam is retained unchanged. Its exact original FEN9
+732→0 readonly evidence is reused. A final-engine readonly same-snapshot integration removes
+two weak unrelated LDN7 reviews from current FEN9-use while preserving all three original FEN9
+facts, semantic paraphrases, LDN7/VES8 evidence, lexical fallback and response history. Relative
+predicate rescue now needs independent semantic or non-predicate lexical evidence; same-entity
+rescue and global admission are unchanged. See evidence/relational-reconciliation/HANDOFF.md
+for exact source hashes, finite checks, failure evidence and supported original-only repair steps.
+
 ## Fact selection and recall source repair — 2026-11-07
 
 Source-only t_031912e4 repairs response-control contamination, duplicate current-query context,

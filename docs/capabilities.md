@@ -1,5 +1,26 @@
 # Capability map
 
+## Focused relational identity/state repair (source, activation separate)
+
+The default Luna path now separates atomic extraction, scoped sourced entity co-reference and
+truth reconciliation into bounded phase calls, each with the exact4096 product-input cap.
+Reconciliation uses predicate-focused indexed windows (two bounded48-ID lexical lookups, up to12
+supplied candidates) rather than allowing qualification prose to crowd out the actual relation.
+Original source attribution/roots remain attached; scenario qualification is separate from plain
+entity relationships. Explicit typed objects can be supported entities without ever being subjects;
+literal properties stay literal. Scoped source-backed aliases/equivalences do not pool graphs.
+
+Current/history serving distinguishes never-true correction, genuine handover, and superseded
+representations. Multi-target changes, duplicate normalization, additions/co-owners, date-only
+corrections, derived lineage and late-original replay protection are covered by focused regressions.
+Unknown prior start remains unknown when a handover predates an observation-time default; the real
+handover boundary is retained rather than fabricating a start or leaving stale truth current.
+See contract.md for additive tables and versioned identity/reconciliation task shapes. Existing
+native adapter/embedding/preview evidence is reused where unchanged. Additional focused model calls
+increase digestion cost/latency; this is not an unchanged24.640s freshness promise or universal
+semantic accuracy claim. The isolated source evidence and remaining native activation boundary
+belong to the current source handoff, not a new observation/approval lane.
+
 ## Automatic event-memory path — schema 2, dreaming revision
 
 `/v1/events`, `/v1/recall`, `/v1/feedback`, `/v1/memory/bind` and job diagnostics/retry
