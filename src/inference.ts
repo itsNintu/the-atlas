@@ -41,6 +41,18 @@ export function validateDecisions(raw: unknown): { decisions: Decision[] } {
     );
   }
 }
+// Curator dates may copy natural tool receipts (e.g. Python's microsecond
+// ISO output). Project only these structured bounds to Atlas's existing UTC
+// millisecond precision so lexical temporal comparisons remain consistent.
+// Source event text and receipt tokens are never rewritten. Do not round into
+// the next instant or invent an interval when both bounds collapse to one ms.
+function curationTimestamp(raw: unknown, name: string): string {
+  const s = text(raw, name, 64);
+  const match = /^(\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d)(?:\.(\d+))?(?:Z|\+00:00)$/.exec(s);
+  if (!match)
+    fail(400, "invalid_request", `${name} must be a UTC RFC3339 timestamp`);
+  return timestamp(`${match[1]}.${(match[2] ?? "").padEnd(3, "0").slice(0, 3)}Z`, name);
+}
 function validateDecisionBody(raw: unknown): { decisions: Decision[] } {
   const value = object(raw);
   if (!Array.isArray(value.decisions) || value.decisions.length > 24)
@@ -59,8 +71,8 @@ function validateDecisionBody(raw: unknown): { decisions: Decision[] } {
     )
       fail(503, "invalid_curation", "Invalid decision kind", true);
     if (d.kind === "nothing") return { kind: "nothing" };
-    const start = timestamp(d.valid_from, "valid_from");
-    const end = d.valid_to == null ? null : timestamp(d.valid_to, "valid_to");
+    const start = curationTimestamp(d.valid_from, "valid_from");
+    const end = d.valid_to == null ? null : curationTimestamp(d.valid_to, "valid_to");
     if (end && end <= start)
       fail(503, "invalid_curation", "Invalid memory interval", true);
     for (const k of ["importance", "confidence"])
