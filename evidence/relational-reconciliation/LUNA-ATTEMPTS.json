@@ -1,0 +1,2893 @@
+{
+  "v1-followup-raw.json": [
+    {
+      "phase": "extract",
+      "input_tokens": 3374,
+      "output": {
+        "decisions": [
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Leda",
+            "predicate": "owns",
+            "object": "LDN7 Lantern",
+            "object_entity": true,
+            "valid_from": "2026-11-07T00:00:00Z",
+            "valid_to": null,
+            "importance": 0.8,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Nola",
+            "predicate": "owned_through",
+            "object": "LDN7 Lantern through 2026-11-06",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:20.311Z",
+            "valid_to": null,
+            "importance": 0.7,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7",
+            "predicate": "qualification",
+            "object": "Fictional story context only; not real-world truth.",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:20.311Z",
+            "valid_to": null,
+            "importance": 0.5,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 3794,
+        "output_tokens": 547,
+        "total_tokens": 4341,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3081,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 14408.346
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3960,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_e8daa046-9d45-4980-825a-d3d84c8b554d"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4372,
+        "output_tokens": 388,
+        "total_tokens": 4760,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3502,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 11198.531
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3970,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [],
+            "change": {
+              "type": "state_change",
+              "target_ids": [
+                "memory_8a960c72-6305-4afc-96f0-4671c263f6fc"
+              ]
+            }
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4382,
+        "output_tokens": 357,
+        "total_tokens": 4739,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3509,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 11563.377
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3964,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_94bdb08b-330b-40bc-a891-ed4ec72329e6"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4376,
+        "output_tokens": 117,
+        "total_tokens": 4493,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3515,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 6505.895
+      }
+    },
+    {
+      "phase": "extract",
+      "input_tokens": 3244,
+      "output": {
+        "decisions": [
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Mira",
+            "predicate": "reports_to",
+            "object": "LDN7 Nola",
+            "object_entity": true,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.7,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Nola",
+            "predicate": "owns",
+            "object": "LDN7 Lantern launch",
+            "object_entity": true,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.65,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Lantern",
+            "predicate": "uses_color",
+            "object": "cobalt",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.55,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7",
+            "predicate": "qualification",
+            "object": "Fictional archive exercise only; not Alex or real business truth.",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.8,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 3655,
+        "output_tokens": 520,
+        "total_tokens": 4175,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 2928,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 13691.076
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3681,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_187583a9-de1e-4b63-9571-5b3828589a30"
+            ],
+            "superseded_ids": [
+              "memory_8a960c72-6305-4afc-96f0-4671c263f6fc"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4081,
+        "output_tokens": 79,
+        "total_tokens": 4160,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3241,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 5954.179
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3681,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_5303f963-4643-4d52-bc12-1e0aecfbd1d8"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4081,
+        "output_tokens": 48,
+        "total_tokens": 4129,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3243,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 5178.603
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3678,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_c5776f98-79a4-45c8-be72-09cf1b893d07"
+            ],
+            "superseded_by": {
+              "id": "memory_48b7e621-3b41-4451-ab75-26c0a11cdc1c",
+              "type": "correction",
+              "effective_at": "2026-11-07T11:40:26.912Z"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4078,
+        "output_tokens": 380,
+        "total_tokens": 4458,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3242,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 11267.036
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3685,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_e394bdd2-77c8-4f3b-9b19-d0c175ecd37d"
+            ],
+            "superseded_ids": [
+              "memory_8a960c72-6305-4afc-96f0-4671c263f6fc"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4085,
+        "output_tokens": 80,
+        "total_tokens": 4165,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3254,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 5634.285
+      }
+    }
+  ],
+  "v2-followup-raw.json": [
+    {
+      "phase": "extract",
+      "input_tokens": 3233,
+      "output": {
+        "decisions": [
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Leda",
+            "predicate": "owns",
+            "object": "LDN7 Lantern",
+            "object_entity": true,
+            "valid_from": "2026-11-07T00:00:00Z",
+            "valid_to": null,
+            "importance": 0.8,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7",
+            "predicate": "qualification",
+            "object": "Fictional story context only; not real-world truth.",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:20.311Z",
+            "valid_to": null,
+            "importance": 0.6,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 3624,
+        "output_tokens": 308,
+        "total_tokens": 3932,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 2926,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 9897.116
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 4015,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_e8daa046-9d45-4980-825a-d3d84c8b554d"
+            ],
+            "change": {
+              "type": "state_change",
+              "target_ids": [
+                "memory_5d965d36-3329-4439-b9a7-3eddc6097c39"
+              ]
+            }
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4436,
+        "output_tokens": 231,
+        "total_tokens": 4667,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3482,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 8709.177
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 4061,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_94bdb08b-330b-40bc-a891-ed4ec72329e6"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4489,
+        "output_tokens": 117,
+        "total_tokens": 4606,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3615,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 6400.183
+      }
+    },
+    {
+      "phase": "extract",
+      "input_tokens": 2709,
+      "output": {
+        "decisions": [
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Mira",
+            "predicate": "reports_to",
+            "object": "LDN7 Nola",
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.7,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ],
+            "object_entity": true
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Nola",
+            "predicate": "owns",
+            "object": "LDN7 Lantern launch",
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.7,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ],
+            "object_entity": true
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Lantern",
+            "predicate": "archive_claimed_color",
+            "object": "cobalt",
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.5,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ],
+            "object_entity": false
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7",
+            "predicate": "qualification",
+            "object": "Fictional archive fixture only; not Alex or real business truth.",
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.8,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ],
+            "object_entity": false
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 3045,
+        "output_tokens": 516,
+        "total_tokens": 3561,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 2504,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 13408.913
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3938,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_187583a9-de1e-4b63-9571-5b3828589a30"
+            ],
+            "superseded_ids": [
+              "memory_893ecbb2-3209-46c7-affe-f7089d9d207d",
+              "memory_8a960c72-6305-4afc-96f0-4671c263f6fc"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4365,
+        "output_tokens": 391,
+        "total_tokens": 4756,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3430,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 11292.667
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3790,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_5303f963-4643-4d52-bc12-1e0aecfbd1d8"
+            ],
+            "superseded_ids": [
+              "memory_b5048b09-f729-4a42-ace9-b403e32f4c4d"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4205,
+        "output_tokens": 79,
+        "total_tokens": 4284,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3274,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 5552.173
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 4083,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_09857191-098b-46da-86b5-eab27005e41f"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4520,
+        "output_tokens": 384,
+        "total_tokens": 4904,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3510,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 11573.47
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3919,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_f4ac39b7-b511-479a-b2ab-80fc2cee313f"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4345,
+        "output_tokens": 131,
+        "total_tokens": 4476,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3493,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 6243.64
+      }
+    }
+  ],
+  "v3-followup-raw.json": [
+    {
+      "phase": "extract",
+      "input_tokens": 3277,
+      "output": {
+        "decisions": [
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Nola",
+            "predicate": "owns",
+            "object": "LDN7 Lantern",
+            "object_entity": true,
+            "valid_from": "2026-11-07T00:00:00Z",
+            "valid_to": "2026-11-07T00:00:00Z",
+            "importance": 0.8,
+            "confidence": 0.95,
+            "evidence_event_ids": [
+              "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Leda",
+            "predicate": "owns",
+            "object": "LDN7 Lantern",
+            "object_entity": true,
+            "valid_from": "2026-11-07T00:00:00Z",
+            "valid_to": null,
+            "importance": 0.9,
+            "confidence": 0.95,
+            "evidence_event_ids": [
+              "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7",
+            "predicate": "qualification",
+            "object": "Fictional story context only; not real-world truth.",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:20.311Z",
+            "valid_to": null,
+            "importance": 0.7,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 3673,
+        "output_tokens": 454,
+        "total_tokens": 4127,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 2955,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 12220.78
+      }
+    },
+    {
+      "phase": "extract",
+      "input_tokens": 3277,
+      "output": {
+        "decisions": [
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Leda",
+            "predicate": "owns",
+            "object": "LDN7 Lantern",
+            "object_entity": true,
+            "valid_from": "2026-11-07T00:00:00Z",
+            "valid_to": null,
+            "importance": 0.8,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7",
+            "predicate": "qualification",
+            "object": "Fictional story context only; not real-world truth.",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:20.311Z",
+            "valid_to": null,
+            "importance": 0.6,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 3673,
+        "output_tokens": 469,
+        "total_tokens": 4142,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 2955,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 13231.951
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3553,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7 Leda",
+          "object": "LDN7 Lantern",
+          "entity_aliases": [
+            {
+              "canonical": "LDN7 Leda",
+              "aliases": [
+                "LDN7 Leda"
+              ]
+            },
+            {
+              "canonical": "LDN7 Lantern",
+              "aliases": [
+                "LDN7 Lantern"
+              ]
+            }
+          ]
+        }
+      },
+      "usage": {
+        "input_tokens": 3950,
+        "output_tokens": 64,
+        "total_tokens": 4014,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 2953,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 4998.316
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3878,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_b90761f2-ec25-4411-8147-38a49922945e",
+              "memory_e8daa046-9d45-4980-825a-d3d84c8b554d"
+            ],
+            "change": {
+              "type": "state_change",
+              "target_ids": [
+                "memory_5d965d36-3329-4439-b9a7-3eddc6097c39"
+              ]
+            }
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4291,
+        "output_tokens": 302,
+        "total_tokens": 4593,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3371,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 9881.117
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3821,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7",
+          "object": "Fictional story context only; not real-world truth.",
+          "entity_aliases": []
+        }
+      },
+      "usage": {
+        "input_tokens": 4254,
+        "output_tokens": 93,
+        "total_tokens": 4347,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3258,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 6150.06
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 4080,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_480d04a6-36ba-485d-949b-dbd6e8928208"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4516,
+        "output_tokens": 150,
+        "total_tokens": 4666,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3620,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 6396.663
+      }
+    },
+    {
+      "phase": "extract",
+      "input_tokens": 2869,
+      "output": {
+        "decisions": [
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Mira",
+            "predicate": "reports_to",
+            "object": "LDN7 Nola",
+            "object_entity": true,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.6,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Nola",
+            "predicate": "owns",
+            "object": "LDN7 Lantern launch",
+            "object_entity": true,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.6,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Lantern",
+            "predicate": "uses_color",
+            "object": "cobalt",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.4,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7",
+            "predicate": "qualification",
+            "object": "Fictional archive fixture only; not Alex or real business truth.",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.7,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 3221,
+        "output_tokens": 503,
+        "total_tokens": 3724,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 2617,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 13024.894
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3741,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7 Mira",
+          "object": "LDN7 Nola",
+          "entity_aliases": [
+            {
+              "canonical": "LDN7 Mira",
+              "aliases": [
+                "LDN7 Mira"
+              ]
+            },
+            {
+              "canonical": "LDN7 Nola",
+              "aliases": [
+                "LDN7 Nola"
+              ]
+            }
+          ]
+        }
+      },
+      "usage": {
+        "input_tokens": 4174,
+        "output_tokens": 241,
+        "total_tokens": 4415,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3111,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 8318.674
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 4066,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_187583a9-de1e-4b63-9571-5b3828589a30"
+            ],
+            "superseded_ids": [
+              "memory_8a960c72-6305-4afc-96f0-4671c263f6fc"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4515,
+        "output_tokens": 79,
+        "total_tokens": 4594,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3526,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 5958.373
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3646,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7 Nola",
+          "object": "LDN7 Lantern",
+          "entity_aliases": [
+            {
+              "canonical": "LDN7 Lantern",
+              "aliases": [
+                "LDN7 Lantern",
+                "LDN7 Lantern launch"
+              ]
+            }
+          ]
+        }
+      },
+      "usage": {
+        "input_tokens": 4073,
+        "output_tokens": 220,
+        "total_tokens": 4293,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 2988,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 8380.728
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3948,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_5303f963-4643-4d52-bc12-1e0aecfbd1d8"
+            ],
+            "superseded_ids": [
+              "memory_b5048b09-f729-4a42-ace9-b403e32f4c4d"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4385,
+        "output_tokens": 79,
+        "total_tokens": 4464,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3389,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 5860.753
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3565,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7 Lantern",
+          "object": "cobalt",
+          "entity_aliases": [
+            {
+              "canonical": "LDN7 Lantern",
+              "aliases": [
+                "LDN7 Lantern"
+              ]
+            }
+          ]
+        }
+      },
+      "usage": {
+        "input_tokens": 3979,
+        "output_tokens": 44,
+        "total_tokens": 4023,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 2944,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 6033.656
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3856,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_e86f618b-6860-4678-8f6e-ea1e9e8b19d8"
+            ],
+            "change": {
+              "type": "correction",
+              "target_ids": [
+                "memory_e86f618b-6860-4678-8f6e-ea1e9e8b19d8",
+                "memory_09857191-098b-46da-86b5-eab27005e41f",
+                "memory_b6b979f2-8432-4cb3-bac7-1150588eebcc",
+                "memory_c5776f98-79a4-45c8-be72-09cf1b893d07"
+              ]
+            },
+            "superseded_by": {
+              "id": "memory_05293767-b42f-4b27-8fc6-84eab525746e",
+              "type": "correction",
+              "effective_at": "2026-11-07T11:40:26.912Z"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4278,
+        "output_tokens": 218,
+        "total_tokens": 4496,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3335,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 8990.383
+      }
+    },
+    {
+      "phase": "extract",
+      "input_tokens": 2869,
+      "output": {
+        "decisions": [
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Mira",
+            "predicate": "reports_to",
+            "object": "LDN7 Nola",
+            "object_entity": true,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.55,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Nola",
+            "predicate": "owns",
+            "object": "LDN7 Lantern launch",
+            "object_entity": true,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.55,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Lantern",
+            "predicate": "uses_color",
+            "object": "cobalt",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.45,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7",
+            "predicate": "qualification",
+            "object": "Fictional archive fixture only; not Alex or real business truth.",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.55,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 3221,
+        "output_tokens": 509,
+        "total_tokens": 3730,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 2617,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 13430.301
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3741,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7 Mira",
+          "object": "LDN7 Nola",
+          "entity_aliases": []
+        }
+      },
+      "usage": {
+        "input_tokens": 4174,
+        "output_tokens": 219,
+        "total_tokens": 4393,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3111,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 8128.487
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 4000,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_187583a9-de1e-4b63-9571-5b3828589a30",
+              "memory_893ecbb2-3209-46c7-affe-f7089d9d207d"
+            ],
+            "superseded_ids": [
+              "memory_8a960c72-6305-4afc-96f0-4671c263f6fc"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4436,
+        "output_tokens": 435,
+        "total_tokens": 4871,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3473,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 13150.779
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3646,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7 Nola",
+          "object": "LDN7 Lantern",
+          "entity_aliases": [
+            {
+              "canonical": "LDN7 Nola",
+              "aliases": [
+                "LDN7 Nola"
+              ]
+            },
+            {
+              "canonical": "LDN7 Lantern",
+              "aliases": [
+                "LDN7 Lantern",
+                "LDN7 Lantern launch"
+              ]
+            }
+          ]
+        }
+      },
+      "usage": {
+        "input_tokens": 4073,
+        "output_tokens": 230,
+        "total_tokens": 4303,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 2988,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 8204.183
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3982,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_5303f963-4643-4d52-bc12-1e0aecfbd1d8"
+            ],
+            "superseded_ids": [
+              "memory_8a960c72-6305-4afc-96f0-4671c263f6fc"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4427,
+        "output_tokens": 81,
+        "total_tokens": 4508,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3416,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 5438.943
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3565,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7 Lantern",
+          "object": "cobalt",
+          "entity_aliases": [
+            {
+              "canonical": "LDN7 Lantern",
+              "aliases": [
+                "LDN7 Lantern"
+              ]
+            }
+          ]
+        }
+      },
+      "usage": {
+        "input_tokens": 3979,
+        "output_tokens": 44,
+        "total_tokens": 4023,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 2944,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 5489.87
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3856,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [],
+            "superseded_by": {
+              "id": "memory_05293767-b42f-4b27-8fc6-84eab525746e",
+              "type": "correction",
+              "effective_at": "2026-11-07T11:40:26.912Z"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4278,
+        "output_tokens": 76,
+        "total_tokens": 4354,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3335,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 5796.429
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3644,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7",
+          "object": "Fictional archive fixture only; not Alex or real business truth.",
+          "entity_aliases": []
+        }
+      },
+      "usage": {
+        "input_tokens": 4070,
+        "output_tokens": 157,
+        "total_tokens": 4227,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3123,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 7051.377
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3903,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_54a62f93-5b97-47e6-b649-450214914fbf"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4332,
+        "output_tokens": 328,
+        "total_tokens": 4660,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3485,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 10016.55
+      }
+    }
+  ],
+  "followup-raw.json": [
+    {
+      "phase": "extract",
+      "input_tokens": 3269,
+      "output": {
+        "decisions": [
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Nola",
+            "predicate": "owns",
+            "object": "LDN7 Lantern",
+            "object_entity": true,
+            "valid_from": "2026-11-07T00:00:00Z",
+            "valid_to": "2026-11-07T00:00:00Z",
+            "importance": 0.8,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Leda",
+            "predicate": "owns",
+            "object": "LDN7 Lantern",
+            "object_entity": true,
+            "valid_from": "2026-11-07T00:00:00Z",
+            "valid_to": null,
+            "importance": 0.9,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7",
+            "predicate": "qualification",
+            "object": "Fictional story context only; not real-world truth.",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:20.311Z",
+            "valid_to": null,
+            "importance": 0.7,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 3665,
+        "output_tokens": 330,
+        "total_tokens": 3995,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 2944,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 10390.29
+      }
+    },
+    {
+      "phase": "extract",
+      "input_tokens": 3269,
+      "output": {
+        "decisions": [
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Leda",
+            "predicate": "owns",
+            "object": "LDN7 Lantern",
+            "object_entity": true,
+            "valid_from": "2026-11-07T00:00:00Z",
+            "valid_to": null,
+            "importance": 0.8,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7",
+            "predicate": "qualification",
+            "object": "Fictional story context only; not real-world truth.",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:20.311Z",
+            "valid_to": null,
+            "importance": 0.6,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 3665,
+        "output_tokens": 370,
+        "total_tokens": 4035,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 2944,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 10992.856
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3874,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7 Leda",
+          "object": "LDN7 Lantern",
+          "entity_aliases": [
+            {
+              "canonical": "LDN7 Lantern",
+              "aliases": [
+                "LDN7 Lantern",
+                "LDN7 Lantern launch"
+              ]
+            }
+          ]
+        },
+        "candidate_identities": [
+          {
+            "id": "memory_b90761f2-ec25-4411-8147-38a49922945e",
+            "subject": "LDN7 Leda",
+            "object": "LDN7 Lantern"
+          },
+          {
+            "id": "memory_5303f963-4643-4d52-bc12-1e0aecfbd1d8",
+            "subject": "LDN7 Nola",
+            "object": "LDN7 Lantern"
+          },
+          {
+            "id": "memory_b5048b09-f729-4a42-ace9-b403e32f4c4d",
+            "subject": "LDN7 Nola",
+            "object": "LDN7 Lantern"
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4299,
+        "output_tokens": 584,
+        "total_tokens": 4883,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3261,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 14570.243
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3890,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_b90761f2-ec25-4411-8147-38a49922945e",
+              "memory_e8daa046-9d45-4980-825a-d3d84c8b554d"
+            ],
+            "change": {
+              "type": "state_change",
+              "target_ids": [
+                "memory_1d208169-c34e-406c-8d05-c3b15c4ea936",
+                "memory_5303f963-4643-4d52-bc12-1e0aecfbd1d8",
+                "memory_5d965d36-3329-4439-b9a7-3eddc6097c39",
+                "memory_b5048b09-f729-4a42-ace9-b403e32f4c4d"
+              ]
+            }
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4317,
+        "output_tokens": 597,
+        "total_tokens": 4914,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3362,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 14627.783
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3813,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7",
+          "object": "Fictional story context only; not real-world truth.",
+          "entity_aliases": []
+        },
+        "candidate_identities": []
+      },
+      "usage": {
+        "input_tokens": 4227,
+        "output_tokens": 42,
+        "total_tokens": 4269,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3348,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 4938.807
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3945,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_480d04a6-36ba-485d-949b-dbd6e8928208",
+              "memory_94bdb08b-330b-40bc-a891-ed4ec72329e6"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4364,
+        "output_tokens": 197,
+        "total_tokens": 4561,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3532,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 8273.856
+      }
+    },
+    {
+      "phase": "extract",
+      "input_tokens": 2864,
+      "output": {
+        "decisions": [
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Mira",
+            "predicate": "reports_to",
+            "object": "LDN7 Nola",
+            "object_entity": true,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.65,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Nola",
+            "predicate": "owns",
+            "object": "LDN7 Lantern launch",
+            "object_entity": true,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.65,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Lantern",
+            "predicate": "archive_claimed_color",
+            "object": "cobalt",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.45,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7",
+            "predicate": "qualification",
+            "object": "Fictional archive fixture only; not Alex or real business truth.",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.7,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 3216,
+        "output_tokens": 554,
+        "total_tokens": 3770,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 2601,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 14622.026
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3946,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7 Mira",
+          "object": "LDN7 Nola",
+          "entity_aliases": []
+        },
+        "candidate_identities": []
+      },
+      "usage": {
+        "input_tokens": 4383,
+        "output_tokens": 173,
+        "total_tokens": 4556,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3330,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 8316.474
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 4078,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_187583a9-de1e-4b63-9571-5b3828589a30",
+              "memory_893ecbb2-3209-46c7-affe-f7089d9d207d"
+            ],
+            "superseded_ids": [
+              "memory_8a960c72-6305-4afc-96f0-4671c263f6fc"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4520,
+        "output_tokens": 441,
+        "total_tokens": 4961,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3514,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 12016.362
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3724,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7 Nola",
+          "object": "LDN7 Lantern launch",
+          "entity_aliases": [
+            {
+              "canonical": "LDN7 Lantern launch",
+              "aliases": [
+                "LDN7 Lantern launch",
+                "LDN7 Lantern"
+              ]
+            }
+          ]
+        },
+        "candidate_identities": [
+          {
+            "id": "memory_1d208169-c34e-406c-8d05-c3b15c4ea936",
+            "subject": "LDN7 Nola",
+            "object": "LDN7 Lantern launch"
+          },
+          {
+            "id": "memory_e8daa046-9d45-4980-825a-d3d84c8b554d",
+            "subject": "LDN7 Nola",
+            "object": "LDN7 Lantern launch"
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4143,
+        "output_tokens": 398,
+        "total_tokens": 4541,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3108,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 11736.9
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 4025,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_1d208169-c34e-406c-8d05-c3b15c4ea936",
+              "memory_e8daa046-9d45-4980-825a-d3d84c8b554d"
+            ],
+            "change": {
+              "type": "state_change",
+              "target_ids": [
+                "memory_5303f963-4643-4d52-bc12-1e0aecfbd1d8",
+                "memory_b5048b09-f729-4a42-ace9-b403e32f4c4d"
+              ]
+            }
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4472,
+        "output_tokens": 134,
+        "total_tokens": 4606,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3428,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 7516.449
+      }
+    },
+    {
+      "phase": "extract",
+      "input_tokens": 2864,
+      "output": {
+        "decisions": [
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Mira",
+            "predicate": "reports_to",
+            "object": "LDN7 Nola",
+            "object_entity": true,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.65,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Nola",
+            "predicate": "owns",
+            "object": "LDN7 Lantern launch",
+            "object_entity": true,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.65,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Lantern",
+            "predicate": "uses_color",
+            "object": "cobalt",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.5,
+            "confidence": 0.97,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7",
+            "predicate": "qualification",
+            "object": "Fictional archive exercise only; not Alex or real business truth.",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.7,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 3216,
+        "output_tokens": 479,
+        "total_tokens": 3695,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 2601,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 14314.847
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3944,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7 Mira",
+          "object": "LDN7 Nola",
+          "entity_aliases": []
+        },
+        "candidate_identities": []
+      },
+      "usage": {
+        "input_tokens": 4381,
+        "output_tokens": 345,
+        "total_tokens": 4726,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3328,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 10571.653
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 4076,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_187583a9-de1e-4b63-9571-5b3828589a30"
+            ],
+            "superseded_ids": [
+              "memory_8a960c72-6305-4afc-96f0-4671c263f6fc"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4518,
+        "output_tokens": 79,
+        "total_tokens": 4597,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3511,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 5502.071
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3722,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7 Nola",
+          "object": "LDN7 Lantern",
+          "entity_aliases": [
+            {
+              "canonical": "LDN7 Lantern",
+              "aliases": [
+                "LDN7 Lantern",
+                "LDN7 Lantern launch"
+              ]
+            }
+          ]
+        },
+        "candidate_identities": []
+      },
+      "usage": {
+        "input_tokens": 4141,
+        "output_tokens": 336,
+        "total_tokens": 4477,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3105,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 9915.595
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3897,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_1d208169-c34e-406c-8d05-c3b15c4ea936"
+            ],
+            "change": {
+              "type": "state_change",
+              "target_ids": [
+                "memory_5303f963-4643-4d52-bc12-1e0aecfbd1d8",
+                "memory_b5048b09-f729-4a42-ace9-b403e32f4c4d"
+              ]
+            }
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4328,
+        "output_tokens": 109,
+        "total_tokens": 4437,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3328,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 5731.014
+      }
+    },
+    {
+      "phase": "extract",
+      "input_tokens": 2864,
+      "output": {
+        "decisions": [
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Mira",
+            "predicate": "reports_to",
+            "object": "LDN7 Nola",
+            "object_entity": true,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.55,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Nola",
+            "predicate": "owns",
+            "object": "LDN7 Lantern launch",
+            "object_entity": true,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.5,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Lantern",
+            "predicate": "archive_claimed_color",
+            "object": "cobalt",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.4,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7",
+            "predicate": "qualification",
+            "object": "Fictional archive exercise only; not Alex or real business truth.",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.6,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 3216,
+        "output_tokens": 505,
+        "total_tokens": 3721,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 2601,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 13622.846
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3944,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7 Mira",
+          "object": "LDN7 Nola",
+          "entity_aliases": []
+        },
+        "candidate_identities": []
+      },
+      "usage": {
+        "input_tokens": 4381,
+        "output_tokens": 162,
+        "total_tokens": 4543,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3330,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 7415.938
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 4076,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_187583a9-de1e-4b63-9571-5b3828589a30"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4518,
+        "output_tokens": 260,
+        "total_tokens": 4778,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3513,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 9087.571
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3722,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7 Nola",
+          "object": "LDN7 Lantern launch",
+          "entity_aliases": [
+            {
+              "canonical": "LDN7 Lantern launch",
+              "aliases": [
+                "LDN7 Lantern launch",
+                "LDN7 Lantern"
+              ]
+            }
+          ]
+        },
+        "candidate_identities": [
+          {
+            "id": "memory_1d208169-c34e-406c-8d05-c3b15c4ea936",
+            "subject": "LDN7 Nola",
+            "object": "LDN7 Lantern launch"
+          },
+          {
+            "id": "memory_e8daa046-9d45-4980-825a-d3d84c8b554d",
+            "subject": "LDN7 Nola",
+            "object": "LDN7 Lantern launch"
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4141,
+        "output_tokens": 457,
+        "total_tokens": 4598,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3107,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 12338.456
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 4023,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_1d208169-c34e-406c-8d05-c3b15c4ea936"
+            ],
+            "change": {
+              "type": "state_change",
+              "target_ids": [
+                "memory_5303f963-4643-4d52-bc12-1e0aecfbd1d8",
+                "memory_b5048b09-f729-4a42-ace9-b403e32f4c4d"
+              ]
+            },
+            "superseded_by": {
+              "id": "memory_e8daa046-9d45-4980-825a-d3d84c8b554d",
+              "type": "state_change",
+              "effective_at": "2026-11-07T00:00:00.000Z"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4470,
+        "output_tokens": 165,
+        "total_tokens": 4635,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3428,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 7715.082
+      }
+    },
+    {
+      "phase": "extract",
+      "input_tokens": 2864,
+      "output": {
+        "decisions": [
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Mira",
+            "predicate": "reports_to",
+            "object": "LDN7 Nola",
+            "object_entity": true,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.65,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Nola",
+            "predicate": "owns",
+            "object": "LDN7 Lantern launch",
+            "object_entity": true,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.65,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7 Lantern",
+            "predicate": "uses_color",
+            "object": "cobalt",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.45,
+            "confidence": 0.99,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          },
+          {
+            "kind": "episode",
+            "scope": "agent:builder",
+            "subject": "LDN7",
+            "predicate": "qualification",
+            "object": "Fictional archive exercise only; not Alex or real business truth.",
+            "object_entity": false,
+            "valid_from": "2026-11-07T11:40:04.339Z",
+            "valid_to": null,
+            "importance": 0.7,
+            "confidence": 1,
+            "evidence_event_ids": [
+              "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 3216,
+        "output_tokens": 495,
+        "total_tokens": 3711,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 2601,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 13003.385
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3944,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7 Mira",
+          "object": "LDN7 Nola",
+          "entity_aliases": []
+        },
+        "candidate_identities": []
+      },
+      "usage": {
+        "input_tokens": 4381,
+        "output_tokens": 262,
+        "total_tokens": 4643,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3328,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 9135.216
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 4076,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_187583a9-de1e-4b63-9571-5b3828589a30"
+            ],
+            "superseded_ids": [
+              "memory_8a960c72-6305-4afc-96f0-4671c263f6fc"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4518,
+        "output_tokens": 79,
+        "total_tokens": 4597,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3511,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 5440.062
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3722,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7 Nola",
+          "object": "LDN7 Lantern launch",
+          "entity_aliases": []
+        },
+        "candidate_identities": []
+      },
+      "usage": {
+        "input_tokens": 4141,
+        "output_tokens": 38,
+        "total_tokens": 4179,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3105,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 4858.543
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3854,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_5303f963-4643-4d52-bc12-1e0aecfbd1d8",
+              "memory_b5048b09-f729-4a42-ace9-b403e32f4c4d"
+            ],
+            "superseded_by": {
+              "id": "memory_e8daa046-9d45-4980-825a-d3d84c8b554d",
+              "type": "state_change",
+              "effective_at": "2026-11-07T00:00:00.000Z"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4278,
+        "output_tokens": 505,
+        "total_tokens": 4783,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3289,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 13132.003
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3786,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7 Lantern",
+          "object": "cobalt",
+          "entity_aliases": []
+        },
+        "candidate_identities": []
+      },
+      "usage": {
+        "input_tokens": 4220,
+        "output_tokens": 34,
+        "total_tokens": 4254,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3180,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 5063.701
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3918,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_6931b16a-286a-4a31-b02f-0b494e5793d1",
+              "memory_e86f618b-6860-4678-8f6e-ea1e9e8b19d8"
+            ],
+            "superseded_by": {
+              "id": "memory_05293767-b42f-4b27-8fc6-84eab525746e",
+              "type": "correction",
+              "effective_at": "2026-11-07T11:40:26.912Z"
+            }
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4357,
+        "output_tokens": 541,
+        "total_tokens": 4898,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3363,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 13796.801
+      }
+    },
+    {
+      "phase": "identity",
+      "input_tokens": 3839,
+      "output": {
+        "decisions": [],
+        "identity": {
+          "subject": "LDN7",
+          "object": "Fictional archive exercise only; not Alex or real business truth.",
+          "entity_aliases": []
+        },
+        "candidate_identities": []
+      },
+      "usage": {
+        "input_tokens": 4270,
+        "output_tokens": 246,
+        "total_tokens": 4516,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3350,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 8799.956
+      }
+    },
+    {
+      "phase": "reconcile",
+      "input_tokens": 3971,
+      "output": {
+        "decisions": [],
+        "items": [
+          {
+            "index": 0,
+            "duplicate_ids": [
+              "memory_54a62f93-5b97-47e6-b649-450214914fbf"
+            ]
+          }
+        ]
+      },
+      "usage": {
+        "input_tokens": 4407,
+        "output_tokens": 339,
+        "total_tokens": 4746,
+        "cache_read_tokens": 0,
+        "cache_write_tokens": 0,
+        "cost_usd": null,
+        "provider": "openai-codex",
+        "model": "gpt-6-luna",
+        "input_estimate": 3534,
+        "input_estimate_method": "hermes.estimate_tokens_rough",
+        "max_input_tokens": 4800,
+        "max_output_tokens": 2400,
+        "provider_call_ms": 10470.371
+      }
+    }
+  ]
+}

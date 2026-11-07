@@ -1,0 +1,121 @@
+{
+  "task": "t_d7c1e270",
+  "root": "t_5f7f3afb",
+  "activation_owner": "t_b3950651",
+  "at": "2026-11-07T15:22:34.723791+00:00",
+  "source_commit": "adc522fdb99693d93be7f4636e486fc3c36194ac",
+  "canonical_repo": "/home/alex/work/projects/the-atlas",
+  "changed_files": [
+    "CONTEXT.md",
+    "docs/brain-view.md",
+    "docs/capabilities.md",
+    "docs/contract.md",
+    "scripts/relational-live.ts",
+    "scripts/relational-recall-compare.ts",
+    "scripts/relational-replay.ts",
+    "scripts/relational-resume.ts",
+    "src/inference.ts",
+    "src/memory-graph.ts",
+    "src/memory-identity.ts",
+    "src/memory-reconciliation.ts",
+    "src/memory-schema.ts",
+    "src/memory.ts",
+    "tests/memory-reprocess.test.ts",
+    "tests/recall-intent.test.ts",
+    "tests/relational-reconciliation.test.ts",
+    "ui/brain.js"
+  ],
+  "file_sha256": {
+    "CONTEXT.md": "3b2dfc7e25ba0264b9cbab888ded4a458e4c7dd57664e9249cc78dc3a9c0f382",
+    "docs/brain-view.md": "1fd2c4f072a07a0be31dfb2e32b74e376af0659017c67eb96947163e9605ca05",
+    "docs/capabilities.md": "118a10cf37f49ede106c48efe84a27169a111e4038efa3e346a19f1ab4d166a6",
+    "docs/contract.md": "a4183bf04591c8c86e98d93bae319b2da265c38027116ff27cf586d6a16088ba",
+    "scripts/relational-live.ts": "e03603c7d37420c3f4ed9934f86895b715eb9998d8fd4d32300c41fad05182c6",
+    "scripts/relational-recall-compare.ts": "f06486a5cd11bde14b9b27678a964e7587310476cbd741bbf25b6e7129c0d43c",
+    "scripts/relational-replay.ts": "12324377d0555990cd4bf2d879baee89308af9af438aea8c4edf27813ed242c1",
+    "scripts/relational-resume.ts": "e0678abed0d440ca7327534998c17f711f4c8272da7f28651f8486ddcb6605eb",
+    "src/inference.ts": "1183230ea180d0e9eeebfdcdd748d7d9b89198bb06d485f3cae4fe8d47bef814",
+    "src/memory-graph.ts": "fc5ddc52854e029cb9fd3f72a96a4084c7fa2101734f44be9b94ef8b5d72fd07",
+    "src/memory-identity.ts": "d10129c0084bd038ca5e559b3e8c8bb11be91fa303e507174b429c3ba8fa043e",
+    "src/memory-reconciliation.ts": "99c6104de696eeb677d54acfd649cb3a04a7941fed29230550fd42a6321b969d",
+    "src/memory-schema.ts": "c6dac5c7941eae1b34a544e8aa0b927cfb11d05252fbf96b90e67c50cf76ef35",
+    "src/memory.ts": "eb5a26bbe0c110a37b149ef1a62b34f5268f0b021c15cd805a3644788672e1cc",
+    "tests/memory-reprocess.test.ts": "e874e5dd78cbd75a5583c9ff93243d2727cabb45de0076cc3f24c02c0cbc1550",
+    "tests/recall-intent.test.ts": "749f63273cb7b6bad2d9ddd666fe45890e1c4c411ace01a14572f74fc80914f8",
+    "tests/relational-reconciliation.test.ts": "2625bf90a63027606de83d7b6842d3c81a23e913e6149c89001aa0f62b98670c",
+    "ui/brain.js": "261d15cd2f8198d92a5ff79be168d2e641e06e4a1010c5d1ee825b9367c1d8e0"
+  },
+  "integrated_helper_commits": [
+    "35c24a64c78d0eec4ce24841dc0f555e922a187e",
+    "39f3a1b40c8c3f0fbd8259c31035284d7d1c7b8e"
+  ],
+  "untouched_helper_sha256": "dedcc79fcc57d79c20c95f0cabf2dc951fcbb12c9a7bbae41960b4ad78916ede",
+  "verification": {
+    "frozen_install": "pass; no changes",
+    "typecheck": "pass",
+    "tests": 126,
+    "assertions": 1072,
+    "test_files": 19,
+    "failures": 0,
+    "disk_HTTP_CLI_E2E": {
+      "run_at": "2026-11-07T15:20:14.265Z",
+      "result": "pass",
+      "checks": [
+        "CLI bootstrap writes exclusive mode-0600 generated credential without printing it",
+        "Server + CLI + REST ingest text and JSON and replay idempotently",
+        "SIGKILL + new server recovers both queued and expired leased work from real SQLite WAL",
+        "HTTP cross-workspace read/write/inference isolation and source provenance verified",
+        "CLI correction and historical recorded-time retrieval across durable source revisions",
+        "Forget erases all revision payload/assertions, removes unsupported facts, retains independent live support, honors context budget",
+        "Stopped-database backup restores into a new path with saved credential; runnable agent demo completes against restored server",
+        "Second graceful restart preserves repaired context; SQLite integrity_check=ok and direct erased-column verification"
+      ],
+      "duration_ms": 1703.69,
+      "storage": "real on-disk SQLite WAL",
+      "provider": "explicit assertions only; no natural-language claim",
+      "runtime": "1.4.4",
+      "platform": "linux"
+    },
+    "diff_check": "pass",
+    "final_recall_only_delta": "full suite passed after final predicate change; unchanged storage lifecycle E2E reused",
+    "real_Luna_fixture": "pass after reported failures/source repairs; actual projected owner/targets verified",
+    "final_source_recorded_real_output_replay": "pass; not new model extraction",
+    "readonly_pairs": 10,
+    "readonly_receipt_writes_intercepted": 20,
+    "readonly_curation_calls": 0,
+    "native_sessions_created": 0
+  },
+  "additive_schema2_tables": [
+    "memory_scoped_aliases",
+    "memory_alias_sources",
+    "memory_entity_targets",
+    "memory_entity_equivalences",
+    "memory_reconciliations"
+  ],
+  "compatible_Decision_extension": "object_entity?:boolean",
+  "internal_task_shapes": [
+    "atlas-identity-v1",
+    "atlas-reconciliation-v1"
+  ],
+  "activation": "Not performed. Runtime owner uses current stopped custody before restart; existing runtime receipt is historical only.",
+  "production_effects": {
+    "DB_or_queue_writes": 0,
+    "source_reprocess_requests": 0,
+    "restarts": 0,
+    "native_sessions": 0,
+    "credential_config_grant_model_or_tunnel_changes": 0
+  },
+  "remaining_uncertainty": [
+    "Probabilistic model selection/identity remains; schema/time failures are retained and bounded, not counted as success.",
+    "Additional focused calls increase digestion latency/cost; unchanged native callback/freshness evidence is reused, not claimed for this new pipeline.",
+    "Copied legacy historical start precision is preserved, not independently endorsed; new unknown starts are labelled honestly.",
+    "Overall native owner completion remains root/runtime phase."
+  ],
+  "artifact_sha256": {
+    "LUNA-REAL.json": "b4c7c357a2cc5d362803f6a1a0f329d8f5cf06f3194c4b74351235769c9ada4f",
+    "LUNA-SUMMARY.json": "142cda22435b10fa149ae076254b0a15eb365b9e4e121eae6503923665eac0d2",
+    "FINAL-SOURCE-REPLAY.json": "66a3ffb1573039175ad88affdc04330ded54e31e2604760897a47b24d56ad3ac",
+    "LUNA-ATTEMPTS.json": "53e4f2b222838757ad39a984e0d3adba680892f1284000200db282911e6ee72b",
+    "READONLY-INTEGRATION.json": "ec0ab521768102f8b64e135406746c0786b2a9f6736acfc43db311605129beee"
+  }
+}

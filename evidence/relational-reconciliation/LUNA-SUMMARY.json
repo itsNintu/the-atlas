@@ -1,0 +1,299 @@
+{
+  "source_fixture_not_native": true,
+  "seeded_only_reported_synthetic_LDN7_memories": true,
+  "seeded_legacy_memories": 10,
+  "initial_failure": "stale Nola remained; preserved, not accepted as clean graph",
+  "earlier_failures": [
+    "duplicate-vs-change exclusivity",
+    "qualification prose displaced actual relation candidates",
+    "launch/short-name identity split",
+    "invalid extraction schema",
+    "delayed-source same-claim false state transition output"
+  ],
+  "real_v4_validated_calls": 29,
+  "initial_validated_calls": 26,
+  "initial_untraced_invalid_curation_attempts": 2,
+  "audited_resume_runs": {
+    "v1-followup-raw.json": {
+      "responses_observed": 9,
+      "phases": {
+        "extract": 2,
+        "reconcile": 7
+      },
+      "product_tokens": [
+        3374,
+        3960,
+        3970,
+        3964,
+        3244,
+        3681,
+        3681,
+        3678,
+        3685
+      ],
+      "max_product_tokens": 3970
+    },
+    "v2-followup-raw.json": {
+      "responses_observed": 8,
+      "phases": {
+        "extract": 2,
+        "reconcile": 6
+      },
+      "product_tokens": [
+        3233,
+        4015,
+        4061,
+        2709,
+        3938,
+        3790,
+        4083,
+        3919
+      ],
+      "max_product_tokens": 4083
+    },
+    "v3-followup-raw.json": {
+      "responses_observed": 22,
+      "phases": {
+        "extract": 4,
+        "identity": 9,
+        "reconcile": 9
+      },
+      "product_tokens": [
+        3277,
+        3277,
+        3553,
+        3878,
+        3821,
+        4080,
+        2869,
+        3741,
+        4066,
+        3646,
+        3948,
+        3565,
+        3856,
+        2869,
+        3741,
+        4000,
+        3646,
+        3982,
+        3565,
+        3856,
+        3644,
+        3903
+      ],
+      "max_product_tokens": 4080
+    },
+    "followup-raw.json": {
+      "responses_observed": 30,
+      "phases": {
+        "extract": 6,
+        "identity": 12,
+        "reconcile": 12
+      },
+      "product_tokens": [
+        3269,
+        3269,
+        3874,
+        3890,
+        3813,
+        3945,
+        2864,
+        3946,
+        4078,
+        3724,
+        4025,
+        2864,
+        3944,
+        4076,
+        3722,
+        3897,
+        2864,
+        3944,
+        4076,
+        3722,
+        4023,
+        2864,
+        3944,
+        4076,
+        3722,
+        3854,
+        3786,
+        3918,
+        3839,
+        3971
+      ],
+      "max_product_tokens": 4078
+    }
+  },
+  "model_routes": [
+    {
+      "provider": "openai-codex",
+      "model": "gpt-6-luna"
+    }
+  ],
+  "max_observed_product_input_tokens": 4091,
+  "product_input_bound": 4096,
+  "total_paid_calls_not_inferred_from_validated_count": true,
+  "real_v4_prompt_hashes": {
+    "extract": "68d542dd50762a1bf5504ed7cee8e5b9136a0e4c892abf514c9ed6bd5bd52c65",
+    "identity": "32c76707c548d1edb9638600bc62a6e38560d2429d4a1f2b4e7061765e03efdf",
+    "reconcile": "aa69e4b7ef5def4ddcd6fae2543eafc34f2198201f970a822ec44da30f371989"
+  },
+  "current_edges": 14,
+  "history_edges": 35,
+  "real_v4_history_status_counts": {
+    "active": 14,
+    "corrected": 6,
+    "superseded": 14,
+    "historical": 1
+  },
+  "history_status_counts": {
+    "active": 14,
+    "corrected": 6,
+    "historical": 2,
+    "superseded": 13
+  },
+  "actual_projected_current_triples": [
+    {
+      "memory_id": "memory_1b4998da-185f-4228-ae44-8ed3387f57aa",
+      "subject": "LDN7",
+      "predicate": "qualification",
+      "object": "Fictional archive exercise only; not Alex or real business truth.",
+      "target_kind": "literal"
+    },
+    {
+      "memory_id": "memory_480d04a6-36ba-485d-949b-dbd6e8928208",
+      "subject": "LDN7",
+      "predicate": "qualification",
+      "object": "Fictional story context only; not real-world truth.",
+      "target_kind": "literal"
+    },
+    {
+      "memory_id": "memory_c9335b52-87fe-410d-8978-38bbbe143665",
+      "subject": "LDN7 Nola",
+      "predicate": "owned_through",
+      "object": "LDN7 Lantern through 2026-11-06",
+      "target_kind": "literal"
+    },
+    {
+      "memory_id": "memory_e7b783dc-fa2d-47ba-b5b8-39c9da76f8b2",
+      "subject": "FEN9 Remy",
+      "predicate": "audits",
+      "object": "FEN9 Copper beacon schedule",
+      "target_kind": "entity"
+    },
+    {
+      "memory_id": "memory_3a529b8e-a897-48d8-a90d-1cba11dd0dce",
+      "subject": "FEN9 Remy",
+      "predicate": "reviews",
+      "object": "FEN9 Copper beacon checklist",
+      "target_kind": "entity"
+    },
+    {
+      "memory_id": "memory_a4b32334-5906-49b2-9fd5-364351aa237d",
+      "subject": "FEN9",
+      "predicate": "qualification",
+      "object": "Private fictional archive only; not Alex or real business truth.",
+      "target_kind": "literal"
+    },
+    {
+      "memory_id": "memory_393bff65-0b7e-4d2e-907b-9d7614a79ec7",
+      "subject": "FEN9 Iona",
+      "predicate": "reports_to",
+      "object": "FEN9 Remy",
+      "target_kind": "entity"
+    },
+    {
+      "memory_id": "memory_5a3f41f5-3db4-4ec2-a525-e2678572d6ac",
+      "subject": "FEN9 Iona",
+      "predicate": "maintains",
+      "object": "FEN9 Copper beacon",
+      "target_kind": "entity"
+    },
+    {
+      "memory_id": "memory_0fcad0ab-18ca-4b1a-b1ba-b471645465b4",
+      "subject": "LDN7 Lantern",
+      "predicate": "qualification",
+      "object": "Fictional LDN7 scenario only; the earlier cobalt claim was mistaken, not a formerly true state.",
+      "target_kind": "literal"
+    },
+    {
+      "memory_id": "memory_05293767-b42f-4b27-8fc6-84eab525746e",
+      "subject": "LDN7 Lantern",
+      "predicate": "color",
+      "object": "amber",
+      "target_kind": "literal"
+    },
+    {
+      "memory_id": "memory_e8daa046-9d45-4980-825a-d3d84c8b554d",
+      "subject": "LDN7 Leda",
+      "predicate": "owns",
+      "object": "LDN7 Lantern",
+      "target_kind": "entity"
+    },
+    {
+      "memory_id": "memory_168ee80a-25ed-4f36-bcc6-43214dabc72f",
+      "subject": "LDN7",
+      "predicate": "qualification",
+      "object": "Fictional LDN7 scenario only.",
+      "target_kind": "literal"
+    },
+    {
+      "memory_id": "memory_939fbdb8-9ba5-4412-a295-5f3f24a4ef06",
+      "subject": "LDN7 Nola",
+      "predicate": "reviews",
+      "object": "LDN7 Lantern checklist",
+      "target_kind": "entity"
+    },
+    {
+      "memory_id": "memory_187583a9-de1e-4b63-9571-5b3828589a30",
+      "subject": "LDN7 Mira",
+      "predicate": "reports_to",
+      "object": "LDN7 Nola",
+      "target_kind": "entity"
+    }
+  ],
+  "original_source_support_counts": [
+    {
+      "role": "user",
+      "memories": 35,
+      "events": 6
+    }
+  ],
+  "assistant_recaps_in_source_fixture": 0,
+  "FEN9_current_positive_entity_component_sizes": [
+    5
+  ],
+  "LDN7_history_positive_entity_component_sizes": [
+    5
+  ],
+  "unknown_prior_starts": [
+    {
+      "memory_id": "memory_1d208169-c34e-406c-8d05-c3b15c4ea936",
+      "valid_to": "2026-11-07T00:00:00.000Z"
+    }
+  ],
+  "current_stale_cobalt": false,
+  "current_stale_Nola_ownership": false,
+  "source_custody_preserved": true,
+  "final_source_replay": {
+    "new_Luna_calls": 0,
+    "phase_count": 9,
+    "tokens": [
+      2048,
+      3922,
+      4011,
+      3873,
+      3962,
+      3818,
+      3907,
+      3861,
+      3950
+    ],
+    "max_tokens": 4011,
+    "old_jobs_preserved": true,
+    "source_custody_preserved": true
+  },
+  "scope_of_history_claim": "Known handover end, prior truth and never-true correction are distinguished. Existing copied legacy start precision is retained as an old model record, not independently verified or newly source-endorsed. No universal all-history precision claim."
+}
