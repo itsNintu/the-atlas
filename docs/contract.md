@@ -148,8 +148,11 @@ external provider framing/billing also totals at most4096 tokens.
 
 Reconciliation can jointly normalize duplicate representations and close multiple explicitly
 affected assertions; compatible additions/co-owners remain independent. `memory_changes.type`
-adds `superseded` for redundant/decomposed representations, distinct from false `correction`,
-withdrawn `retraction`, or formerly true `state_change`. A compound refinement requires its actual
+adds `superseded` for redundant/decomposed representations and internal `restored` when a selected
+fingerprint is re-chosen, distinct from false `correction`, withdrawn `retraction`, or formerly true
+`state_change`. Format retirement is not inherited as domain truth: repeated alias normalization
+cannot hide every positive prior representation. Restoring a format never overrides a genuine
+closure, correction or retraction. A compound refinement requires its actual
 original support and complete supplied atomic coverage. Original source/job/version/root history
 is retained. Supported later replacements can bound/retract a reprocessed older assertion using
 the later original source as audit authority, rather than ingestion/retry order. Date-only

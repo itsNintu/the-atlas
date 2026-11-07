@@ -175,3 +175,18 @@ test('three phase packing reserves headroom and advances oversized Unicode witho
  expect(f.calls.every(i=>memoryTokens(JSON.stringify(i))<=4096)).toBe(true);
  }finally{f.s.close()}
 });
+test('repeated alias-format reconciliation preserves a positive prior state instead of supersession cycles hiding every representation',async()=>{
+ const f=fixture();try{
+ const old=await f.seed('old-format',{subject:'LDN7 Nola',predicate:'owns',object:'LDN7 Lantern launch',object_entity:true});
+ await f.finish('normalize-format',[f.decision('normalize-format',{subject:'LDN7 Nola',predicate:'owns',object:'LDN7 Lantern',object_entity:true})],()=>[{index:0,duplicate_ids:[old.id]}]);
+ const normalized=f.s.one("SELECT * FROM memories WHERE object='LDN7 Lantern'");
+ await f.finish('next-owner',[f.decision('next-owner',{subject:'LDN7 Leda',predicate:'owns',object:'LDN7 Lantern',object_entity:true,valid_from:feb})],()=>[{index:0,duplicate_ids:[],change:{type:'state_change',target_ids:[normalized.id]}}]);
+ const before=now();await Bun.sleep(2);
+ f.set((i:any)=>[f.decision(i.event.event_id,{subject:'LDN7 Nola',predicate:'owns',object:'LDN7 Lantern launch',object_entity:true})],()=>[{index:0,duplicate_ids:[normalized.id],superseded_by:{id:f.s.one("SELECT id FROM memories WHERE subject='LDN7 Leda'").id,type:'state_change',effective_at:feb}}]);
+ const retry=f.m.reprocess(f.a,'builder',old.r.job_id,1,'prior_truth_format');await f.w.runOnce();expect(f.s.one('SELECT status FROM memory_jobs WHERE id=?',retry.job_id).status).toBe('succeeded');
+ expect(f.graph().edges.some(e=>e.id===old.id)).toBe(false);expect(f.graph(true).edges.find(e=>e.id===old.id)?.status).toBe('historical');expect(f.graph(true).edges.find(e=>e.id===old.id)?.valid_to).toBe(feb);
+ expect(f.s.one("SELECT COUNT(*) n FROM memory_changes WHERE target_id=? AND type='restored'",old.id).n).toBe(1);
+ expect(memoryGraph(f.m,f.a,{agent_id:'builder',include_history:true,valid_at:mar,recorded_at:before}).edges.find(e=>e.id===old.id)?.status).toBe('superseded');
+ const r=await f.m.recall(f.a,{agent_id:'builder',thread_id:'fresh',query:'LDN7 Nola owns Lantern launch previous',valid_at:mar,token_budget:4000});expect(r.memories.some(m=>m.id===old.id&&m.historical)).toBe(true);
+ }finally{f.s.close()}
+});

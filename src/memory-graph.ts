@@ -42,8 +42,9 @@ export function memoryGraph(memory: Memory, actor: Actor, body: any) {
     } else if (include_history) {
       const supports = memory.support(m, recorded_at);
       if (!supports.length) continue;
-      const changes = store.all("SELECT type,effective_at FROM memory_changes WHERE target_id=? AND recorded_at<=? ORDER BY recorded_at,id", m.id, recorded_at);
-      const invalidation = changes.find((c) => ["correction", "retraction", "superseded"].includes(c.type));
+      const changes = store.all("SELECT type,effective_at FROM memory_changes WHERE target_id=? AND recorded_at<=? ORDER BY recorded_at,rowid", m.id, recorded_at);
+      const representation=changes.filter(c=>['superseded','restored'].includes(c.type)).at(-1);
+      const invalidation = changes.find((c) => ["correction", "retraction"].includes(c.type)) ?? (representation?.type==='superseded'?representation:null);
       let end = m.valid_to;
       for (const c of changes) if (c.type === "state_change" && (!end || c.effective_at < end)) end = c.effective_at;
       // A derived assertion whose lineage is no longer effective is not a

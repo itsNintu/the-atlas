@@ -19,6 +19,10 @@ historical handover ending2026-11-07T00:00:00.000Z. New FEN9 is atomic linked kn
 the contextual Remy reviewer/auditor. Earlier fixture/model failures remain evidence, not erased.
 Final-source integration reuses the recorded successful Luna output on an isolated copy, with no
 new Luna calls, and verifies current/history, exact source custody, old jobs and4096 phase bounds.
+Counting positive historical entity components exposed a duplicate-format retirement cycle; the
+final store fix records representation restoration without undoing truth changes. The normalized
+prior-owner edge remains positively historical and links the reporting/reviewer chain to Lantern
+and Leda, instead of treating every prior representation as merely superseded.
 Unknown prior start remains unknown rather than inventing a date. These are source-fixture
 observations, not native callback timing, production freshness or all-history truth guarantees.
 

@@ -617,11 +617,12 @@ export class Memory {
     const support = this.support(m, recorded_at);
     if (!support.length) return null;
     const changes = this.store.all(
-      "SELECT * FROM memory_changes WHERE target_id=? AND recorded_at<=? ORDER BY effective_at,recorded_at,id",
+      "SELECT *,rowid AS change_order FROM memory_changes WHERE target_id=? AND recorded_at<=? ORDER BY effective_at,recorded_at,id",
       m.id,
       recorded_at,
     );
-    if (changes.some((c) => ["correction", "retraction", "superseded"].includes(c.type)))
+    const representation=changes.filter(c=>['superseded','restored'].includes(c.type)).sort((a,b)=>a.recorded_at.localeCompare(b.recorded_at)||a.change_order-b.change_order).at(-1);
+    if (changes.some((c) => ["correction", "retraction"].includes(c.type)) || representation?.type==='superseded')
       return null;
     let end = m.valid_to;
     for (const c of changes)
@@ -740,9 +741,10 @@ export class Memory {
       if (prior?.valid_to && prior.valid_to <= valid_at) return {...prior,historical:true};
       // A later source can establish an earlier handover boundary than the
       // initial claim's observation-time default. Do not invent its start.
-      const changes=this.store.all('SELECT * FROM memory_changes WHERE target_id=? AND recorded_at<=?',m.id,recorded_at);
+      const changes=this.store.all('SELECT * FROM memory_changes WHERE target_id=? AND recorded_at<=? ORDER BY recorded_at,rowid',m.id,recorded_at);
       const end=changes.filter(c=>c.type==='state_change').map(c=>c.effective_at).sort()[0];
-      if(!m.derived && end && end<=m.valid_from && end<=valid_at && m.recorded_from<=recorded_at && !changes.some(c=>['correction','retraction','superseded'].includes(c.type))){
+      const representation=changes.filter(c=>['superseded','restored'].includes(c.type)).at(-1);
+      if(!m.derived && end && end<=m.valid_from && end<=valid_at && m.recorded_from<=recorded_at && representation?.type!=='superseded' && !changes.some(c=>['correction','retraction'].includes(c.type))){
         const supports=this.support(m,recorded_at);
         if(supports.length)return {...m,valid_to:end,historical:true,historical_start_unknown:true,supports,changes,lineage:[],conflict:false,evidence_roots:[...new Set(supports.flatMap(s=>s.evidence_root_ids))]};
       }
@@ -1262,10 +1264,10 @@ export class MemoryWorker {
     return {items,candidates:[...snapshots.values()]};
   }
   applyReconciliation(j:any,e:any,memoryId:string,r:Reconciliation,candidates:any[]) {
-    const add=(event_pk:string,target:string,replacement:string,type:string,effective:string)=>{
+    const add=(event_pk:string,target:string,replacement:string|null,type:string,effective:string)=>{
       if(target===replacement)return;
       this.memory.invalidateChildren(target,'parent_changed');
-      if(!this.store.one('SELECT 1 FROM memory_changes WHERE event_pk=? AND target_id=? AND replacement_id=? AND type=? AND effective_at=?',event_pk,target,replacement,type,effective))
+      if(type==='restored'||!this.store.one('SELECT 1 FROM memory_changes WHERE event_pk=? AND target_id=? AND replacement_id IS ? AND type=? AND effective_at=?',event_pk,target,replacement,type,effective))
         this.store.run('INSERT INTO memory_changes VALUES (?,?,?,?,?,?,?)',id('change'),event_pk,target,replacement,type,effective,now());
     };
     const incoming=this.store.one('SELECT * FROM memories WHERE id=?',memoryId);
@@ -1284,7 +1286,7 @@ export class MemoryWorker {
       // Equivalent representation, not a declaration that the old truth was
       // false. Preserve original supports/roots and all prior invalidations.
       this.store.run('INSERT OR IGNORE INTO memory_supports SELECT ?,event_pk,roots_json,excerpt FROM memory_supports WHERE memory_id=?',memoryId,duplicate);
-      for(const c of this.store.all('SELECT * FROM memory_changes WHERE target_id=?',duplicate))
+      for(const c of this.store.all("SELECT * FROM memory_changes WHERE target_id=? AND type NOT IN ('superseded','restored')",duplicate))
         add(c.event_pk,memoryId,c.replacement_id,c.type,c.effective_at);
       add(e.id,duplicate,memoryId,'superseded',e.occurred_at);
     }
@@ -1294,6 +1296,11 @@ export class MemoryWorker {
       const source=this.store.one(`SELECT e.id FROM memory_supports s JOIN memory_events e ON e.id=s.event_pk WHERE s.memory_id=? AND e.occurred_at>? ORDER BY e.occurred_at LIMIT 1`,later.id,e.occurred_at);
       add(source.id,memoryId,later.id,r.superseded_by.type,r.superseded_by.effective_at);
     }
+    // Re-selecting an exact fingerprint chooses this representation again.
+    // Format supersession must not form cycles that hide every true prior state.
+    // Restoring representation never overrides a correction/retraction/closure.
+    const representation=this.store.one("SELECT type FROM memory_changes WHERE target_id=? AND type IN ('superseded','restored') ORDER BY recorded_at DESC,rowid DESC LIMIT 1",memoryId);
+    if(representation?.type==='superseded')add(e.id,memoryId,null,'restored',e.occurred_at);
     this.store.run('INSERT INTO memory_reconciliations VALUES (?,?,?,?,?)',j.id,e.id,memoryId,JSON.stringify({...r,prompt_sha256:memoryPromptHash()}),now());
   }
   cancel(j: any) {
