@@ -4,6 +4,7 @@ export type Reconciliation = {
   index: number;
   duplicate_ids: string[];
   unaffected_ids?: string[];
+  blocked_dispositions?: {type:string;target_ids:string[];reason:string;unaffected_ids:string[]}[];
   unknown_start_ids?: string[];
   changes?: NonNullable<Reconciliation['change']>[];
   later_replacements?: NonNullable<Reconciliation['superseded_by']>[];

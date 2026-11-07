@@ -1,6 +1,7 @@
 import { Memory } from "./memory.ts";
 import { type Actor, hash, now } from "./store.ts";
 import { fail, integer, text, timestamp } from "./errors.ts";
+import { activeChanges } from "./memory-truth.ts";
 import { redact } from "./inference.ts";
 
 // A synchronous, read-only projection. No model calls, recall feedback, intake
@@ -42,7 +43,7 @@ export function memoryGraph(memory: Memory, actor: Actor, body: any) {
     } else if (include_history) {
       const supports = memory.support(m, recorded_at);
       if (!supports.length) continue;
-      const changes = store.all("SELECT type,effective_at FROM memory_changes WHERE target_id=? AND recorded_at<=? ORDER BY recorded_at,rowid", m.id, recorded_at);
+      const changes = activeChanges(store,m.id,recorded_at);
       const representation=changes.filter(c=>['superseded','restored'].includes(c.type)).at(-1);
       const invalidation = changes.find((c) => ["correction", "retraction"].includes(c.type)) ?? (representation?.type==='superseded'?representation:null);
       let end = m.valid_to;
@@ -93,7 +94,7 @@ export function memoryGraph(memory: Memory, actor: Actor, body: any) {
   let changesTruncated = false;
   const changes = selected.flatMap((m) => {
     const rows = store.all(
-    "SELECT c.id,c.type,c.target_id,c.replacement_id,c.effective_at,c.recorded_at,e.event_id,e.client_id,e.revision,e.role,e.author_id,e.agent_id FROM memory_changes c JOIN memory_events e ON e.id=c.event_pk WHERE c.target_id=? AND c.recorded_at<=? ORDER BY c.recorded_at DESC,c.id LIMIT 21", m.id, recorded_at,
+    "SELECT c.id,c.type,c.target_id,c.replacement_id,c.effective_at,c.recorded_at,(SELECT i.recorded_at FROM memory_change_invalidations i WHERE i.change_id=c.id AND i.recorded_at<=?) AS invalidated_at,(SELECT i.reason_code FROM memory_change_invalidations i WHERE i.change_id=c.id AND i.recorded_at<=?) AS invalidation_reason,e.event_id,e.client_id,e.revision,e.role,e.author_id,e.agent_id FROM memory_changes c JOIN memory_events e ON e.id=c.event_pk WHERE c.target_id=? AND c.recorded_at<=? ORDER BY c.recorded_at DESC,c.id LIMIT 21", recorded_at, recorded_at, m.id, recorded_at,
     );
     if (rows.length > 20) changesTruncated = true;
     return rows.slice(0, 20);

@@ -1,5 +1,6 @@
 import { setting } from "./config.ts";
 import { Memory } from "./memory.ts";
+import { repairPlan, repairReconciliation } from "./memory-repair.ts";
 import { memoryGraph } from "./memory-graph.ts";
 import { inferenceStatus } from "./inference.ts";
 import { SCHEMA_VERSION } from "./schema.ts";
@@ -182,6 +183,10 @@ export class App {
         result = { data: await this.memory.recall(a, b) };
       else if (method === "POST" && path === "/v1/memory/graph")
         result = { data: memoryGraph(this.memory, a, b) };
+      else if (method === "POST" && match(/^\/v1\/memory\/reconciliations\/([^/]+)\/repair-preview$/))
+        result = {data:repairPlan(this.memory,a,b.agent_id,match(/^\/v1\/memory\/reconciliations\/([^/]+)\/repair-preview$/)!,b.expected_revision)};
+      else if (method === "POST" && match(/^\/v1\/memory\/reconciliations\/([^/]+)\/repair$/))
+        result = {data:write(()=>{this.memory.authorize(a,b.agent_id);this.memory.authorize(a,b.agent_id,'write');},()=>repairReconciliation(this.memory,a,b,match(/^\/v1\/memory\/reconciliations\/([^/]+)\/repair$/)!))};
       else if (method === "POST" && path === "/v1/feedback")
         result = {
           data: write(

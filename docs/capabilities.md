@@ -1,5 +1,38 @@
 # Capability map
 
+## Claim-consistency repair and correction-preserving recall (source only)
+
+Equivalent claim-group propagation is conservative when a supplied member is explicitly
+unaffected: conflicting group transitions are withheld and audited as `blocked_dispositions`,
+not silently applied and not presented as domain truth conflicts. Independent changes still
+apply; predicate/entity renames are not forbidden. This detects contradictory processing
+outputs, not every possible semantic model error.
+
+A bound caller with current affected-scope read/write grants can inspect and invalidate the
+exact persisted processing changes proven inconsistent by the same source/job reconciliation.
+`repair-preview` returns a CAS proof and exact IDs; authenticated/idempotent `repair` appends
+invalidation audit. No caller facts, date edits, job resets, extraction or tools execute. Original
+changes remain inspectable; older recorded snapshots retain the old interpretation. The scope is
+compiled unaffected/changed conflicts, not arbitrary operator rewriting. Independently ended
+states remain ended; invalidated derived descendants are not automatically regenerated.
+
+Relevant recall preserves never-true versus formerly-true meaning after atomic normalization:
+compact correction metadata, original-source citation and at most360-character complete scope
+sentences from scope-safe support. Raw event retention is not required. Bounded traversal (8
+representations, up to4 distinct correction claims) never follows state changes; identical quoted
+correction clauses share one injected citation, not a blanket one-correction-per-source rule.
+Rejected-value lexical/semantic matches can retrieve the positive correction, never the false
+claim as a positive past state. Existing relevance/grant/time/support fences and lexical/moderate
+semantic paths remain. If the bounded correction cannot fit, that indivisible memory record may
+be omitted; a whole pending/source transcript is never substituted.
+
+Exact already-damaged current-copy repair, real resident MiniLM/lexical original query1118/1200
+(with direct current reporting and always amber/never cobalt), irrelevant0, and real copied
+HTTP/Chromium audit/history projection pass. Final142tests/1203assertions and typecheck pass;
+frozen install/on-disk E2E evidence is reused where unchanged. This is source/copy evidence, not
+production/native acceptance. See `evidence/claim-safe-repair/HANDOFF.md`; activation and minimal
+supported repair belong solely to Overwatch t_d281231f, with root t_5f7f3afb settling delivery.
+
 ## Focused relational identity/state repair (source, activation separate)
 
 The default Luna path now separates atomic extraction, scoped sourced entity co-reference and

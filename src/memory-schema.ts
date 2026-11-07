@@ -14,6 +14,10 @@ CREATE TABLE IF NOT EXISTS memories (id TEXT PRIMARY KEY,workspace_id TEXT NOT N
 CREATE INDEX IF NOT EXISTS memories_scope ON memories(workspace_id,scope);
 CREATE TABLE IF NOT EXISTS memory_supports (memory_id TEXT NOT NULL REFERENCES memories(id) ON DELETE CASCADE,event_pk TEXT NOT NULL REFERENCES memory_events(id),roots_json TEXT NOT NULL,excerpt TEXT,PRIMARY KEY(memory_id,event_pk));
 CREATE TABLE IF NOT EXISTS memory_lineage (child_id TEXT NOT NULL REFERENCES memories(id) ON DELETE CASCADE,parent_id TEXT NOT NULL REFERENCES memories(id) ON DELETE CASCADE,parent_version INTEGER NOT NULL,PRIMARY KEY(child_id,parent_id));
+CREATE TABLE IF NOT EXISTS memory_change_invalidations (
+ change_id TEXT PRIMARY KEY REFERENCES memory_changes(id) ON DELETE CASCADE,
+ job_id TEXT NOT NULL REFERENCES memory_jobs(id), principal_id TEXT NOT NULL,
+ reason_code TEXT NOT NULL, proof_sha256 TEXT NOT NULL, recorded_at TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS memory_changes (id TEXT PRIMARY KEY,event_pk TEXT NOT NULL REFERENCES memory_events(id),target_id TEXT NOT NULL REFERENCES memories(id) ON DELETE CASCADE,replacement_id TEXT REFERENCES memories(id) ON DELETE CASCADE,type TEXT NOT NULL,effective_at TEXT NOT NULL,recorded_at TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS memory_versions (memory_id TEXT NOT NULL,version INTEGER NOT NULL,scope TEXT NOT NULL,recorded_at TEXT NOT NULL,reason TEXT NOT NULL,snapshot_json TEXT,PRIMARY KEY(memory_id,version));
 CREATE TABLE IF NOT EXISTS memory_recalls (id TEXT PRIMARY KEY,principal_id TEXT NOT NULL,agent_id TEXT NOT NULL,thread_id TEXT NOT NULL,memory_ids_json TEXT NOT NULL,created_at TEXT NOT NULL);

@@ -93,7 +93,7 @@
     for(const n of nodes){const p=positions.get(n.id),g=svg("g",{transform:`translate(${p.x},${p.y})`,class:`node ${n.kind} ${focus===n.id?"selected":""}`,tabindex:"0",role:"button","aria-label":`${n.label}, ${n.kind}, ${n.scope}`,"data-node":n.id});g.append(svg("circle",{r:n.kind==="entity"?18:12}),svg("text",{y:39},short(n.label)),svg("title",{},`${n.label} · ${n.kind} · ${n.scope}`));g.onclick=()=>inspectNode(n);g.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();inspectNode(n);}};scene.append(g);}
     $("empty").hidden=edges.length>0;
     $("relations").replaceChildren(...edges.map(e=>{const b=button(meaning(e),()=>inspectEdge(e),"relation");b.dataset.edge=e.id;b.append(el("small",`${e.scope} · ${e.kind} · ${e.status}`));return b;}));
-    const evolution=data.changes.map(c=>el("div",`${c.type} · ${c.recorded_at}\nEffective ${c.effective_at} · ${data.edges.find(e=>e.id===c.target_id)?meaning(data.edges.find(e=>e.id===c.target_id)):c.target_id} · event ${c.client_id}:${c.event_id}@${c.revision} · ${c.role}/${c.author_id}`,"change"));
+    const evolution=data.changes.map(c=>el("div",`${c.type}${c.invalidated_at?` — INVALIDATED PROCESSING DECISION (${c.invalidation_reason}, known ${c.invalidated_at}); not a domain state change`:''} · ${c.recorded_at}\nEffective ${c.effective_at} · ${data.edges.find(e=>e.id===c.target_id)?meaning(data.edges.find(e=>e.id===c.target_id)):c.target_id} · event ${c.client_id}:${c.event_id}@${c.revision} · ${c.role}/${c.author_id}`,"change"));
     for(const e of data.edges)for(const v of e.versions)evolution.push(el("div",`v${v.version} ${v.reason} · ${v.recorded_at} · ${meaning(e)}`,"change"));
     $("changes").replaceChildren(...(evolution.length?evolution:[el("p","No recorded changes or versions in these results.","muted")]));fit();
   }
@@ -109,7 +109,7 @@
     if(e.sources_truncated)d.append(el("p","Source list bounded to 20 entries."));
     d.append(el("h3","Persisted versions"));for(const v of e.versions)d.append(el("p",`v${v.version} · ${v.reason} · ${v.recorded_at}`));
     if(e.versions_truncated)d.append(el("p","Version list bounded to 20 entries."));
-    d.append(el("h3","Changes to this claim"));for(const c of data.changes.filter(c=>c.target_id===e.id))d.append(el("p",`${c.type} · effective ${c.effective_at} · known ${c.recorded_at}${c.replacement_id?" · replacement "+c.replacement_id:""}`));
+    d.append(el("h3","Changes to this claim"));for(const c of data.changes.filter(c=>c.target_id===e.id))d.append(el("p",`${c.type}${c.invalidated_at?` — INVALIDATED PROCESSING DECISION (${c.invalidation_reason}, known ${c.invalidated_at}); not a domain state change`:''} · effective ${c.effective_at} · known ${c.recorded_at}${c.replacement_id?" · replacement "+c.replacement_id:""}`));
   }
   $("login").onsubmit=async e=>{e.preventDefault();token=$("token").value;$("token").value="";agent=$("agent").value.trim();await load(true);if(!data)token="";};
   $("disconnect").onclick=()=>{token="";++generation;controller?.abort();clear();location.reload();};

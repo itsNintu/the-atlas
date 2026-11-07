@@ -20,6 +20,9 @@ import { indexedCandidates, queryTerms } from "./memory-index.ts";
 import { claimMemoryJob } from "./memory-scheduler.ts";
 import { EXTRACT_PROMPT, RECONCILE_PROMPT, validateReconciliations, normalizeReconciliation, mergeReconciliations, type Reconciliation } from './memory-reconciliation.ts';
 import { IDENTITY_PROMPT, identityResponseContract, resolvedIdentity, candidateIdentities } from './memory-identity.ts';
+import { correctionReplacements } from "./memory-correction-lookup.ts";
+import { correctionEvidence, correctionLines } from "./memory-corrections.ts";
+import { activeChanges, consistentReconciliation } from "./memory-truth.ts";
 import { recallFocus, needsRecallContext, asksAboutRecallProcess, isContextAvailabilityNote } from "./recall-query.ts";
 
 // Share a turn budget across recalls and workers. Promise/microtask yields alone
@@ -616,11 +619,7 @@ export class Memory {
     if (m.recorded_from > recorded_at) return null;
     const support = this.support(m, recorded_at);
     if (!support.length) return null;
-    const changes = this.store.all(
-      "SELECT *,rowid AS change_order FROM memory_changes WHERE target_id=? AND recorded_at<=? ORDER BY effective_at,recorded_at,id",
-      m.id,
-      recorded_at,
-    );
+    const changes = activeChanges(this.store,m.id,recorded_at);
     const representation=changes.filter(c=>['superseded','restored'].includes(c.type)).sort((a,b)=>a.recorded_at.localeCompare(b.recorded_at)||a.change_order-b.change_order).at(-1);
     if (changes.some((c) => ["correction", "retraction"].includes(c.type)) || representation?.type==='superseded')
       return null;
@@ -672,7 +671,7 @@ export class Memory {
         predicate: m.predicate, object: m.object, version: m.version,
         valid_from: m.valid_from, valid_to: m.valid_to, derived: m.derived,
         supports: this.support(m),
-        changes: this.store.all("SELECT type,effective_at,replacement_id FROM memory_changes WHERE target_id=?", m.id),
+        changes: activeChanges(this.store,m.id).map(({type,effective_at,replacement_id})=>({type,effective_at,replacement_id})),
         lineage: this.store.all("SELECT parent_id,parent_version FROM memory_lineage WHERE child_id=?", m.id),
       }));
   }
@@ -733,7 +732,7 @@ export class Memory {
         anchors.some(t => (s.excerpt ?? "").normalize("NFKC").toLowerCase().match(/[\p{L}\p{N}_]+/gu)?.includes(t)));
     };
     const wantsHistory = /\b(before|previous(?:ly)?|formerly|history|historical|used to|ever)\b/i.test(query);
-    const recallState = (m:any) => {
+    const recallStateOnly = (m:any) => {
       const current = this.effective(m, valid_at, recorded_at);
       if (current || !wantsHistory || m.valid_from > valid_at) return current;
       // Only closed states, not corrections/retractions. effective() still
@@ -742,7 +741,7 @@ export class Memory {
       if (prior?.valid_to && prior.valid_to <= valid_at) return {...prior,historical:true};
       // A later source can establish an earlier handover boundary than the
       // initial claim's observation-time default. Do not invent its start.
-      const changes=this.store.all('SELECT * FROM memory_changes WHERE target_id=? AND recorded_at<=? ORDER BY recorded_at,rowid',m.id,recorded_at);
+      const changes=activeChanges(this.store,m.id,recorded_at);
       const end=changes.filter(c=>c.type==='state_change').map(c=>c.effective_at).sort()[0];
       const representation=changes.filter(c=>['superseded','restored'].includes(c.type)).at(-1);
       if(!m.derived && end && end<=m.valid_from && end<=valid_at && m.recorded_from<=recorded_at && representation?.type!=='superseded' && !changes.some(c=>['correction','retraction'].includes(c.type))){
@@ -751,6 +750,7 @@ export class Memory {
       }
       return null;
     };
+    const recallState=(m:any)=>{const state=recallStateOnly(m);return state?{...state,corrections:correctionEvidence(this,state,recorded_at)}:null;};
     const semanticMin = Math.min(1, positiveSetting("RECALL_SEMANTIC_MIN_MILLI", 420) / 1000);
     const words = new Map(rows.map(m => [m.id, queryTerms(`${m.subject} ${m.predicate} ${m.object}`)]));
     // Ordinary partial keyword coverage remains an independent admission path,
@@ -771,8 +771,16 @@ export class Memory {
         ? Math.max(0, cosine(qvector, parse(m.embedding_json))) : 0;
       return { ...m, lexical, semantic, direct: Math.max(lexical, semantic) };
     }).filter(m => focus && (m.lexical >= 0.34 || m.semantic >= semanticMin))
-      .map(m => { const effective = recallState(m); return effective ? { ...effective, lexical: m.lexical, semantic: m.semantic, direct: m.direct, association: 0 } : null; }).filter(Boolean)
+      .flatMap(m => {
+        const effective=recallState(m);
+        const corrected=effective?[effective]:correctionReplacements(this,m,valid_at,recorded_at).map(recallState).filter(Boolean);
+        return corrected.map(effective=>({...effective,lexical:m.lexical,semantic:m.semantic,direct:m.direct,association:0}));
+      })
       .filter(m => processQuery || !isContextAvailabilityNote(m));
+    // Multiple old representations may resolve to one positive correction.
+    // Keep strongest independently admitted evidence, never repeat its packet.
+    ranked.sort((a,b)=>b.direct-a.direct);
+    for(let i=ranked.length-1;i>=0;i--)if(ranked.findIndex(m=>m.id===ranked[i].id)!==i)ranked.splice(i,1);
     // Prominence only breaks relevance ties; it cannot admit irrelevant truth.
     const halfLife = positiveSetting("SALIENCE_HALF_LIFE_DAYS", 30);
     const weight = (key:string,fallback:number) => { const n=Number(setting("WEIGHT_"+key)??fallback);return Number.isFinite(n)&&n>=0?n:fallback; };
@@ -840,7 +848,7 @@ export class Memory {
     for (const m of [...ranked, ...expanded]) {
       // Compact injected citation; full supports/roots remain in typed output.
       const support = m.supports[0];
-      const line = `[${m.id}] ${m.scope} ${m.kind}${m.historical ? " HISTORICAL" : ""}${m.conflict ? " CONFLICT" : ""}: ${m.subject} | ${m.predicate} | ${m.object}; valid [${m.historical_start_unknown ? 'unknown start' : m.valid_from},${m.valid_to ?? "open"}); source ${support.client_id}:${support.event_id}@${support.revision} ${support.role}/${support.author_id}${m.derived ? " DERIVED" : ""}`;
+      const line = `[${m.id}] ${m.scope} ${m.kind}${m.historical ? " HISTORICAL" : ""}${m.conflict ? " CONFLICT" : ""}: ${m.subject} | ${m.predicate} | ${m.object}; valid [${m.historical_start_unknown ? 'unknown start' : m.valid_from},${m.valid_to ?? "open"}); source ${support.client_id}:${support.event_id}@${support.revision} ${support.role}/${support.author_id}${m.derived ? " DERIVED" : ""}${correctionLines(m.corrections)}`;
       const next = context ? context + "\n" + line : header + "\n" + line;
       if (await budgetTokens(next) > budget) continue;
       context = next;
@@ -1030,7 +1038,7 @@ export class MemoryWorker {
       for (const m of continuity) {
         if (candidates.some(c => c.id === m.id)) continue;
         candidates.push({ id: m.id, scope: m.scope, kind: m.kind, subject: m.subject, predicate: m.predicate, object: m.object, version: m.version, valid_from: m.valid_from, valid_to: m.valid_to, derived: m.derived,
-          supports: this.memory.support(m), changes: this.store.all("SELECT type,effective_at,replacement_id FROM memory_changes WHERE target_id=?", m.id),
+          supports: this.memory.support(m), changes: activeChanges(this.store,m.id).map(({type,effective_at,replacement_id})=>({type,effective_at,replacement_id})),
           lineage: this.store.all("SELECT parent_id,parent_version FROM memory_lineage WHERE child_id=?", m.id) });
       }
       candidates.splice(12);
@@ -1075,10 +1083,7 @@ export class MemoryWorker {
             fail(409, "curation_context_changed", "Context revision changed", true);
         for (const old of candidates.filter(c => input.candidates.some(sent => sent.id === c.id))) {
           const c = this.store.one("SELECT * FROM memories WHERE id=?", old.id);
-          const changes = this.store.all(
-            "SELECT type,effective_at,replacement_id FROM memory_changes WHERE target_id=?",
-            old.id,
-          );
+          const changes = activeChanges(this.store,old.id).map(({type,effective_at,replacement_id})=>({type,effective_at,replacement_id}));
           if (
             !c || c.version !== old.version ||
             canonical(changes) !== canonical(old.changes) ||
@@ -1208,7 +1213,7 @@ export class MemoryWorker {
   reconciliationCurrent(candidates: any[]) {
     for (const old of candidates) {
       const current = this.store.one('SELECT * FROM memories WHERE id=?',old.id);
-      const changes = this.store.all('SELECT type,effective_at,replacement_id FROM memory_changes WHERE target_id=?',old.id);
+      const changes = activeChanges(this.store,old.id).map(({type,effective_at,replacement_id})=>({type,effective_at,replacement_id}));
       if (!current || current.version!==old.version || canonical(this.memory.support(current))!==canonical(old.supports) || canonical(changes)!==canonical(old.changes))
         fail(409,'curation_context_changed','Reconciliation evidence changed',true);
     }
@@ -1285,7 +1290,7 @@ export class MemoryWorker {
       if(!live())fail(409,'curation_context_changed','Source changed',true);
       this.reconciliationCurrent(included);
       const allowed=new Map(included.map(c=>[c.id,c]));
-      for(const target of [...result.duplicate_ids,...(result.superseded_ids??[]),...(result.change?.target_ids??[]),...(result.unknown_start_ids??[]),...(result.changes??[]).flatMap(c=>c.target_ids),...(result.later_replacements??[]).map(c=>c.id),...(result.superseded_by?[result.superseded_by.id]:[])])
+      for(const target of [...(result.unaffected_ids??[]),...result.duplicate_ids,...(result.superseded_ids??[]),...(result.change?.target_ids??[]),...(result.unknown_start_ids??[]),...(result.changes??[]).flatMap(c=>c.target_ids),...(result.later_replacements??[]).map(c=>c.id),...(result.superseded_by?[result.superseded_by.id]:[])])
         if(!allowed.has(target))fail(503,'curator_target_violation','Reconciliation target must be supplied same-scope evidence',true);
       for(const target of result.unknown_start_ids??[])
         if(e.role!=='user'&&!allowed.get(target)!.supports.some((s:any)=>s.event_id===e.event_id&&s.client_id===e.client_id))fail(503,'curator_target_violation','Historical precision needs original source authority',true);
@@ -1303,9 +1308,9 @@ export class MemoryWorker {
       batches.push({...result,index,identity_aliases:d.entity_aliases,candidate_identities:input.candidate_identities});
       for(const c of included)remaining.splice(remaining.findIndex(x=>x.id===c.id),1);
       } while(remaining.length);
-      const merged=mergeReconciliations(batches,index),sameScope=[...snapshots.values()].filter(c=>c.scope===d.scope);
+      const sameScope=[...snapshots.values()].filter(c=>c.scope===d.scope);
+      const merged=consistentReconciliation(mergeReconciliations(batches,index),ids=>this.claimGroupTargets(ids,sameScope));
       for(const change of merged.changes??[]){
-        change.target_ids=this.claimGroupTargets(change.target_ids,sameScope);
         // Equivalence expands only supplied, source-fenced IDs. Original strict
         // correction/time/lineage validation still applies to every group member.
         this.validate([{...d,change}],e,[d.scope!],sameScope);
@@ -1337,7 +1342,7 @@ export class MemoryWorker {
       // Equivalent representation, not a declaration that the old truth was
       // false. Preserve original supports/roots and all prior invalidations.
       this.store.run('INSERT OR IGNORE INTO memory_supports SELECT ?,event_pk,roots_json,excerpt FROM memory_supports WHERE memory_id=?',memoryId,duplicate);
-      for(const c of this.store.all("SELECT * FROM memory_changes WHERE target_id=? AND type NOT IN ('superseded','restored')",duplicate))
+      for(const c of activeChanges(this.store,duplicate).filter(c=>!['superseded','restored'].includes(c.type)))
         add(c.event_pk,memoryId,c.replacement_id,c.type,c.effective_at);
       add(e.id,duplicate,memoryId,'superseded',e.occurred_at);
     }
@@ -1596,7 +1601,7 @@ export class MemoryWorker {
       if (target_id === m.id) continue;
       if (d.change!.type === "state_change") {
         const ancestors = this.store.all(
-          "WITH RECURSIVE ancestors(id) AS (SELECT target_id FROM memory_changes WHERE replacement_id=? AND type='state_change' UNION SELECT c.target_id FROM memory_changes c JOIN ancestors a ON c.replacement_id=a.id WHERE c.type='state_change') SELECT DISTINCT id FROM ancestors",
+          "WITH RECURSIVE ancestors(id) AS (SELECT target_id FROM memory_changes c WHERE replacement_id=? AND type='state_change' AND NOT EXISTS (SELECT 1 FROM memory_change_invalidations i WHERE i.change_id=c.id) UNION SELECT c.target_id FROM memory_changes c JOIN ancestors a ON c.replacement_id=a.id WHERE c.type='state_change' AND NOT EXISTS (SELECT 1 FROM memory_change_invalidations i WHERE i.change_id=c.id)) SELECT DISTINCT id FROM ancestors",
           target_id,
         );
         for (const ancestor of ancestors)
@@ -1638,11 +1643,7 @@ export class MemoryWorker {
     // Delayed state evidence cannot reopen a known later state of the same relationship.
     if (d.change?.type === "state_change")
       for (const target_id of d.change.target_ids) {
-        const next = this.store.one(
-          "SELECT effective_at,replacement_id,event_pk FROM memory_changes WHERE target_id=? AND type='state_change' AND effective_at>? ORDER BY effective_at LIMIT 1",
-          target_id,
-          d.valid_from,
-        );
+        const next = activeChanges(this.store,target_id).filter(c=>c.type==='state_change'&&c.effective_at>d.valid_from!).sort((a,b)=>a.effective_at.localeCompare(b.effective_at))[0];
         if (next && next.replacement_id !== m.id)
           this.store.run(
             "INSERT INTO memory_changes VALUES (?,?,?,?,?,?,?)",

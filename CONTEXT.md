@@ -1,5 +1,43 @@
 # Current project context
 
+## Claim-safe truth repair and concise correction recall — 2026-11-07
+
+Source task t_c3cd6ab0 repairs the concrete live regression from t_4fe812c6, not its
+failed/partial history. Equivalent raw/typed claim groups can no longer overwrite an
+explicit incompatible unaffected disposition: the whole inconsistent change group is
+withheld and retained as blocked_dispositions audit, while independent transitions apply.
+This is conservative processing consistency, not a deterministic natural-language truth oracle;
+no fixture predicates/names, endpoint-overlap prerequisite or predicate-rename prohibition.
+
+Supported authenticated proof-CAS reconciliation repair appends memory_change_invalidations
+without deleting old changes, editing facts/dates, replaying source actions or creating jobs.
+Recorded-time projections distinguish invalidated processing from a genuine later state change.
+On exact readonly current snapshot18:40:31Z (SHA2563ee23cb0f63390460101e2b5a61f75f45f56d0ee1c66cf0661ae5cddcedce24d),
+copied-only repair invalidates exactly the two contradicted reporting closures; original typed
+Mira is current, typed Nola remains historical ending2026-11-07T00:00:00.000Z/unknown start,
+current Leda/reviewer and corrected original cobalt remain. Old event/job/change values and
+pre-repair recorded history are retained. No new native Luna/model-curation sessions were used:
+this deterministic integration consumes the real compiled dispositions, not invented raw bytes.
+
+Concise recall attaches source-backed never-true/interval correction metadata and bounded complete
+scope excerpts to relevant positive atoms, through correction/representation links, never through
+state-change links. Rejected-claim matches can locate their current correction without injecting
+false positive history. Excerpts use existing scope-safe support, not private source.content;
+retention of raw content is unnecessary. Actual resident MiniLM and lexical-only current-copy
+original query both1118/1200tokens with current direct reporting, always amber/never cobalt and
+all requested typed facets; irrelevant query0, pending/context messages0. No assistant-recap
+substitution for those facets. Focused shared-source privacy, interval, retention, forgotten-source,
+negative-value-only lookup, grant/revision/idempotency/custody regressions are included.
+
+Final142tests/1203assertions, typecheck and actual copied HTTP/Chromium changed-view checks pass;
+frozen install and isolated on-disk HTTP/CLI E2E pass (the latter before the scope-safe-excerpt-only
+fix; unchanged E2E paths reused). Source/copy evidence is not production activation/native answer
+acceptance or full callback timing. Overwatch t_d281231f owns sole activation/minimal supported
+repair; original jobs need NO blind reprocess/retry. Root t_5f7f3afb settles the original outcome.
+Exact committed source, manifest, retained intermediate failures and repair procedure live in
+`evidence/claim-safe-repair/HANDOFF.md` and SOURCE-VERIFICATION.json. Other report/sibling dirt is
+not part of this change. Reuse unchanged FEN9/helper/all-six/brand/preview evidence.
+
 ## Retained original-claim reconciliation and direct-facet repair — 2026-11-07
 
 Source task t_eeafcd2f committed product26958d0c24de567eb1bd5fc4e0a3d88989e03175.

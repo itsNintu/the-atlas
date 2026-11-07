@@ -119,6 +119,59 @@ Bun before the structured API envelope; ordinary API validation uses the envelop
 
 ## Automatic event memory: durable intake, selective graph and indexed recall
 
+### Processing-decision consistency and supported repair
+
+Claim-equivalence expansion must not override an explicit `unaffected_ids` member. Such a
+contradictory group's proposed transitions are withheld, retained as `blocked_dispositions`
+(reason `incompatible_unaffected` with targets and conflicting IDs), and excluded from writes.
+Independent transitions remain. This is unresolved processing evidence, not a domain truth
+conflict or an assertion that a model was universally correct. Semantic inference remains
+probabilistic; no predicate vocabulary or fixed endpoint-overlap prerequisite is imposed.
+
+Two additive endpoints repair already-persisted contradictions without reprocessing:
+
+- `POST /v1/memory/reconciliations/:job_id/repair-preview` is read-only, no Idempotency-Key
+  required. Body `{agent_id,expected_revision}`. Returns `{job_id,event_id,expected_revision,
+  change_ids,proof_sha256,memory_only:true}` inside the normal data envelope.
+- `POST /v1/memory/reconciliations/:job_id/repair` requires normal authentication and
+  Idempotency-Key. Body `{agent_id,expected_revision,expected_proof_sha256,change_ids,reason_code}`.
+  The exact ordered change_ids and proof must match a freshly computed plan. Reason is the same
+  non-content1–80-character `[a-z0-9_-]` diagnostic form as reprocess. The receipt adds
+  `invalidated_at` and `reason_code`; idempotent replay rechecks current read/write grants.
+
+A completed current upsert/source head, original live supports, exact revision, same-workspace
+agent binding and current read/write grants for affected scopes are required. Retained scoped
+supports suffice after raw-content retention. The plan derives eligibility only from that job's
+persisted expanded target group contradicting its explicit unaffected disposition. It matches
+actual source/target/replacement/type/effective-time changes, never caller-supplied facts or a
+newly invented historical model response. An absent current source is404, revision mismatch409
+`revision_conflict`, stale proof/set409`repair_conflict`, and no proven eligible changes409
+`repair_not_supported`. No automatic corpus repair, new job, inference or original action executes.
+
+Additive schema-2 table `memory_change_invalidations(change_id,job_id,principal_id,reason_code,
+proof_sha256,recorded_at)` references retained changes/jobs; deletion of an original change
+cascades its annotation. Original sources/IDs/jobs/changes/versions and raw dates remain unchanged.
+Effective graph/recall and subsequent curation exclude invalidated changes only at/after their
+recorded invalidation time. Graph change audit adds `invalidated_at`/`invalidation_reason`; UI
+labels INVALIDATED PROCESSING DECISION, not a real later domain transition. Other actual closures
+still apply. Invalidated derived descendants remain conservative until separately regenerated;
+repair does not fabricate derived knowledge. Restore a stopped full backup for writer rollback:
+an older writer does not understand this new audit projection.
+
+Recall selected memories may add `corrections` (negative claim metadata, change/target IDs,
+meaning, effective/recorded times, original source citation and optional complete scope excerpt).
+`meaning:never_true_not_former_state` is distinct from `interval_correction`. These are attributed
+processing claims, not independently verified world truth. Correction/representation traversal is
+bounded and same-scope supported; never follow state-change links for never-true evidence. A
+matching rejected claim can locate its positive correction using the existing lexical/semantic
+admission, without ever returning the rejected claim as a positive historical memory. Complete
+compact correction text participates in the actual token budget and selected-evidence fence.
+Excerpts come exclusively from scope-safe retained memory support, never from an agent's raw
+private event payload merely because one shared claim was published. Raw retention does not erase
+these graph semantics; forgetting/removing source support does. Whole pending transcripts/source
+payloads remain excluded. This extension does not invent a valid_from for an unsupported earlier
+start: the compact source scope can explain always/never truth despite an observation-time default.
+
 ### Focused identity/reconciliation extension
 
 REST endpoints/envelopes and original Decision fields remain compatible. Decisions may add
