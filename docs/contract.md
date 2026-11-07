@@ -124,7 +124,18 @@ This is distinct from the original `/v1/context` and `/v1/graph` source/fact API
 `POST /v1/recall` is read-only (no idempotency key), with the existing `{api_version,request_id,data}`
 envelope. Both require authentication and an administrator-established agent binding. The six
 existing profile IDs and explicit own/shared memory grants remain the authorization boundary.
-Feedback, bind and memory jobs/retry retain their existing routes. A graph-inspection endpoint is
+Feedback, bind and memory jobs/retry retain their existing routes. Completed current memory events additionally support explicit
+`POST /v1/memory/jobs/:job_id/reprocess`, with normal authentication/Idempotency-Key and body
+`{agent_id,expected_revision,reason_code}`. The reason is a non-content `[a-z0-9_-]` diagnostic code,
+1–80 characters. This queues a NEW memory job linked to the previous successful job; original
+event identity/revision/content/roots/accepted time, previous job/metrics, previous processed timestamp
+and existing memory knowledge/history are retained. Only a completed current upsert with retained
+content qualifies; changed revision, active same-conversation curation or missing source fails
+explicitly. Standard original credential, grant, source-head and lease fences apply to processing.
+The additive `memory_reprocess_requests` table records job_id,previous_job_id,event_pk,principal_id,
+reason_code,prompt_sha256,previous_processed_at,created_at. This is selective memory digestion only,
+never an original tool/action executor or automatic corpus replay. It does not erase old decisions;
+normal support deduplication and model reconciliation apply. A graph-inspection endpoint is
 specified separately in [brain-view.md](brain-view.md); memories/entities/supports/changes/
 versions retain their persisted meanings and column identities.
 

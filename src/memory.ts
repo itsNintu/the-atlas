@@ -17,6 +17,7 @@ export const memoryTokens = (s: string) => tokenizer.encode(s, [], []).length;
 import { cosine } from "./provider.ts";
 import { indexedCandidates, queryTerms } from "./memory-index.ts";
 import { claimMemoryJob } from "./memory-scheduler.ts";
+import { recallFocus, needsRecallContext, asksAboutRecallProcess, isContextAvailabilityNote } from "./recall-query.ts";
 
 // Share a turn budget across recalls and workers. Promise/microtask yields alone
 // do not let Bun service sockets or lease heartbeats during long packing loops.
@@ -532,6 +533,30 @@ export class Memory {
     );
     return { job_id, status: "queued" };
   }
+  reprocess(a: Actor, agent: string, previous_job_id: string, expected_revision: unknown, reason_code: unknown) {
+    this.authorize(a, agent, "write");
+    const revision = integer(expected_revision, "expected_revision", 1, Number.MAX_SAFE_INTEGER);
+    const reason = text(reason_code, "reason_code", 80);
+    if (!/^[a-z0-9_-]+$/.test(reason)) fail(400, "invalid_request", "reason_code must be a non-content diagnostic identifier");
+    return this.store.transaction(() => {
+      const e = this.store.one(`SELECT e.*,j.status AS job_status FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id JOIN memory_jobs j ON j.id=e.job_id
+        WHERE j.id=? AND e.workspace_id=? AND e.agent_id=? AND e.operation='upsert'`, previous_job_id,a.workspace_id,agent);
+      if (!e) fail(404, "not_found", "Current memory job not found");
+      if (e.revision !== revision) fail(409, "revision_conflict", "Memory event revision changed");
+      if (e.job_status !== "succeeded" || e.status !== "processed") fail(409, "job_not_reprocessable", "Only a completed current memory event can be reprocessed");
+      if (!e.content || !this.eventCurrent(e)) fail(409, "source_unavailable", "Original memory content is no longer available");
+      if (this.store.one(`SELECT 1 FROM memory_jobs j JOIN memory_events x ON x.id=j.event_pk WHERE x.workspace_id=? AND x.agent_id=? AND x.thread_id=? AND j.status='running'`,e.workspace_id,agent,e.thread_id))
+        fail(409, "conversation_busy", "Conversation has active curation; retry after its current claim");
+      const job_id = id("mjob"), at = now();
+      this.store.run("INSERT INTO memory_jobs (id,event_pk,status,available_at,created_at) VALUES (?,?,'queued',?,?)",job_id,e.id,Date.now(),at);
+      this.store.run("INSERT INTO memory_reprocess_requests VALUES (?,?,?,?,?,?,?,?)",job_id,previous_job_id,e.id,a.id,reason,hash(CURATE_PROMPT),e.processed_at,at);
+      // Keep source identity/content/roots, original accepted time, old job and
+      // metrics, existing knowledge and recorded history. Only memory digestion
+      // is queued; no original tool/action is executable through this route.
+      this.store.run("UPDATE memory_events SET status='pending',job_id=? WHERE id=?",job_id,e.id);
+      return {job_id,previous_job_id,event_id:e.event_id,revision:e.revision,status:"queued",memory_only:true};
+    });
+  }
   entity(
     workspace: string,
     label: string,
@@ -672,9 +697,11 @@ export class Memory {
     for (const x of b.recent_context ?? []) {
       text(x.role, "role", 32); text(x.content, "content", 16_000);
     }
-    const contextual = /\b(it|its|she|he|they|them|their|that|this|those|these)\b/i.test(query);
-    const snippets = contextual ? (b.recent_context ?? []).filter((x:any) => ["user","assistant"].includes(x.role)).slice(-2).map((x:any) => redact(x.content.slice(-600))) : [];
-    const searchQuery = [query, ...snippets].join("\n");
+    const focus = recallFocus(query);
+    const contextual = needsRecallContext(focus);
+    const snippets = contextual ? (b.recent_context ?? []).filter((x:any) => ["user","assistant"].includes(x.role)).slice(-2).map((x:any) => recallFocus(redact(x.content.slice(-600)))).filter((s:string) => s && normalize(s) !== normalize(focus)) : [];
+    const searchQuery = [focus, ...snippets].join("\n");
+    const processQuery = asksAboutRecallProcess(focus);
     let qvector: number[] | undefined, qmodel: string | undefined;
     let semantic_status = "not_requested", embedding_ms = 0;
     if (query.trim() && budget) {
@@ -717,14 +744,20 @@ export class Memory {
       return prior?.valid_to && prior.valid_to <= valid_at ? { ...prior, historical: true } : null;
     };
     const semanticMin = Math.min(1, positiveSetting("RECALL_SEMANTIC_MIN_MILLI", 420) / 1000);
+    const words = new Map(rows.map(m => [m.id, queryTerms(`${m.subject} ${m.predicate} ${m.object}`)]));
+    // Ordinary partial keyword coverage remains an independent admission path,
+    // including longer notes with weak, absent or incompatible embeddings.
+    const matches = (hay:string[], t:string) => hay.some(h => h === t || (t.length > 3 && h.startsWith(t)));
     const ranked = rows.map(m => {
-      const hay = queryTerms(`${m.subject} ${m.predicate} ${m.object}`);
-      const lexical = ts.length ? ts.filter(t => hay.some(h => h === t || (t.length > 3 && h.startsWith(t)))).length / ts.length : 0;
+      const hay = words.get(m.id)!;
+      const coverage = ts.length ? ts.filter(t => matches(hay,t)).length / ts.length : 0;
+      const lexical = coverage;
       const semantic = qvector && m.embedding_model === qmodel && m.embedding_json
         ? Math.max(0, cosine(qvector, parse(m.embedding_json))) : 0;
       return { ...m, lexical, semantic, direct: Math.max(lexical, semantic) };
-    }).filter(m => query.trim() && (m.lexical >= 0.34 || m.semantic >= semanticMin))
-      .map(m => { const effective = recallState(m); return effective ? { ...effective, lexical: m.lexical, semantic: m.semantic, direct: m.direct, association: 0 } : null; }).filter(Boolean);
+    }).filter(m => focus && (m.lexical >= 0.34 || m.semantic >= semanticMin))
+      .map(m => { const effective = recallState(m); return effective ? { ...effective, lexical: m.lexical, semantic: m.semantic, direct: m.direct, association: 0 } : null; }).filter(Boolean)
+      .filter(m => processQuery || !isContextAvailabilityNote(m));
     // Prominence only breaks relevance ties; it cannot admit irrelevant truth.
     const halfLife = positiveSetting("SALIENCE_HALF_LIFE_DAYS", 30);
     const weight = (key:string,fallback:number) => { const n=Number(setting("WEIGHT_"+key)??fallback);return Number.isFinite(n)&&n>=0?n:fallback; };
@@ -744,22 +777,33 @@ export class Memory {
     }
     ranked.sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
     const strongest = Math.max(0, ...ranked.map(m=>m.direct));
+    const leadingEntities = new Set(ranked.filter(m => m.direct >= strongest * 0.8).map(m => `${m.scope}\n${m.subject_id}`));
     // Query-relative relevance removes weaker same-project matches; importance
-    // and spare tokens cannot rescue them. Strong lexical multi-fact matches stay.
+    // and spare tokens cannot rescue them. Do not let a strong match for one
+    // requested facet erase an admitted relationship for another facet or the
+    // same entity (e.g. maintains AND reports_to). This is not topic-code gating.
     for (let i = ranked.length - 1; i >= 0; i--)
-      if (ranked[i].direct < strongest * 0.8 && ranked[i].lexical < 0.6) ranked.splice(i, 1);
+      if (ranked[i].direct < strongest * 0.8 && ranked[i].lexical < 0.6 &&
+          !leadingEntities.has(`${ranked[i].scope}\n${ranked[i].subject_id}`) &&
+          !queryTerms(ranked[i].predicate.replaceAll('_',' ')).some(p => ts.some(t => matches([p],t)))) ranked.splice(i, 1);
     // One-hop useful relationships are a bounded indexed expansion from direct
     // seeds, never a workspace scan or an excuse to add every fact about Alex.
     const expanded: any[] = [];
     const seedIds = new Set(ranked.slice(0, 3).map(m => m.id));
     for (const seed of ranked.slice(0, 3)) {
       const linked = this.store.all("SELECT * FROM memories WHERE workspace_id=? AND scope=? AND subject=? ORDER BY importance DESC,id LIMIT 4", a.workspace_id, seed.scope, seed.object);
+      // Another requested predicate on this grounded entity is a graph sibling,
+      // not an unrelated semantic guess. Split predicate words so reports_to
+      // can answer 'report to' even when its compact embedding misses lookup.
+      const siblings = this.store.all("SELECT * FROM memories WHERE workspace_id=? AND scope=? AND subject_id=? ORDER BY importance DESC,id LIMIT 4",a.workspace_id,seed.scope,seed.subject_id)
+        .filter(row => queryTerms(row.predicate.replaceAll('_',' ')).some(p => ts.some(t => matches([p],t))));
+      linked.push(...siblings);
       for (const row of linked) {
         if (seedIds.has(row.id) || ranked.some(m => m.id === row.id) || expanded.some(m => m.id === row.id)) continue;
         // Exact authorized seed→entity edge establishes relationship relevance;
         // linked facts need not repeat the seed's topic identifier.
         const m = recallState(row);
-        if (m) expanded.push({ ...m, lexical: 0, semantic: 0, direct: 0, association: 1, score: seed.score * 0.8 });
+        if (m && (processQuery || !isContextAvailabilityNote(m))) expanded.push({ ...m, lexical: 0, semantic: 0, direct: 0, association: 1, score: seed.score * 0.8 });
       }
     }
     const selected: any[] = [], snapshots = new Map<string, any>();

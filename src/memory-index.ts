@@ -70,6 +70,7 @@ export function installMemoryIndex(s: Store) {
     CREATE TABLE IF NOT EXISTS memory_thread_schedule(workspace_id TEXT NOT NULL,agent_id TEXT NOT NULL,thread_id TEXT NOT NULL,last_claim INTEGER NOT NULL,PRIMARY KEY(workspace_id,agent_id,thread_id));
     CREATE TABLE IF NOT EXISTS memory_chunk_progress(event_pk TEXT PRIMARY KEY REFERENCES memory_events(id),offset_chars INTEGER NOT NULL);
     CREATE TABLE IF NOT EXISTS memory_curation_metrics(job_id TEXT NOT NULL,event_pk TEXT NOT NULL,chunk_start INTEGER NOT NULL,chunk_end INTEGER NOT NULL,input_tokens INTEGER NOT NULL,input_bytes INTEGER NOT NULL,candidate_count INTEGER NOT NULL,recent_count INTEGER NOT NULL,decision_count INTEGER NOT NULL,elapsed_ms REAL NOT NULL,created_at TEXT NOT NULL);
+    CREATE TABLE IF NOT EXISTS memory_reprocess_requests(job_id TEXT PRIMARY KEY REFERENCES memory_jobs(id),previous_job_id TEXT NOT NULL REFERENCES memory_jobs(id),event_pk TEXT NOT NULL REFERENCES memory_events(id),principal_id TEXT NOT NULL,reason_code TEXT NOT NULL,prompt_sha256 TEXT NOT NULL,previous_processed_at TEXT NOT NULL,created_at TEXT NOT NULL);
   `);
   if (!s.one("SELECT 1 FROM memory_index_meta WHERE version=1")) {
     s.db.exec(`INSERT INTO memory_search(memory_search) VALUES('rebuild');

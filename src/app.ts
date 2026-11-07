@@ -210,7 +210,7 @@ export class App {
         };
       else if (
         method === "POST" &&
-        match(/^\/v1\/memory\/jobs\/([^/]+)\/retry$/)
+        match(/^\/v1\/memory\/jobs\/([^/]+)\/(retry|reprocess)$/)
       )
         result = {
           data: write(
@@ -218,11 +218,9 @@ export class App {
               this.memory.authorize(a, b.agent_id, "write");
             },
             () =>
-              this.memory.retry(
-                a,
-                b.agent_id,
-                match(/^\/v1\/memory\/jobs\/([^/]+)\/retry$/)!,
-              ),
+              path.endsWith("/reprocess")
+                ? this.memory.reprocess(a,b.agent_id,match(/^\/v1\/memory\/jobs\/([^/]+)\/reprocess$/)!,b.expected_revision,b.reason_code)
+                : this.memory.retry(a,b.agent_id,match(/^\/v1\/memory\/jobs\/([^/]+)\/retry$/)!),
           ),
         };
       else if (method === "GET" && path === "/v1/me")

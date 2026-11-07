@@ -51,10 +51,16 @@ Non-content freshness still reports accepted/processed times and pending counts 
 
 Default recall budget is 1,200 exact tokenizer tokens; explicitly requested larger budgets remain
 supported (0–100,000). Relevance, not spare allocation, determines output. Admission requires lexical
-coverage >=0.34 or compatible cosine >=0.42 (`RECALL_SEMANTIC_MIN_MILLI`, default420), followed by an
-80%-of-strongest relevance gate (strong lexical matches >=0.6 remain). Salience/utility rank only
+coverage >=0.34 or compatible cosine >=0.42 (`RECALL_SEMANTIC_MIN_MILLI`, default420). Lexical coverage
+remains independent of memory length, embedding availability and word order. An explicit
+"In the fictional X archive," query-location preamble is focused to "X:"; the exact scenario token
+and substantive question remain, but generic fictional/archive overlap cannot dominate. This never
+requires literal name/code repetition by memories or aliases. An 80%-of-strongest relevance gate follows;
+strong lexical matches >=0.6, already-admitted requested predicates and relationships on leading
+same-scope entities survive so one facet cannot erase another. Salience/utility rank only
 eligible evidence; they cannot admit unrelated truth. Up to three direct seeds may add bounded
-same-scope entity-object-to-subject relationships. Source citations are compact; full support/root
+same-scope entity-object-to-subject relationships, plus bounded same-entity siblings whose predicate
+is requested (e.g. maintains AND reports_to). Source citations are compact; full support/root
 metadata remains typed. Empty/unrelated queries can return an empty context and no memory.
 
 Named coded topics (after fictional/project/exercise/task/ticket/fixture) are ranking hints only,
@@ -71,6 +77,12 @@ hint. This neither changes valid_at/recorded_at eligibility nor imposes a global
 may include supported closed states, labelled HISTORICAL with their valid interval; corrections and
 retractions still cannot reappear as former true states. Ordinary current queries remain current-only.
 
+Recall removes only recognized standalone answer-control boilerplate before embedding/lexical
+scoring, not substantive conditional or technical questions. Duplicate current-query snippets are
+not explanatory context. Assistant-only notes consisting solely of a lack-of-supplied-context
+answer are not domain facts for direct factual questions; historical/process queries can still
+retrieve those observations. Mixed useful facts, user/tool evidence and domain negatives are not
+classified as abstentions. These are bounded English heuristics, not a general intent classifier.
 No conversational model or hosted reranker is used on recall. Ambiguous pronoun followups may use
 only two caller-supplied user/assistant snippets, 600 characters each, for query resolution, not
 independent evidence. No pending transcript is returned (`pending_events:[]`); graph lag is explicit.
@@ -114,6 +126,37 @@ unresolved relevance failure, not abstention success. Correct dated comment2030 
 1144tokens rather than being displaced by2017/generic receipts; the Neptune query returns0tokens.
 These are source diagnostics, not native answer-use or processing proof. Targeted Overwatch
 activation/outcome is separate. Exact corrected source/test/readonly evidence is in the follow-up handoff.
+
+## Fact-selection source repair, not production acceptance
+
+The curation prompt now explicitly retains useful user-supplied fictional working relationships as
+scenario-qualified **agent-private episodes**, not Alex preferences or business truth, without
+mechanically retaining every message. Routine ACKs and lack-of-evidence answers normally yield no
+knowledge. A real isolated gpt-6-luna source fixture selected three relational/qualification notes,
+resolved a contextual reviewer, and discarded both ACK and denial (four calls, exact inputs
+1,330–1,941 tokens). Its initial recall omitted a stored reporting relation; the requested-predicate
+same-entity expansion repaired that serving defect without repeating model extraction. Four persisted
+edges are connected through actual same-scope entities, and the unrelated packet is empty. This is
+source fixture evidence, NOT a new native session, freshness guarantee or overall acceptance.
+
+`POST /v1/memory/jobs/:current_job_id/reprocess` is an explicit authenticated, idempotent memory-only
+remediation operation. It requires agent write access, expected_revision and a non-content reason_code;
+only a current completed upsert with retained content qualifies. A new memory job and immutable
+`memory_reprocess_requests` audit link retain the previous completed job, original processed time,
+prompt hash, original event/revision/content/roots/accepted time and all existing knowledge/history.
+It cannot execute original tools/actions. It does not erase earlier decisions or guarantee model
+reconciliation; existing model change/support/lineage fences still apply. Active same-conversation
+curation returns a bounded conflict rather than overlapping chronology. No corpus replay is automatic.
+
+A same-readonly-snapshot baseline/corrected comparison now selects both originally omitted LDN7
+memories plus the naturally progressed handover/color notes (658 tokens), excludes prior denial,
+returns zero for QZX8, and preserves the dated comment2030 packet exactly. At that snapshot original
+LDN7 had naturally reached8/8processed; this does NOT repair its earlier6minute/10minute freshness
+failure. Original VES8 still had0supportedfacts and, before any supported memory reprocess, its query
+now correctly receives an empty packet rather than a prior denial or unrelated note. The repair does not invent missing source
+facts: targeted audited memory remediation and changed native behavior belong to activation owner
+t_fc720392. No production lifecycle, config, grants, queues or native sessions changed in this source
+phase. Exact local evidence is in D:/Projects/TheAtlas/evidence/selection-repair/.
 
 ## Original alpha source/fact path (unchanged; historical verification)
 

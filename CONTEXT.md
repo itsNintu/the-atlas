@@ -1,5 +1,26 @@
 # Current project context
 
+## Fact selection and recall source repair — 2026-11-07
+
+Source-only t_031912e4 repairs response-control contamination, duplicate current-query context,
+prior context-only denial dominance and multi-facet relationship omission. Useful fictional working
+relations are explicitly agent-private attributed episodes, never fabricated Alex/business truth.
+Moderate semantic admission remains0.42 regardless of query codes; lexical-only fallback remains.
+Explicit fictional archive location preambles are focused without their generic wrapper words;
+partial lexical coverage is unchanged, without length/code/name/word-order prerequisites. Requested same-entity
+predicates can expand from direct seeds; existing grants/support/time/forget fences remain.
+Explicit authenticated/idempotent memory-only reprocess now creates a NEW job and additive audit
+link without changing original event custody, wiping knowledge, resetting prior jobs or executing
+source tools. See docs/contract.md for expected_revision, reason_code and conflict/error behavior.
+Real isolated Luna selected meaningful private relationships, resolved a contextual reviewer and
+discarded ACK/denial. A source fixture reporting-recall omission was exposed and repaired, then
+checked against the already-persisted real model output, without repeating extraction. Same-readonly
+production snapshot comparison restores the original omitted LDN7 facts, QZX8 empty context and exact
+dated2030packet. LDN7 naturally progressed8/8during work, not retroactive timely success; VES8 still
+has0originalsupportedfacts and needs narrowly targeted supported memory reprocess after activation.
+See D:/Projects/TheAtlas/evidence/selection-repair/ for exact source handoff. Runtime activation and
+changed native outcome remain exclusively Overwatch t_fc720392; this is not overall native acceptance.
+
 ## Freshness/relevance source follow-up — 2026-11-07
 
 Replaced global event FIFO with persisted3fair-thread:1oldest-work service: least-recently-served
