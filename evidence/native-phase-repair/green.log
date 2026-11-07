@@ -1,0 +1,26 @@
+bun test v1.4.4 (38afee6c8)
+
+tests/native-phase-contract.test.ts:
+(pass) native literal qualification identity receives an exact response contract, not an invitation to rewrite candidate literals [44.55ms]
+(pass) actual invalid literal candidate binding and ambiguous truth disposition stay fail-visible [0.50ms]
+
+tests/relational-reconciliation.test.ts:
+(pass) atomic typed object entities include never-subject targets; literals stay literals; scope/scenario identities do not pool [55.42ms]
+(pass) never-true correction targets all stale aliases/wordings, not the already-correct history narrative; unrelated/co-owner facts survive [70.61ms]
+(pass) handover closes duplicate alias claims at actual effective date even before observation default; retains prior truth with unknown start [52.20ms]
+(pass) late original reprocess cannot reopen a later-supported correction or handover; audit cites later original not delivery order [29.48ms]
+(pass) semantic duplicate normalization preserves roots and prior correction; compatible co-owners remain separate [49.51ms]
+(pass) reconciliation fences changed evidence after await, rejects unsupported IDs and preserves interval corrections [58.74ms]
+(pass) on-disk reopen migrates supported old aliases by scope, typed targets survive reopen and forget removes support/targets/audit [107.02ms]
+(pass) focused relation windows retain actual ownership targets amid duplicate long qualification narratives; duplicate and change can combine [352.55ms]
+(pass) focused sourced identities canonicalize launch wording before handover and late original reconciliation without merging namesakes [64.91ms]
+(pass) write-only shared scope still accepts new knowledge but supplies no unreadable reconciliation candidates [32.15ms]
+(pass) identity proof is scoped and recorded, actor retargeting is quarantined, and forgetting removes alias/equivalence proof [65.11ms]
+(pass) canonical same-claim same-interval state output normalizes to duplicate, not false handover; distinct actors and dates do not [0.35ms]
+(pass) three phase packing reserves headroom and advances oversized Unicode without changing accepted source [267.70ms]
+(pass) repeated alias-format reconciliation preserves a positive prior state instead of supersession cycles hiding every representation [67.69ms]
+
+ 16 pass
+ 0 fail
+ 106 expect() calls
+Ran 16 tests across 2 files. [1.54s]

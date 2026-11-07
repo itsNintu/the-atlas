@@ -1,0 +1,19 @@
+bun test v1.4.4 (38afee6c8)
+
+tests/native-phase-contract.test.ts:
+ 9 |  const s=new Store(':memory:'),b=s.bootstrap('Synthetic native phase contract'),a=s.authenticate(b.token);let identity:any,reconciliation:any;
+10 |  const inf={curate:async()=>({decisions:[d]}),resolveEntities:async(i:any)=>{identity=i;return {decisions:[],identity:{subject:d.subject,object:d.object,entity_aliases:[]},candidate_identities:[]}},reconcile:async(i:any)=>{reconciliation=i;return [{index:0,duplicate_ids:[]}]},embed:async()=>({vectors:[[1,0]],model:'deterministic-not-luna'})};
+11 |  const m=new Memory(s,inf),w=new MemoryWorker(s,inf);m.bind(a,a.id,'builder');
+12 |  try{const r=m.event(a,{client_id:'phase',event_id:'fen9',revision:1,operation:'upsert',agent_id:'builder',thread_id:'fen9',role:'user',author_id:'alex',occurred_at:t,observed_at:now(),content:'Private fictional archive FEN9 only, not Alex or real business.'});await w.runOnce();
+13 |  expect(s.one('SELECT status FROM memory_jobs WHERE id=?',r.job_id).status).toBe('succeeded');
+14 |  expect(identity.response_contract.identity_object).toEqual({literal_exact:d.object});
+                      ^
+TypeError: undefined is not an object (evaluating 'identity.response_contract.identity_object')
+      at <anonymous> (/home/alex/work/projects/the-atlas/tests/native-phase-contract.test.ts:14:18)
+(fail) native literal qualification identity receives an exact response contract, not an invitation to rewrite candidate literals [38.45ms]
+(pass) actual invalid literal candidate binding and ambiguous truth disposition stay fail-visible [0.31ms]
+
+ 1 pass
+ 1 fail
+ 4 expect() calls
+Ran 2 tests across 1 file. [247.00ms]

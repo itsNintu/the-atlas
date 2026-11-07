@@ -1,0 +1,46 @@
+{
+  "task": "t_6200b4e1",
+  "source_commit": "ccc8c67608327b8bba0b85da6cc3860db6997fff",
+  "canonical_repository": "/home/alex/work/projects/the-atlas",
+  "source_sha256": {
+    "CONTEXT.md": "fec6742dee402a764963539e1af451608c98dd5f9f9ced983b7ac50528781206",
+    "docs/contract.md": "89ad818cba17cf96285474c8d838fae060db30df38c5ce320cb28aa7e358ce6f",
+    "scripts/native-phase-copy.ts": "ffcaa4432a4e943f495b29f65233d0c9925a1c2f7f0f653917eee7eb5f4f2260",
+    "scripts/native-phase-replay.ts": "828a15e093649557f8e61a2a6308f30e51597d895501b3b4074975207d11561b",
+    "scripts/native-phase-report.py": "2191d73412332924c601594ee0cca707d0c0ae3e0b2ac221c72b2fdc23769ce7",
+    "scripts/native-phase-snapshot.py": "5f9ab3b47b6598b8bebab1d4a3159a6e101424405b879c85d5c35ae56f56a978",
+    "src/memory-identity.ts": "cef275598cacd5c3006cbdb0afe57202e863720ed4df1d2c15dbdb1bb779a928",
+    "src/memory-reconciliation.ts": "08c78246f0fb9059e5e83dbf843b3c393d16acd6446c2fa541410014b1ddc4be",
+    "src/memory.ts": "2e6814b5353fc89515ca5bb950c4ff3461ef8b537d7a5086fb8cc9361e5f87fd",
+    "tests/native-phase-contract.test.ts": "2e8e084988cd98875d0092650c91554f7b30d9daf86694aa85c6aacdd9a64a77"
+  },
+  "protected_helper_sha256": "dedcc79fcc57d79c20c95f0cabf2dc951fcbb12c9a7bbae41960b4ad78916ede",
+  "verification": {
+    "full_tests": 128,
+    "full_assertions": 1083,
+    "files": 20,
+    "final_focused_tests": 17,
+    "final_focused_assertions": 109,
+    "typecheck": "pass",
+    "frozen_install": "pass",
+    "disk_http_cli_e2e": "pass",
+    "real_luna_calls": 64,
+    "max_observed_product_tokens": 4094,
+    "final_source_replay_phases": 24,
+    "replay_new_luna_calls": 0
+  },
+  "production_effects": {
+    "db_or_queue_writes": 0,
+    "retry_or_reprocess_requests": 0,
+    "native_sessions": 0,
+    "restarts": 0,
+    "configuration_grant_credential_model_changes": 0
+  },
+  "activation_owner": "t_b3950651",
+  "root": "t_5f7f3afb",
+  "evidence_reuse": "t_d7c1e270 and current runtime handoff unchanged helper/native/six-profile/preview evidence",
+  "uncertainty": [
+    "Historical raw production failed responses unavailable; isolated outputs are reproductions, not those exact attempts.",
+    "Inference remains probabilistic; activation and live graph/native outcome unverified here."
+  ]
+}

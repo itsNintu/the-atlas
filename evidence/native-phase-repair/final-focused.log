@@ -1,0 +1,27 @@
+bun test v1.4.4 (38afee6c8)
+
+tests/native-phase-contract.test.ts:
+(pass) native literal qualification identity receives an exact response contract, not an invitation to rewrite candidate literals [52.50ms]
+(pass) actual invalid literal candidate binding and ambiguous truth disposition stay fail-visible [0.47ms]
+(pass) same-source observation defaults cannot reverse time; real earlier supported prior truth still permits explicit handover [0.21ms]
+
+tests/relational-reconciliation.test.ts:
+(pass) atomic typed object entities include never-subject targets; literals stay literals; scope/scenario identities do not pool [61.77ms]
+(pass) never-true correction targets all stale aliases/wordings, not the already-correct history narrative; unrelated/co-owner facts survive [74.53ms]
+(pass) handover closes duplicate alias claims at actual effective date even before observation default; retains prior truth with unknown start [51.91ms]
+(pass) late original reprocess cannot reopen a later-supported correction or handover; audit cites later original not delivery order [31.37ms]
+(pass) semantic duplicate normalization preserves roots and prior correction; compatible co-owners remain separate [48.69ms]
+(pass) reconciliation fences changed evidence after await, rejects unsupported IDs and preserves interval corrections [57.17ms]
+(pass) on-disk reopen migrates supported old aliases by scope, typed targets survive reopen and forget removes support/targets/audit [117.52ms]
+(pass) focused relation windows retain actual ownership targets amid duplicate long qualification narratives; duplicate and change can combine [389.13ms]
+(pass) focused sourced identities canonicalize launch wording before handover and late original reconciliation without merging namesakes [75.68ms]
+(pass) write-only shared scope still accepts new knowledge but supplies no unreadable reconciliation candidates [21.65ms]
+(pass) identity proof is scoped and recorded, actor retargeting is quarantined, and forgetting removes alias/equivalence proof [71.67ms]
+(pass) canonical same-claim same-interval state output normalizes to duplicate, not false handover; distinct actors and dates do not [0.23ms]
+(pass) three phase packing reserves headroom and advances oversized Unicode without changing accepted source [309.11ms]
+(pass) repeated alias-format reconciliation preserves a positive prior state instead of supersession cycles hiding every representation [67.56ms]
+
+ 17 pass
+ 0 fail
+ 109 expect() calls
+Ran 17 tests across 2 files. [1.66s]

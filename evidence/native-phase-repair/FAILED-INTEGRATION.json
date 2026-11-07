@@ -1,0 +1,2281 @@
+{
+  "source_fixture_not_native_activation": true,
+  "method": "recorded real Luna outputs through final worker/validators on private exact snapshot; real resident embeddings; no Luna calls",
+  "recordings": [
+    "corrected-ldn7",
+    "corrected-ldn7-chain",
+    "corrected-final-fen9"
+  ],
+  "calls": [
+    {
+      "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+      "phase": "extract",
+      "input_tokens": 1839,
+      "recorded_input_sha256": "2c9a743b4e26e8d7499552655d1898bec3ee5569515702277675e0fbc5cfab62",
+      "final_input_sha256": "2c9a743b4e26e8d7499552655d1898bec3ee5569515702277675e0fbc5cfab62"
+    },
+    {
+      "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+      "phase": "identity",
+      "input_tokens": 3882,
+      "recorded_input_sha256": "5e6ed17bb8005d3846602589534c0e0c460b9d13a1d342fdd86429264e548568",
+      "final_input_sha256": "5e6ed17bb8005d3846602589534c0e0c460b9d13a1d342fdd86429264e548568"
+    },
+    {
+      "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+      "phase": "reconcile",
+      "input_tokens": 4094,
+      "recorded_input_sha256": "ed090d878bda7a751330aeebfd2f9ed54dd8ea204d8f9d19170b34bfe5fbd635",
+      "final_input_sha256": "ed090d878bda7a751330aeebfd2f9ed54dd8ea204d8f9d19170b34bfe5fbd635"
+    },
+    {
+      "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+      "phase": "identity",
+      "input_tokens": 3199,
+      "recorded_input_sha256": "4b0fab72214faf3819ef328e3514e27ede0e6f3b1720565b350839e66a94fc16",
+      "final_input_sha256": "4b0fab72214faf3819ef328e3514e27ede0e6f3b1720565b350839e66a94fc16"
+    },
+    {
+      "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+      "phase": "reconcile",
+      "input_tokens": 3411,
+      "recorded_input_sha256": "f4950a58198e8899db87bc6753f06780395139c6880461d07d9059758052c5d6",
+      "final_input_sha256": "f4950a58198e8899db87bc6753f06780395139c6880461d07d9059758052c5d6"
+    },
+    {
+      "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+      "phase": "identity",
+      "input_tokens": 3759,
+      "recorded_input_sha256": "4e23e1c1eb0efb1b40da2b6482b4423e5f9bde0791724d6c64879a8d502b5067",
+      "final_input_sha256": "4e23e1c1eb0efb1b40da2b6482b4423e5f9bde0791724d6c64879a8d502b5067"
+    },
+    {
+      "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+      "phase": "reconcile",
+      "input_tokens": 3971,
+      "recorded_input_sha256": "eab347ec21d926389a0194066a4d92299b2ab273983cabcf55d2722fa1fe21d4",
+      "final_input_sha256": "eab347ec21d926389a0194066a4d92299b2ab273983cabcf55d2722fa1fe21d4"
+    },
+    {
+      "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+      "phase": "identity",
+      "input_tokens": 3666,
+      "recorded_input_sha256": "f8084d99327c4fa2e8245858925fc6dd9f84755d13900804141bf8b69714c579",
+      "final_input_sha256": "f8084d99327c4fa2e8245858925fc6dd9f84755d13900804141bf8b69714c579"
+    },
+    {
+      "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+      "phase": "reconcile",
+      "input_tokens": 4063,
+      "recorded_input_sha256": "dea138da583505f03c1d784910c7e5f3562bbde110ee975309755169118942a7",
+      "final_input_sha256": "dea138da583505f03c1d784910c7e5f3562bbde110ee975309755169118942a7"
+    },
+    {
+      "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+      "phase": "extract",
+      "input_tokens": 1870,
+      "recorded_input_sha256": "4ee8d1696514603fd1cd59e73342020fcff0d6f56648132b29ef55a4704ab7d5",
+      "final_input_sha256": "4ee8d1696514603fd1cd59e73342020fcff0d6f56648132b29ef55a4704ab7d5"
+    },
+    {
+      "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+      "phase": "identity",
+      "input_tokens": 3645,
+      "recorded_input_sha256": "181e6bd5eb5f71fe6b82e33ef2e5ed62f61942af4197644c589d90fc2c3b29d2",
+      "final_input_sha256": "181e6bd5eb5f71fe6b82e33ef2e5ed62f61942af4197644c589d90fc2c3b29d2"
+    },
+    {
+      "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+      "phase": "reconcile",
+      "input_tokens": 3857,
+      "recorded_input_sha256": "0555de8f53ad0583684017c3e596ae27a38a7bbdefd0d311d147b69f8dc8f300",
+      "final_input_sha256": "7de96b2c657b82fb97da8adff711797a14e1888d2c5202c3f81856010bce6d73"
+    },
+    {
+      "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+      "phase": "identity",
+      "input_tokens": 3745,
+      "recorded_input_sha256": "d5ad6777efb842e57a3c2852798bf365d342b2d7cd2d034f2820c1b9f5d2bc56",
+      "final_input_sha256": "d5ad6777efb842e57a3c2852798bf365d342b2d7cd2d034f2820c1b9f5d2bc56"
+    },
+    {
+      "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+      "phase": "reconcile",
+      "input_tokens": 4079,
+      "recorded_input_sha256": "b78978e6e584ed6de1a8237e6872a7f7933a1e2855e89e86d7950c9d1700d67c",
+      "final_input_sha256": "ccf32d3c1494b711bc880e80053c4eec179f19c08ebee589eb61c264db40890b"
+    },
+    {
+      "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+      "phase": "identity",
+      "input_tokens": 3812,
+      "recorded_input_sha256": "6a141e026d0fb152c693351d0bbcf8cef47928c9d0001152264c67606904f3ad",
+      "final_input_sha256": "6a141e026d0fb152c693351d0bbcf8cef47928c9d0001152264c67606904f3ad"
+    },
+    {
+      "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+      "phase": "reconcile",
+      "input_tokens": 3549,
+      "recorded_input_sha256": "820c7aea65261f631aa64717ee2895b9696d25b3bb06356b16fcd2eb4fc64c24",
+      "final_input_sha256": "571a0a06d3df2a147bf2f2d798a4b21698e579745d0fbb1fd648b942629f46bb"
+    },
+    {
+      "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+      "phase": "identity",
+      "input_tokens": 3290,
+      "recorded_input_sha256": "e529b522e6c46871284690d67ede07a148c54d044a7f64fb1d2ba531d02393b6",
+      "final_input_sha256": "9883f4e11ef7d25c9cfa4c29f8eb33f81a6d16a649ce2774e418d38c43259b8c"
+    },
+    {
+      "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+      "phase": "reconcile",
+      "input_tokens": 3501,
+      "recorded_input_sha256": "5ee1216e23f79edb1af6b9f5be74d4b9db7ab5bb3c42c27c9457c3ab4daef6d6",
+      "final_input_sha256": "8a399c01b0ce0dec30d831c834b47c623030722fc41db737afa85fe029878a28"
+    },
+    {
+      "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+      "phase": "extract",
+      "input_tokens": 1930,
+      "recorded_input_sha256": "1332976a4e6a8e29f3456be0e12e4ef31bf26b82a7bb69db641355585680f09d",
+      "final_input_sha256": "1332976a4e6a8e29f3456be0e12e4ef31bf26b82a7bb69db641355585680f09d"
+    },
+    {
+      "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+      "phase": "identity",
+      "input_tokens": 3555,
+      "recorded_input_sha256": "798a85ffa5f9da590c28026e4c1a944dd78b14d0361aafc9c0678a88fabfb8ff",
+      "final_input_sha256": "798a85ffa5f9da590c28026e4c1a944dd78b14d0361aafc9c0678a88fabfb8ff"
+    },
+    {
+      "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+      "phase": "reconcile",
+      "input_tokens": 3767,
+      "recorded_input_sha256": "6c8fba0a223f802daff0bdfa4e95e3625e68ab75d4a719445546738001e40965",
+      "final_input_sha256": "6c8fba0a223f802daff0bdfa4e95e3625e68ab75d4a719445546738001e40965"
+    },
+    {
+      "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+      "phase": "identity",
+      "input_tokens": 3144,
+      "recorded_input_sha256": "e674633d3db02fc8a641757a78c641bc30ec0b966200a5bc18c9edd46d8bd01a",
+      "final_input_sha256": "49302be1bccd9984743379a88036f72b2c9c8ddb93e8cbb6f5306068a4550bbb"
+    },
+    {
+      "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+      "phase": "reconcile",
+      "input_tokens": 3360,
+      "recorded_input_sha256": "1ba407001dbc93d70c751e1a317f6b4e5b8eef74a1526ee1d3eda8ce8bd58384",
+      "final_input_sha256": "c7e4358373e3a6058ffa38a6176eb160f5affcf2e552ca2767c8b5e3cdb76118"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "mjob_3d9c6e05-803f-402b-82fc-074d15383406",
+      "status": "succeeded",
+      "error_code": null
+    },
+    {
+      "id": "mjob_15bf34a4-2421-4a19-ab79-dcaca5cafa70",
+      "status": "retry",
+      "error_code": "curator_target_violation"
+    },
+    {
+      "id": "mjob_65a38b83-70e3-41fa-9bd8-0f48903d5ae3",
+      "status": "queued",
+      "error_code": null
+    },
+    {
+      "id": "mjob_4d41cd33-131d-443f-afc0-bca2e12ac9d3",
+      "status": "queued",
+      "error_code": null
+    },
+    {
+      "id": "mjob_af931955-1de5-40b2-92e8-4e85687e4925",
+      "status": "succeeded",
+      "error_code": null
+    }
+  ],
+  "custody_preserved": true,
+  "graphs": [
+    {
+      "query": "LDN7",
+      "include_history": false,
+      "nodes": [
+        {
+          "id": "entity:b1aac27df0d0186c9abc6c7fc18351c5c6389f2953395be679a9eb7e1c65dcf4",
+          "label": "LDN7 fictional archive fixture",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:1be3a6af68baf2a9b67176b7f0102b21cbb0c15cdecc934d774201b9ce6682b0",
+          "label": "Fictional-only private Reaver exercise context; not Alex or real business truth.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "entity:729155d0c873f4139f3f2633dabb639ed07b57284287855166465174dfcfd0a9",
+          "label": "LDN7 Mira",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "entity:00d49dbc2f9661acc11b73d6977217ffe0dcdb2ffc917d855ebefb1eadadbf60",
+          "label": "LDN7 Nola",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "entity:db760ff175ffb56562d3201b24e9ddacac5331bf034c028813508aea22774635",
+          "label": "LDN7 Lantern",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:eb7a68beb02574c281511f350611f55b6e9b2fa33845339f9dc0b8c7d61bb1e2",
+          "label": "Within the fictional LDN7 scenario, LDN7 Lantern has always used amber and never used cobalt; Alex says the earlier cobalt claim was mistaken, not a formerly true state.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:b03f855d5adf67dd334ce3d06bc1163a06af47422908d41fc30bafca9db677f3",
+          "label": "LDN7 Lantern checklist within the fictional LDN7 archive; Alex clarifies that “she” refers to the person Mira reports to.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "entity:2c3cdb073618a90141f96717970574ee2839313d02e7dd4376acb7138c124851",
+          "label": "Leda",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:565e5a7b7d980f71ad4abdd6e84059b816f456552c70cf25e629a5688260f53e",
+          "label": "LDN7 Lantern in the fictional LDN7 story",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:4bcb0e538e87413cb74a5a1f088a9891b972aa8eb1cc164d46e90ba55f700da6",
+          "label": "LDN7 Lantern checklist in the fictional LDN7 archive; Alex clarifies that “she” means the person Mira reports to.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:9af287eb253b96c201e2a2bec4cdae272f12afc0361d55b305b8b0ae86f63b5a",
+          "label": "Alex supplied a fictional-only Reaver exercise note: within imaginary archive LDN7, Mira reports to Nola, Nola owns the Lantern launch, and the Lantern uses cobalt. These are fixture claims, not facts about Alex or a real business.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        }
+      ],
+      "edges": [
+        {
+          "id": "memory_dc83c0ec-9e35-4990-93dd-49a17d4483b7",
+          "source": "entity:b1aac27df0d0186c9abc6c7fc18351c5c6389f2953395be679a9eb7e1c65dcf4",
+          "target": "literal:1be3a6af68baf2a9b67176b7f0102b21cbb0c15cdecc934d774201b9ce6682b0",
+          "predicate": "qualification",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T16:14:51.824Z",
+          "status": "active",
+          "confidence": 1,
+          "importance": 0.6,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T16:14:51.824Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_0492a72f-b578-4156-9369-40f0d677c7e2",
+          "source": "entity:729155d0c873f4139f3f2633dabb639ed07b57284287855166465174dfcfd0a9",
+          "target": "entity:00d49dbc2f9661acc11b73d6977217ffe0dcdb2ffc917d855ebefb1eadadbf60",
+          "predicate": "reports_to",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T16:14:51.748Z",
+          "status": "active",
+          "confidence": 1,
+          "importance": 0.5,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T16:14:51.748Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "source": "entity:db760ff175ffb56562d3201b24e9ddacac5331bf034c028813508aea22774635",
+          "target": "literal:eb7a68beb02574c281511f350611f55b6e9b2fa33845339f9dc0b8c7d61bb1e2",
+          "predicate": "color",
+          "scope": "agent:reaver",
+          "kind": "assertion",
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T13:46:52.372Z",
+          "status": "active",
+          "confidence": 1,
+          "importance": 0.8,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T13:46:52.372Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_05b08881-05cc-48b4-a211-8ac0d9f22527",
+          "source": "entity:00d49dbc2f9661acc11b73d6977217ffe0dcdb2ffc917d855ebefb1eadadbf60",
+          "target": "literal:b03f855d5adf67dd334ce3d06bc1163a06af47422908d41fc30bafca9db677f3",
+          "predicate": "reviews",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T11:40:11.302Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T13:42:51.525Z",
+          "status": "active",
+          "confidence": 0.95,
+          "importance": 0.6,
+          "sources": [
+            {
+              "excerpt": "Still fictional LDN7: haha, the paper moon tastes like hiccups! Anyway, she also reviews the LDN7 Lantern checklist; by she I mean the person Mira reports to. No tools; acknowledge only.",
+              "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:11.302Z",
+              "accepted_at": "2026-11-07T11:40:12.248Z",
+              "evidence_root_ids": [
+                "native:reaver:d170bd72645c4a829261bef9878b8d2a"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T13:42:51.525Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_b8ec8735-522f-4e9e-ab4b-bd293d821df5",
+          "source": "entity:2c3cdb073618a90141f96717970574ee2839313d02e7dd4376acb7138c124851",
+          "target": "literal:565e5a7b7d980f71ad4abdd6e84059b816f456552c70cf25e629a5688260f53e",
+          "predicate": "owns",
+          "scope": "agent:reaver",
+          "kind": "assertion",
+          "valid_from": "2026-11-07T00:00:00.000Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T12:54:55.885Z",
+          "status": "active",
+          "confidence": 0.99,
+          "importance": 0.5,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T12:54:55.885Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_875228bc-41be-4023-856b-5f0b4352a550",
+          "source": "entity:00d49dbc2f9661acc11b73d6977217ffe0dcdb2ffc917d855ebefb1eadadbf60",
+          "target": "literal:4bcb0e538e87413cb74a5a1f088a9891b972aa8eb1cc164d46e90ba55f700da6",
+          "predicate": "reviews",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T11:40:11.302Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T12:51:12.359Z",
+          "status": "active",
+          "confidence": 0.9,
+          "importance": 0.5,
+          "sources": [
+            {
+              "excerpt": "Still fictional LDN7: haha, the paper moon tastes like hiccups! Anyway, she also reviews the LDN7 Lantern checklist; by she I mean the person Mira reports to. No tools; acknowledge only.",
+              "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:11.302Z",
+              "accepted_at": "2026-11-07T11:40:12.248Z",
+              "evidence_root_ids": [
+                "native:reaver:d170bd72645c4a829261bef9878b8d2a"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T12:51:12.359Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_5e3927a1-fc1d-4c52-bb58-30b0bb82d4de",
+          "source": "entity:b1aac27df0d0186c9abc6c7fc18351c5c6389f2953395be679a9eb7e1c65dcf4",
+          "target": "literal:9af287eb253b96c201e2a2bec4cdae272f12afc0361d55b305b8b0ae86f63b5a",
+          "predicate": "fixture_claims",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T12:46:18.194Z",
+          "status": "active",
+          "confidence": 1,
+          "importance": 0.35,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T12:46:18.194Z"
+            }
+          ],
+          "versions_truncated": false
+        }
+      ],
+      "changes": []
+    },
+    {
+      "query": "LDN7",
+      "include_history": true,
+      "nodes": [
+        {
+          "id": "entity:b1aac27df0d0186c9abc6c7fc18351c5c6389f2953395be679a9eb7e1c65dcf4",
+          "label": "LDN7 fictional archive fixture",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:1be3a6af68baf2a9b67176b7f0102b21cbb0c15cdecc934d774201b9ce6682b0",
+          "label": "Fictional-only private Reaver exercise context; not Alex or real business truth.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "entity:db760ff175ffb56562d3201b24e9ddacac5331bf034c028813508aea22774635",
+          "label": "LDN7 Lantern",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:891d6287185a088d7db1f77d9f6f0c27f4fd186b100ad2bf1e8826988b487143",
+          "label": "cobalt",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "entity:00d49dbc2f9661acc11b73d6977217ffe0dcdb2ffc917d855ebefb1eadadbf60",
+          "label": "LDN7 Nola",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "entity:729155d0c873f4139f3f2633dabb639ed07b57284287855166465174dfcfd0a9",
+          "label": "LDN7 Mira",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:eb7a68beb02574c281511f350611f55b6e9b2fa33845339f9dc0b8c7d61bb1e2",
+          "label": "Within the fictional LDN7 scenario, LDN7 Lantern has always used amber and never used cobalt; Alex says the earlier cobalt claim was mistaken, not a formerly true state.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:b03f855d5adf67dd334ce3d06bc1163a06af47422908d41fc30bafca9db677f3",
+          "label": "LDN7 Lantern checklist within the fictional LDN7 archive; Alex clarifies that “she” refers to the person Mira reports to.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:4d40669441ce7c526a98d923b5dfdd1f66fde8c73b79af02dd409585f2dbe329",
+          "label": "Cobalt, according to the imaginary LDN7 archive only.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:a0182904c93881b4584c6e54675752d49c2f0a5580fbbad2920126faed70ec70",
+          "label": "LDN7 Lantern launch; a claim in the imaginary LDN7 archive only.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:9c5e5a38a9991026267cd3ea14e6d04acd62fe960548cc26caa41d2460338370",
+          "label": "LDN7 Nola; in the imaginary LDN7 archive only, Mira reports to Nola.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:93de6fef7a375fb6e15bfb3c11a3754aed87b1a89d8d8ba4c1304c24fe6f34ef",
+          "label": "Alex corrected an earlier cobalt claim as mistaken: within the fictional scenario, LDN7 Lantern has always used amber and never used cobalt; this is a never-true correction, not an earlier state change.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "entity:2c3cdb073618a90141f96717970574ee2839313d02e7dd4376acb7138c124851",
+          "label": "Leda",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:565e5a7b7d980f71ad4abdd6e84059b816f456552c70cf25e629a5688260f53e",
+          "label": "LDN7 Lantern in the fictional LDN7 story",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "entity:f0eb07862e185c7c5631eee290bfd52c7a1079430db2d9c05ea242c4e71a9102",
+          "label": "Nola",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:4bcb0e538e87413cb74a5a1f088a9891b972aa8eb1cc164d46e90ba55f700da6",
+          "label": "LDN7 Lantern checklist in the fictional LDN7 archive; Alex clarifies that “she” means the person Mira reports to.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:9af287eb253b96c201e2a2bec4cdae272f12afc0361d55b305b8b0ae86f63b5a",
+          "label": "Alex supplied a fictional-only Reaver exercise note: within imaginary archive LDN7, Mira reports to Nola, Nola owns the Lantern launch, and the Lantern uses cobalt. These are fixture claims, not facts about Alex or a real business.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        }
+      ],
+      "edges": [
+        {
+          "id": "memory_dc83c0ec-9e35-4990-93dd-49a17d4483b7",
+          "source": "entity:b1aac27df0d0186c9abc6c7fc18351c5c6389f2953395be679a9eb7e1c65dcf4",
+          "target": "literal:1be3a6af68baf2a9b67176b7f0102b21cbb0c15cdecc934d774201b9ce6682b0",
+          "predicate": "qualification",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T16:14:51.824Z",
+          "status": "active",
+          "confidence": 1,
+          "importance": 0.6,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T16:14:51.824Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_f4af47ef-ac64-4c73-b956-54e5cd64e248",
+          "source": "entity:db760ff175ffb56562d3201b24e9ddacac5331bf034c028813508aea22774635",
+          "target": "literal:891d6287185a088d7db1f77d9f6f0c27f4fd186b100ad2bf1e8826988b487143",
+          "predicate": "uses",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T16:14:51.798Z",
+          "status": "corrected",
+          "confidence": 1,
+          "importance": 0.4,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T16:14:51.798Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_a1851671-75af-43ff-85b9-70e27fa18985",
+          "source": "entity:00d49dbc2f9661acc11b73d6977217ffe0dcdb2ffc917d855ebefb1eadadbf60",
+          "target": "entity:db760ff175ffb56562d3201b24e9ddacac5331bf034c028813508aea22774635",
+          "predicate": "owns",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": "2026-11-07T00:00:00.000Z",
+          "recorded_from": "2026-11-07T16:14:51.774Z",
+          "status": "historical",
+          "confidence": 1,
+          "importance": 0.5,
+          "historical_start_unknown": true,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T16:14:51.774Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_0492a72f-b578-4156-9369-40f0d677c7e2",
+          "source": "entity:729155d0c873f4139f3f2633dabb639ed07b57284287855166465174dfcfd0a9",
+          "target": "entity:00d49dbc2f9661acc11b73d6977217ffe0dcdb2ffc917d855ebefb1eadadbf60",
+          "predicate": "reports_to",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T16:14:51.748Z",
+          "status": "active",
+          "confidence": 1,
+          "importance": 0.5,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T16:14:51.748Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "source": "entity:db760ff175ffb56562d3201b24e9ddacac5331bf034c028813508aea22774635",
+          "target": "literal:eb7a68beb02574c281511f350611f55b6e9b2fa33845339f9dc0b8c7d61bb1e2",
+          "predicate": "color",
+          "scope": "agent:reaver",
+          "kind": "assertion",
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T13:46:52.372Z",
+          "status": "active",
+          "confidence": 1,
+          "importance": 0.8,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T13:46:52.372Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_05b08881-05cc-48b4-a211-8ac0d9f22527",
+          "source": "entity:00d49dbc2f9661acc11b73d6977217ffe0dcdb2ffc917d855ebefb1eadadbf60",
+          "target": "literal:b03f855d5adf67dd334ce3d06bc1163a06af47422908d41fc30bafca9db677f3",
+          "predicate": "reviews",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T11:40:11.302Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T13:42:51.525Z",
+          "status": "active",
+          "confidence": 0.95,
+          "importance": 0.6,
+          "sources": [
+            {
+              "excerpt": "Still fictional LDN7: haha, the paper moon tastes like hiccups! Anyway, she also reviews the LDN7 Lantern checklist; by she I mean the person Mira reports to. No tools; acknowledge only.",
+              "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:11.302Z",
+              "accepted_at": "2026-11-07T11:40:12.248Z",
+              "evidence_root_ids": [
+                "native:reaver:d170bd72645c4a829261bef9878b8d2a"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T13:42:51.525Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_36a62b9d-b757-48ed-8f92-7a65303eabbd",
+          "source": "entity:db760ff175ffb56562d3201b24e9ddacac5331bf034c028813508aea22774635",
+          "target": "literal:4d40669441ce7c526a98d923b5dfdd1f66fde8c73b79af02dd409585f2dbe329",
+          "predicate": "uses",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T13:40:55.503Z",
+          "status": "superseded",
+          "confidence": 1,
+          "importance": 0.4,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T13:40:55.503Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_a826fdb2-4310-40e3-8b39-387d212bbc63",
+          "source": "entity:00d49dbc2f9661acc11b73d6977217ffe0dcdb2ffc917d855ebefb1eadadbf60",
+          "target": "literal:a0182904c93881b4584c6e54675752d49c2f0a5580fbbad2920126faed70ec70",
+          "predicate": "owns",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T13:40:55.487Z",
+          "status": "superseded",
+          "confidence": 1,
+          "importance": 0.5,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T13:40:55.487Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_0f30a228-b97c-45b5-851a-d95441e81423",
+          "source": "entity:b1aac27df0d0186c9abc6c7fc18351c5c6389f2953395be679a9eb7e1c65dcf4",
+          "target": "literal:9c5e5a38a9991026267cd3ea14e6d04acd62fe960548cc26caa41d2460338370",
+          "predicate": "Mira reports_to",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T13:40:55.470Z",
+          "status": "superseded",
+          "confidence": 1,
+          "importance": 0.5,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T13:40:55.470Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_af00755d-5e77-4f90-9fc3-f2d9a3a46917",
+          "source": "entity:db760ff175ffb56562d3201b24e9ddacac5331bf034c028813508aea22774635",
+          "target": "literal:93de6fef7a375fb6e15bfb3c11a3754aed87b1a89d8d8ba4c1304c24fe6f34ef",
+          "predicate": "color_history",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T11:40:26.912Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T12:58:27.174Z",
+          "status": "corrected",
+          "confidence": 0.99,
+          "importance": 0.6,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 never-true correction: my earlier cobalt claim was mistaken; LDN7 Lantern has always used amber, never cobalt. Unlike the ownership handover, cobalt was not an earlier true state. No tools; acknowledge only.",
+              "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:26.912Z",
+              "accepted_at": "2026-11-07T11:40:27.839Z",
+              "evidence_root_ids": [
+                "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T12:58:27.174Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_b8ec8735-522f-4e9e-ab4b-bd293d821df5",
+          "source": "entity:2c3cdb073618a90141f96717970574ee2839313d02e7dd4376acb7138c124851",
+          "target": "literal:565e5a7b7d980f71ad4abdd6e84059b816f456552c70cf25e629a5688260f53e",
+          "predicate": "owns",
+          "scope": "agent:reaver",
+          "kind": "assertion",
+          "valid_from": "2026-11-07T00:00:00.000Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T12:54:55.885Z",
+          "status": "active",
+          "confidence": 0.99,
+          "importance": 0.5,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T12:54:55.885Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_2d4241ab-1aea-41d4-a69e-e8e28bbd87d8",
+          "source": "entity:f0eb07862e185c7c5631eee290bfd52c7a1079430db2d9c05ea242c4e71a9102",
+          "target": "literal:565e5a7b7d980f71ad4abdd6e84059b816f456552c70cf25e629a5688260f53e",
+          "predicate": "owns",
+          "scope": "agent:reaver",
+          "kind": "assertion",
+          "valid_from": "2026-01-01T00:00:00.000Z",
+          "valid_to": "2026-11-07T00:00:00.000Z",
+          "recorded_from": "2026-11-07T12:54:55.871Z",
+          "status": "historical",
+          "confidence": 0.99,
+          "importance": 0.5,
+          "sources": [
+            {
+              "excerpt": "Fictional LDN7 real state change within the story: Nola really owned LDN7 Lantern through 2026-11-06. From 2026-11-07, LDN7 Leda takes over ownership from Nola. This is a handover, not a correction of the old history. No tools; acknowledge only.",
+              "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:20.311Z",
+              "accepted_at": "2026-11-07T11:40:20.578Z",
+              "evidence_root_ids": [
+                "native:reaver:91fd33c878a14e7497a1bb57679701cb"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T12:54:55.871Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_875228bc-41be-4023-856b-5f0b4352a550",
+          "source": "entity:00d49dbc2f9661acc11b73d6977217ffe0dcdb2ffc917d855ebefb1eadadbf60",
+          "target": "literal:4bcb0e538e87413cb74a5a1f088a9891b972aa8eb1cc164d46e90ba55f700da6",
+          "predicate": "reviews",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T11:40:11.302Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T12:51:12.359Z",
+          "status": "active",
+          "confidence": 0.9,
+          "importance": 0.5,
+          "sources": [
+            {
+              "excerpt": "Still fictional LDN7: haha, the paper moon tastes like hiccups! Anyway, she also reviews the LDN7 Lantern checklist; by she I mean the person Mira reports to. No tools; acknowledge only.",
+              "event_id": "native:reaver:d170bd72645c4a829261bef9878b8d2a:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:11.302Z",
+              "accepted_at": "2026-11-07T11:40:12.248Z",
+              "evidence_root_ids": [
+                "native:reaver:d170bd72645c4a829261bef9878b8d2a"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T12:51:12.359Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_5e3927a1-fc1d-4c52-bb58-30b0bb82d4de",
+          "source": "entity:b1aac27df0d0186c9abc6c7fc18351c5c6389f2953395be679a9eb7e1c65dcf4",
+          "target": "literal:9af287eb253b96c201e2a2bec4cdae272f12afc0361d55b305b8b0ae86f63b5a",
+          "predicate": "fixture_claims",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T11:40:04.339Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T12:46:18.194Z",
+          "status": "active",
+          "confidence": 1,
+          "importance": 0.35,
+          "sources": [
+            {
+              "excerpt": "Fictional Atlas dreaming fixture LDN7 only, not Alex or real business truth. In our imaginary archive, LDN7 Mira reports to LDN7 Nola. LDN7 Nola owns the LDN7 Lantern launch. The archive says LDN7 Lantern uses cobalt. This is a private Reaver exercise note. Do not use tools or save builtin memory; reply only \"Noted fixture\".",
+              "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T11:40:04.339Z",
+              "accepted_at": "2026-11-07T11:40:04.982Z",
+              "evidence_root_ids": [
+                "native:reaver:bef11f519c014169869bd2f95da6fec5"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T12:46:18.194Z"
+            }
+          ],
+          "versions_truncated": false
+        }
+      ],
+      "changes": [
+        {
+          "id": "change_35b182ec-78f0-45cd-b6c3-59643e775368",
+          "type": "superseded",
+          "target_id": "memory_36a62b9d-b757-48ed-8f92-7a65303eabbd",
+          "replacement_id": "memory_f4af47ef-ac64-4c73-b956-54e5cd64e248",
+          "effective_at": "2026-11-07T11:40:04.339Z",
+          "recorded_at": "2026-11-07T16:14:51.822Z",
+          "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+          "client_id": "hermes",
+          "revision": 1,
+          "role": "user",
+          "author_id": "alex",
+          "agent_id": "reaver"
+        },
+        {
+          "id": "change_7a4a711d-60d2-4a0a-b46f-ff0aae83d234",
+          "type": "correction",
+          "target_id": "memory_f4af47ef-ac64-4c73-b956-54e5cd64e248",
+          "replacement_id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "effective_at": "2026-11-07T11:40:26.912Z",
+          "recorded_at": "2026-11-07T16:14:51.822Z",
+          "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+          "client_id": "hermes",
+          "revision": 1,
+          "role": "user",
+          "author_id": "alex",
+          "agent_id": "reaver"
+        },
+        {
+          "id": "change_828c931b-fa62-44d0-85c3-880d06adfb4a",
+          "type": "state_change",
+          "target_id": "memory_a1851671-75af-43ff-85b9-70e27fa18985",
+          "replacement_id": "memory_b8ec8735-522f-4e9e-ab4b-bd293d821df5",
+          "effective_at": "2026-11-07T00:00:00.000Z",
+          "recorded_at": "2026-11-07T16:14:51.797Z",
+          "event_id": "native:reaver:91fd33c878a14e7497a1bb57679701cb:part:0",
+          "client_id": "hermes",
+          "revision": 1,
+          "role": "user",
+          "author_id": "alex",
+          "agent_id": "reaver"
+        },
+        {
+          "id": "change_f5da854f-b341-4fba-8ce7-9e454b45c6d9",
+          "type": "superseded",
+          "target_id": "memory_a826fdb2-4310-40e3-8b39-387d212bbc63",
+          "replacement_id": "memory_a1851671-75af-43ff-85b9-70e27fa18985",
+          "effective_at": "2026-11-07T11:40:04.339Z",
+          "recorded_at": "2026-11-07T16:14:51.796Z",
+          "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+          "client_id": "hermes",
+          "revision": 1,
+          "role": "user",
+          "author_id": "alex",
+          "agent_id": "reaver"
+        },
+        {
+          "id": "change_e07ff9e6-ddd7-4893-b6da-3daf2d824707",
+          "type": "superseded",
+          "target_id": "memory_0f30a228-b97c-45b5-851a-d95441e81423",
+          "replacement_id": "memory_0492a72f-b578-4156-9369-40f0d677c7e2",
+          "effective_at": "2026-11-07T11:40:04.339Z",
+          "recorded_at": "2026-11-07T16:14:51.770Z",
+          "event_id": "native:reaver:bef11f519c014169869bd2f95da6fec5:part:0",
+          "client_id": "hermes",
+          "revision": 1,
+          "role": "user",
+          "author_id": "alex",
+          "agent_id": "reaver"
+        },
+        {
+          "id": "change_900e67f4-9042-49e8-85cd-bad6e1172a72",
+          "type": "correction",
+          "target_id": "memory_af00755d-5e77-4f90-9fc3-f2d9a3a46917",
+          "replacement_id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "effective_at": "2026-11-07T11:40:26.912Z",
+          "recorded_at": "2026-11-07T13:46:52.388Z",
+          "event_id": "native:reaver:43e9dd8aae2549c4808c2a7859ca84f0:part:0",
+          "client_id": "hermes",
+          "revision": 1,
+          "role": "user",
+          "author_id": "alex",
+          "agent_id": "reaver"
+        }
+      ]
+    },
+    {
+      "query": "FEN9",
+      "include_history": false,
+      "nodes": [
+        {
+          "id": "entity:6daea16b847e3f94b741b1e96d0da3062cb7cb0084e53efe5dd9facdbbef49a6",
+          "label": "Fictional FEN9 archive",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:da1f52ca033d043895e632d96a8186042f446a0820ad7ce6d65ba07c5720b6ed",
+          "label": "Fictional private archive only; not Alex or real business.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "entity:7e0cd1f3259150333fa8a8c572b65313997267ecaa30d2e6e47a05ea37de32a9",
+          "label": "FEN9 Remy",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "entity:89606717ef538a869ce5c6b740838bba979584fe44d08d8030c5b49a860d1acc",
+          "label": "FEN9 Copper beacon checklist",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "entity:22ac44013abc2e363818b3c04162de48cd554e43fc88854f501941298dfc8134",
+          "label": "FEN9 Iona",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "entity:43e6d2711841ad12933f1e2cce1d5fc1d3a93b7e15ce30a1f88b517e5c428d30",
+          "label": "FEN9 Copper beacon",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        }
+      ],
+      "edges": [
+        {
+          "id": "memory_6925db0c-b7dd-4b4d-88e3-457b95087a73",
+          "source": "entity:6daea16b847e3f94b741b1e96d0da3062cb7cb0084e53efe5dd9facdbbef49a6",
+          "target": "literal:da1f52ca033d043895e632d96a8186042f446a0820ad7ce6d65ba07c5720b6ed",
+          "predicate": "qualification",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T13:41:56.549Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T16:14:51.068Z",
+          "status": "active",
+          "confidence": 1,
+          "importance": 0.6,
+          "sources": [
+            {
+              "excerpt": "Private fictional archive FEN9 only, not Alex or real business: Iona maintains the Copper beacon and reports to Remy. In that same imaginary archive, Remy reviews the Copper beacon checklist. No tools or builtin memory saves. Reply only \"Noted fictional archive\".",
+              "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T13:41:56.549Z",
+              "accepted_at": "2026-11-07T13:41:57.546Z",
+              "evidence_root_ids": [
+                "native:reaver:29414836897944c084576ee7881e0b37"
+              ]
+            },
+            {
+              "excerpt": "In the fictional FEN9 archive, Iona maintains the Copper beacon and reports to Remy. Remy also reviews its checklist.\n\nSource: automatically supplied memory attributed to Alex’s fictional archive, valid from 2026-11-07T13:41:56.549Z onward. These are fictional relationships, not independently verified real-world facts.",
+              "event_id": "native:reaver:968c8259ec534f2d9e93afdd52e208c6:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "assistant",
+              "author_id": "agent:reaver",
+              "occurred_at": "2026-11-07T15:40:23.183Z",
+              "accepted_at": "2026-11-07T15:40:25.916Z",
+              "evidence_root_ids": [
+                "native:reaver:968c8259ec534f2d9e93afdd52e208c6"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T16:14:51.068Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_7979a531-6b66-4bee-8263-26a1405764b7",
+          "source": "entity:7e0cd1f3259150333fa8a8c572b65313997267ecaa30d2e6e47a05ea37de32a9",
+          "target": "entity:89606717ef538a869ce5c6b740838bba979584fe44d08d8030c5b49a860d1acc",
+          "predicate": "reviews",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T13:41:56.549Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T15:54:43.111Z",
+          "status": "active",
+          "confidence": 1,
+          "importance": 0.6,
+          "sources": [
+            {
+              "excerpt": "Private fictional archive FEN9 only, not Alex or real business: Iona maintains the Copper beacon and reports to Remy. In that same imaginary archive, Remy reviews the Copper beacon checklist. No tools or builtin memory saves. Reply only \"Noted fictional archive\".",
+              "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T13:41:56.549Z",
+              "accepted_at": "2026-11-07T13:41:57.546Z",
+              "evidence_root_ids": [
+                "native:reaver:29414836897944c084576ee7881e0b37"
+              ]
+            },
+            {
+              "excerpt": "In the fictional FEN9 archive, Iona maintains the Copper beacon and reports to Remy. Remy also reviews its checklist.\n\nSource: automatically supplied memory attributed to Alex’s fictional archive, valid from 2026-11-07T13:41:56.549Z onward. These are fictional relationships, not independently verified real-world facts.",
+              "event_id": "native:reaver:968c8259ec534f2d9e93afdd52e208c6:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "assistant",
+              "author_id": "agent:reaver",
+              "occurred_at": "2026-11-07T15:40:23.183Z",
+              "accepted_at": "2026-11-07T15:40:25.916Z",
+              "evidence_root_ids": [
+                "native:reaver:968c8259ec534f2d9e93afdd52e208c6"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T15:54:43.111Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_a2340757-5040-4225-9e12-ca5705234d58",
+          "source": "entity:22ac44013abc2e363818b3c04162de48cd554e43fc88854f501941298dfc8134",
+          "target": "entity:7e0cd1f3259150333fa8a8c572b65313997267ecaa30d2e6e47a05ea37de32a9",
+          "predicate": "reports_to",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T13:41:56.549Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T15:54:43.090Z",
+          "status": "active",
+          "confidence": 1,
+          "importance": 0.6,
+          "sources": [
+            {
+              "excerpt": "Private fictional archive FEN9 only, not Alex or real business: Iona maintains the Copper beacon and reports to Remy. In that same imaginary archive, Remy reviews the Copper beacon checklist. No tools or builtin memory saves. Reply only \"Noted fictional archive\".",
+              "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T13:41:56.549Z",
+              "accepted_at": "2026-11-07T13:41:57.546Z",
+              "evidence_root_ids": [
+                "native:reaver:29414836897944c084576ee7881e0b37"
+              ]
+            },
+            {
+              "excerpt": "In the fictional FEN9 archive, Iona maintains the Copper beacon and reports to Remy. Remy also reviews its checklist.\n\nSource: automatically supplied memory attributed to Alex’s fictional archive, valid from 2026-11-07T13:41:56.549Z onward. These are fictional relationships, not independently verified real-world facts.",
+              "event_id": "native:reaver:968c8259ec534f2d9e93afdd52e208c6:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "assistant",
+              "author_id": "agent:reaver",
+              "occurred_at": "2026-11-07T15:40:23.183Z",
+              "accepted_at": "2026-11-07T15:40:25.916Z",
+              "evidence_root_ids": [
+                "native:reaver:968c8259ec534f2d9e93afdd52e208c6"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T15:54:43.090Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_9ce00651-e850-4be4-8172-f648cc558e18",
+          "source": "entity:22ac44013abc2e363818b3c04162de48cd554e43fc88854f501941298dfc8134",
+          "target": "entity:43e6d2711841ad12933f1e2cce1d5fc1d3a93b7e15ce30a1f88b517e5c428d30",
+          "predicate": "maintains",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T13:41:56.549Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T15:54:43.066Z",
+          "status": "active",
+          "confidence": 1,
+          "importance": 0.6,
+          "sources": [
+            {
+              "excerpt": "Private fictional archive FEN9 only, not Alex or real business: Iona maintains the Copper beacon and reports to Remy. In that same imaginary archive, Remy reviews the Copper beacon checklist. No tools or builtin memory saves. Reply only \"Noted fictional archive\".",
+              "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T13:41:56.549Z",
+              "accepted_at": "2026-11-07T13:41:57.546Z",
+              "evidence_root_ids": [
+                "native:reaver:29414836897944c084576ee7881e0b37"
+              ]
+            },
+            {
+              "excerpt": "In the fictional FEN9 archive, Iona maintains the Copper beacon and reports to Remy. Remy also reviews its checklist.\n\nSource: automatically supplied memory attributed to Alex’s fictional archive, valid from 2026-11-07T13:41:56.549Z onward. These are fictional relationships, not independently verified real-world facts.",
+              "event_id": "native:reaver:968c8259ec534f2d9e93afdd52e208c6:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "assistant",
+              "author_id": "agent:reaver",
+              "occurred_at": "2026-11-07T15:40:23.183Z",
+              "accepted_at": "2026-11-07T15:40:25.916Z",
+              "evidence_root_ids": [
+                "native:reaver:968c8259ec534f2d9e93afdd52e208c6"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T15:54:43.066Z"
+            }
+          ],
+          "versions_truncated": false
+        }
+      ],
+      "changes": []
+    },
+    {
+      "query": "FEN9",
+      "include_history": true,
+      "nodes": [
+        {
+          "id": "entity:6daea16b847e3f94b741b1e96d0da3062cb7cb0084e53efe5dd9facdbbef49a6",
+          "label": "Fictional FEN9 archive",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:da1f52ca033d043895e632d96a8186042f446a0820ad7ce6d65ba07c5720b6ed",
+          "label": "Fictional private archive only; not Alex or real business.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:93f747c0da8c65918f7c2bed022aec898d31d39ffbe7cd4bdc4c69a7d860f389",
+          "label": "Fictional archive only; not Alex or real business.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "entity:7e0cd1f3259150333fa8a8c572b65313997267ecaa30d2e6e47a05ea37de32a9",
+          "label": "FEN9 Remy",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "entity:89606717ef538a869ce5c6b740838bba979584fe44d08d8030c5b49a860d1acc",
+          "label": "FEN9 Copper beacon checklist",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "entity:22ac44013abc2e363818b3c04162de48cd554e43fc88854f501941298dfc8134",
+          "label": "FEN9 Iona",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "entity:43e6d2711841ad12933f1e2cce1d5fc1d3a93b7e15ce30a1f88b517e5c428d30",
+          "label": "FEN9 Copper beacon",
+          "kind": "entity",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:a112a6ac5e9067eed5c4563083ff24fd1c5ec8e44db8a2dd21c13623c926810d",
+          "label": "Copper beacon checklist. In Alex-supplied fiction only; not a fact about Alex or a real business.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:bae864e99b57c341d034dbfce4c628fe209f266b3a2f22a5d7ad0aee1a23ff01",
+          "label": "Remy. In Alex-supplied fiction only; not a fact about Alex or a real business.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        },
+        {
+          "id": "literal:248d6a6e2d2758ebff6886316511dcc6049e7f6251765d934f1896ae8471fecb",
+          "label": "Copper beacon. In Alex-supplied fiction only; not a fact about Alex or a real business.",
+          "kind": "literal",
+          "scope": "agent:reaver"
+        }
+      ],
+      "edges": [
+        {
+          "id": "memory_6925db0c-b7dd-4b4d-88e3-457b95087a73",
+          "source": "entity:6daea16b847e3f94b741b1e96d0da3062cb7cb0084e53efe5dd9facdbbef49a6",
+          "target": "literal:da1f52ca033d043895e632d96a8186042f446a0820ad7ce6d65ba07c5720b6ed",
+          "predicate": "qualification",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T13:41:56.549Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T16:14:51.068Z",
+          "status": "active",
+          "confidence": 1,
+          "importance": 0.6,
+          "sources": [
+            {
+              "excerpt": "Private fictional archive FEN9 only, not Alex or real business: Iona maintains the Copper beacon and reports to Remy. In that same imaginary archive, Remy reviews the Copper beacon checklist. No tools or builtin memory saves. Reply only \"Noted fictional archive\".",
+              "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T13:41:56.549Z",
+              "accepted_at": "2026-11-07T13:41:57.546Z",
+              "evidence_root_ids": [
+                "native:reaver:29414836897944c084576ee7881e0b37"
+              ]
+            },
+            {
+              "excerpt": "In the fictional FEN9 archive, Iona maintains the Copper beacon and reports to Remy. Remy also reviews its checklist.\n\nSource: automatically supplied memory attributed to Alex’s fictional archive, valid from 2026-11-07T13:41:56.549Z onward. These are fictional relationships, not independently verified real-world facts.",
+              "event_id": "native:reaver:968c8259ec534f2d9e93afdd52e208c6:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "assistant",
+              "author_id": "agent:reaver",
+              "occurred_at": "2026-11-07T15:40:23.183Z",
+              "accepted_at": "2026-11-07T15:40:25.916Z",
+              "evidence_root_ids": [
+                "native:reaver:968c8259ec534f2d9e93afdd52e208c6"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T16:14:51.068Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_42bb0646-ed41-4dbc-9351-b8475a268bc7",
+          "source": "entity:6daea16b847e3f94b741b1e96d0da3062cb7cb0084e53efe5dd9facdbbef49a6",
+          "target": "literal:93f747c0da8c65918f7c2bed022aec898d31d39ffbe7cd4bdc4c69a7d860f389",
+          "predicate": "qualification",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T13:41:56.549Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T15:54:43.131Z",
+          "status": "superseded",
+          "confidence": 1,
+          "importance": 0.6,
+          "sources": [
+            {
+              "excerpt": "Private fictional archive FEN9 only, not Alex or real business: Iona maintains the Copper beacon and reports to Remy. In that same imaginary archive, Remy reviews the Copper beacon checklist. No tools or builtin memory saves. Reply only \"Noted fictional archive\".",
+              "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T13:41:56.549Z",
+              "accepted_at": "2026-11-07T13:41:57.546Z",
+              "evidence_root_ids": [
+                "native:reaver:29414836897944c084576ee7881e0b37"
+              ]
+            },
+            {
+              "excerpt": "In the fictional FEN9 archive, Iona maintains the Copper beacon and reports to Remy. Remy also reviews its checklist.\n\nSource: automatically supplied memory attributed to Alex’s fictional archive, valid from 2026-11-07T13:41:56.549Z onward. These are fictional relationships, not independently verified real-world facts.",
+              "event_id": "native:reaver:968c8259ec534f2d9e93afdd52e208c6:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "assistant",
+              "author_id": "agent:reaver",
+              "occurred_at": "2026-11-07T15:40:23.183Z",
+              "accepted_at": "2026-11-07T15:40:25.916Z",
+              "evidence_root_ids": [
+                "native:reaver:968c8259ec534f2d9e93afdd52e208c6"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T15:54:43.131Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_7979a531-6b66-4bee-8263-26a1405764b7",
+          "source": "entity:7e0cd1f3259150333fa8a8c572b65313997267ecaa30d2e6e47a05ea37de32a9",
+          "target": "entity:89606717ef538a869ce5c6b740838bba979584fe44d08d8030c5b49a860d1acc",
+          "predicate": "reviews",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T13:41:56.549Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T15:54:43.111Z",
+          "status": "active",
+          "confidence": 1,
+          "importance": 0.6,
+          "sources": [
+            {
+              "excerpt": "Private fictional archive FEN9 only, not Alex or real business: Iona maintains the Copper beacon and reports to Remy. In that same imaginary archive, Remy reviews the Copper beacon checklist. No tools or builtin memory saves. Reply only \"Noted fictional archive\".",
+              "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T13:41:56.549Z",
+              "accepted_at": "2026-11-07T13:41:57.546Z",
+              "evidence_root_ids": [
+                "native:reaver:29414836897944c084576ee7881e0b37"
+              ]
+            },
+            {
+              "excerpt": "In the fictional FEN9 archive, Iona maintains the Copper beacon and reports to Remy. Remy also reviews its checklist.\n\nSource: automatically supplied memory attributed to Alex’s fictional archive, valid from 2026-11-07T13:41:56.549Z onward. These are fictional relationships, not independently verified real-world facts.",
+              "event_id": "native:reaver:968c8259ec534f2d9e93afdd52e208c6:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "assistant",
+              "author_id": "agent:reaver",
+              "occurred_at": "2026-11-07T15:40:23.183Z",
+              "accepted_at": "2026-11-07T15:40:25.916Z",
+              "evidence_root_ids": [
+                "native:reaver:968c8259ec534f2d9e93afdd52e208c6"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T15:54:43.111Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_a2340757-5040-4225-9e12-ca5705234d58",
+          "source": "entity:22ac44013abc2e363818b3c04162de48cd554e43fc88854f501941298dfc8134",
+          "target": "entity:7e0cd1f3259150333fa8a8c572b65313997267ecaa30d2e6e47a05ea37de32a9",
+          "predicate": "reports_to",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T13:41:56.549Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T15:54:43.090Z",
+          "status": "active",
+          "confidence": 1,
+          "importance": 0.6,
+          "sources": [
+            {
+              "excerpt": "Private fictional archive FEN9 only, not Alex or real business: Iona maintains the Copper beacon and reports to Remy. In that same imaginary archive, Remy reviews the Copper beacon checklist. No tools or builtin memory saves. Reply only \"Noted fictional archive\".",
+              "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T13:41:56.549Z",
+              "accepted_at": "2026-11-07T13:41:57.546Z",
+              "evidence_root_ids": [
+                "native:reaver:29414836897944c084576ee7881e0b37"
+              ]
+            },
+            {
+              "excerpt": "In the fictional FEN9 archive, Iona maintains the Copper beacon and reports to Remy. Remy also reviews its checklist.\n\nSource: automatically supplied memory attributed to Alex’s fictional archive, valid from 2026-11-07T13:41:56.549Z onward. These are fictional relationships, not independently verified real-world facts.",
+              "event_id": "native:reaver:968c8259ec534f2d9e93afdd52e208c6:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "assistant",
+              "author_id": "agent:reaver",
+              "occurred_at": "2026-11-07T15:40:23.183Z",
+              "accepted_at": "2026-11-07T15:40:25.916Z",
+              "evidence_root_ids": [
+                "native:reaver:968c8259ec534f2d9e93afdd52e208c6"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T15:54:43.090Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_9ce00651-e850-4be4-8172-f648cc558e18",
+          "source": "entity:22ac44013abc2e363818b3c04162de48cd554e43fc88854f501941298dfc8134",
+          "target": "entity:43e6d2711841ad12933f1e2cce1d5fc1d3a93b7e15ce30a1f88b517e5c428d30",
+          "predicate": "maintains",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T13:41:56.549Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T15:54:43.066Z",
+          "status": "active",
+          "confidence": 1,
+          "importance": 0.6,
+          "sources": [
+            {
+              "excerpt": "Private fictional archive FEN9 only, not Alex or real business: Iona maintains the Copper beacon and reports to Remy. In that same imaginary archive, Remy reviews the Copper beacon checklist. No tools or builtin memory saves. Reply only \"Noted fictional archive\".",
+              "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T13:41:56.549Z",
+              "accepted_at": "2026-11-07T13:41:57.546Z",
+              "evidence_root_ids": [
+                "native:reaver:29414836897944c084576ee7881e0b37"
+              ]
+            },
+            {
+              "excerpt": "In the fictional FEN9 archive, Iona maintains the Copper beacon and reports to Remy. Remy also reviews its checklist.\n\nSource: automatically supplied memory attributed to Alex’s fictional archive, valid from 2026-11-07T13:41:56.549Z onward. These are fictional relationships, not independently verified real-world facts.",
+              "event_id": "native:reaver:968c8259ec534f2d9e93afdd52e208c6:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "assistant",
+              "author_id": "agent:reaver",
+              "occurred_at": "2026-11-07T15:40:23.183Z",
+              "accepted_at": "2026-11-07T15:40:25.916Z",
+              "evidence_root_ids": [
+                "native:reaver:968c8259ec534f2d9e93afdd52e208c6"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T15:54:43.066Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_22f2c498-6196-4d8e-a15b-dd71193fb42f",
+          "source": "entity:7e0cd1f3259150333fa8a8c572b65313997267ecaa30d2e6e47a05ea37de32a9",
+          "target": "entity:89606717ef538a869ce5c6b740838bba979584fe44d08d8030c5b49a860d1acc",
+          "predicate": "reviews",
+          "scope": "agent:reaver",
+          "kind": "assertion",
+          "valid_from": "2026-11-07T13:41:56.549Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T15:51:56.897Z",
+          "status": "superseded",
+          "confidence": 0.9,
+          "importance": 0.6,
+          "sources": [
+            {
+              "excerpt": "Private fictional archive FEN9 only, not Alex or real business: Iona maintains the Copper beacon and reports to Remy. In that same imaginary archive, Remy reviews the Copper beacon checklist. No tools or builtin memory saves. Reply only \"Noted fictional archive\".",
+              "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T13:41:56.549Z",
+              "accepted_at": "2026-11-07T13:41:57.546Z",
+              "evidence_root_ids": [
+                "native:reaver:29414836897944c084576ee7881e0b37"
+              ]
+            },
+            {
+              "excerpt": "In the fictional FEN9 archive, Iona maintains the Copper beacon and reports to Remy. Remy also reviews its checklist.\n\nSource: automatically supplied memory attributed to Alex’s fictional archive, valid from 2026-11-07T13:41:56.549Z onward. These are fictional relationships, not independently verified real-world facts.",
+              "event_id": "native:reaver:968c8259ec534f2d9e93afdd52e208c6:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "assistant",
+              "author_id": "agent:reaver",
+              "occurred_at": "2026-11-07T15:40:23.183Z",
+              "accepted_at": "2026-11-07T15:40:25.916Z",
+              "evidence_root_ids": [
+                "native:reaver:968c8259ec534f2d9e93afdd52e208c6"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T15:51:56.897Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_57772ff2-9981-4138-b78a-9c262247c040",
+          "source": "entity:22ac44013abc2e363818b3c04162de48cd554e43fc88854f501941298dfc8134",
+          "target": "entity:7e0cd1f3259150333fa8a8c572b65313997267ecaa30d2e6e47a05ea37de32a9",
+          "predicate": "reports_to",
+          "scope": "agent:reaver",
+          "kind": "assertion",
+          "valid_from": "2026-11-07T13:41:56.549Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T15:51:56.877Z",
+          "status": "superseded",
+          "confidence": 0.9,
+          "importance": 0.7,
+          "sources": [
+            {
+              "excerpt": "Private fictional archive FEN9 only, not Alex or real business: Iona maintains the Copper beacon and reports to Remy. In that same imaginary archive, Remy reviews the Copper beacon checklist. No tools or builtin memory saves. Reply only \"Noted fictional archive\".",
+              "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T13:41:56.549Z",
+              "accepted_at": "2026-11-07T13:41:57.546Z",
+              "evidence_root_ids": [
+                "native:reaver:29414836897944c084576ee7881e0b37"
+              ]
+            },
+            {
+              "excerpt": "In the fictional FEN9 archive, Iona maintains the Copper beacon and reports to Remy. Remy also reviews its checklist.\n\nSource: automatically supplied memory attributed to Alex’s fictional archive, valid from 2026-11-07T13:41:56.549Z onward. These are fictional relationships, not independently verified real-world facts.",
+              "event_id": "native:reaver:968c8259ec534f2d9e93afdd52e208c6:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "assistant",
+              "author_id": "agent:reaver",
+              "occurred_at": "2026-11-07T15:40:23.183Z",
+              "accepted_at": "2026-11-07T15:40:25.916Z",
+              "evidence_root_ids": [
+                "native:reaver:968c8259ec534f2d9e93afdd52e208c6"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T15:51:56.877Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_371735aa-3d62-46e9-8fc7-065fc7698098",
+          "source": "entity:22ac44013abc2e363818b3c04162de48cd554e43fc88854f501941298dfc8134",
+          "target": "entity:43e6d2711841ad12933f1e2cce1d5fc1d3a93b7e15ce30a1f88b517e5c428d30",
+          "predicate": "maintains",
+          "scope": "agent:reaver",
+          "kind": "assertion",
+          "valid_from": "2026-11-07T13:41:56.549Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T15:51:56.857Z",
+          "status": "superseded",
+          "confidence": 0.9,
+          "importance": 0.7,
+          "sources": [
+            {
+              "excerpt": "Private fictional archive FEN9 only, not Alex or real business: Iona maintains the Copper beacon and reports to Remy. In that same imaginary archive, Remy reviews the Copper beacon checklist. No tools or builtin memory saves. Reply only \"Noted fictional archive\".",
+              "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T13:41:56.549Z",
+              "accepted_at": "2026-11-07T13:41:57.546Z",
+              "evidence_root_ids": [
+                "native:reaver:29414836897944c084576ee7881e0b37"
+              ]
+            },
+            {
+              "excerpt": "In the fictional FEN9 archive, Iona maintains the Copper beacon and reports to Remy. Remy also reviews its checklist.\n\nSource: automatically supplied memory attributed to Alex’s fictional archive, valid from 2026-11-07T13:41:56.549Z onward. These are fictional relationships, not independently verified real-world facts.",
+              "event_id": "native:reaver:968c8259ec534f2d9e93afdd52e208c6:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "assistant",
+              "author_id": "agent:reaver",
+              "occurred_at": "2026-11-07T15:40:23.183Z",
+              "accepted_at": "2026-11-07T15:40:25.916Z",
+              "evidence_root_ids": [
+                "native:reaver:968c8259ec534f2d9e93afdd52e208c6"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T15:51:56.857Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_af209b35-88bf-4387-99df-1e75153e98c5",
+          "source": "entity:6daea16b847e3f94b741b1e96d0da3062cb7cb0084e53efe5dd9facdbbef49a6",
+          "target": "literal:a112a6ac5e9067eed5c4563083ff24fd1c5ec8e44db8a2dd21c13623c926810d",
+          "predicate": "Remy reviews",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T13:41:56.549Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T13:42:22.186Z",
+          "status": "superseded",
+          "confidence": 0.99,
+          "importance": 0.5,
+          "sources": [
+            {
+              "excerpt": "Private fictional archive FEN9 only, not Alex or real business: Iona maintains the Copper beacon and reports to Remy. In that same imaginary archive, Remy reviews the Copper beacon checklist. No tools or builtin memory saves. Reply only \"Noted fictional archive\".",
+              "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T13:41:56.549Z",
+              "accepted_at": "2026-11-07T13:41:57.546Z",
+              "evidence_root_ids": [
+                "native:reaver:29414836897944c084576ee7881e0b37"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T13:42:22.186Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_901e61d4-8318-485a-9520-a71f3ec4dad5",
+          "source": "entity:6daea16b847e3f94b741b1e96d0da3062cb7cb0084e53efe5dd9facdbbef49a6",
+          "target": "literal:bae864e99b57c341d034dbfce4c628fe209f266b3a2f22a5d7ad0aee1a23ff01",
+          "predicate": "Iona reports_to",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T13:41:56.549Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T13:42:22.171Z",
+          "status": "superseded",
+          "confidence": 0.99,
+          "importance": 0.55,
+          "sources": [
+            {
+              "excerpt": "Private fictional archive FEN9 only, not Alex or real business: Iona maintains the Copper beacon and reports to Remy. In that same imaginary archive, Remy reviews the Copper beacon checklist. No tools or builtin memory saves. Reply only \"Noted fictional archive\".",
+              "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T13:41:56.549Z",
+              "accepted_at": "2026-11-07T13:41:57.546Z",
+              "evidence_root_ids": [
+                "native:reaver:29414836897944c084576ee7881e0b37"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T13:42:22.171Z"
+            }
+          ],
+          "versions_truncated": false
+        },
+        {
+          "id": "memory_612a3c05-5de4-4f3f-9659-bea3e64d0a03",
+          "source": "entity:6daea16b847e3f94b741b1e96d0da3062cb7cb0084e53efe5dd9facdbbef49a6",
+          "target": "literal:248d6a6e2d2758ebff6886316511dcc6049e7f6251765d934f1896ae8471fecb",
+          "predicate": "Iona maintains",
+          "scope": "agent:reaver",
+          "kind": "episode",
+          "valid_from": "2026-11-07T13:41:56.549Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-07T13:42:22.155Z",
+          "status": "superseded",
+          "confidence": 0.99,
+          "importance": 0.55,
+          "sources": [
+            {
+              "excerpt": "Private fictional archive FEN9 only, not Alex or real business: Iona maintains the Copper beacon and reports to Remy. In that same imaginary archive, Remy reviews the Copper beacon checklist. No tools or builtin memory saves. Reply only \"Noted fictional archive\".",
+              "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+              "client_id": "hermes",
+              "revision": 1,
+              "agent_id": "reaver",
+              "role": "user",
+              "author_id": "alex",
+              "occurred_at": "2026-11-07T13:41:56.549Z",
+              "accepted_at": "2026-11-07T13:41:57.546Z",
+              "evidence_root_ids": [
+                "native:reaver:29414836897944c084576ee7881e0b37"
+              ]
+            }
+          ],
+          "sources_truncated": false,
+          "versions": [
+            {
+              "version": 1,
+              "reason": "created",
+              "recorded_at": "2026-11-07T13:42:22.155Z"
+            }
+          ],
+          "versions_truncated": false
+        }
+      ],
+      "changes": [
+        {
+          "id": "change_9fe9b06a-1b1d-41e0-bc06-d1c3fa0479fe",
+          "type": "superseded",
+          "target_id": "memory_42bb0646-ed41-4dbc-9351-b8475a268bc7",
+          "replacement_id": "memory_6925db0c-b7dd-4b4d-88e3-457b95087a73",
+          "effective_at": "2026-11-07T13:41:56.549Z",
+          "recorded_at": "2026-11-07T16:14:51.093Z",
+          "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+          "client_id": "hermes",
+          "revision": 1,
+          "role": "user",
+          "author_id": "alex",
+          "agent_id": "reaver"
+        },
+        {
+          "id": "change_45b2eee1-3880-4b7a-a143-c09f87bc5af4",
+          "type": "superseded",
+          "target_id": "memory_b39d50ae-7e03-4754-ba1a-f33589a43966",
+          "replacement_id": "memory_42bb0646-ed41-4dbc-9351-b8475a268bc7",
+          "effective_at": "2026-11-07T13:41:56.549Z",
+          "recorded_at": "2026-11-07T15:54:43.154Z",
+          "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+          "client_id": "hermes",
+          "revision": 1,
+          "role": "user",
+          "author_id": "alex",
+          "agent_id": "reaver"
+        },
+        {
+          "id": "change_b0f8b627-60d1-40f4-9862-672f934f7076",
+          "type": "superseded",
+          "target_id": "memory_22f2c498-6196-4d8e-a15b-dd71193fb42f",
+          "replacement_id": "memory_7979a531-6b66-4bee-8263-26a1405764b7",
+          "effective_at": "2026-11-07T13:41:56.549Z",
+          "recorded_at": "2026-11-07T15:54:43.129Z",
+          "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+          "client_id": "hermes",
+          "revision": 1,
+          "role": "user",
+          "author_id": "alex",
+          "agent_id": "reaver"
+        },
+        {
+          "id": "change_5342a643-0ded-46f5-bf2d-d800fe405c1e",
+          "type": "superseded",
+          "target_id": "memory_57772ff2-9981-4138-b78a-9c262247c040",
+          "replacement_id": "memory_a2340757-5040-4225-9e12-ca5705234d58",
+          "effective_at": "2026-11-07T13:41:56.549Z",
+          "recorded_at": "2026-11-07T15:54:43.108Z",
+          "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+          "client_id": "hermes",
+          "revision": 1,
+          "role": "user",
+          "author_id": "alex",
+          "agent_id": "reaver"
+        },
+        {
+          "id": "change_922b7d2d-7c68-4bf7-82bf-ce5c16e822b9",
+          "type": "superseded",
+          "target_id": "memory_901e61d4-8318-485a-9520-a71f3ec4dad5",
+          "replacement_id": "memory_a2340757-5040-4225-9e12-ca5705234d58",
+          "effective_at": "2026-11-07T13:41:56.549Z",
+          "recorded_at": "2026-11-07T15:54:43.108Z",
+          "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+          "client_id": "hermes",
+          "revision": 1,
+          "role": "user",
+          "author_id": "alex",
+          "agent_id": "reaver"
+        },
+        {
+          "id": "change_b2cf0a3c-b172-4036-8ed8-a94e9b73812e",
+          "type": "superseded",
+          "target_id": "memory_371735aa-3d62-46e9-8fc7-065fc7698098",
+          "replacement_id": "memory_9ce00651-e850-4be4-8172-f648cc558e18",
+          "effective_at": "2026-11-07T13:41:56.549Z",
+          "recorded_at": "2026-11-07T15:54:43.086Z",
+          "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+          "client_id": "hermes",
+          "revision": 1,
+          "role": "user",
+          "author_id": "alex",
+          "agent_id": "reaver"
+        },
+        {
+          "id": "change_f3a9b9b5-268a-4880-8c76-f3414233d58d",
+          "type": "superseded",
+          "target_id": "memory_612a3c05-5de4-4f3f-9659-bea3e64d0a03",
+          "replacement_id": "memory_9ce00651-e850-4be4-8172-f648cc558e18",
+          "effective_at": "2026-11-07T13:41:56.549Z",
+          "recorded_at": "2026-11-07T15:54:43.086Z",
+          "event_id": "native:reaver:29414836897944c084576ee7881e0b37:part:0",
+          "client_id": "hermes",
+          "revision": 1,
+          "role": "user",
+          "author_id": "alex",
+          "agent_id": "reaver"
+        }
+      ]
+    }
+  ],
+  "typed_edge_counts": [
+    {
+      "topic": "LDN7",
+      "history": false,
+      "positive": 1
+    },
+    {
+      "topic": "LDN7",
+      "history": true,
+      "positive": 2
+    },
+    {
+      "topic": "FEN9",
+      "history": false,
+      "positive": 3
+    },
+    {
+      "topic": "FEN9",
+      "history": true,
+      "positive": 3
+    }
+  ]
+}

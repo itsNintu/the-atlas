@@ -1,0 +1,18 @@
+20 |  const graphs=['LDN7','FEN9'].flatMap(query=>[false,true].map(include_history=>{const g=memoryGraph(m,a,{agent_id:'reaver',query,include_history,limit:100});const edges=g.edges.filter((e:any)=>e.sources.some((x:any)=>originals.has(x.event_id)));const ids=new Set(edges.flatMap((e:any)=>[e.source,e.target]));return {query,include_history,nodes:g.nodes.filter((n:any)=>ids.has(n.id)),edges,changes:g.changes.filter((c:any)=>originals.has(c.event_id))}}));
+21 |  const ldn=graphs.find(g=>g.query==='LDN7'&&!g.include_history)!,history=graphs.find(g=>g.query==='LDN7'&&g.include_history)!;
+22 |  const typed=(g:any)=>g.edges.filter((e:any)=>g.nodes.find((n:any)=>n.id===e.target)?.kind==='entity');
+23 |  const report={source_fixture_not_native_activation:true,method:'recorded real Luna outputs through final worker/validators on private exact snapshot; real resident embeddings; no Luna calls',recordings,calls,jobs,custody_preserved:unchanged,graphs,typed_edge_counts:graphs.map(g=>({topic:g.query,history:g.include_history,positive:typed(g).filter((e:any)=>['active','historical'].includes(e.status)).length}))};
+24 |  await Bun.write('evidence/native-phase-repair/FINAL-INTEGRATION.json',JSON.stringify(report,null,2));
+25 |  assert(jobs.every((j:any)=>j.status==='succeeded'),JSON.stringify(jobs));assert(unchanged);assert(calls.every(c=>c.input_tokens<=4096));
+      ^
+AssertionError: [{"id":"mjob_3d9c6e05-803f-402b-82fc-074d15383406","status":"succeeded","error_code":null},{"id":"mjob_15bf34a4-2421-4a19-ab79-dcaca5cafa70","status":"retry","error_code":"curator_target_violation"},{"id":"mjob_65a38b83-70e3-41fa-9bd8-0f48903d5ae3","status":"queued","error_code":null},{"id":"mjob_4d41cd33-131d-443f-afc0-bca2e12ac9d3","status":"queued","error_code":null},{"id":"mjob_af931955-1de5-40b2-92e8-4e85687e4925","status":"succeeded","error_code":null}]
+ generatedMessage: false,
+     actual: false,
+   expected: true,
+   operator: "==",
+       diff: "simple",
+       code: "ERR_ASSERTION"
+
+      at /home/alex/work/projects/the-atlas/scripts/native-phase-replay.ts:25:2
+
+Bun v1.4.4 (Linux x64)
