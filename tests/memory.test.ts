@@ -137,7 +137,7 @@ function setup(path = ":memory:") {
   };
 }
 
-test("HTTP capture is durable, pending crosses Alex agents, bindings and revision fences are deterministic", async () => {
+test("HTTP capture is durable; shared freshness, bindings and revision fences are deterministic", async () => {
   const f = setup();
   const original = base("e1");
   const r = await f.call("/v1/events", original);
@@ -149,8 +149,9 @@ test("HTTP capture is durable, pending crosses Alex agents, bindings and revisio
       .status,
   ).toBe("queued");
   const p = await f.recall();
-  expect(p.pending_events.map((x: any) => x.event_id)).toEqual(["e1"]);
-  expect(p.context).toContain("NOT extracted");
+  expect(p.pending_events).toEqual([]);
+  expect(p.context).toBe("");
+  expect(p.freshness.pending_count).toBe(1);
   expect(
     (await f.call("/v1/events", original, f.admin.token)).data.status,
   ).toBe("duplicate");

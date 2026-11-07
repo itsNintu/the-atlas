@@ -41,7 +41,7 @@ function fixture() {
   return { store, memory, event, seed, recall };
 }
 
-test("busy pending tail coexists with relevant shared and own processed evidence and newest correction", async () => {
+test("busy pending intake cannot enter or starve relevant own/shared processed recall", async () => {
   const f = fixture();
   try {
     const shared = f.seed("shared-source", "user:alex", "P01 communication rule attribution status",
@@ -56,9 +56,8 @@ test("busy pending tail coexists with relevant shared and own processed evidence
       const r = await f.recall(budget);
       expect(r.memories.map((m: any) => m.id)).toContain(shared);
       expect(r.memories.map((m: any) => m.id)).toContain(own);
-      expect(r.pending_events[0].event_id).toBe("newest-correction");
-      expect(r.pending_events[0].unprocessed).toBe(true);
-      expect(r.pending_events[0].content).toContain("not an actual Alex preference");
+      expect(r.pending_events).toEqual([]);
+      expect(r.context).not.toContain("PENDING");
       for (const [id, scope, source] of [[shared, "user:alex", "shared-source"], [own, "agent:builder", "own-source"]]) {
         const m = r.memories.find((m: any) => m.id === id);
         expect(m.scope).toBe(scope);
@@ -67,7 +66,7 @@ test("busy pending tail coexists with relevant shared and own processed evidence
         expect(m.supports[0].event_id).toBe(source);
       }
       expect(r.context).toContain("synthetic=true actual_deployment=false");
-      expect(r.context).toContain("Pending events are NOT extracted beliefs");
+      expect(r.context).toContain("untrusted attributed data");
       expect(r.tokens_used).toBe(memoryTokens(r.context));
       expect(r.tokens_used).toBeLessThanOrEqual(budget);
       expect(r.freshness.pending_count).toBe(943);
@@ -83,16 +82,15 @@ test("busy pending tail coexists with relevant shared and own processed evidence
   } finally { f.store.close(); }
 }, 30000);
 
-test("large newest pending excerpt leaves space for an indivisible processed record", async () => {
+test("large pending intake does not displace an indivisible processed record", async () => {
   const f = fixture();
   try {
     const id = f.seed("large-source", "agent:builder", "P01 communication rule", detail.slice(0, 1600), "tool");
     f.event("large-newest-correction", "CORRECTION synthetic fixture only: " + detail);
     const r = await f.recall(1000);
     expect(r.memories.map((m: any) => m.id)).toContain(id);
-    expect(r.pending_events[0].event_id).toBe("large-newest-correction");
-    expect(r.pending_events[0].unprocessed).toBe(true);
-    expect(r.context).toContain("[truncated]");
+    expect(r.pending_events).toEqual([]);
+    expect(r.context).not.toContain("CORRECTION");
     expect(r.tokens_used).toBe(memoryTokens(r.context));
     expect(r.tokens_used).toBeLessThanOrEqual(1000);
   } finally { f.store.close(); }
@@ -108,7 +106,7 @@ test("semantic-only evidence cannot be starved by a large pending backlog", asyn
     expect(m).toBeDefined();
     expect(m.lexical).toBe(0);
     expect(m.semantic).toBe(1);
-    expect(r.pending_events.length).toBeGreaterThan(0);
+    expect(r.pending_events).toEqual([]);
     expect(r.tokens_used).toBe(memoryTokens(r.context));
     expect(r.tokens_used).toBeLessThanOrEqual(2000);
   } finally { f.store.close(); }

@@ -42,29 +42,6 @@ function fixture() {
   return { store, actor, memory, event, seed, recall, embeddings: () => embeddings };
 }
 
-// Original full-prefix packing oracle; no incremental-count assumptions.
-function originalPending(events: any[], budget: number) {
-  let context = "";
-  const tail: any[] = [];
-  const add = (line: string) => {
-    const next = context ? context + "\n" + line : line;
-    if (memoryTokens(next) > budget) return false;
-    context = next; return true;
-  };
-  if (budget > 0) add(header);
-  for (const e of events) {
-    const label = `PENDING [${e.event_id}@${e.revision}] ${e.role}/${e.author_id} via ${e.agent_id} ${e.occurred_at}: `;
-    let excerpt = e.content.slice(0, Math.min(e.content.length, 2000));
-    let line = label + JSON.stringify(excerpt) + (excerpt.length < e.content.length ? " [truncated]" : "");
-    while (excerpt.length > 0 && memoryTokens(context + "\n" + line) > budget) {
-      excerpt = excerpt.slice(0, Math.floor(excerpt.length * 0.7));
-      line = label + JSON.stringify(excerpt) + " [truncated]";
-    }
-    if (excerpt && add(line)) tail.push({ event_id: e.event_id, content: excerpt });
-  }
-  return { context, tail };
-}
-
 test("closed LF counts equal full encoding for actual record prefixes in both supported encodings", () => {
   const tails = ["", "hello", ".", "!/?", "DERIVED", "   ", "\t\r\n ", "\n\n", "é e\u0301 ไทย 中文", "😀\ud800", " <|endoftext|> ", "\u00a0\u2028", "\\\"json\"", " [truncated]"];
   const starts = [header, "PENDING [example@1] user/alex: data", "[memory_example] agent:default assertion: data"];
@@ -80,13 +57,13 @@ test("closed LF counts equal full encoding for actual record prefixes in both su
   }
 });
 
-test("incremental recall preserves exact original pending output, truncation and ordering across budgets", async () => {
+test("all budgets exclude pending transcript while preserving custody and metadata", async () => {
   const f = fixture();
   try {
     for (let i = 0; i < 12; i++) f.event(`event-${i}`, `${detail} \n ไทย 😀 \"quoted\" ${i}`);
     const events = f.memory.events(f.actor, "default").filter((e: any) => e.status === "pending");
     for (const budget of [0, 1, 23, 24, 64, 128, 2000, 99744]) {
-      const expected = originalPending(events, budget);
+      const expected = { context: "", tail: [] };
       const actual = await f.recall(budget);
       expect(actual.context).toBe(expected.context);
       expect(actual.pending_events.map((e: any) => ({ event_id: e.event_id, content: e.content }))).toEqual(expected.tail);
@@ -114,13 +91,11 @@ test("three recalls complete inside native 25s timeout with 643 large pending ev
       expect(r.retrieval.semantic_status).toBe("available");
       expect(r.tokens_used).toBe(memoryTokens(r.context));
       expect(r.tokens_used).toBeLessThanOrEqual(r.token_budget);
-      expect(r.pending_events[0].event_id).toBe("newest-correction");
-      expect(r.pending_events[0].content).toContain("detailed architecture");
-      expect(r.pending_events[0].unprocessed).toBe(true);
+      expect(r.pending_events).toEqual([]);
       expect(r.freshness.pending_count).toBe(643);
       expect(r.freshness.pending_included + r.freshness.pending_omitted).toBe(643);
       expect(new Set(r.pending_events.map((e: any) => e.event_id)).size).toBe(r.pending_events.length);
-      expect(r.context).toContain("Pending events are NOT extracted beliefs");
+      expect(r.context).toContain("untrusted attributed data");
     }
     expect(f.store.one("SELECT COUNT(*) n FROM memory_events").n).toBe(644);
     expect(f.store.one("SELECT COUNT(*) n FROM memory_jobs WHERE status='queued'").n).toBe(643);
@@ -147,7 +122,7 @@ test("semantic-ranked processed evidence remains useful alongside a large short-
     // Mixed selection now gives processed evidence turns instead of exhausting
     // the budget with all 643 pending notes first. Both remain useful and every
     // omitted pending item stays durable/visible in freshness diagnostics.
-    expect(r.pending_events.length).toBeGreaterThan(0);
+    expect(r.pending_events).toEqual([]);
     expect(r.freshness.pending_count).toBe(643);
     expect(r.freshness.pending_included + r.freshness.pending_omitted).toBe(643);
     expect(r.tokens_used).toBe(memoryTokens(r.context));

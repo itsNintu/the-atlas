@@ -1,5 +1,21 @@
 # Current project context
 
+## Current engineering handoff — 2026-11-07 dreaming revision
+
+Implemented bounded Luna-ready event digestion and indexed specific recall in src/memory.ts,
+src/memory-index.ts, src/inference.ts and Store initialization. Existing graph knowledge tables
+and credential/source identities are preserved; new indexes/cursor/metrics are additive.
+Default recall1200tokens, relevance-gated FTS5+approximate semantic lookup, no pending transcript;
+explicit larger budgets and authorized freshness metadata remain. Curator exact input maximum4096
+tokens, coherent resumable fragments, targeted prior context; real host-owned gpt-6-luna fixture
+selected useful relations, discarded noise and preserved temporal/correction distinctions.
+See docs/capabilities.md, docs/contract.md and reports/dreaming-source.json for actual measurements
+and failures/repairs. Native activation/integrated observation belongs to downstream cards; do not
+infer a production restart from this implementation handoff. Earlier accepted fb86855 automatic
+capture/semantic/native lifecycle evidence remains applicable where unchanged. No publication.
+
+## Historical release baseline (not current runtime/semantic capability claims)
+
 Updated 2026-11-07 UTC+07: renamed to The Atlas (`the-atlas`), alpha.1.
 
 Canonical repository: /home/alex/work/projects/the-atlas (Ubuntu WSL, alex).

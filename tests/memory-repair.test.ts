@@ -480,7 +480,7 @@ test("oversize current inference input fails visibly and stays durable rather th
     await f.w.runOnce();
     expect(called).toBe(false);
     expect(f.s.one("SELECT error_code FROM memory_jobs").error_code).toBe(
-      "curation_input_too_large",
+      "curation_budget_too_small",
     );
     expect(f.s.one("SELECT status,content FROM memory_events").status).toBe(
       "pending",

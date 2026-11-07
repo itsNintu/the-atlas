@@ -1,4 +1,4 @@
-# Contract: REST v1 / SQLite schema 1
+# Contract: REST v1 / SQLite schema 2 (source/fact schema-1 semantics retained)
 
 This alpha intentionally exposes a small, explicit contract. IDs are opaque strings. Public JSON uses
 snake_case, UTC RFC3339 timestamps, and a generated `request_id` (except static assets). Successful
@@ -112,8 +112,62 @@ operation; inspect current source/job state rather than assuming it remains curr
 
 ## Versioning boundary
 
-Schema user_version rejects newer data. No schema-1 upgrade path is needed for the first release;
-future migrations need fixture backups and rollback tests. REST contract changes must be explicit.
+Schema user_version rejects newer data. Schema 1 upgrades additively to schema 2 with original source/fact/credential identities retained; the dreaming serving-index extension is additive within schema 2. Offline pre-upgrade backup is the rollback boundary. Restoring old source over a newly indexed DB is not a safe writer rollback: new triggers invoke the registered index function. Restore the stopped full DB backup instead. Future migrations need fixture backups and rollback tests. REST contract changes must be explicit.
 There is no claimed SDK, MCP, connector or experience-learning compatibility simply because these
 entities could later be represented. Server transport-level oversized requests may be rejected by
 Bun before the structured API envelope; ordinary API validation uses the envelope above.
+
+## Automatic event memory: durable intake, selective graph and indexed recall
+
+This is distinct from the original `/v1/context` and `/v1/graph` source/fact APIs above.
+`POST /v1/events` durably stores revisioned capture before asynchronous curation;
+`POST /v1/recall` is read-only (no idempotency key), with the existing `{api_version,request_id,data}`
+envelope. Both require authentication and an administrator-established agent binding. The six
+existing profile IDs and explicit own/shared memory grants remain the authorization boundary.
+Feedback, bind and memory jobs/retry retain their existing routes. A graph-inspection endpoint is
+specified separately in [brain-view.md](brain-view.md); memories/entities/supports/changes/
+versions retain their persisted meanings and column identities.
+
+Recall request: `agent_id`, `thread_id`, `query` (up to16,000 characters), optional `token_budget`
+(0–100,000; default1,200), `valid_at`, `recorded_at`, `recent_context` (compatible validation up to32
+messages). Only ambiguous followups use recent context: at most two user/assistant messages x600
+characters, as query resolution, not evidence. No conversational inference call is made by default.
+Response retains `recall_id`, `context`, `memories`, `pending_events`, token accounting, times,
+`freshness` and `retrieval`. `pending_events` is now always empty; no raw pending transcript is
+injected. `freshness` retains authorized non-content latest intake/processed times and pending
+counts, with included0 and omitted=pending_count. Asynchronous selection can legitimately return
+no memory. Empty query also returns no memory, not the whole graph. The exact tokenizer budget
+covers injected framing/citations, not response JSON or native outer message framing.
+
+Recall materializes at most96 authorized lexical plus96 approximate semantic candidate IDs using
+FTS5 and indexed LSH buckets, then checks live supports, current grants, lineage and both temporal
+axes. Relevance gates and bounded entity relations determine output; allocation alone does not.
+`retrieval` adds `index`, `candidates_examined`, `candidate_limit_per_index`, `embedding_ms`,
+`service_ms`, `context_messages_used`, and `semantic_min`. Model/dimension incompatibility cannot
+score as semantic similarity. Post-await/post-packing selected support checks fence deletion and
+revocation; stale context fails retryably rather than returning cached text. See capabilities.md
+for engineering thresholds and approximate-search limitations.
+
+Curation sends coherent event fragments plus focused context under4,096 exact tokens. Durable
+full content/roots and source revision identity are not truncated. Fragment cursor plus selected
+facts commit atomically; incomplete source stays pending and same job requeues for its next
+fragment. Only final completion sets processed time. Noise may create no memory. Correction or
+retraction cannot positively reassert the exact invalidated subject/predicate/object under a new
+date; such model output is a retryable `curator_correction_repeats_target` error. State changes keep
+historical truth; corrections retract never-true belief while retaining recorded history until
+source deletion. Root/support/lineage and forget semantics are unchanged.
+
+New additive tables: `memory_search` (FTS5 external content over memories),
+`memory_vector_buckets(memory_id,workspace_id,scope,model,dimensions,bucket)`,
+`memory_index_meta(version)`, `memory_chunk_progress(event_pk,offset_chars)` and non-content
+`memory_curation_metrics(job_id,event_pk,chunk_start,chunk_end,input_tokens,input_bytes,
+candidate_count,recent_count,decision_count,elapsed_ms,created_at)`. UTF-16 offsets are internal
+checkpoints, never source/evidence IDs. Insert/update/delete triggers maintain serving indexes;
+existing memories are indexed transactionally on first open. The old knowledge tables are not
+replaced or remapped. Credential values and durable captured payloads are unchanged by migration.
+
+Optional resident embedding transport: POST `THE_ATLAS_EMBED_URL` with
+`{protocol:"atlas-inference-v1",operation:"embed",request_id,input:{texts,model}}`; require the same
+protocol/request_id and `output:{vectors,model}` in the response, optional `usage`. Timeout3s,
+response max4MB, valid vector shape/nonzero/model validation. No credentials are exported by this
+transport. Native/model route activation remains an operations concern, not implied by this API.

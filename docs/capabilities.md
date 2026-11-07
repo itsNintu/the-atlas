@@ -1,48 +1,80 @@
 # Capability map
 
-## Automatic event-memory path — schema 2
+## Automatic event-memory path — schema 2, dreaming revision
 
-Additive `/v1/events`, `/v1/recall`, `/v1/feedback`, `/v1/memory/bind` and memory job diagnostics/retry
-now implement durable revisioned intake, server-bound own/shared graphs, bounded contextual
-natural-language curation, temporal reversal/correction/conflict, visible entity aliases,
-semantic/lexical/entity-and-lineage association recall, token packing, pending freshness, salience
-fading, explicit outcome-linked utility, derived consolidation lineage, source-root dedupe and
-correction/forget repair. Capture acceptance is not extraction success. Role/source attribution is
-retained; retrieval and retelling do not manufacture independent support.
+`/v1/events`, `/v1/recall`, `/v1/feedback`, `/v1/memory/bind` and job diagnostics/retry
+implement immediate durable revisioned intake followed by asynchronous **selected** knowledge.
+A receipt is not extraction success; chatter may yield no graph memory. Own `agent:<profile>` plus
+`user:alex`/`business:alex` scopes, current grants, attribution, roots, correction versus state
+change, valid/recorded history, fading, utility, aliases, consolidation lineage and forget fences
+remain. See [contract](contract.md) and the graph lane's [memory graph](brain-view.md).
 
-The actual synthetic product exercise completed seven natural-language/tool events and eight recall
-checkpoints with `openai-codex/gpt-6.1-sol` curation through an authorized command bridge and real
-`sentence-transformers/all-MiniLM-L6-v2` CPU embeddings. It distinguished a contextual preference,
-one-turn override, later reversal/current/history, cross-agent pending correction, delayed business
-responsibility, and failed versus later dated verified tool outcomes. Native capture/pre-answer
-injection is a separate adapter/activation workstream: these explicit product calls are not proof
-of all-profile native behavior. Small-case evidence is not general accuracy, cognition or parity.
-Observed command-adapter curation plus embedding was roughly 5–15 seconds/event and recall about
-one second, including process startup. Provider dollar cost was unavailable. Busy capture may
-outpace processing; freshness reports disclose pending/included/omitted counts.
+### Bounded digestion, not a model-name swap
 
-`src/inference.ts` exports the curate types, validator and prompt. Configure OpenAI-compatible HTTP
-or `THE_ATLAS_INFERENCE_COMMAND` JSON executable/argument vector (no shell); an independent
-`THE_ATLAS_EMBED_COMMAND` and `THE_ATLAS_EMBEDDING_MODEL` may supply actual vectors. Commands have
-bounded timeout/output. Explicit embedding disablement degrades honestly, not to fake vectors.
-`THE_ATLAS_MEMORY_WORKERS` configures concurrency; related concurrent belief changes retry with fresh
-context rather than imposing a workspace-wide in-flight cap. The legacy worker has its own loop.
+The worker checkpoints coherent fragments of at most 6,000 UTF-16 code units, shrinking them further
+to an exact **4,096-token maximum** (`o200k_base` by default), including the serialized system prompt.
+It sends at most two earlier same-thread events (800 characters each), 500 preceding fragment
+characters, a bounded metadata excerpt, and targeted existing beliefs: indexed lexical matches
+(default 8, configurable up to 12) plus bounded source/thread continuity, at most 12 combined.
+Unused context is removed before shortening a fragment. Each successful fragment atomically commits
+selected memories and a durable cursor, then requeues the same job at the queue tail. Oversized
+accepted sources are neither silently truncated nor stranded pending for a larger model. Final
+success/processed time follows the last fragment. Crashes/retries resume the committed cursor;
+revisions/deletion invalidate source evidence and progress. Pending/failed custody never expires.
 
-Other configurable choices: `THE_ATLAS_CURATION_CANDIDATE_LIMIT` (96),
-`THE_ATLAS_CURATION_INPUT_TOKENS` (64000), `THE_ATLAS_CONSOLIDATE_EVERY` (16),
-`THE_ATLAS_SALIENCE_HALF_LIFE_DAYS` (30), `THE_ATLAS_WEIGHT_<RELEVANCE|SEMANTIC|ASSOCIATION|RECENCY|IMPORTANCE|USEFULNESS>`,
-`THE_ATLAS_TOKEN_ENCODING` (o200k_base or cl100k_base), `THE_ATLAS_RAW_RETENTION_DAYS` (30; nonpositive
-disables expiry). These are deployment defaults, not owner-imposed constants. Token counts include
-injected context framing; the native caller reserves outer message framing. Curation bounds its
-candidate/recent context; an oversize current event fails visibly and stays durable/unprocessed,
-requiring appropriate model-window configuration or client chunking, never silent partial success.
+`THE_ATLAS_CURATION_INPUT_TOKENS` can lower the 4,096 maximum; a window unable to fit protocol/prompt
+framing fails visibly as `curation_budget_too_small`, retaining custody. Other controls:
+`CURATION_CANDIDATE_LIMIT` (8), `CONSOLIDATE_EVERY` (16), `MEMORY_WORKERS`,
+`SALIENCE_HALF_LIFE_DAYS` (30), `WEIGHT_<RELEVANCE|SEMANTIC|ASSOCIATION|RECENCY|IMPORTANCE|USEFULNESS>`,
+`TOKEN_ENCODING` (`o200k_base` or `cl100k_base`) and `RAW_RETENTION_DAYS` (30, nonpositive disables).
+All names accept `THE_ATLAS_` and compatible legacy `THREADATLAS_` prefixes.
 
-Fading does not delete truth. Pending/failed events do not silently expire. Selected provenance is
-separate from raw retention. Forgetting is source-event deletion with root/dependent-retell,
-derivative, vector, version-content and pending repair; independent support remains. Already-sent
-provider requests, backups and previously delivered consumer copies cannot be recalled. Credential
-redaction recognizes common patterns, not perfect DLP. SQLite remains single-node and recall scans
-its permitted graphs; no scale/SLA/distributed architecture or general-quality claim is made.
+The proven host-owned route is `openai-codex/gpt-6-luna`; no Sol fallback or primary-chat change.
+Product source remains inference-provider independent: `INFERENCE_COMMAND` is a JSON argv, never a
+shell; OpenAI-compatible HTTP also remains available. Native account/model routing is host-owned.
+The actual fictional Luna exercise selected connected responsibilities/reporting, discarded noise,
+reconciled a handover with January history, retained a useful final fact from an 11,082-character
+source in two calls, and corrected a never-true delivery-owner claim. The real run exposed a model
+reasserting the invalidated positive claim; an explicit prompt rule plus target-repeat validation
+fixed it in one focused source revision. Invalid model results retry safely, not relabelled truth.
+Exact product input counts were 989–3,236 tokens in that run (provider counts differ by framing).
+This small exercise is semantic evidence, not general extraction-accuracy or throughput certification.
+
+### Indexed, relevant query serving
+
+Recall uses SQLite FTS5 (Porter/Unicode) plus a persisted random-hyperplane LSH index: 24 eight-bit
+bands with one-bit multi-probes. Each index admits at most 96 authorized candidate IDs; at most 192
+base memories are materialized and cosine/relevance-ranked. Model and dimensions are fenced before
+semantic lookup. This is **approximate** candidate search, not exact nearest-neighbour recall or a
+scale/SLA guarantee. It does not load/rank all authorized memory rows or scan/pack pending content.
+Non-content freshness still reports accepted/processed times and pending counts under current grants.
+
+Default recall budget is 1,200 exact tokenizer tokens; explicitly requested larger budgets remain
+supported (0–100,000). Relevance, not spare allocation, determines output. Admission requires lexical
+coverage >=0.34 or compatible cosine >=0.42 (`RECALL_SEMANTIC_MIN_MILLI`, default420), followed by an
+80%-of-strongest relevance gate (strong lexical matches >=0.6 remain). Salience/utility rank only
+eligible evidence; they cannot admit unrelated truth. Up to three direct seeds may add bounded
+same-scope entity-object-to-subject relationships. Source citations are compact; full support/root
+metadata remains typed. Empty/unrelated queries can return an empty context and no memory.
+
+No conversational model or hosted reranker is used on recall. Ambiguous pronoun followups may use
+only two caller-supplied user/assistant snippets, 600 characters each, for query resolution, not
+independent evidence. No pending transcript is returned (`pending_events:[]`); graph lag is explicit.
+Optional `THE_ATLAS_EMBED_URL` supports a resident embedding service using the existing exact-ID
+`atlas-inference-v1` envelope, bounded to 3s/4MB. HTTPS or loopback only. `EMBED_COMMAND` remains
+compatible; embedding failure degrades honestly to indexed lexical recall. There is no recalled
+content cache surviving forget/revocation. FTS/bucket triggers synchronously track writes/deletion;
+initial indexed backfill is transactional and retains source/credential/table identities.
+
+Actual local HTTP/query/embedding measurements and sample outputs are in
+`reports/dreaming-source.json`. They separate first-request serving, warm samples, embedding and
+service time. Native adapter/full-path activation and observation are **separate downstream work**;
+this source implementation is not a claim that the running production process has loaded it.
+
+SQLite is still single-node. Forget cannot unsend provider requests, erase backups or already
+returned consumer copies; credential redaction is not perfect DLP. Approximate semantic retrieval,
+model errors, unbounded queue growth when input exceeds processing throughput, and large explicitly
+requested recall windows remain practical limitations, not a promise of cognition or Zep parity.
 
 ## Original alpha source/fact path (unchanged; historical verification)
 
