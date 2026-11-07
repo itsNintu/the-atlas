@@ -1,0 +1,37 @@
+{
+  "run_at": "2026-11-07T10:55:16.614Z",
+  "result": "pass",
+  "checks": [
+    "Actual authenticated HTTP API reads on-disk persisted fixture; pending chatter excluded and caller-only processing state visible; private other-agent graph absent",
+    "Node selection, source detail, bounded neighborhood focus, reset, zoom buttons/wheel, pointer pan and fit work in real Chromium",
+    "Authorized scope toggles, literal search, empty state, valid-time and recorded-time snapshots, real persisted state-change/history and attribution are reflected",
+    "Persisted new knowledge appears on refresh; real source forgetting removes the edge and history, without changing unrelated supported relationships",
+    "1500×1100 and 390×844 viewports render without horizontal overflow; accessible list and keyboard node selection remain usable",
+    "15-second polling reflects new persisted fixture knowledge without navigation",
+    "Current grant revocation fails the entire mixed-scope request and clears stale graph/detail; credential never stored or URL-encoded; reload disconnects"
+  ],
+  "browser": "140.0.7339.186",
+  "synthetic_data_only": true,
+  "actual_http": true,
+  "actual_sqlite_disk": true,
+  "model_extraction_claim": false,
+  "viewports": [
+    {
+      "width": 1500,
+      "height": 1100
+    },
+    {
+      "width": 390,
+      "height": 844
+    }
+  ],
+  "http_responses": {
+    "ok": 16,
+    "denied": 1
+  },
+  "page_errors": [],
+  "screenshots": [
+    "desktop.png",
+    "narrow.png"
+  ]
+}

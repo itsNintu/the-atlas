@@ -1,5 +1,6 @@
 import { setting } from "./config.ts";
 import { Memory } from "./memory.ts";
+import { memoryGraph } from "./memory-graph.ts";
 import { inferenceStatus } from "./inference.ts";
 import { SCHEMA_VERSION } from "./schema.ts";
 import { Store, id, now, hash, canonical, type Actor } from "./store.ts";
@@ -65,8 +66,8 @@ export class App {
       const u = new URL(request.url),
         method = request.method,
         path = u.pathname;
-      if (method === "GET" && ["/", "/ui.js", "/style.css"].includes(path)) {
-        const name = path === "/" ? "index.html" : path.slice(1);
+      if (method === "GET" && ["/", "/ui.js", "/style.css", "/brain", "/brain.js", "/brain.css"].includes(path)) {
+        const name = path === "/" ? "index.html" : path === "/brain" ? "brain.html" : path.slice(1);
         return new Response(
           readFileSync(new URL(`../ui/${name}`, import.meta.url)),
           {
@@ -174,6 +175,8 @@ export class App {
         };
       else if (method === "POST" && path === "/v1/recall")
         result = { data: await this.memory.recall(a, b) };
+      else if (method === "POST" && path === "/v1/memory/graph")
+        result = { data: memoryGraph(this.memory, a, b) };
       else if (method === "POST" && path === "/v1/feedback")
         result = {
           data: write(

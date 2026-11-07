@@ -1,0 +1,87 @@
+{
+  "task_id": "t_1a164ffe",
+  "phase": "implemented_api_browser_verified_source",
+  "production_activated_here": false,
+  "luna_observation_claim": false,
+  "canonical_root": "/home/alex/work/projects/the-atlas",
+  "route": "/brain",
+  "api": "POST /v1/memory/graph",
+  "files": [
+    {
+      "path": "src/app.ts",
+      "sha256": "591a37cd2ec32d139addabfe8bcab529b234142a798e03d3c58205760a8089ef"
+    },
+    {
+      "path": "src/memory-graph.ts",
+      "sha256": "6f0d9a6e860c01fa7ee106468dbacb9900009b88a49ad299fa5373fc15cd68a8"
+    },
+    {
+      "path": "ui/index.html",
+      "sha256": "9078d5f8abbddc6006d4f6e5e1f6e6ec3d1bfba361b4f5a108a9bb2b0111f3cd"
+    },
+    {
+      "path": "ui/brain.html",
+      "sha256": "f21734cd6ef53186daf5986ea75d17e4093b240b649d807f7ae1d4e9680f74ed"
+    },
+    {
+      "path": "ui/brain.css",
+      "sha256": "69cc44af69e4c41c587ef103d8ddd2bc5295b70fda07bd5ee810852e46b2d451"
+    },
+    {
+      "path": "ui/brain.js",
+      "sha256": "f458925f33cf0a7adfb7ce52db1008afdda7e8f0f1ff315aa7589112369c7cc1"
+    },
+    {
+      "path": "scripts/brain-fixture.ts",
+      "sha256": "a3960f6488d6d33326297e6ab4691568c936d9bd67dacf6382c542ca6496b3e3"
+    },
+    {
+      "path": "scripts/brain-ui-test.ts",
+      "sha256": "26019163cbf6b5d658e10b712988101d183d370028c5cdb759873397c71d8eff"
+    },
+    {
+      "path": "tests/memory-graph.test.ts",
+      "sha256": "da6cce038f474895ce75d8004810afcfae8960878f0492e762877b99edbc3135"
+    },
+    {
+      "path": "docs/brain-view.md",
+      "sha256": "7b827e2457a475f5d6ccd5a1cec3747efac285e8a0e760434b524e5103681849"
+    }
+  ],
+  "verification": {
+    "frozen_install": "pass; no dependency changes",
+    "typecheck": "pass",
+    "graph_tests": {
+      "pass": 7,
+      "fail": 0,
+      "assertions": 65
+    },
+    "browser_receipt": "browser.json",
+    "existing_e2e": "pass (2026-11-07T10:52:32.434Z)",
+    "existing_inspector_ui": "pass (2026-11-07T10:52:35.076Z)",
+    "full_suite_during_parallel_recall_work": {
+      "pass": 58,
+      "fail": 14,
+      "error": 1,
+      "assertions": 490,
+      "log": "integration-tests.txt",
+      "status": "not green; memory owner t_55a87b0c notified; affected graph tests all passed. Legacy pending-transcript/oversized-input assumptions and timer races are being reconciled in that lane."
+    }
+  },
+  "limits": {
+    "edges_default": 60,
+    "edges_max": 100,
+    "candidate_scan_max": 2000,
+    "sources_per_edge": 20,
+    "versions_per_edge": 20,
+    "changes_per_edge": 20,
+    "changes_total": 200
+  },
+  "activation_child": "t_cfe1d03e",
+  "sibling_memory_owner": "t_55a87b0c",
+  "remaining_concerns": [
+    "Source phase only; production activation and real Luna-driven graph evolution are downstream.",
+    "Dense bounded graphs may need focus/zoom/full-label accessible list; no full-graph export or 3D/scale claim.",
+    "Known-time snapshots always respect current forgetting/grants; not a retained shadow copy of erased evidence."
+  ]
+}
