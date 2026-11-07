@@ -1,0 +1,1263 @@
+{
+  "at": "2026-11-07T14:10:28.517Z",
+  "readonly": true,
+  "same_sqlite_read_transaction": true,
+  "logical_pre_capture_recorded_at": "2026-11-07T13:41:57.500Z",
+  "pre_capture_note": "Recorded/valid-time reconstruction on the same readonly snapshot, not a new native session; later FEN9 memories are ineligible at that cutoff.",
+  "baseline_commit": "65b9a6302bdfdb4daed8022f6220ee81f70aee3f",
+  "engine_sha256": "eade7b5ccc19adb751c364ea2e17767068507758bbffe5a1cca040806323014a",
+  "helper_sha256": "dedcc79fcc57d79c20c95f0cabf2dc951fcbb12c9a7bbae41960b4ad78916ede",
+  "snapshot_identity": {
+    "memories": 2716,
+    "latest": "2026-11-07T14:10:24.178Z"
+  },
+  "receipt_writes_intercepted": 20,
+  "embedding_calls": 18,
+  "curation_calls": 0,
+  "comparisons": [
+    {
+      "case": "FEN9-original-pre-capture",
+      "recorded_at": "2026-11-07T13:41:57.500Z",
+      "original_query": "Private fictional archive FEN9 only, not Alex or real business: Iona maintains the Copper beacon and reports to Remy. In that same imaginary archive, Remy reviews the Copper beacon checklist. No tools or builtin memory saves. Reply only \"Noted fictional archive\".",
+      "baseline_focus": "Private fictional archive FEN9 only, not Alex or real business: Iona maintains the Copper beacon and reports to Remy. In that same imaginary archive, Remy reviews the Copper beacon checklist. No tools or builtin memory saves. Reply only \"Noted fictional archive\".",
+      "corrected_focus": "FEN9: Iona maintains the Copper beacon and reports to Remy. Remy reviews the Copper beacon checklist.",
+      "baseline_process": true,
+      "corrected_process": false,
+      "baseline": {
+        "tokens": 732,
+        "ids": [
+          "memory_5e3927a1-fc1d-4c52-bb58-30b0bb82d4de",
+          "memory_d4448fb8-7e9a-4304-bb67-4f67b7205ce0",
+          "memory_4783e211-39f1-4bad-8638-e5e3646348a9",
+          "memory_82368b12-fc76-40a8-a22b-9ed7989d281e",
+          "memory_0f30a228-b97c-45b5-851a-d95441e81423"
+        ],
+        "memories": [
+          {
+            "id": "memory_5e3927a1-fc1d-4c52-bb58-30b0bb82d4de",
+            "subject": "LDN7 fictional archive fixture",
+            "predicate": "fixture_claims",
+            "lexical": 0.34615384615384615,
+            "semantic": 0.5451637141661627,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_d4448fb8-7e9a-4304-bb67-4f67b7205ce0",
+            "subject": "Fictional VES8 archive",
+            "predicate": "relationships",
+            "lexical": 0.34615384615384615,
+            "semantic": 0.5063562687933658,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_4783e211-39f1-4bad-8638-e5e3646348a9",
+            "subject": "Fictional Lantern archive query",
+            "predicate": "answered_from_available_context",
+            "lexical": 0.23076923076923078,
+            "semantic": 0.4706545500295334,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_82368b12-fc76-40a8-a22b-9ed7989d281e",
+            "subject": "Fictional VES8 archive query",
+            "predicate": "answered_from_available_context",
+            "lexical": 0.19230769230769232,
+            "semantic": 0.4492927067564429,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_0f30a228-b97c-45b5-851a-d95441e81423",
+            "subject": "LDN7 fictional archive fixture",
+            "predicate": "Mira reports_to",
+            "lexical": 0,
+            "semantic": 0,
+            "roles": [
+              "user"
+            ]
+          }
+        ],
+        "context_sha256": "f33c3a61c922b119ef2afaabdc9b6bd8b3d4573d754746790a08cdbf9ac6d4ae",
+        "pending": 0,
+        "candidates": 159,
+        "context_messages": 0,
+        "semantic_status": "available",
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "service_ms": 100.89218200000005
+      },
+      "corrected": {
+        "tokens": 0,
+        "ids": [],
+        "memories": [],
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "pending": 0,
+        "candidates": 170,
+        "context_messages": 0,
+        "semantic_status": "available",
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "service_ms": 58.71640100000002
+      }
+    },
+    {
+      "case": "FEN9-current-intake",
+      "recorded_at": "2026-11-07T14:10:28.517Z",
+      "original_query": "Private fictional archive FEN9 only, not Alex or real business: Iona maintains the Copper beacon and reports to Remy. In that same imaginary archive, Remy reviews the Copper beacon checklist. No tools or builtin memory saves. Reply only \"Noted fictional archive\".",
+      "baseline_focus": "Private fictional archive FEN9 only, not Alex or real business: Iona maintains the Copper beacon and reports to Remy. In that same imaginary archive, Remy reviews the Copper beacon checklist. No tools or builtin memory saves. Reply only \"Noted fictional archive\".",
+      "corrected_focus": "FEN9: Iona maintains the Copper beacon and reports to Remy. Remy reviews the Copper beacon checklist.",
+      "baseline_process": true,
+      "corrected_process": false,
+      "baseline": {
+        "tokens": 530,
+        "ids": [
+          "memory_612a3c05-5de4-4f3f-9659-bea3e64d0a03",
+          "memory_af209b35-88bf-4387-99df-1e75153e98c5",
+          "memory_901e61d4-8318-485a-9520-a71f3ec4dad5",
+          "memory_1106317e-3dbd-4def-a10a-2b89a2e71a39"
+        ],
+        "memories": [
+          {
+            "id": "memory_612a3c05-5de4-4f3f-9659-bea3e64d0a03",
+            "subject": "FEN9 fictional archive",
+            "predicate": "Iona maintains",
+            "lexical": 0.46153846153846156,
+            "semantic": 0.8594591135484185,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_af209b35-88bf-4387-99df-1e75153e98c5",
+            "subject": "FEN9 fictional archive",
+            "predicate": "Remy reviews",
+            "lexical": 0.5,
+            "semantic": 0.8301468978537203,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_901e61d4-8318-485a-9520-a71f3ec4dad5",
+            "subject": "FEN9 fictional archive",
+            "predicate": "Iona reports_to",
+            "lexical": 0.4230769230769231,
+            "semantic": 0.7976403857031611,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_1106317e-3dbd-4def-a10a-2b89a2e71a39",
+            "subject": "Fictional FEN9 archive",
+            "predicate": "answered_from_supplied_evidence",
+            "lexical": 0.5384615384615384,
+            "semantic": 0.838925888104088,
+            "roles": [
+              "assistant"
+            ]
+          }
+        ],
+        "context_sha256": "8b532e0b3dd3f1041371675fffb5ac042a5064d166a526d1fa8aeb9f29bc0913",
+        "pending": 0,
+        "candidates": 159,
+        "context_messages": 0,
+        "semantic_status": "available",
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "service_ms": 74.37262099999998
+      },
+      "corrected": {
+        "tokens": 530,
+        "ids": [
+          "memory_1106317e-3dbd-4def-a10a-2b89a2e71a39",
+          "memory_af209b35-88bf-4387-99df-1e75153e98c5",
+          "memory_612a3c05-5de4-4f3f-9659-bea3e64d0a03",
+          "memory_901e61d4-8318-485a-9520-a71f3ec4dad5"
+        ],
+        "memories": [
+          {
+            "id": "memory_1106317e-3dbd-4def-a10a-2b89a2e71a39",
+            "subject": "Fictional FEN9 archive",
+            "predicate": "answered_from_supplied_evidence",
+            "lexical": 1,
+            "semantic": 0.7836526129850298,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_af209b35-88bf-4387-99df-1e75153e98c5",
+            "subject": "FEN9 fictional archive",
+            "predicate": "Remy reviews",
+            "lexical": 0.6666666666666666,
+            "semantic": 0.7351819281006495,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_612a3c05-5de4-4f3f-9659-bea3e64d0a03",
+            "subject": "FEN9 fictional archive",
+            "predicate": "Iona maintains",
+            "lexical": 0.5555555555555556,
+            "semantic": 0.6819281124699516,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_901e61d4-8318-485a-9520-a71f3ec4dad5",
+            "subject": "FEN9 fictional archive",
+            "predicate": "Iona reports_to",
+            "lexical": 0.4444444444444444,
+            "semantic": 0.5302626193737152,
+            "roles": [
+              "user"
+            ]
+          }
+        ],
+        "context_sha256": "28b390e2d8b6ea3de5b57d85ceac91ed2b935da7f45adf42a83e2d6ae012ba32",
+        "pending": 0,
+        "candidates": 170,
+        "context_messages": 0,
+        "semantic_status": "available",
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "service_ms": 66.85687299999995
+      }
+    },
+    {
+      "case": "FEN9-current-use",
+      "recorded_at": "2026-11-07T14:10:28.517Z",
+      "original_query": "In the fictional FEN9 archive, who maintains the Copper beacon, whom do they report to, and who reviews its checklist? Use automatically supplied memory only, keeping fiction fictional. Do not call tools, browse or save memory.",
+      "baseline_focus": "FEN9: who maintains the Copper beacon, whom do they report to, and who reviews its checklist? Use automatically supplied memory only, keeping fiction fictional.",
+      "corrected_focus": "FEN9: who maintains the Copper beacon, whom do they report to, and who reviews its checklist?",
+      "baseline_process": false,
+      "corrected_process": false,
+      "baseline": {
+        "tokens": 530,
+        "ids": [
+          "memory_af209b35-88bf-4387-99df-1e75153e98c5",
+          "memory_1106317e-3dbd-4def-a10a-2b89a2e71a39",
+          "memory_612a3c05-5de4-4f3f-9659-bea3e64d0a03",
+          "memory_901e61d4-8318-485a-9520-a71f3ec4dad5"
+        ],
+        "memories": [
+          {
+            "id": "memory_af209b35-88bf-4387-99df-1e75153e98c5",
+            "subject": "FEN9 fictional archive",
+            "predicate": "Remy reviews",
+            "lexical": 0.5625,
+            "semantic": 0.7429319087232172,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_1106317e-3dbd-4def-a10a-2b89a2e71a39",
+            "subject": "Fictional FEN9 archive",
+            "predicate": "answered_from_supplied_evidence",
+            "lexical": 0.625,
+            "semantic": 0.7062354109311982,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_612a3c05-5de4-4f3f-9659-bea3e64d0a03",
+            "subject": "FEN9 fictional archive",
+            "predicate": "Iona maintains",
+            "lexical": 0.5,
+            "semantic": 0.6664011825091227,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_901e61d4-8318-485a-9520-a71f3ec4dad5",
+            "subject": "FEN9 fictional archive",
+            "predicate": "Iona reports_to",
+            "lexical": 0.375,
+            "semantic": 0.5251655126311519,
+            "roles": [
+              "user"
+            ]
+          }
+        ],
+        "context_sha256": "a9074fd25ab1b92e74ec2f227c16ecbf26dfc28b96bc4bf8bf92f67d89681227",
+        "pending": 0,
+        "candidates": 163,
+        "context_messages": 0,
+        "semantic_status": "available",
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "service_ms": 57.085801999999944
+      },
+      "corrected": {
+        "tokens": 776,
+        "ids": [
+          "memory_1106317e-3dbd-4def-a10a-2b89a2e71a39",
+          "memory_af209b35-88bf-4387-99df-1e75153e98c5",
+          "memory_612a3c05-5de4-4f3f-9659-bea3e64d0a03",
+          "memory_901e61d4-8318-485a-9520-a71f3ec4dad5",
+          "memory_05b08881-05cc-48b4-a211-8ac0d9f22527",
+          "memory_875228bc-41be-4023-856b-5f0b4352a550"
+        ],
+        "memories": [
+          {
+            "id": "memory_1106317e-3dbd-4def-a10a-2b89a2e71a39",
+            "subject": "Fictional FEN9 archive",
+            "predicate": "answered_from_supplied_evidence",
+            "lexical": 0.875,
+            "semantic": 0.6740823745503652,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_af209b35-88bf-4387-99df-1e75153e98c5",
+            "subject": "FEN9 fictional archive",
+            "predicate": "Remy reviews",
+            "lexical": 0.625,
+            "semantic": 0.6995981274068686,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_612a3c05-5de4-4f3f-9659-bea3e64d0a03",
+            "subject": "FEN9 fictional archive",
+            "predicate": "Iona maintains",
+            "lexical": 0.5,
+            "semantic": 0.6307762837190587,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_901e61d4-8318-485a-9520-a71f3ec4dad5",
+            "subject": "FEN9 fictional archive",
+            "predicate": "Iona reports_to",
+            "lexical": 0.25,
+            "semantic": 0.42353439051153285,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_05b08881-05cc-48b4-a211-8ac0d9f22527",
+            "subject": "LDN7 Nola",
+            "predicate": "reviews",
+            "lexical": 0.375,
+            "semantic": 0.2642154531268024,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_875228bc-41be-4023-856b-5f0b4352a550",
+            "subject": "LDN7 Nola",
+            "predicate": "reviews",
+            "lexical": 0.375,
+            "semantic": 0.2549968375423378,
+            "roles": [
+              "user"
+            ]
+          }
+        ],
+        "context_sha256": "564db9d6c2136d5c0677a864fa6353bcec4e3d5c32c53a08bf849135e6e738c7",
+        "pending": 0,
+        "candidates": 167,
+        "context_messages": 0,
+        "semantic_status": "available",
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "service_ms": 57.39558199999999
+      }
+    },
+    {
+      "case": "FEN9-paraphrase",
+      "recorded_at": "2026-11-07T14:10:28.517Z",
+      "original_query": "Who services the copper signal tower and who is Iona accountable to in FEN9?",
+      "baseline_focus": "Who services the copper signal tower and who is Iona accountable to in FEN9?",
+      "corrected_focus": "Who services the copper signal tower and who is Iona accountable to in FEN9?",
+      "baseline_process": false,
+      "corrected_process": false,
+      "baseline": {
+        "tokens": 530,
+        "ids": [
+          "memory_1106317e-3dbd-4def-a10a-2b89a2e71a39",
+          "memory_612a3c05-5de4-4f3f-9659-bea3e64d0a03",
+          "memory_af209b35-88bf-4387-99df-1e75153e98c5",
+          "memory_901e61d4-8318-485a-9520-a71f3ec4dad5"
+        ],
+        "memories": [
+          {
+            "id": "memory_1106317e-3dbd-4def-a10a-2b89a2e71a39",
+            "subject": "Fictional FEN9 archive",
+            "predicate": "answered_from_supplied_evidence",
+            "lexical": 0.42857142857142855,
+            "semantic": 0.6334112979826144,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_612a3c05-5de4-4f3f-9659-bea3e64d0a03",
+            "subject": "FEN9 fictional archive",
+            "predicate": "Iona maintains",
+            "lexical": 0.42857142857142855,
+            "semantic": 0.5824885400610713,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_af209b35-88bf-4387-99df-1e75153e98c5",
+            "subject": "FEN9 fictional archive",
+            "predicate": "Remy reviews",
+            "lexical": 0.2857142857142857,
+            "semantic": 0.4956967923639664,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_901e61d4-8318-485a-9520-a71f3ec4dad5",
+            "subject": "FEN9 fictional archive",
+            "predicate": "Iona reports_to",
+            "lexical": 0.2857142857142857,
+            "semantic": 0.4395496803131643,
+            "roles": [
+              "user"
+            ]
+          }
+        ],
+        "context_sha256": "b147ceb60ccffa09662da5974a3956d66283fb58450df4d71a5267fdd9248d0b",
+        "pending": 0,
+        "candidates": 165,
+        "context_messages": 0,
+        "semantic_status": "available",
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "service_ms": 63.25905499999999
+      },
+      "corrected": {
+        "tokens": 530,
+        "ids": [
+          "memory_1106317e-3dbd-4def-a10a-2b89a2e71a39",
+          "memory_612a3c05-5de4-4f3f-9659-bea3e64d0a03",
+          "memory_af209b35-88bf-4387-99df-1e75153e98c5",
+          "memory_901e61d4-8318-485a-9520-a71f3ec4dad5"
+        ],
+        "memories": [
+          {
+            "id": "memory_1106317e-3dbd-4def-a10a-2b89a2e71a39",
+            "subject": "Fictional FEN9 archive",
+            "predicate": "answered_from_supplied_evidence",
+            "lexical": 0.42857142857142855,
+            "semantic": 0.6334112979826144,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_612a3c05-5de4-4f3f-9659-bea3e64d0a03",
+            "subject": "FEN9 fictional archive",
+            "predicate": "Iona maintains",
+            "lexical": 0.42857142857142855,
+            "semantic": 0.5824885400610713,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_af209b35-88bf-4387-99df-1e75153e98c5",
+            "subject": "FEN9 fictional archive",
+            "predicate": "Remy reviews",
+            "lexical": 0.2857142857142857,
+            "semantic": 0.4956967923639664,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_901e61d4-8318-485a-9520-a71f3ec4dad5",
+            "subject": "FEN9 fictional archive",
+            "predicate": "Iona reports_to",
+            "lexical": 0.2857142857142857,
+            "semantic": 0.4395496803131643,
+            "roles": [
+              "user"
+            ]
+          }
+        ],
+        "context_sha256": "b147ceb60ccffa09662da5974a3956d66283fb58450df4d71a5267fdd9248d0b",
+        "pending": 0,
+        "candidates": 165,
+        "context_messages": 0,
+        "semantic_status": "available",
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "service_ms": 57.10827100000006
+      }
+    },
+    {
+      "case": "VES8-use",
+      "recorded_at": "2026-11-07T14:10:28.517Z",
+      "original_query": "In the fictional VES8 archive, who maintains Ember relay and whom do they report to? If no relevant memory is supplied, say you lack evidence. Use automatically supplied memory only; do not call tools, browse or save memory.",
+      "baseline_focus": "VES8: who maintains Ember relay and whom do they report to?",
+      "corrected_focus": "VES8: who maintains Ember relay and whom do they report to?",
+      "baseline_process": false,
+      "corrected_process": false,
+      "baseline": {
+        "tokens": 344,
+        "ids": [
+          "memory_d4448fb8-7e9a-4304-bb67-4f67b7205ce0",
+          "memory_95bbb08f-94cf-4b1f-99c6-7e0b99de7c36"
+        ],
+        "memories": [
+          {
+            "id": "memory_d4448fb8-7e9a-4304-bb67-4f67b7205ce0",
+            "subject": "Fictional VES8 archive",
+            "predicate": "relationships",
+            "lexical": 0.8333333333333334,
+            "semantic": 0.6233568099078515,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_95bbb08f-94cf-4b1f-99c6-7e0b99de7c36",
+            "subject": "Fictional VES8 archive query",
+            "predicate": "answered_from_supplied_evidence",
+            "lexical": 0.8333333333333334,
+            "semantic": 0.6633060322917192,
+            "roles": [
+              "assistant"
+            ]
+          }
+        ],
+        "context_sha256": "687213c50509a8163123d8247edbe50d7da9458f6b0b01bfad9bde7b81ab6b0e",
+        "pending": 0,
+        "candidates": 170,
+        "context_messages": 0,
+        "semantic_status": "available",
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "service_ms": 47.54791399999999
+      },
+      "corrected": {
+        "tokens": 344,
+        "ids": [
+          "memory_d4448fb8-7e9a-4304-bb67-4f67b7205ce0",
+          "memory_95bbb08f-94cf-4b1f-99c6-7e0b99de7c36"
+        ],
+        "memories": [
+          {
+            "id": "memory_d4448fb8-7e9a-4304-bb67-4f67b7205ce0",
+            "subject": "Fictional VES8 archive",
+            "predicate": "relationships",
+            "lexical": 0.8333333333333334,
+            "semantic": 0.6233568099078515,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_95bbb08f-94cf-4b1f-99c6-7e0b99de7c36",
+            "subject": "Fictional VES8 archive query",
+            "predicate": "answered_from_supplied_evidence",
+            "lexical": 0.8333333333333334,
+            "semantic": 0.6633060322917192,
+            "roles": [
+              "assistant"
+            ]
+          }
+        ],
+        "context_sha256": "687213c50509a8163123d8247edbe50d7da9458f6b0b01bfad9bde7b81ab6b0e",
+        "pending": 0,
+        "candidates": 170,
+        "context_messages": 0,
+        "semantic_status": "available",
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "service_ms": 49.664473000000044
+      }
+    },
+    {
+      "case": "VES8-paraphrase",
+      "recorded_at": "2026-11-07T14:10:28.517Z",
+      "original_query": "In VES8, who tends the Ember transmitter and who is Suri accountable to?",
+      "baseline_focus": "In VES8, who tends the Ember transmitter and who is Suri accountable to?",
+      "corrected_focus": "In VES8, who tends the Ember transmitter and who is Suri accountable to?",
+      "baseline_process": false,
+      "corrected_process": false,
+      "baseline": {
+        "tokens": 344,
+        "ids": [
+          "memory_95bbb08f-94cf-4b1f-99c6-7e0b99de7c36",
+          "memory_d4448fb8-7e9a-4304-bb67-4f67b7205ce0"
+        ],
+        "memories": [
+          {
+            "id": "memory_95bbb08f-94cf-4b1f-99c6-7e0b99de7c36",
+            "subject": "Fictional VES8 archive query",
+            "predicate": "answered_from_supplied_evidence",
+            "lexical": 0.5,
+            "semantic": 0.6284116491667687,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_d4448fb8-7e9a-4304-bb67-4f67b7205ce0",
+            "subject": "Fictional VES8 archive",
+            "predicate": "relationships",
+            "lexical": 0.5,
+            "semantic": 0.6101764825746036,
+            "roles": [
+              "user"
+            ]
+          }
+        ],
+        "context_sha256": "e97bd0e89f7bec2a7f127dbec5eb31fd5aeeb215f58bc6a11e84b5afc7266a3b",
+        "pending": 0,
+        "candidates": 106,
+        "context_messages": 0,
+        "semantic_status": "available",
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "service_ms": 51.09965000000011
+      },
+      "corrected": {
+        "tokens": 344,
+        "ids": [
+          "memory_95bbb08f-94cf-4b1f-99c6-7e0b99de7c36",
+          "memory_d4448fb8-7e9a-4304-bb67-4f67b7205ce0"
+        ],
+        "memories": [
+          {
+            "id": "memory_95bbb08f-94cf-4b1f-99c6-7e0b99de7c36",
+            "subject": "Fictional VES8 archive query",
+            "predicate": "answered_from_supplied_evidence",
+            "lexical": 0.5,
+            "semantic": 0.6284116491667687,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_d4448fb8-7e9a-4304-bb67-4f67b7205ce0",
+            "subject": "Fictional VES8 archive",
+            "predicate": "relationships",
+            "lexical": 0.5,
+            "semantic": 0.6101764825746036,
+            "roles": [
+              "user"
+            ]
+          }
+        ],
+        "context_sha256": "e97bd0e89f7bec2a7f127dbec5eb31fd5aeeb215f58bc6a11e84b5afc7266a3b",
+        "pending": 0,
+        "candidates": 106,
+        "context_messages": 0,
+        "semantic_status": "available",
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "service_ms": 38.04994499999998
+      }
+    },
+    {
+      "case": "LDN7-use",
+      "recorded_at": "2026-11-07T14:10:28.517Z",
+      "original_query": "In the fictional LDN7 archive, who owns Lantern now, who owned it before, and was cobalt ever its true color? Also, who does Mira report to, and who reviews the checklist? If no relevant memory is supplied, say you lack evidence. Answer from automatically supplied context only. Do not call tools, browse or save memory.",
+      "baseline_focus": "LDN7: who owns Lantern now, who owned it before, and was cobalt ever its true color? Also, who does Mira report to, and who reviews the checklist?",
+      "corrected_focus": "LDN7: who owns Lantern now, who owned it before, and was cobalt ever its true color? Also, who does Mira report to, and who reviews the checklist?",
+      "baseline_process": false,
+      "corrected_process": false,
+      "baseline": {
+        "tokens": 1199,
+        "ids": [
+          "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "memory_105852ae-8ce2-4085-9cbd-1276b4f8f771",
+          "memory_36a62b9d-b757-48ed-8f92-7a65303eabbd",
+          "memory_5e3927a1-fc1d-4c52-bb58-30b0bb82d4de",
+          "memory_05b08881-05cc-48b4-a211-8ac0d9f22527",
+          "memory_875228bc-41be-4023-856b-5f0b4352a550",
+          "memory_b8ec8735-522f-4e9e-ab4b-bd293d821df5",
+          "memory_2d4241ab-1aea-41d4-a69e-e8e28bbd87d8",
+          "memory_a826fdb2-4310-40e3-8b39-387d212bbc63"
+        ],
+        "memories": [
+          {
+            "id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+            "subject": "Fictional LDN7 Lantern",
+            "predicate": "color",
+            "lexical": 0.3333333333333333,
+            "semantic": 0.7277320280604895,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_105852ae-8ce2-4085-9cbd-1276b4f8f771",
+            "subject": "Fictional LDN7 archive",
+            "predicate": "answered_from_supplied_evidence",
+            "lexical": 0.3333333333333333,
+            "semantic": 0.7197415335349752,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_36a62b9d-b757-48ed-8f92-7a65303eabbd",
+            "subject": "LDN7 Lantern",
+            "predicate": "uses",
+            "lexical": 0.2,
+            "semantic": 0.6601065905589272,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_5e3927a1-fc1d-4c52-bb58-30b0bb82d4de",
+            "subject": "LDN7 fictional archive fixture",
+            "predicate": "fixture_claims",
+            "lexical": 0.4,
+            "semantic": 0.5876218027989986,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_05b08881-05cc-48b4-a211-8ac0d9f22527",
+            "subject": "LDN7 Nola",
+            "predicate": "reviews",
+            "lexical": 0.4,
+            "semantic": 0.5434199367838671,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_875228bc-41be-4023-856b-5f0b4352a550",
+            "subject": "LDN7 Nola",
+            "predicate": "reviews",
+            "lexical": 0.4,
+            "semantic": 0.5245449170699605,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_b8ec8735-522f-4e9e-ab4b-bd293d821df5",
+            "subject": "Leda",
+            "predicate": "owns",
+            "lexical": 0.2,
+            "semantic": 0.5129594226901715,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_2d4241ab-1aea-41d4-a69e-e8e28bbd87d8",
+            "subject": "Nola",
+            "predicate": "owns",
+            "lexical": 0.2,
+            "semantic": 0.5053335284396043,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_a826fdb2-4310-40e3-8b39-387d212bbc63",
+            "subject": "LDN7 Nola",
+            "predicate": "owns",
+            "lexical": 0.2,
+            "semantic": 0.47691121527814406,
+            "roles": [
+              "user"
+            ]
+          }
+        ],
+        "context_sha256": "7fa348d026e49c410059e0e09e791656d02aff1a9d8d8f2ab187f0f09b606614",
+        "pending": 0,
+        "candidates": 155,
+        "context_messages": 0,
+        "semantic_status": "available",
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "service_ms": 103.93544099999986
+      },
+      "corrected": {
+        "tokens": 1199,
+        "ids": [
+          "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+          "memory_105852ae-8ce2-4085-9cbd-1276b4f8f771",
+          "memory_36a62b9d-b757-48ed-8f92-7a65303eabbd",
+          "memory_5e3927a1-fc1d-4c52-bb58-30b0bb82d4de",
+          "memory_05b08881-05cc-48b4-a211-8ac0d9f22527",
+          "memory_875228bc-41be-4023-856b-5f0b4352a550",
+          "memory_b8ec8735-522f-4e9e-ab4b-bd293d821df5",
+          "memory_2d4241ab-1aea-41d4-a69e-e8e28bbd87d8",
+          "memory_a826fdb2-4310-40e3-8b39-387d212bbc63"
+        ],
+        "memories": [
+          {
+            "id": "memory_274595ea-c981-419c-8da9-db7c6fe13e9b",
+            "subject": "Fictional LDN7 Lantern",
+            "predicate": "color",
+            "lexical": 0.3333333333333333,
+            "semantic": 0.7277320280604895,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_105852ae-8ce2-4085-9cbd-1276b4f8f771",
+            "subject": "Fictional LDN7 archive",
+            "predicate": "answered_from_supplied_evidence",
+            "lexical": 0.3333333333333333,
+            "semantic": 0.7197415335349752,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_36a62b9d-b757-48ed-8f92-7a65303eabbd",
+            "subject": "LDN7 Lantern",
+            "predicate": "uses",
+            "lexical": 0.2,
+            "semantic": 0.6601065905589272,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_5e3927a1-fc1d-4c52-bb58-30b0bb82d4de",
+            "subject": "LDN7 fictional archive fixture",
+            "predicate": "fixture_claims",
+            "lexical": 0.4,
+            "semantic": 0.5876218027989986,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_05b08881-05cc-48b4-a211-8ac0d9f22527",
+            "subject": "LDN7 Nola",
+            "predicate": "reviews",
+            "lexical": 0.4,
+            "semantic": 0.5434199367838671,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_875228bc-41be-4023-856b-5f0b4352a550",
+            "subject": "LDN7 Nola",
+            "predicate": "reviews",
+            "lexical": 0.4,
+            "semantic": 0.5245449170699605,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_b8ec8735-522f-4e9e-ab4b-bd293d821df5",
+            "subject": "Leda",
+            "predicate": "owns",
+            "lexical": 0.2,
+            "semantic": 0.5129594226901715,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_2d4241ab-1aea-41d4-a69e-e8e28bbd87d8",
+            "subject": "Nola",
+            "predicate": "owns",
+            "lexical": 0.2,
+            "semantic": 0.5053335284396043,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_a826fdb2-4310-40e3-8b39-387d212bbc63",
+            "subject": "LDN7 Nola",
+            "predicate": "owns",
+            "lexical": 0.2,
+            "semantic": 0.47691121527814406,
+            "roles": [
+              "user"
+            ]
+          }
+        ],
+        "context_sha256": "7fa348d026e49c410059e0e09e791656d02aff1a9d8d8f2ab187f0f09b606614",
+        "pending": 0,
+        "candidates": 155,
+        "context_messages": 0,
+        "semantic_status": "available",
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "service_ms": 67.97872700000016
+      }
+    },
+    {
+      "case": "QZX8-exact",
+      "recorded_at": "2026-11-07T14:10:28.517Z",
+      "original_query": "In the fictional QZX8 archive, who owns the Quasar kettle and what is its launch color? If no relevant memory is available, say you lack evidence. Only automatically supplied memory; no tools, browsing or saving memory.",
+      "baseline_focus": "QZX8: who owns the Quasar kettle and what is its launch color?",
+      "corrected_focus": "QZX8: who owns the Quasar kettle and what is its launch color?",
+      "baseline_process": false,
+      "corrected_process": false,
+      "baseline": {
+        "tokens": 0,
+        "ids": [],
+        "memories": [],
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "pending": 0,
+        "candidates": 145,
+        "context_messages": 0,
+        "semantic_status": "available",
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "service_ms": 47.837773999999854
+      },
+      "corrected": {
+        "tokens": 0,
+        "ids": [],
+        "memories": [],
+        "context_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "pending": 0,
+        "candidates": 145,
+        "context_messages": 0,
+        "semantic_status": "available",
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "service_ms": 50.53981900000008
+      }
+    },
+    {
+      "case": "response-history",
+      "recorded_at": "2026-11-07T14:10:28.517Z",
+      "original_query": "What did you previously answer about the fictional VES8 archive query?",
+      "baseline_focus": "What did you previously answer about the fictional VES8 archive query?",
+      "corrected_focus": "What did you previously answer about the fictional VES8 archive query?",
+      "baseline_process": true,
+      "corrected_process": true,
+      "baseline": {
+        "tokens": 1035,
+        "ids": [
+          "memory_95bbb08f-94cf-4b1f-99c6-7e0b99de7c36",
+          "memory_82368b12-fc76-40a8-a22b-9ed7989d281e",
+          "memory_4783e211-39f1-4bad-8638-e5e3646348a9",
+          "memory_362f99db-0862-4294-96b6-8cb38e1f83bf",
+          "memory_1106317e-3dbd-4def-a10a-2b89a2e71a39",
+          "memory_105852ae-8ce2-4085-9cbd-1276b4f8f771"
+        ],
+        "memories": [
+          {
+            "id": "memory_95bbb08f-94cf-4b1f-99c6-7e0b99de7c36",
+            "subject": "Fictional VES8 archive query",
+            "predicate": "answered_from_supplied_evidence",
+            "lexical": 0.8333333333333334,
+            "semantic": 0.585683182326579,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_82368b12-fc76-40a8-a22b-9ed7989d281e",
+            "subject": "Fictional VES8 archive query",
+            "predicate": "answered_from_available_context",
+            "lexical": 0.8333333333333334,
+            "semantic": 0.5960388449405385,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_4783e211-39f1-4bad-8638-e5e3646348a9",
+            "subject": "Fictional Lantern archive query",
+            "predicate": "answered_from_available_context",
+            "lexical": 0.6666666666666666,
+            "semantic": 0.4082705445430782,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_362f99db-0862-4294-96b6-8cb38e1f83bf",
+            "subject": "Fictional QZX8 archive query",
+            "predicate": "answered_from_available_context",
+            "lexical": 0.6666666666666666,
+            "semantic": 0.5557240179735251,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_1106317e-3dbd-4def-a10a-2b89a2e71a39",
+            "subject": "Fictional FEN9 archive",
+            "predicate": "answered_from_supplied_evidence",
+            "lexical": 0.5,
+            "semantic": 0.297415924463171,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_105852ae-8ce2-4085-9cbd-1276b4f8f771",
+            "subject": "Fictional LDN7 archive",
+            "predicate": "answered_from_supplied_evidence",
+            "lexical": 0.5,
+            "semantic": 0.27929399217900164,
+            "roles": [
+              "assistant"
+            ]
+          }
+        ],
+        "context_sha256": "addbeb5699eef09f9cdb41c1f0f604c16f60abba93068a60912233b7317e5f0c",
+        "pending": 0,
+        "candidates": 165,
+        "context_messages": 0,
+        "semantic_status": "available",
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "service_ms": 57.890906000000086
+      },
+      "corrected": {
+        "tokens": 1035,
+        "ids": [
+          "memory_95bbb08f-94cf-4b1f-99c6-7e0b99de7c36",
+          "memory_82368b12-fc76-40a8-a22b-9ed7989d281e",
+          "memory_4783e211-39f1-4bad-8638-e5e3646348a9",
+          "memory_362f99db-0862-4294-96b6-8cb38e1f83bf",
+          "memory_1106317e-3dbd-4def-a10a-2b89a2e71a39",
+          "memory_105852ae-8ce2-4085-9cbd-1276b4f8f771"
+        ],
+        "memories": [
+          {
+            "id": "memory_95bbb08f-94cf-4b1f-99c6-7e0b99de7c36",
+            "subject": "Fictional VES8 archive query",
+            "predicate": "answered_from_supplied_evidence",
+            "lexical": 0.8333333333333334,
+            "semantic": 0.585683182326579,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_82368b12-fc76-40a8-a22b-9ed7989d281e",
+            "subject": "Fictional VES8 archive query",
+            "predicate": "answered_from_available_context",
+            "lexical": 0.8333333333333334,
+            "semantic": 0.5960388449405385,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_4783e211-39f1-4bad-8638-e5e3646348a9",
+            "subject": "Fictional Lantern archive query",
+            "predicate": "answered_from_available_context",
+            "lexical": 0.6666666666666666,
+            "semantic": 0.4082705445430782,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_362f99db-0862-4294-96b6-8cb38e1f83bf",
+            "subject": "Fictional QZX8 archive query",
+            "predicate": "answered_from_available_context",
+            "lexical": 0.6666666666666666,
+            "semantic": 0.5557240179735251,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_1106317e-3dbd-4def-a10a-2b89a2e71a39",
+            "subject": "Fictional FEN9 archive",
+            "predicate": "answered_from_supplied_evidence",
+            "lexical": 0.5,
+            "semantic": 0.297415924463171,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_105852ae-8ce2-4085-9cbd-1276b4f8f771",
+            "subject": "Fictional LDN7 archive",
+            "predicate": "answered_from_supplied_evidence",
+            "lexical": 0.5,
+            "semantic": 0.27929399217900164,
+            "roles": [
+              "assistant"
+            ]
+          }
+        ],
+        "context_sha256": "addbeb5699eef09f9cdb41c1f0f604c16f60abba93068a60912233b7317e5f0c",
+        "pending": 0,
+        "candidates": 165,
+        "context_messages": 0,
+        "semantic_status": "available",
+        "model": "sentence-transformers/all-MiniLM-L6-v2",
+        "service_ms": 53.500953999999865
+      }
+    },
+    {
+      "case": "lexical-only-nonadjacent",
+      "recorded_at": "2026-11-07T14:10:28.517Z",
+      "original_query": "Lantern owner launch date",
+      "baseline_focus": "Lantern owner launch date",
+      "corrected_focus": "Lantern owner launch date",
+      "baseline_process": true,
+      "corrected_process": false,
+      "baseline": {
+        "tokens": 1187,
+        "ids": [
+          "memory_e05b640e-22e0-42f7-a75d-fb9eb4a3d075",
+          "memory_4783e211-39f1-4bad-8638-e5e3646348a9",
+          "memory_4ba9d283-a201-4c2d-af83-4bdc1bf20eb1",
+          "memory_a826fdb2-4310-40e3-8b39-387d212bbc63",
+          "memory_5e3927a1-fc1d-4c52-bb58-30b0bb82d4de",
+          "memory_7687dfaf-2a3e-4bc0-9115-a7eeec0ba65c"
+        ],
+        "memories": [
+          {
+            "id": "memory_e05b640e-22e0-42f7-a75d-fb9eb4a3d075",
+            "subject": "The Atlas source-ranking repair and owner outcome",
+            "predicate": "reported_status",
+            "lexical": 0.5,
+            "semantic": 0,
+            "roles": [
+              "inter_agent"
+            ]
+          },
+          {
+            "id": "memory_4783e211-39f1-4bad-8638-e5e3646348a9",
+            "subject": "Fictional Lantern archive query",
+            "predicate": "answered_from_available_context",
+            "lexical": 0.5,
+            "semantic": 0,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_4ba9d283-a201-4c2d-af83-4bdc1bf20eb1",
+            "subject": "Atlas integrated exercise t_3e1c1ed1",
+            "predicate": "probe_script_write_intent",
+            "lexical": 0.5,
+            "semantic": 0,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_a826fdb2-4310-40e3-8b39-387d212bbc63",
+            "subject": "LDN7 Nola",
+            "predicate": "owns",
+            "lexical": 0.5,
+            "semantic": 0,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_5e3927a1-fc1d-4c52-bb58-30b0bb82d4de",
+            "subject": "LDN7 fictional archive fixture",
+            "predicate": "fixture_claims",
+            "lexical": 0.5,
+            "semantic": 0,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_7687dfaf-2a3e-4bc0-9115-a7eeec0ba65c",
+            "subject": "Atlas integrated exercise t_3e1c1ed1",
+            "predicate": "final_observations_script_write_intent",
+            "lexical": 0.5,
+            "semantic": 0,
+            "roles": [
+              "assistant"
+            ]
+          }
+        ],
+        "context_sha256": "df3624084ac1c62d01fd1ca894513220e9b30e7ad66ad90d6dd8575926326d05",
+        "pending": 0,
+        "candidates": 96,
+        "context_messages": 0,
+        "semantic_status": "disabled",
+        "model": "disabled",
+        "service_ms": 39.606062000000065
+      },
+      "corrected": {
+        "tokens": 1153,
+        "ids": [
+          "memory_e05b640e-22e0-42f7-a75d-fb9eb4a3d075",
+          "memory_4ba9d283-a201-4c2d-af83-4bdc1bf20eb1",
+          "memory_a826fdb2-4310-40e3-8b39-387d212bbc63",
+          "memory_5e3927a1-fc1d-4c52-bb58-30b0bb82d4de",
+          "memory_cacb25c1-6022-481e-aa8e-6b2259f07c5a"
+        ],
+        "memories": [
+          {
+            "id": "memory_e05b640e-22e0-42f7-a75d-fb9eb4a3d075",
+            "subject": "The Atlas source-ranking repair and owner outcome",
+            "predicate": "reported_status",
+            "lexical": 0.5,
+            "semantic": 0,
+            "roles": [
+              "inter_agent"
+            ]
+          },
+          {
+            "id": "memory_4ba9d283-a201-4c2d-af83-4bdc1bf20eb1",
+            "subject": "Atlas integrated exercise t_3e1c1ed1",
+            "predicate": "probe_script_write_intent",
+            "lexical": 0.5,
+            "semantic": 0,
+            "roles": [
+              "assistant"
+            ]
+          },
+          {
+            "id": "memory_a826fdb2-4310-40e3-8b39-387d212bbc63",
+            "subject": "LDN7 Nola",
+            "predicate": "owns",
+            "lexical": 0.5,
+            "semantic": 0,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_5e3927a1-fc1d-4c52-bb58-30b0bb82d4de",
+            "subject": "LDN7 fictional archive fixture",
+            "predicate": "fixture_claims",
+            "lexical": 0.5,
+            "semantic": 0,
+            "roles": [
+              "user"
+            ]
+          },
+          {
+            "id": "memory_cacb25c1-6022-481e-aa8e-6b2259f07c5a",
+            "subject": "Lantern-Cobalt-573",
+            "predicate": "observed_synthetic_runtime_receipt",
+            "lexical": 0.5,
+            "semantic": 0,
+            "roles": [
+              "tool"
+            ]
+          }
+        ],
+        "context_sha256": "37ca92c74e96bc38bf3e566f469410dc0aa972e84ac07359b7062673db1d3a6f",
+        "pending": 0,
+        "candidates": 96,
+        "context_messages": 0,
+        "semantic_status": "disabled",
+        "model": "disabled",
+        "service_ms": 45.7421240000001
+      }
+    }
+  ]
+}

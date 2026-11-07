@@ -1,0 +1,74 @@
+{
+  "task": "t_f373a2cd",
+  "source_commit": "35c24a64c78d0eec4ce24841dc0f555e922a187e",
+  "generated_at": "2026-11-07T14:14:15.580531+00:00",
+  "source_only": true,
+  "file_sha256": {
+    "src/recall-query.ts": "dedcc79fcc57d79c20c95f0cabf2dc951fcbb12c9a7bbae41960b4ad78916ede",
+    "tests/recall-focus-repair.test.ts": "d5aea24c4315a8a91a2fb359eef8aa319780ebb657540ae23fbb83b1cdf5399c"
+  },
+  "checks": {
+    "exact_original_five_ids_reproduced": true,
+    "exact_original_context_hash_reproduced": true,
+    "exact_original_tokens_reproduced": true,
+    "corrected_pre_capture_zero": true,
+    "qzx8_remains_empty": true,
+    "response_history_denial_retained": true,
+    "ves8_original_fact_retained": true,
+    "fen9_all_original_facts_retained": true,
+    "ldn7_current_prior_correction_reporting_review_retained": true,
+    "zero_pending_transcript": true,
+    "case_counts_reconcile": true
+  },
+  "verification": {
+    "frozen_install": "pass",
+    "typecheck": "pass",
+    "full_tests": {
+      "tests": 118,
+      "failed": 0,
+      "assertions": 1024,
+      "files": 19
+    },
+    "full_tests_note": "Shared working tree includes in-progress sibling curation changes. This evidence covers unchanged helper bytes, not a frozen final sibling commit.",
+    "disk_http_cli_e2e": {
+      "run_at": "2026-11-07T14:11:22.388Z",
+      "result": "pass",
+      "checks": [
+        "CLI bootstrap writes exclusive mode-0600 generated credential without printing it",
+        "Server + CLI + REST ingest text and JSON and replay idempotently",
+        "SIGKILL + new server recovers both queued and expired leased work from real SQLite WAL",
+        "HTTP cross-workspace read/write/inference isolation and source provenance verified",
+        "CLI correction and historical recorded-time retrieval across durable source revisions",
+        "Forget erases all revision payload/assertions, removes unsupported facts, retains independent live support, honors context budget",
+        "Stopped-database backup restores into a new path with saved credential; runnable agent demo completes against restored server",
+        "Second graceful restart preserves repaired context; SQLite integrity_check=ok and direct erased-column verification"
+      ],
+      "duration_ms": 1818.12,
+      "storage": "real on-disk SQLite WAL",
+      "provider": "explicit assertions only; no natural-language claim",
+      "runtime": "1.4.4",
+      "platform": "linux"
+    },
+    "e2e_note": "Identical existing e2e script checks; copy relocates only imports, temporary DB directory and report destination into this evidence directory to preserve shared reports."
+  },
+  "readonly_evidence": {
+    "path": "READONLY-COMPARISON.json",
+    "sha256": "46c700a3ad9afcf2226d84b9c8cb227f52742c530c4a54928e24a4ce44802674",
+    "baseline_engine_sha256": "eade7b5ccc19adb751c364ea2e17767068507758bbffe5a1cca040806323014a",
+    "cases": 10,
+    "model": "sentence-transformers/all-MiniLM-L6-v2/384",
+    "receipt_writes_intercepted": 20,
+    "original_packet_hash": "f33c3a61c922b119ef2afaabdc9b6bd8b3d4573d754746790a08cdbf9ac6d4ae"
+  },
+  "remaining_concern": {
+    "owner": "t_d7c1e270",
+    "file": "src/memory.ts",
+    "summary": "Generic requested-predicate rescue admits two unrelated LDN7 review facts on newly focused FEN9-use; helper-only packet530\u2192776 tokens. Current useful intake/paraphrase remain530, pre-capture exact732\u21920.",
+    "ids": [
+      "memory_05b08881-05cc-48b4-a211-8ac0d9f22527",
+      "memory_875228bc-41be-4023-856b-5f0b4352a550"
+    ],
+    "recommended_integration": "Limit requested-predicate rescue to independently semantically admitted facts; retain same-entity rescue, semantic aliases and lexical fallback. Owning sibling decides integration and verifies its changed engine.",
+    "claim": "Not overall acceptance, clean graph reconciliation or runtime activation."
+  }
+}
