@@ -50,7 +50,7 @@ export function memoryGraph(memory: Memory, actor: Actor, body: any) {
       // A derived assertion whose lineage is no longer effective is not a
       // historical truth merely because its own validity interval is open.
       const status = invalidation ? (invalidation.type === "correction" ? "corrected" : invalidation.type === 'superseded' ? 'superseded' : "retracted") : end && end <= valid_at ? "historical" : "inactive_lineage";
-      visible.push({ ...m, valid_to: end, supports, status, historical_start_unknown:status==='historical'&&end<=m.valid_from });
+      visible.push({ ...m, valid_to: end, supports, status, historical_start_unknown:status==='historical'&&(end<=m.valid_from||changes.some(c=>c.type==='start_unknown')) });
     }
     if (visible.length > limit) break;
   }

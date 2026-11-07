@@ -2,7 +2,7 @@ import {test,expect} from 'bun:test';
 import {Store,now} from '../src/store.ts';
 import {Memory,MemoryWorker,memoryTokens} from '../src/memory.ts';
 import {memoryGraph} from '../src/memory-graph.ts';
-import {validateReconciliations,normalizeReconciliation} from '../src/memory-reconciliation.ts';
+import {validateReconciliations,normalizeReconciliation,mergeReconciliations} from '../src/memory-reconciliation.ts';
 import {resolvedIdentity,candidateIdentities} from '../src/memory-identity.ts';
 import type {Decision} from '../src/inference.ts';
 import {mkdtempSync,rmSync} from 'node:fs';import {tmpdir} from 'node:os';import {join} from 'node:path';
@@ -39,8 +39,8 @@ test('never-true correction targets all stale aliases/wordings, not the already-
  const other=await f.seed('o',{subject:'OTHER Lantern',object:'cobalt'});
  const owner=await f.seed('owner',{subject:'LDN7 Nola',predicate:'owns',object:'LDN7 Lantern',object_entity:true});
  await f.finish('correction',[f.decision('correction',{valid_from:mar})],i=>{
-  expect(i.candidates.map((c:any)=>c.id)).toContain(a.id);expect(i.candidates.map((c:any)=>c.id)).toContain(b.id);
-  return [{index:0,duplicate_ids:[],change:{type:'correction',target_ids:[a.id,b.id]}}];
+  const targets=[a.id,b.id].filter(id=>i.candidates.some((c:any)=>c.id===id));
+  return [{index:0,duplicate_ids:[],...(targets.length?{change:{type:'correction',target_ids:targets}}:{})}];
  });
  const ids=f.graph().edges.map(e=>e.id);expect(ids).not.toContain(a.id);expect(ids).not.toContain(b.id);expect(ids).toContain(narrative.id);expect(ids).toContain(other.id);expect(ids).toContain(owner.id);
  expect(f.graph(true).edges.find(e=>e.id===a.id)?.status).toBe('corrected');expect(f.s.one('SELECT COUNT(*) n FROM memory_reconciliations').n).toBe(1);
@@ -108,9 +108,8 @@ test('focused relation windows retain actual ownership targets amid duplicate lo
  const correct=await f.seed('correct',{subject:'LDN7 Leda',predicate:'owns',object:'LDN7 Lantern',valid_from:feb,object_entity:true},feb);
  for(let n=0;n<24;n++)await f.seed('noise'+n,{subject:'LDN7 fictional archive '+n,predicate:'qualification',object:'LDN7 Leda and Lantern are fictional scenario labels. This source occurrence narrative is not an ownership assertion.'});
  await f.finish('window',[f.decision('window',{subject:'LDN7 Leda',predicate:'owns',object:'LDN7 Lantern',object_entity:true,valid_from:feb})],i=>{
-  expect(i.candidates.some((c:any)=>c.id===old.id)).toBe(true);expect(i.candidates.some((c:any)=>c.id===correct.id)).toBe(true);
   expect(i.sources.length).toBeLessThanOrEqual(i.candidates.length*2);
-  return [{index:0,duplicate_ids:[correct.id],change:{type:'state_change',target_ids:[old.id]}}];
+  return [{index:0,duplicate_ids:i.candidates.some((c:any)=>c.id===correct.id)?[correct.id]:[],...(i.candidates.some((c:any)=>c.id===old.id)?{change:{type:'state_change',target_ids:[old.id]}}:{})}];
  });
  expect(f.graph().edges.some(e=>e.id===old.id)).toBe(false);expect(f.graph(true).edges.find(e=>e.id===old.id)?.status).toBe('historical');
  }finally{f.s.close()}
@@ -188,5 +187,55 @@ test('repeated alias-format reconciliation preserves a positive prior state inst
  expect(f.s.one("SELECT COUNT(*) n FROM memory_changes WHERE target_id=? AND type='restored'",old.id).n).toBe(1);
  expect(memoryGraph(f.m,f.a,{agent_id:'builder',include_history:true,valid_at:mar,recorded_at:before}).edges.find(e=>e.id===old.id)?.status).toBe('superseded');
  const r=await f.m.recall(f.a,{agent_id:'builder',thread_id:'fresh',query:'LDN7 Nola owns Lantern launch previous',valid_at:mar,token_budget:4000});expect(r.memories.some(m=>m.id===old.id&&m.historical)).toBe(true);
+ }finally{f.s.close()}
+});
+test('all retained relation candidates drain through bounded windows; duplicate correct replacement does not hide stale targets',async()=>{
+ const f=fixture();try{
+ const ids:string[]=[];for(let n=0;n<13;n++)ids.push((await f.seed('claim'+n,{object:'old-value-'+n})).id);
+ const correct=await f.seed('correct-value',{object:'amber',valid_from:mar},mar),seen=new Set<string>();
+ await f.finish('complete',[f.decision('complete',{valid_from:mar})],i=>{
+  expect(i.candidates.length).toBeLessThanOrEqual(4);for(const c of i.candidates)seen.add(c.id);
+  const targets=i.candidates.filter((c:any)=>ids.includes(c.id)).map((c:any)=>c.id);
+  return [{index:0,duplicate_ids:i.candidates.some((c:any)=>c.id===correct.id)?[correct.id]:[],...(targets.length?{change:{type:'correction',target_ids:targets}}:{})}];
+ });
+ for(const id of [...ids,correct.id])expect(seen.has(id)).toBe(true);
+ for(const id of ids)expect(f.graph(true).edges.find(e=>e.id===id)?.status).toBe('corrected');
+ expect(f.graph().edges.some(e=>e.id===correct.id)).toBe(true);expect(f.calls.every(i=>memoryTokens(JSON.stringify(i))<=4096)).toBe(true);
+ }finally{f.s.close()}
+});
+test('window merge preserves independent correction and formerly-true closure, including omitted versus explicit claim aspect',()=>{
+ const r=mergeReconciliations([{index:0,duplicate_ids:['correct'],change:{type:'correction',target_ids:['never']}},{index:0,duplicate_ids:[],change:{type:'state_change',target_ids:['prior']}},{index:0,duplicate_ids:[],change:{type:'correction',aspect:'claim',target_ids:['other-never']}}],0);
+ expect(r.changes?.map(c=>c.type)).toEqual(['correction','state_change','correction']);expect(r.changes?.flatMap(c=>c.target_ids)).toEqual(['never','prior','other-never']);
+});
+test('recorded live semantic equivalence propagates handover to typed original group; representation retirement alone is not equivalence',async()=>{
+ const f=fixture();try{
+ const old=await f.seed('raw-owner',{subject:'LDN7 Nola',predicate:'owns',object:'LDN7 Lantern launch; archive claim only',object_entity:false});
+ await f.finish('typed-normalization',[f.decision('typed-normalization',{subject:'LDN7 Nola',predicate:'owns',object:'LDN7 Lantern',object_entity:true})],i=>[{index:0,duplicate_ids:i.candidates.some((c:any)=>c.id===old.id)?[old.id]:[]}]);
+ const typed=f.s.one("SELECT id FROM memories WHERE subject='LDN7 Nola' AND object='LDN7 Lantern'").id;
+ await f.finish('group-handover',[f.decision('group-handover',{subject:'LDN7 Leda',predicate:'owns',object:'LDN7 Lantern',object_entity:true,valid_from:feb})],i=>[{index:0,duplicate_ids:[],...(i.candidates.some((c:any)=>c.id===old.id)?{change:{type:'state_change',target_ids:[old.id]}}:{})}]);
+ expect(f.graph().edges.some(e=>e.id===typed)).toBe(false);expect(f.graph(true).edges.find(e=>e.id===typed)?.status).toBe('historical');expect(f.graph(true).edges.find(e=>e.id===typed)?.valid_to).toBe(feb);
+ const all=f.m.candidates(f.a.workspace_id,['agent:builder'],'LDN7 Lantern owns',24);
+ expect(f.w.claimGroupTargets([old.id],all)).toContain(typed);
+ f.event('typed-normalization','',mar,{revision:2,operation:'delete'});
+ expect(f.w.claimGroupTargets([old.id],f.m.candidates(f.a.workspace_id,['agent:builder'],'LDN7 Lantern owns',24))).not.toContain(typed);
+ }finally{f.s.close()}
+});
+test('source-backed unknown historical start preserves raw bounds and recorded history without endorsing legacy precision',async()=>{
+ const f=fixture();try{
+ const old=await f.seed('legacy-history',{subject:'Nola',predicate:'owns',object:'Lantern',valid_from:jan,valid_to:feb},feb),before=now();await Bun.sleep(2);
+ await f.finish('precision-source',[f.decision('precision-source',{subject:'Leda',predicate:'owns',object:'Lantern',valid_from:feb})],i=>[{index:0,duplicate_ids:[],unknown_start_ids:i.candidates.some((c:any)=>c.id===old.id)?[old.id]:[]}]);
+ expect(f.s.one('SELECT valid_from,valid_to FROM memories WHERE id=?',old.id)).toEqual({valid_from:jan,valid_to:feb});expect(f.graph(true).edges.find(e=>e.id===old.id)?.historical_start_unknown).toBe(true);
+ expect(memoryGraph(f.m,f.a,{agent_id:'builder',include_history:true,valid_at:mar,recorded_at:before}).edges.find(e=>e.id===old.id)?.historical_start_unknown).not.toBe(true);
+ expect((await f.m.recall(f.a,{agent_id:'builder',thread_id:'fresh',query:'Nola owns Lantern before',valid_at:mar})).context).toContain('unknown start');
+ f.set((i:any)=>[f.decision(i.event.event_id)],(i:any)=>[{index:0,duplicate_ids:[],unknown_start_ids:i.candidates.some((c:any)=>c.id===old.id)?[old.id]:[]}]);
+ const denied=f.event('assistant-precision','Assistant recap',mar,{role:'assistant',author_id:'agent:builder'});await f.w.runOnce();expect(f.s.one('SELECT error_code FROM memory_jobs WHERE id=?',denied.job_id).error_code).toBe('curator_target_violation');
+ }finally{f.s.close()}
+});
+test('later truth disposition reaches original semantic duplicate as well as newly normalized representation',async()=>{
+ const f=fixture();try{
+ const old=await f.seed('old-wording',{object:'Cobalt according to the archive only'}),later=await f.seed('later-truth',{object:'amber',valid_from:mar},mar);
+ f.set((i:any)=>[f.decision(i.event.event_id,{object:'cobalt'})],(i:any)=>[{index:0,duplicate_ids:i.candidates.some((c:any)=>c.id===old.id)?[old.id]:[],...(i.candidates.some((c:any)=>c.id===later.id)?{superseded_by:{id:later.id,type:'correction',effective_at:mar}}:{})}]);
+ const j=f.m.reprocess(f.a,'builder',old.r.job_id,1,'normalized_original_truth');await f.w.runOnce();expect(f.s.one('SELECT status FROM memory_jobs WHERE id=?',j.job_id).status).toBe('succeeded');
+ expect(f.s.one("SELECT type FROM memory_changes WHERE target_id=? AND type='correction'",old.id)?.type).toBe('correction');expect(f.graph().edges.some(e=>e.id===old.id)).toBe(false);
  }finally{f.s.close()}
 });

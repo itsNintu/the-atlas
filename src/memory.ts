@@ -14,11 +14,11 @@ const tokenEncoding =
   setting("TOKEN_ENCODING") === "cl100k_base" ? "cl100k_base" : "o200k_base";
 const tokenizer = get_encoding(tokenEncoding);
 export const memoryTokens = (s: string) => tokenizer.encode(s, [], []).length;
-export const memoryPromptHash = (focused=true) => hash(focused ? canonical({extract:EXTRACT_PROMPT,identity:IDENTITY_PROMPT,reconcile:RECONCILE_PROMPT,task_schema:'atlas-reconciliation-v1'}) : CURATE_PROMPT);
+export const memoryPromptHash = (focused=true) => hash(focused ? canonical({extract:EXTRACT_PROMPT,identity:IDENTITY_PROMPT,reconcile:RECONCILE_PROMPT,task_schema:'atlas-reconciliation-v2'}) : CURATE_PROMPT);
 import { cosine } from "./provider.ts";
 import { indexedCandidates, queryTerms } from "./memory-index.ts";
 import { claimMemoryJob } from "./memory-scheduler.ts";
-import { EXTRACT_PROMPT, RECONCILE_PROMPT, validateReconciliations, normalizeReconciliation, type Reconciliation } from './memory-reconciliation.ts';
+import { EXTRACT_PROMPT, RECONCILE_PROMPT, validateReconciliations, normalizeReconciliation, mergeReconciliations, type Reconciliation } from './memory-reconciliation.ts';
 import { IDENTITY_PROMPT, identityResponseContract, resolvedIdentity, candidateIdentities } from './memory-identity.ts';
 import { recallFocus, needsRecallContext, asksAboutRecallProcess, isContextAvailabilityNote } from "./recall-query.ts";
 
@@ -652,6 +652,7 @@ export class Memory {
     return {
       ...m,
       valid_to: end,
+      ...(changes.some(c=>c.type==='start_unknown')?{historical_start_unknown:true}:{}),
       changes: changes.map((c) => ({
         type: c.type,
         effective_at: c.effective_at,
@@ -755,10 +756,17 @@ export class Memory {
     // Ordinary partial keyword coverage remains an independent admission path,
     // including longer notes with weak, absent or incompatible embeddings.
     const matches = (hay:string[], t:string) => hay.some(h => h === t || (t.length > 3 && h.startsWith(t)));
+    // Atomic relations answer individual clauses, not every word of a multi-
+    // question paragraph. Preserve ordinary whole-query admission; a facet can
+    // additionally admit only with independent subject/object grounding.
+    const facetContext=focus.match(/^(.*?)(?=\b(?:who|whom|what|when|which|how)\b)/iu)?.[1]??'';
+    const facets=focus.split(/[?!;]+|,\s*(?:and\s+)?(?=(?:who|whom|what|when|which|how)\b)|\s+and\s+(?=(?:who|whom|what|when|which|how|does|did|is|was|has|had)\b)/iu).map(s=>queryTerms(`${facetContext} ${s}`)).filter(t=>t.length);
     const ranked = rows.map(m => {
       const hay = words.get(m.id)!;
       const coverage = ts.length ? ts.filter(t => matches(hay,t)).length / ts.length : 0;
-      const lexical = coverage;
+      const fields=queryTerms(`${m.subject} ${m.object}`);
+      const facetCoverage=Math.max(0,...facets.map(ft=>ft.filter(t=>matches(fields,t)).length/ft.length>=0.34 ? ft.filter(t=>matches(hay,t)).length/ft.length : 0));
+      const lexical = Math.max(coverage,facetCoverage);
       const semantic = qvector && m.embedding_model === qmodel && m.embedding_json
         ? Math.max(0, cosine(qvector, parse(m.embedding_json))) : 0;
       return { ...m, lexical, semantic, direct: Math.max(lexical, semantic) };
@@ -782,7 +790,10 @@ export class Memory {
       const topic = anchors.length && anchored(m) ? 0.12 : 0;
       m.score = Math.max(weights.relevance * m.lexical, weights.semantic * m.semantic) + weights.importance * m.importance + weights.recency * Math.pow(0.5, age / halfLife) + weights.usefulness * Math.log1p(m.use_count) + proximity + phrase + topic;
     }
-    ranked.sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
+    const requestedPredicate=(m:any)=>{const ps=queryTerms(m.predicate.replaceAll('_',' '));return ps.length>0&&ps.every(p=>ts.some(t=>matches([p],t)));};
+    // Pack requested atomic relationships before broad recap/narrative matches.
+    // This is ranking after ordinary admission, not an author or name gate.
+    ranked.sort((a, b) => Number(requestedPredicate(b))-Number(requestedPredicate(a)) || b.score - a.score || a.id.localeCompare(b.id));
     const strongest = Math.max(0, ...ranked.map(m=>m.direct));
     const leadingEntities = new Set(ranked.filter(m => m.direct >= strongest * 0.8).map(m => `${m.scope}\n${m.subject_id}`));
     // Query-relative relevance removes weaker same-project matches; importance
@@ -863,7 +874,7 @@ export class Memory {
         index: "fts5+random-hyperplane-lsh-v1", candidates_examined: rows.length, candidate_limit_per_index: 96,
         embedding_ms, service_ms: performance.now() - started, context_messages_used: snippets.length,
         semantic_min: semanticMin, weights, fading: "salience only; dormant truth remains eligible",
-        specificity: { topic_identifiers: anchors, admission: 'unchanged lexical or configured semantic threshold; topic hints rank only',
+        specificity: { topic_identifiers: anchors, admission: 'whole-query or independently grounded facet lexical; configured semantic threshold unchanged; topic hints rank only',
           source_time_focus: Number.isFinite(queryTime) ? new Date(queryTime).toISOString() : null,
           source_time_weight: 0.15, predicate_phrase_weight: 0.1, topic_match_weight: 0.12 },
       },
@@ -1145,7 +1156,8 @@ export class MemoryWorker {
         if (reconciled) this.reconciliationCurrent(reconciled.candidates);
         nonempty.forEach((d, i) => {
           const disposition = reconciled?.items[i];
-          const changed = disposition?.change ? {...d,change:disposition.change} : d;
+          const changes=disposition?.changes??(disposition?.change?[disposition.change]:[]);
+          const changed = changes.length ? {...d,change:changes[0]} : d;
           const memoryId = this.apply(
             { ...e, content: input.event.content },
             changed,
@@ -1153,6 +1165,7 @@ export class MemoryWorker {
             embedding.model,
             this.memory.authorize(a, e.agent_id, "read"),
           );
+          for(const change of changes.slice(1))this.apply({...e,content:input.event.content},{...d,change},embedding.vectors[i],embedding.model,this.memory.authorize(a,e.agent_id,'read'));
           if (disposition) this.applyReconciliation(j,e,memoryId,disposition,reconciled!.candidates);
         });
         this.store.run("INSERT INTO memory_curation_metrics VALUES (?,?,?,?,?,?,?,?,?,?,?)", j.id, e.id, offset, end, inputTokens, Buffer.byteLength(JSON.stringify(input)), input.candidates.length, input.recent_events.length, nonempty.length, performance.now() - started, now());
@@ -1200,6 +1213,24 @@ export class MemoryWorker {
         fail(409,'curation_context_changed','Reconciliation evidence changed',true);
     }
   }
+  claimGroupTargets(targets:string[],candidates:any[]) {
+    // Only explicit, live semantic-duplicate audit is equivalence proof.
+    // Generic superseded (which can decompose a compound) is NOT equivalence.
+    const byId=new Map(candidates.map(c=>[c.id,c])),links=new Map<string,Set<string>>();
+    if(!byId.size)return targets;
+    const rows=this.store.all(`SELECT r.memory_id,r.disposition_json,e.event_id,e.client_id,e.revision FROM memory_reconciliations r JOIN memory_events e ON e.id=r.event_pk JOIN memory_heads h ON h.event_pk=e.id WHERE r.memory_id IN (${[...byId].map(()=>'?').join(',')})`,...[...byId.keys()]);
+    for(const row of rows){
+      const c=byId.get(row.memory_id)!;
+      if(!c.supports.some((s:any)=>s.event_id===row.event_id&&s.client_id===row.client_id&&s.revision===row.revision))continue;
+      for(const other of parse(row.disposition_json,{}).duplicate_ids??[]){
+        if(!byId.has(other)||byId.get(other)!.scope!==c.scope)continue;
+        for(const [a,b] of [[c.id,other],[other,c.id]]){const edges=links.get(a)??new Set<string>();edges.add(b);links.set(a,edges);}
+      }
+    }
+    const result=new Set(targets),queue=[...targets];
+    for(const target of queue)for(const other of links.get(target)??[])if(!result.has(other)){result.add(other);queue.push(other);}
+    return [...result];
+  }
   async reconcileFragment(e: any, ds: Decision[], prior: any[], event: any, recent: any[], budget: number, live: ()=>boolean,readable:string[]) {
     const items: Reconciliation[] = [], snapshots = new Map<string,any>();
     for (let index=0;index<ds.length;index++) {
@@ -1210,12 +1241,17 @@ export class MemoryWorker {
       const pool = readable.includes(d.scope!) ? [...prior,...this.memory.candidates(e.workspace_id,[d.scope!],`${d.subject} ${d.predicate} ${d.object}`,24,relationRank),...this.memory.candidates(e.workspace_id,[d.scope!],event.content,24,relationRank)] : [];
       const unique=[...new Map(pool.filter(c=>c.scope===d.scope).map(c=>[c.id,c])).values()];
       unique.sort((a,b)=>relationRank(b)-relationRank(a)||a.id.localeCompare(b.id));
+      const remaining=unique.slice(),batches:Reconciliation[]=[];
+      do {
+      // Drain bounded indexed evidence windows. Packing can defer candidates,
+      // never silently discard a retained original or normalized representation.
+      const window=remaining.slice(0,4);
       const sources=new Map<string,any>();
-      const input:any={schema_version:1,task_schema:'atlas-reconciliation-v1',phase:'reconcile',system_prompt:RECONCILE_PROMPT,event,recent_events:recent,
-        response_contract:{decisions:[],item_indices:[0],duplicate_ids:'same truth AND identical valid bounds only',change:'incoming replaces earlier truth; not an observation-time/default-bound difference',superseded_by:'actual later original replacement only; effective_at from its source'},
-        incoming:[d],source_relations:ds.filter(x=>x.scope===d.scope).map(x=>({subject:x.subject,predicate:x.predicate,object:x.object,valid_from:x.valid_from,valid_to:x.valid_to})),candidates:unique.slice(0,12).map(c=>({id:c.id,scope:c.scope,subject:c.subject,predicate:c.predicate,object:c.object,kind:c.kind,valid_from:c.valid_from,valid_to:c.valid_to,changes:c.changes,
+      const input:any={schema_version:1,task_schema:'atlas-reconciliation-v2',phase:'reconcile',system_prompt:RECONCILE_PROMPT,event,recent_events:recent,
+        response_contract:{decisions:[],item_indices:[0],assessments:'REQUIRED exactly one {id,disposition} per supplied candidate; disposition relative to incoming, not another candidate; effective_at only for later_*',dispositions:['duplicate','state_change','correction','retraction','conflict','superseded','later_state_change','later_correction','later_retraction','unaffected'],start_basis:'For historical candidates, assess explicit_source|event_default|unknown from original support; owned through a date supplies no historical start'},
+        incoming:[d],source_relations:ds.filter(x=>x.scope===d.scope).map(x=>({subject:x.subject,predicate:x.predicate,object:x.object,valid_from:x.valid_from,valid_to:x.valid_to})),candidates:window.map(c=>({id:c.id,scope:c.scope,subject:c.subject,predicate:c.predicate,object:c.object,kind:c.kind,valid_from:c.valid_from,valid_to:c.valid_to,changes:c.changes,
           sources:c.supports.slice(0,2).map((s:any)=>{const key=`${s.client_id}:${s.event_id}@${s.revision}`;sources.set(key,{key,event_id:s.event_id,role:s.role,author_id:s.author_id,occurred_at:s.occurred_at,excerpt:s.excerpt?.slice(0,600)});return key;})})),sources:[...sources.values()]};
-      const trimSources=()=>{const keys=new Set(input.candidates.flatMap((c:any)=>c.sources));input.sources=input.sources.filter((s:any)=>keys.has(s.key));};
+      const trimSources=()=>{const ids=new Set(input.candidates.map((c:any)=>c.id));const keys=new Set(input.candidates.flatMap((c:any)=>c.sources));input.sources=input.sources.filter((s:any)=>keys.has(s.key));if(input.candidate_identities)input.candidate_identities=input.candidate_identities.filter((b:any)=>ids.has(b.id));};
       const identityInput=()=>({...input,task_schema:'atlas-identity-v1',phase:'identity',system_prompt:IDENTITY_PROMPT,response_contract:identityResponseContract(d)});
       // Pack the actual larger phase, not an assumption about prompt lengths.
       const phaseTokens=async()=>Math.max(await budgetTokens(JSON.stringify(input)),this.inference.resolveEntities?await budgetTokens(JSON.stringify(identityInput())):0);
@@ -1249,19 +1285,32 @@ export class MemoryWorker {
       if(!live())fail(409,'curation_context_changed','Source changed',true);
       this.reconciliationCurrent(included);
       const allowed=new Map(included.map(c=>[c.id,c]));
-      for(const target of [...result.duplicate_ids,...(result.superseded_ids??[]),...(result.change?.target_ids??[]),...(result.superseded_by?[result.superseded_by.id]:[])])
+      for(const target of [...result.duplicate_ids,...(result.superseded_ids??[]),...(result.change?.target_ids??[]),...(result.unknown_start_ids??[]),...(result.changes??[]).flatMap(c=>c.target_ids),...(result.later_replacements??[]).map(c=>c.id),...(result.superseded_by?[result.superseded_by.id]:[])])
         if(!allowed.has(target))fail(503,'curator_target_violation','Reconciliation target must be supplied same-scope evidence',true);
+      for(const target of result.unknown_start_ids??[])
+        if(e.role!=='user'&&!allowed.get(target)!.supports.some((s:any)=>s.event_id===e.event_id&&s.client_id===e.client_id))fail(503,'curator_target_violation','Historical precision needs original source authority',true);
       for(const target of result.superseded_ids??[])
         if(!completeRelations||!allowed.get(target)!.supports.some((s:any)=>s.event_id===e.event_id&&s.client_id===e.client_id))fail(503,'curator_target_violation','Representation refinement needs complete original source coverage',true);
-      if(result.change)this.validate([{...d,change:result.change}],e,[d.scope!],included);
-      if(result.superseded_by){
-        const t=allowed.get(result.superseded_by.id)!;
+      for(const change of [...(result.change?[result.change]:[]),...(result.changes??[])])this.validate([{...d,change}],e,[d.scope!],included);
+      for(const replacement of [...(result.superseded_by?[result.superseded_by]:[]),...(result.later_replacements??[])]){
+        const t=allowed.get(replacement.id)!;
         // Later source authority cannot be manufactured from an assistant recap.
         if(t.derived || !t.supports.some((s:any)=>s.occurred_at>e.occurred_at))
           fail(503,'curator_time_violation','Later replacement needs supported later original evidence',true);
       }
       for(const c of included)snapshots.set(c.id,c);
-      items.push({...result,index,identity_aliases:d.entity_aliases,candidate_identities:input.candidate_identities});
+      if(window.length&&!included.length)fail(503,'curation_budget_too_small','One retained candidate must fit reconciliation',false);
+      batches.push({...result,index,identity_aliases:d.entity_aliases,candidate_identities:input.candidate_identities});
+      for(const c of included)remaining.splice(remaining.findIndex(x=>x.id===c.id),1);
+      } while(remaining.length);
+      const merged=mergeReconciliations(batches,index),sameScope=[...snapshots.values()].filter(c=>c.scope===d.scope);
+      for(const change of merged.changes??[]){
+        change.target_ids=this.claimGroupTargets(change.target_ids,sameScope);
+        // Equivalence expands only supplied, source-fenced IDs. Original strict
+        // correction/time/lineage validation still applies to every group member.
+        this.validate([{...d,change}],e,[d.scope!],sameScope);
+      }
+      items.push(merged);
     }
     return {items,candidates:[...snapshots.values()]};
   }
@@ -1293,10 +1342,14 @@ export class MemoryWorker {
       add(e.id,duplicate,memoryId,'superseded',e.occurred_at);
     }
     for(const target of r.superseded_ids??[])add(e.id,target,memoryId,'superseded',e.occurred_at);
-    if(r.superseded_by){
-      const later=candidates.find(c=>c.id===r.superseded_by!.id);
+    for(const target of r.unknown_start_ids??[])add(e.id,target,null,'start_unknown',e.occurred_at);
+    for(const replacement of r.later_replacements??(r.superseded_by?[r.superseded_by]:[])){
+      const later=candidates.find(c=>c.id===replacement.id);
       const source=this.store.one(`SELECT e.id FROM memory_supports s JOIN memory_events e ON e.id=s.event_pk WHERE s.memory_id=? AND e.occurred_at>? ORDER BY e.occurred_at LIMIT 1`,later.id,e.occurred_at);
-      add(source.id,memoryId,later.id,r.superseded_by.type,r.superseded_by.effective_at);
+      // A later truth disposition applies to every model-selected equivalent
+      // old representation, not only the freshly normalized fingerprint.
+      for(const target of new Set([memoryId,...r.duplicate_ids]))
+        add(source.id,target,later.id,replacement.type,replacement.effective_at);
     }
     // Re-selecting an exact fingerprint chooses this representation again.
     // Format supersession must not form cycles that hide every true prior state.

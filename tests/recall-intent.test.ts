@@ -87,3 +87,13 @@ test('requested predicate alone cannot rescue another archive; independent seman
  const r=await f.recall(query);for(const id of [maintenance,reporting,review])expect(r.memories.map(m=>m.id)).toContain(id);expect(r.memories.map(m=>m.id)).not.toContain(unrelated);
  f.m.inference.embed=async()=>({vectors:[],model:'disabled'});expect((await f.recall(query)).memories.map(m=>m.id)).toContain(review);f.s.close();
 });
+
+test('lexical multifacet admission retains direct reporting without assistant recaps or literal scenario-code prerequisite',async()=>{
+ const f=fixture();f.m.inference.embed=async()=>({vectors:[],model:'disabled'});
+ const report=f.seed('Mira','reports_to','Nola',0),owner=f.seed('Leda','owns','Lantern',0),color=f.seed('Lantern','color','amber',0);
+ const other=f.seed('Other person','reports_to','Another supervisor',0);
+ for(const q of ['Who owns Lantern now and what is its color? Who does Mira report to?', 'Who does Mira report to? Who owns Lantern now and what is its color?']){
+  const r=await f.recall(q);expect(r.memories.map(m=>m.id)).toContain(report);expect(r.memories.map(m=>m.id)).not.toContain(other);expect(r.memories.find(m=>m.id===report)?.supports[0].role).toBe('user');
+ }
+ f.s.close();
+});

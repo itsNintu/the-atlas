@@ -2,7 +2,7 @@ import {test,expect} from 'bun:test';
 import {Store,now} from '../src/store.ts';
 import {Memory,MemoryWorker,memoryTokens} from '../src/memory.ts';
 import {candidateIdentities} from '../src/memory-identity.ts';
-import {validateReconciliations} from '../src/memory-reconciliation.ts';
+import {validateReconciliations,validateCandidateAssessments} from '../src/memory-reconciliation.ts';
 const t='2026-11-07T13:41:56.549Z';
 const d:any={kind:'episode',scope:'agent:builder',subject:'FEN9',predicate:'qualification',object:'Fictional archive only; not Alex or real business.',object_entity:false,valid_from:t,valid_to:null,importance:.7,confidence:1,evidence_event_ids:['fen9']};
 test('native literal qualification identity receives an exact response contract, not an invitation to rewrite candidate literals',async()=>{
@@ -32,4 +32,17 @@ test('same-source observation defaults cannot reverse time; real earlier support
  const prior={id:'prior',scope:d.scope,subject:'LDN7 Nola',predicate:'owns',object:'LDN7 Lantern',valid_from:t,supports:[{event_id:'same-original',occurred_at:t}]};
  expect(()=>w.validate([decision],e,[d.scope],[prior])).toThrow('State reversal must follow target start');
  expect(()=>w.validate([decision],e,[d.scope],[{...prior,supports:[{event_id:'earlier-original',occurred_at:'2026-11-06T13:41:56.549Z'}]}])).not.toThrow();
+});
+
+test('directional native schema compiles duplicate replacement and separate old truth without ambiguous target ownership',()=>{
+ const r=validateCandidateAssessments({decisions:[],assessments:[{id:'current',disposition:'duplicate'},{id:'prior',disposition:'state_change'},{id:'never',disposition:'correction'},{id:'irrelevant',disposition:'unaffected'}]},['current','prior','never','irrelevant'])[0];
+ expect(r.duplicate_ids).toEqual(['current']);expect(r.changes?.map(c=>c.type)).toEqual(['state_change','correction']);expect(r.unaffected_ids).toEqual(['irrelevant']);
+ for(const assessments of [[{id:'current',disposition:'duplicate'}],[{id:'current',disposition:'unaffected'},{id:'current',disposition:'correction'}],[{id:'current',disposition:'invented'},{id:'prior',disposition:'unaffected'}],[{id:'current',disposition:'later_state_change'},{id:'prior',disposition:'unaffected'}]])expect(()=>validateCandidateAssessments({assessments},['current','prior'])).toThrow();
+});
+test('native exhaustive candidate contract rejects duplicate-only omissions and preserves mixed truth dispositions',()=>{
+ const raw={items:[{index:0,duplicate_ids:['correct'],unaffected_ids:[],change:{type:'correction',target_ids:['stale']}}]};
+ expect(()=>validateReconciliations(raw,1,['correct','stale'])).not.toThrow();
+ expect(()=>validateReconciliations({items:[{index:0,duplicate_ids:['correct'],unaffected_ids:[]}]},1,['correct','stale'])).toThrow('Every supplied candidate');
+ expect(()=>validateReconciliations({items:[{index:0,duplicate_ids:['correct'],unaffected_ids:['correct','stale']}]},1,['correct','stale'])).toThrow();
+ expect(()=>validateReconciliations({items:[{index:0,duplicate_ids:['invented'],unaffected_ids:['stale']}]},1,['correct','stale'])).toThrow();
 });

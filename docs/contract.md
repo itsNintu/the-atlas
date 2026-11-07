@@ -126,6 +126,11 @@ REST endpoints/envelopes and original Decision fields remain compatible. Decisio
 target; false is an explicit literal, even if its text matches an entity name. Omitted retains the
 legacy exact-subject graph lookup. Typed target metadata belongs to the new memory fingerprint,
 not a retroactive change to an old recorded claim.
+An optional assessment start_basis (explicit_source, event_default, unknown) can qualify legacy
+historical precision without rewriting custody. Unknown records `memory_changes.type:start_unknown`
+under original-source authority, not independent assistant recap authority. Graph/recall expose
+historical_start_unknown and render unknown start; original stored valid_from remains inspectable.
+The annotation is neither a never-true correction nor a handover or representation retirement.
 
 The default inference path separates extraction, entity identity and truth reconciliation. Each
 serialized product input (including its system prompt) is checked against the same exact maximum
@@ -137,19 +142,29 @@ co-reference is an explicit model decision, not string similarity or automatic c
 Property values are not silently upgraded to entities. Actual source support remains authoritative.
 
 Command transport remains `atlas-inference-v1`/`curate`, following the supplied system prompt;
-the task bodies are explicitly versioned `atlas-identity-v1` and `atlas-reconciliation-v1`.
-Their JSON responses preserve `decisions:[]` for the existing native bridge, plus `identity`/
-`candidate_identities` or `items` respectively. An adapter must pass structured JSON through and
+the default task bodies are `atlas-identity-v1` and `atlas-reconciliation-v2`.
+Their JSON responses preserve `decisions:[]` for the native bridge, plus `identity`/
+`candidate_identities` or exhaustive `assessments:[{id,disposition}]` respectively. Each native
+assessment selects exactly one directional disposition for each supplied ID: duplicate,
+state_change, correction, retraction, conflict, superseded, later_state_change, later_correction,
+later_retraction, or unaffected. Later replacements additionally require effective_at. Missing,
+duplicate, invented or invalid assessment IDs/dispositions fail visibly. The compiler preserves
+independent per-target truth types rather than forcing all candidates into one change type.
+The earlier `atlas-reconciliation-v1` items contract and custom inference Decision seam remain
+compatible; there is no invalid-v2 fallback to them. An adapter must pass structured JSON through and
 honor the supplied task prompt; the existing Luna bridge does. Custom inference implementations
 without the optional `resolveEntities`/`reconcile` methods retain their existing Decision seam.
 There is no silent un-reconciled fallback if a configured model returns an invalid phase shape.
 HTTP providers receive the same phase prompt. Each native phase also receives a per-call
 `response_contract`: identity specifies an exact literal and omits all candidate-object bindings
-for literal input; reconciliation specifies the single local index0 and exact dispositions.
-Representation retirement is `superseded_ids`, never `change.type:"superseded"`. Older-source
+for literal input; reconciliation requires exhaustive directional candidate assessments, separate
+from the incoming index in the internal legacy Decision seam. Compiled representation retirement
+is `superseded_ids`, never `change.type:"superseded"`. Older-source
 reprocessing is not a handover at its observation-time default. Both actual identity and
-reconciliation serialized inputs are packed against4096, rather than assuming which prompt is
-larger. These contracts guide inference; unchanged literal/source/ID/time validators still reject
+reconciliation inputs are packed against4096. Retained candidates drain through windows of at
+most4; a candidate deferred by packing is reconsidered, never silently dropped. A non-fitting
+single candidate fails explicitly. Post-identity candidate bindings are trimmed with their IDs
+so a removed binding cannot invite an unsupported reconciliation target. These contracts guide inference; unchanged literal/source/ID/time validators still reject
 violations visibly. They are not deterministic semantic acceptance or a fallback.
 These are product payload limits, not a promise that
 external provider framing/billing also totals at most4096 tokens.
@@ -160,7 +175,11 @@ adds `superseded` for redundant/decomposed representations and internal `restore
 fingerprint is re-chosen, distinct from false `correction`, withdrawn `retraction`, or formerly true
 `state_change`. Format retirement is not inherited as domain truth: repeated alias normalization
 cannot hide every positive prior representation. Restoring a format never overrides a genuine
-closure, correction or retraction. A compound refinement requires its actual
+closure, correction or retraction. Explicit live duplicate audit (with current supported source
+proof) also connects retained equivalent representations into bounded claim groups. A selected
+truth disposition reaches supplied members of that group under the same strict scope/time/target
+checks; generic superseded or compound-decomposition edges do not create equivalence. A late
+replacement likewise disposes of all selected old duplicates, not only a new normalized row. A compound refinement requires its actual
 original support and complete supplied atomic coverage. Original source/job/version/root history
 is retained. Supported later replacements can bound/retract a reprocessed older assertion using
 the later original source as audit authority, rather than ingestion/retry order. Date-only

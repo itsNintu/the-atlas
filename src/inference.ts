@@ -1,7 +1,7 @@
 import { setting } from "./config.ts";
 import { ApiError, fail, object, text, timestamp } from "./errors.ts";
 import { id } from "./store.ts";
-import { RECONCILE_PROMPT, validateReconciliations, type Reconciliation } from './memory-reconciliation.ts';
+import { RECONCILE_PROMPT, LEGACY_RECONCILE_PROMPT, validateReconciliations, validateCandidateAssessments, type Reconciliation } from './memory-reconciliation.ts';
 import { IDENTITY_PROMPT } from './memory-identity.ts';
 
 export type Decision = {
@@ -445,7 +445,8 @@ export class Inference implements MemoryInference {
     return output;
   }
   async reconcile(input: any) {
-    return validateReconciliations(await this.structured(input,RECONCILE_PROMPT), input.incoming.length);
+    const raw=await this.structured(input,input.task_schema==='atlas-reconciliation-v2'?RECONCILE_PROMPT:LEGACY_RECONCILE_PROMPT);
+    return input.task_schema==='atlas-reconciliation-v2' ? validateCandidateAssessments(raw,input.candidates.map((c:any)=>c.id)) : validateReconciliations(raw,input.incoming.length);
   }
   async embed(texts: string[]) {
     if (!texts.length)

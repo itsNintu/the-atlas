@@ -4,8 +4,13 @@
 
 The default Luna path now separates atomic extraction, scoped sourced entity co-reference and
 truth reconciliation into bounded phase calls, each with the exact4096 product-input cap.
-Reconciliation uses predicate-focused indexed windows (two bounded48-ID lexical lookups, up to12
-supplied candidates) rather than allowing qualification prose to crowd out the actual relation.
+Reconciliation retains the predicate-focused indexed pool (two lookups returning at most24 each,
+plus at most12 extraction candidates, deduplicated within scope). It drains that bounded pool in
+windows of at most4 candidates, each packed against4096 tokens; packing defers rather than drops
+retained candidates. The native directional assessment schema covers every supplied ID exactly
+once. Duplicate correct replacements cannot silently omit other retained contradictory claims.
+Live recorded semantic-duplicate proofs propagate a selected truth disposition across the supplied
+claim group; generic compound/representation supersession is not equivalence proof.
 Original source attribution/roots remain attached; scenario qualification is separate from plain
 entity relationships. Explicit typed objects can be supported entities without ever being subjects;
 literal properties stay literal. Scoped source-backed aliases/equivalences do not pool graphs.
@@ -15,6 +20,11 @@ representations. Multi-target changes, duplicate normalization, additions/co-own
 corrections, derived lineage and late-original replay protection are covered by focused regressions.
 Unknown prior start remains unknown when a handover predates an observation-time default; the real
 handover boundary is retained rather than fabricating a start or leaving stale truth current.
+An original-source model assessment can also qualify unsupported legacy start precision through
+additive `start_unknown` audit, without changing raw dates/IDs. Current graph/recall mark that
+precision unknown. Multi-question lexical facets retain independently grounded atomic relations;
+requested complete predicates pack before broad report/recap predicates. The original full-query
+lexical path, moderate semantic threshold and lexical-only fallback remain available.
 See contract.md for additive tables and versioned identity/reconciliation task shapes. Existing
 native adapter/embedding/preview evidence is reused where unchanged. Additional focused model calls
 increase digestion cost/latency; this is not an unchanged24.640s freshness promise or universal

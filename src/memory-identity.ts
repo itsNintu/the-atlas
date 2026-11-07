@@ -29,7 +29,9 @@ export function resolvedIdentity(raw:any,d:Decision,candidates:any[],context?:an
   if(labels.some((x:string)=>!grounded(x,known,context)))fail(503,'invalid_identity','Unsupported alias label',true);
   return {canonical,aliases:labels};
  });
- return {...d,subject,object,entity_aliases:[...(d.entity_aliases??[]),...aliases]};
+ const merged=new Map<string,Set<string>>();
+ for(const a of [...(d.entity_aliases??[]),...aliases]){const labels=merged.get(a.canonical)??new Set<string>();for(const label of a.aliases)labels.add(label);merged.set(a.canonical,labels);}
+ return {...d,subject,object,entity_aliases:[...merged].map(([canonical,labels])=>({canonical,aliases:[...labels]}))};
 }
 export function candidateIdentities(raw:any,d:Decision,candidates:any[],context?:any){
  const rows=raw.candidate_identities??[];
