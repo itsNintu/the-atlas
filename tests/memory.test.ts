@@ -493,7 +493,7 @@ test("in-flight forget, credential revocation, scope violations and transient re
   f.d.decide = async () => {
     throw new ApiError(503, "synthetic_transient", "fault injection", true);
   };
-  f.event("retry");
+  f.event("retry", { thread_id: "independent-retry" });
   await f.worker.runOnce();
   expect(
     f.store.one(
@@ -513,7 +513,7 @@ test("in-flight forget, credential revocation, scope violations and transient re
     );
     return { decisions: [decision(i.event.event_id)] };
   };
-  f.event("revoke");
+  f.event("revoke", { thread_id: "independent-revocation" });
   await f.worker.runOnce();
   expect(f.store.all("SELECT * FROM memories")).toHaveLength(0);
   f.store.close();

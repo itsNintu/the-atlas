@@ -16,6 +16,7 @@ const tokenizer = get_encoding(tokenEncoding);
 export const memoryTokens = (s: string) => tokenizer.encode(s, [], []).length;
 import { cosine } from "./provider.ts";
 import { indexedCandidates, queryTerms } from "./memory-index.ts";
+import { claimMemoryJob } from "./memory-scheduler.ts";
 
 // Share a turn budget across recalls and workers. Promise/microtask yields alone
 // do not let Bun service sockets or lease heartbeats during long packing loops.
@@ -688,6 +689,34 @@ export class Memory {
     scopes = this.authorize(a, b.agent_id);
     const rows = budget ? indexedCandidates(this.store, a.workspace_id, scopes, searchQuery, qvector, qmodel) : [];
     const ts = queryTerms(searchQuery);
+    // Named coded topics need stronger evidence than generic fixture overlap.
+    // A literal identifier is not mandatory: high-confidence semantic aliases
+    // and exact entity relationships remain eligible without repeating a code.
+    const dated = query.match(/\b\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})?/i)?.[0];
+    const queryTime = dated ? Date.parse(/[zZ]|[+-]\d{2}:\d{2}$/.test(dated) ? dated : dated + 'Z') : NaN;
+    // ISO date fragments such as 07t07 are not topic identifiers.
+    const withoutDates = query.replace(/\b\d{4}-\d{2}-\d{2}(?:T[\d:.]+(?:Z|[+-]\d{2}:\d{2})?)?/gi, ' ');
+    // Only syntactically named topics, not every incidental model/version code
+    // (e.g. 'For GPT4, explain the furnace'). Support or a selected seed's
+    // exact entity relationship can also establish coded-topic relevance.
+    const anchors = [...withoutDates.matchAll(/\b(?:fictional|project|exercise|task|ticket|fixture)\s+([\p{L}_][\p{L}\p{N}_]*)/giu)]
+      .map(x => x[1]!.normalize('NFKC').toLowerCase()).filter(t => /\p{N}/u.test(t));
+    const anchored = (m:any) => {
+      const words = new Set(`${m.subject} ${m.predicate} ${m.object}`.normalize("NFKC").toLowerCase().match(/[\p{L}\p{N}_]+/gu) ?? []);
+      // A supported alias/pronoun may omit the topic code in its concise claim.
+      // Only already-authorized support excerpts can supply that anchor.
+      return !anchors.length || anchors.some(t => words.has(t)) || this.support(m, recorded_at).some(s =>
+        anchors.some(t => (s.excerpt ?? "").normalize("NFKC").toLowerCase().match(/[\p{L}\p{N}_]+/gu)?.includes(t)));
+    };
+    const wantsHistory = /\b(before|previous(?:ly)?|formerly|history|historical|used to|ever)\b/i.test(query);
+    const recallState = (m:any) => {
+      const current = this.effective(m, valid_at, recorded_at);
+      if (current || !wantsHistory || m.valid_from > valid_at) return current;
+      // Only closed states, not corrections/retractions. effective() still
+      // applies recorded-time, lineage and current live-support fences.
+      const prior = this.effective(m, m.valid_from, recorded_at);
+      return prior?.valid_to && prior.valid_to <= valid_at ? { ...prior, historical: true } : null;
+    };
     const semanticMin = Math.min(1, positiveSetting("RECALL_SEMANTIC_MIN_MILLI", 420) / 1000);
     const ranked = rows.map(m => {
       const hay = queryTerms(`${m.subject} ${m.predicate} ${m.object}`);
@@ -695,15 +724,24 @@ export class Memory {
       const semantic = qvector && m.embedding_model === qmodel && m.embedding_json
         ? Math.max(0, cosine(qvector, parse(m.embedding_json))) : 0;
       return { ...m, lexical, semantic, direct: Math.max(lexical, semantic) };
-    }).filter(m => query.trim() && (m.lexical >= 0.34 || m.semantic >= semanticMin))
-      .map(m => { const effective = this.effective(m, valid_at, recorded_at); return effective ? { ...effective, lexical: m.lexical, semantic: m.semantic, direct: m.direct, association: 0 } : null; }).filter(Boolean);
+    }).filter(m => query.trim() && (anchored(m) || m.semantic >= Math.max(semanticMin, 0.62)) && (m.lexical >= 0.34 || m.semantic >= semanticMin))
+      .map(m => { const effective = recallState(m); return effective ? { ...effective, lexical: m.lexical, semantic: m.semantic, direct: m.direct, association: 0 } : null; }).filter(Boolean);
     // Prominence only breaks relevance ties; it cannot admit irrelevant truth.
     const halfLife = positiveSetting("SALIENCE_HALF_LIFE_DAYS", 30);
     const weight = (key:string,fallback:number) => { const n=Number(setting("WEIGHT_"+key)??fallback);return Number.isFinite(n)&&n>=0?n:fallback; };
     const weights={relevance:weight("RELEVANCE",1),semantic:weight("SEMANTIC",1),association:weight("ASSOCIATION",.25),recency:weight("RECENCY",.02),importance:weight("IMPORTANCE",.03),usefulness:weight("USEFULNESS",.01)};
     for (const m of ranked) {
       const age = Math.max(0, (Date.now() - Date.parse(m.last_used_at ?? m.recorded_from)) / 86400000);
-      m.score = Math.max(weights.relevance * m.lexical, weights.semantic * m.semantic) + weights.importance * m.importance + weights.recency * Math.pow(0.5, age / halfLife) + weights.usefulness * Math.log1p(m.use_count);
+      // An explicit dated-event question targets source observation time, not
+      // processing/last-used time and not 'newest wins'. It only ranks already
+      // relevant, authorized, temporally eligible evidence.
+      const distance = Math.min(...m.supports.map((s:any) => Math.abs(Date.parse(s.occurred_at) - queryTime)));
+      const proximity = Number.isFinite(distance) ? 0.15 / (1 + distance / 300_000) : 0;
+      const predicateWords = m.predicate.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? [];
+      const queryWords = ' ' + (query.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? []).join(' ') + ' ';
+      const phrase = predicateWords.some((word:string,i:number) => i > 0 && queryWords.includes(` ${predicateWords[i-1]} ${word} `)) ? 0.1 : 0;
+      const topic = anchors.length && anchored(m) ? 0.12 : 0;
+      m.score = Math.max(weights.relevance * m.lexical, weights.semantic * m.semantic) + weights.importance * m.importance + weights.recency * Math.pow(0.5, age / halfLife) + weights.usefulness * Math.log1p(m.use_count) + proximity + phrase + topic;
     }
     ranked.sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
     const strongest = Math.max(0, ...ranked.map(m=>m.direct));
@@ -719,7 +757,9 @@ export class Memory {
       const linked = this.store.all("SELECT * FROM memories WHERE workspace_id=? AND scope=? AND subject=? ORDER BY importance DESC,id LIMIT 4", a.workspace_id, seed.scope, seed.object);
       for (const row of linked) {
         if (seedIds.has(row.id) || ranked.some(m => m.id === row.id) || expanded.some(m => m.id === row.id)) continue;
-        const m = this.effective(row, valid_at, recorded_at);
+        // Exact authorized seed→entity edge establishes relationship relevance;
+        // linked facts need not repeat the seed's topic identifier.
+        const m = recallState(row);
         if (m) expanded.push({ ...m, lexical: 0, semantic: 0, direct: 0, association: 1, score: seed.score * 0.8 });
       }
     }
@@ -733,7 +773,7 @@ export class Memory {
     for (const m of [...ranked, ...expanded]) {
       // Compact injected citation; full supports/roots remain in typed output.
       const support = m.supports[0];
-      const line = `[${m.id}] ${m.scope} ${m.kind}${m.conflict ? " CONFLICT" : ""}: ${m.subject} | ${m.predicate} | ${m.object}; valid [${m.valid_from},${m.valid_to ?? "open"}); source ${support.client_id}:${support.event_id}@${support.revision} ${support.role}/${support.author_id}${m.derived ? " DERIVED" : ""}`;
+      const line = `[${m.id}] ${m.scope} ${m.kind}${m.historical ? " HISTORICAL" : ""}${m.conflict ? " CONFLICT" : ""}: ${m.subject} | ${m.predicate} | ${m.object}; valid [${m.valid_from},${m.valid_to ?? "open"}); source ${support.client_id}:${support.event_id}@${support.revision} ${support.role}/${support.author_id}${m.derived ? " DERIVED" : ""}`;
       const next = context ? context + "\n" + line : header + "\n" + line;
       if (await budgetTokens(next) > budget) continue;
       context = next;
@@ -746,7 +786,7 @@ export class Memory {
     const evidence = (m: any) => { if (!m) return null; const { use_count, last_used_at, ...rest } = m; return rest; };
     for (const m of selected) {
       const row = this.store.one("SELECT * FROM memories WHERE id=?", m.id);
-      if (!currentScopes.includes(m.scope) || !row || canonical(evidence(this.effective(row, valid_at, recorded_at))) !== canonical(evidence(snapshots.get(m.id))))
+      if (!currentScopes.includes(m.scope) || !row || canonical(evidence(recallState(row))) !== canonical(evidence(snapshots.get(m.id))))
         fail(409, "memory_context_changed", "Memory changed during recall; request fresh context", true);
     }
     const freshness = this.store.one(`SELECT MAX(e.accepted_at) AS latest_accepted_at,MAX(e.processed_at) AS latest_processed_at,
@@ -766,7 +806,11 @@ export class Memory {
       retrieval: { semantic_status, embedding_model: qmodel ?? null,
         index: "fts5+random-hyperplane-lsh-v1", candidates_examined: rows.length, candidate_limit_per_index: 96,
         embedding_ms, service_ms: performance.now() - started, context_messages_used: snippets.length,
-        semantic_min: semanticMin, weights, fading: "salience only; dormant truth remains eligible" },
+        semantic_min: semanticMin, weights, fading: "salience only; dormant truth remains eligible",
+        specificity: { topic_identifiers: anchors, unanchored_semantic_min: anchors.length ? Math.max(semanticMin, 0.62) : null,
+          source_time_focus: Number.isFinite(queryTime) ? new Date(queryTime).toISOString() : null,
+          source_time_weight: 0.15, predicate_phrase_weight: 0.1, topic_match_weight: 0.12 },
+      },
     };
   }
   feedback(a: Actor, b: any) {
@@ -855,28 +899,7 @@ export class MemoryWorker {
     this.memory = new Memory(store, inference);
   }
   claim() {
-    return this.store.transaction(() => {
-      const t = Date.now();
-      this.store.run(
-        "UPDATE memory_jobs SET status='failed',error_code='lease_exhausted',lease_token=NULL,lease_until=NULL WHERE status='running' AND lease_until<=? AND attempts>=max_attempts",
-        t,
-      );
-      // Leases fence independent workers; optimistic context checks fence concurrent commits.
-      const j = this.store.one(
-        "SELECT j.* FROM memory_jobs j JOIN memory_events e ON e.id=j.event_pk WHERE ((j.status IN ('queued','retry') AND j.available_at<=?) OR (j.status='running' AND j.lease_until<=?)) AND j.attempts<j.max_attempts ORDER BY j.created_at,j.id LIMIT 1",
-        t,
-        t,
-      );
-      if (!j) return null;
-      const lease_token = id("mlease");
-      this.store.run(
-        "UPDATE memory_jobs SET status='running',attempts=attempts+1,lease_token=?,lease_until=?,error_code=NULL WHERE id=?",
-        lease_token,
-        t + this.lease_ms,
-        j.id,
-      );
-      return { ...j, lease_token, attempts: j.attempts + 1 };
-    });
+    return claimMemoryJob(this.store, this.lease_ms);
   }
   live(j: any) {
     const e = this.store.one(

@@ -149,7 +149,24 @@ revocation; stale context fails retryably rather than returning cached text. See
 for engineering thresholds and approximate-search limitations.
 
 Curation sends coherent event fragments plus focused context under4,096 exact tokens. Durable
-full content/roots and source revision identity are not truncated. Fragment cursor plus selected
+full content/roots and source revision identity are not truncated. Event claims now use persisted
+3fair-thread:1oldest-work turns: least-recently-claimed conversation heads, unseen ties newest intake,
+every fourth claim oldest original accepted event. No age cutoff; a conversation's running/retry/
+incomplete head prevents later same-conversation claims, not independent-thread concurrency. Lease
+fencing and resumable atomic cursors remain. Additive non-content schedule tables are
+`memory_schedule_clock(singleton,sequence)` and
+`memory_thread_schedule(workspace_id,agent_id,thread_id,last_claim)`. Fairness is not a latency SLA.
+
+Recall `retrieval.specificity` discloses named topic identifiers, stronger semantic admission when a
+coded topic lacks a claim/support match, optional ISO source-time focus and ranking weights. See
+capabilities.md for exact heuristic limits; incidental model codes and timestamp fragments do not
+create a literal-token gate, and strong semantic aliases/seed-linked relationships remain eligible.
+Explicit before/previous/history/ever queries can include supported closed states as
+`historical:true`, labelled HISTORICAL in injected context with their closed valid interval. They
+still cannot include corrected/retracted never-true beliefs. Current queries remain current-only.
+The explicit query time is only a source-time ranking hint, not a changed valid_at/recorded_at.
+
+Fragment cursor plus selected
 facts commit atomically; incomplete source stays pending and same job requeues for its next
 fragment. Only final completion sets processed time. Noise may create no memory. Correction or
 retraction cannot positively reassert the exact invalidated subject/predicate/object under a new

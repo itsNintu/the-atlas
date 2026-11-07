@@ -17,7 +17,7 @@ It sends at most two earlier same-thread events (800 characters each), 500 prece
 characters, a bounded metadata excerpt, and targeted existing beliefs: indexed lexical matches
 (default 8, configurable up to 12) plus bounded source/thread continuity, at most 12 combined.
 Unused context is removed before shortening a fragment. Each successful fragment atomically commits
-selected memories and a durable cursor, then requeues the same job at the queue tail. Oversized
+selected memories and a durable cursor, then requeues the same job for its next fragment. Oversized
 accepted sources are neither silently truncated nor stranded pending for a larger model. Final
 success/processed time follows the last fragment. Crashes/retries resume the committed cursor;
 revisions/deletion invalidate source evidence and progress. Pending/failed custody never expires.
@@ -57,6 +57,20 @@ eligible evidence; they cannot admit unrelated truth. Up to three direct seeds m
 same-scope entity-object-to-subject relationships. Source citations are compact; full support/root
 metadata remains typed. Empty/unrelated queries can return an empty context and no memory.
 
+Named coded topics (after fictional/project/exercise/task/ticket/fixture) require a matching claim or
+visible support excerpt, or stronger compatible semantic similarity >=0.62. This is not a literal-code
+requirement: strong semantic aliases and exact same-scope entity relationships remain eligible without
+repeating a marker; incidental model/version codes and ISO timestamp fragments do not create gates.
+The threshold is an engineering heuristic, not general relevance certification. No-identifier
+paraphrases keep the existing semantic admission path. Matching named topics add0.12 and an exact
+query/predicate two-word phrase adds0.10 to already-admitted ranking. Explicit ISO date/time in a query
+adds source-time proximity weight `0.15/(1+distance_ms/300000)` using supporting event occurred_at,
+not last-use, ingestion or processing time. Bare ISO query times are interpreted as UTC for this ranking
+hint. This neither changes valid_at/recorded_at eligibility nor imposes a global newest-first rule.
+`retrieval.specificity` discloses those hints and weights. Explicit before/previous/history/ever queries
+may include supported closed states, labelled HISTORICAL with their valid interval; corrections and
+retractions still cannot reappear as former true states. Ordinary current queries remain current-only.
+
 No conversational model or hosted reranker is used on recall. Ambiguous pronoun followups may use
 only two caller-supplied user/assistant snippets, 600 characters each, for query resolution, not
 independent evidence. No pending transcript is returned (`pending_events:[]`); graph lag is explicit.
@@ -75,6 +89,28 @@ SQLite is still single-node. Forget cannot unsend provider requests, erase backu
 returned consumer copies; credential redaction is not perfect DLP. Approximate semantic retrieval,
 model errors, unbounded queue growth when input exceeds processing throughput, and large explicitly
 requested recall windows remain practical limitations, not a promise of cognition or Zep parity.
+
+## Fair event scheduling and specific historical recall — 2026-11-07 follow-up
+
+Event-memory claims use a persisted three fair-thread turns to one oldest-work turn. Fair turns
+choose the least-recently-claimed eligible conversation; unseen-thread ties favor latest accepted
+intake. There is no age cutoff that can strand an already-overdue conversation outside the fair lane.
+Oldest turns use original event accepted_at/rowid, not chunk requeue time. Each conversation's oldest
+unfinished event is its sole head: running leases, retries/backoff and incomplete fragments block
+later events in that same conversation, while independent conversations can run concurrently. A
+persisted claim clock and per-thread service cursor survive reopen/multiple workers. No sources are
+dropped, marked processed en masse, replayed or moved into recall. This is a service allocation
+policy, NOT a universal latency bound; a long source or retry can still delay its own conversation,
+and sustained input above provider throughput still grows backlog.
+
+The additive non-content tables are `memory_schedule_clock(singleton,sequence)` and
+`memory_thread_schedule(workspace_id,agent_id,thread_id,last_claim)`. Existing jobs, source revisions,
+cursors, credentials and graph identities are preserved. The initial live FIFO observation remains a
+failure: original LDN7 was0/8processed behind2651older jobs at6minutes. Source-only read-snapshot
+comparison against the existing corpus now abstains on that unprocessed LDN7 query and selects the
+correct dated comment2030 first instead of displacing it behind comment2017/generic other-task
+receipts. This is not a native answer-use or processing proof; targeted Overwatch activation/outcome
+is separate. Exact source/test/readonly comparison evidence is in the follow-up handoff.
 
 ## Original alpha source/fact path (unchanged; historical verification)
 

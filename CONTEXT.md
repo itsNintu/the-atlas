@@ -1,5 +1,23 @@
 # Current project context
 
+## Freshness/relevance source follow-up — 2026-11-07
+
+Replaced global event FIFO with persisted3fair-thread:1oldest-work service: least-recently-served
+conversation heads, unseen ties favor newest intake, original oldest accepted work reserved every
+fourth claim. No expiry cutoff, source dropping or queue edits. Same-conversation leases/backoff/
+cursors serialize chronological source processing; separate conversations remain concurrent.
+Additive schedule metadata preserves all source/credential/graph identities. Recall distinguishes
+named topic codes from generic fixture overlap without requiring literal identifiers for strong
+semantic aliases or linked relationships. Explicit query source time, topic and predicate phrase
+specificity prevent generic/older dated receipts from crowding the requested one; this is not a
+newest-first outcome rule. Explicit history queries can include closed states, not corrected false
+beliefs. Source-only readonly real-corpus probe returns0tokens for unprocessedLDN7 and ranks correct
+comment2030 first (1144tokens), keeping posting distinct from repair completion/acceptance.
+Frozen install/check,88tests810assertions and on-disk E2E pass; final metadata-only addition checked
+with typecheck plus7affected tests48assertions. Runtime/native activation and finite original8LDN7
+outcome belong to existing Overwatch t_13dac1a6; no production restart or native proof in this phase.
+See docs/capabilities.md and D:/Projects/TheAtlas/evidence/freshness/ for exact source handoff.
+
 ## Current engineering handoff — 2026-11-07 dreaming revision
 
 Implemented bounded Luna-ready event digestion and indexed specific recall in src/memory.ts,

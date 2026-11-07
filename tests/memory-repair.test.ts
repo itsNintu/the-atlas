@@ -409,8 +409,10 @@ test("independent concurrent subjects commit without a workspace cap; related co
         ],
       };
     });
-    f.event("concurrent-A");
-    f.event("concurrent-B");
+    // Parallel conversations stay concurrent; same-conversation chronology is
+    // now single-flight (covered by freshness.test.ts).
+    f.event("concurrent-A", { thread_id: "thread-A" });
+    f.event("concurrent-B", { thread_id: "thread-B" });
     const first = f.w.runOnce(),
       second = f.w.runOnce();
     await Bun.sleep(5);
