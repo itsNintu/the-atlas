@@ -1,0 +1,1096 @@
+{
+  "task": "t_cb043bca",
+  "phase": "complete",
+  "at": "2026-11-08T18:38:41.449263+00:00",
+  "source_commit": "0d20bbd8eabf4b90f7050764af7483efa2fcd0c1",
+  "source_tree": "4baebfc13d142fd535c7701520d0ea8902f33d5b",
+  "receipt_base": "222e831ff61205e60666bb57506bac0026b9aa9a",
+  "candidate_count": 26,
+  "candidate_ids": [
+    "memory_0395458a-c8f0-4809-b1a0-5c56cb5c4f43",
+    "memory_0f55a9fe-2ac3-4b8c-a44e-81a0af606d24",
+    "memory_23f92c66-8cf4-404d-a1cc-06f8c0445e6e",
+    "memory_26ee592c-ff09-4cbb-84ce-712f00d976c8",
+    "memory_28129045-93d9-4e9b-af5a-115a49002a0b",
+    "memory_2f48dfb4-1aa0-4b57-acd0-dccd8a1a72f6",
+    "memory_32bf764d-12ce-4c46-a7c9-b49394156908",
+    "memory_3577584f-90ea-4a8d-a315-e3eb52cfd62d",
+    "memory_3af8444d-f11f-4da3-bd8d-674f604ae5b6",
+    "memory_3d8187be-a3f1-4cd0-9692-b4bdf41ed810",
+    "memory_4c8c1855-b8e8-421c-82a0-d335b55ed5b6",
+    "memory_5728206e-8e1c-4958-bafd-e3a7a804e570",
+    "memory_6111a961-6bde-44d2-bd17-c2f3a4dcf399",
+    "memory_68a5e192-1e69-4619-b210-2a3f74fc239f",
+    "memory_7424958c-85d2-43d7-822e-91bd58f0ffba",
+    "memory_77d66cc3-002b-422d-9e9e-95ac750e8219",
+    "memory_78c9e372-417b-405b-943e-35b9dc9497da",
+    "memory_7c853ca7-64be-489b-8f36-cf425b51b1f8",
+    "memory_c2d08a41-789b-4ea6-965e-1fbfbf63502e",
+    "memory_c7870144-f960-4718-a37a-5298e409a4a7",
+    "memory_d13d8f60-0b69-4130-b75c-9e84fae5014e",
+    "memory_d717269e-3532-443f-9084-a648bacfacfa",
+    "memory_e17592d2-05a7-41e2-bf2b-a92f7b7f9503",
+    "memory_e5083112-b951-4db1-b60d-f026e2883e00",
+    "memory_f40f62c7-25f6-43ad-9032-b70d17fc9154",
+    "memory_fb94d67f-4eda-495f-87f6-f56b64eeed28"
+  ],
+  "reported_ids": [
+    "memory_78c9e372-417b-405b-943e-35b9dc9497da",
+    "memory_3577584f-90ea-4a8d-a315-e3eb52cfd62d",
+    "memory_0395458a-c8f0-4809-b1a0-5c56cb5c4f43",
+    "memory_3af8444d-f11f-4da3-bd8d-674f604ae5b6",
+    "memory_23f92c66-8cf4-404d-a1cc-06f8c0445e6e"
+  ],
+  "before": {
+    "MainPID": "3960774",
+    "Result": "success",
+    "NRestarts": "0",
+    "ExecMainStartTimestamp": "Sun 2026-11-08 22:56:31 +07",
+    "ExecMainStatus": "0",
+    "ActiveState": "active",
+    "SubState": "running",
+    "InvocationID": "deb8fb64d5144354827f4f4dd9196eac"
+  },
+  "service_stops": 2,
+  "service_starts": 2,
+  "provider_probe_requests": 0,
+  "job_retries": 0,
+  "source_or_action_replays": 0,
+  "serving_sha256": {
+    "src/memory-truth.ts": "e9a8875bc55e644df9f4647bdbbbb561b104fa7dc13f851e80f2eb61bcbc4ffe",
+    "src/store.ts": "336d9ae58eadc0900b6ad2cd1718fb8bc4991d5ea2b5539f457e6b18f59e9433",
+    "src/provider-availability.ts": "49380b52ab3f608c20f95bd3f792c68ad5b74ab9dc5523ca77a8769c3ff825d7",
+    "src/jev.ts": "5d9a83705032c026b36e3feb439abfe8525178036799bd6aa2ed2ea9fdafa770",
+    "src/server.ts": "3be5481dc936ce97db02699825b1c768439a72ce29469d29c69bae86cd4f3667",
+    "src/memory-admission.ts": "7e0bc1efd03f76fa421e352568f3e039d6f19c59211c2bb07541fdad36bc0040",
+    "src/memory-graph.ts": "69976fb0b4b5ef33b4920565d5b2bf7bd730542e8803ace320ebe9aaa2f35787",
+    "src/inference.ts": "2af4206c36bb9dd044a078fe680fde056f0a219823b4da95e54256bc04e266a2",
+    "src/config.ts": "3727b6e3bb7e931102d8ff5897e1cd5b93a8bc4a30e6d76c533f0352474d601e",
+    "src/memory.ts": "915f22e52779dd234eb3237f3012c622059a69119e99122eb2a76557dd57f3c0",
+    "src/app.ts": "bf48bdb76890083a5e6f4afe6725505e11b69febab36350c56001d07b036fe23",
+    "src/memory-scheduler.ts": "2b9034ac492f3406bdb833aac88f2ede51b5a6ca44546a7ec7d9451e8d2a913f",
+    "src/memory-schema.ts": "82e947537cd8bc0cdc5b1c46596d850aefb1154c1494880b7ff70cbb23aa4e11",
+    "src/worker.ts": "81121b0055c1b430d8a07958742ba05fd3515655c9dfc31e91ab9caffb023bbc",
+    "src/errors.ts": "53de4c55b5c12d69beb532cca667871831e604657ba1e155fae539e6bd458ae4",
+    "src/recall-query.ts": "dedcc79fcc57d79c20c95f0cabf2dc951fcbb12c9a7bbae41960b4ad78916ede",
+    "src/cli.ts": "1df371e5d018b81b16fbf5ba4ab6b0d3c6224c7e15bdb0694f6535d35b316ee6",
+    "src/provider.ts": "dcc5123a4d0351033f0fbb08e8e11a99f36718a352c1786a42e069743d265641",
+    "src/schema.ts": "54fc690ae330842b8da0a93d7d49ee229c73850ff63cbfff3fba5a3c43fa96b1",
+    "src/native-luna.ts": "365af4ac243e264136f7bb788e833f7a7c9a7b48ed7dde2f22c9e38016371fdb",
+    "src/memory-repair.ts": "764e2afd07caa203d5e9c260f5cb4990a53195225abddd5c187a5ecdc1529f75",
+    "src/memory-index.ts": "0af06791e3c52d1b720d4c711e7211e1cb158f686d68bc7774078a1fd952e95b",
+    "src/native-openai.ts": "85ac3dd098f5655c92570138480ee89b5d97c9aa358911b3603e3678ca1d83cd",
+    "src/memory-identity.ts": "4aa3912d37d2384b38756d71cb04e9f4fd5f4709338c6078144f58bb924b9017",
+    "src/memory-reconciliation.ts": "e0ff4fe4fbc4ef609a30f27ebf29cf5ab30397fe8a7919f928111f708a8f992c",
+    "src/memory-correction-lookup.ts": "0f24801cd705eeb4b44f2d2b3c139f2a0738d31b46b7af2939027c304ffb8d7c",
+    "src/memory-corrections.ts": "256ecb267b3d75673b65be81571f928562d3fdf34047f4e76a5b466163f45df0",
+    "ui/brain.css": "6dfdd6fc67dad9fe1b15a2e8d3024507843f11fe1af194e7e7da0985c5043c55",
+    "ui/brain.js": "36f68e977b2e78e1da41de06076cf3b70962c744c76f37ca9726bdf1269a65ca",
+    "ui/index.html": "11e958903a424886a2ef833747649aa312cff67c90ddccc4344eb05dec88b4e0",
+    "ui/brand.css": "2e067a076e9659d1c2504d9ed4625ea6e9aaeaa9eadb658c88ab828b91a4d366",
+    "ui/ui.js": "4a81020a667407c275ac53055a3317b5dea514761f5208429013073d38ac96b2",
+    "ui/style.css": "0528a062eebb2e93a44fe512cf02082884c4746e7cf5771ce724fecf7180da4f",
+    "ui/brain.html": "e03b6d31a9c763850d6d30a4dd4b54bc519f38bd2c2d4ddd45d0f653522b7804",
+    "ui/brand/README.md": "70bef7654412a94758b34e9230ca7be02d585217def43efbbb80c5eb30d191d2",
+    "ui/brand/SpaceGrotesk-variable.ttf": "acad6de1fc93436f5c0f1f4137751ef04f1aea3063e7036535970ffcfbd79f72",
+    "ui/brand/IBMPlexMono-Medium.ttf": "a9b4c49bb299e05b5f6c481e7fb5e78943d2793249a0c8874ab574a2d1ea6755",
+    "ui/brand/sources.json": "e0c1688565bbc66fadd38c65021482afc671cc8a4ededea157422f7af8a25dfd",
+    "ui/brand/creator-labs-white.svg": "45df208b2b15569f2aead756fe4783ddf8008c7e6d6e7658ee1e844fbce553e0",
+    "ui/brand/IBMPlexMono-Regular.ttf": "6a3412f058c7d8dfd9170c41e85ade48e5156ecb89356110ca57a0a27734af46",
+    "ui/brand/IBMPlexMono-OFL.txt": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da",
+    "ui/brand/SpaceGrotesk-OFL.txt": "564ce565c371c5e5bbf286006565a7c9aa55a9f56e7ca58d56e05d649dd61a72"
+  },
+  "protected_before": {
+    "/home/alex/.local/share/the-atlas/service.env": "444d7b4aea318581c7feb4fb9080430372c4a1002b0e84b075d3118c1dbb1f74",
+    "/home/alex/.local/share/the-atlas/admin.credentials.json": "5d5657ee2508f724c109a4bba4b3c6b70aa3df6f790ec654d040c5e6964bdf42",
+    "/home/alex/.config/systemd/user/the-atlas.service": "0902e8e1271a90a5d4ad4858421b594d5643a0abe36f08baaeb4890a141dd07e",
+    "/mnt/d/Work/Operations/hermes/atlas-native/atlas_client.py": "5a5cfe1230e0486dd86181ac7da19840b9e03fe4154ed16617f758bc828f5d82",
+    "/mnt/c/Users/alexb/AppData/Local/hermes/config.yaml": "e43673c753bced7a0c1bf63e4760ccc3a824fce8eabba6457617e630ab2bcb72",
+    "/mnt/c/Users/alexb/AppData/Local/hermes/atlas/config.json": "e448e4c56b7aa8cce9601f773c1637583f93959b77dad10053adffe9963e3972",
+    "/mnt/c/Users/alexb/AppData/Local/hermes/atlas/credential.json": "e87637cd22ad493d770f879cf080f42408a61faf8c3054b9f3fc501e5755428a",
+    "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/builder/config.yaml": "8396ff9a223bbb1ca4eb97c3dbeee1b573f0c3e371f65fe4bef580a2db018f8e",
+    "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/builder/atlas/config.json": "743d1c36da7a8ff4ce608ae27e7a45c05eed5b866c8dd0897152da5b9e4ff632",
+    "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/builder/atlas/credential.json": "37c96a240948aa893c44684aed6d4be641b3ee4d6908b055a5f88755aea031f3",
+    "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/reaver/config.yaml": "717e3d2815bacabbbff9b7fff4242461cf49b1ca7fadebd51b44c70db984da40",
+    "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/reaver/atlas/config.json": "6e315b4b6cbd57453aa7f950b31508a155eda3392c2cbf290dfe098e6dc4ce2a",
+    "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/reaver/atlas/credential.json": "58e4b19de5835b0cce5b203f89cbea45740d2d3a91200fa1f0e566f755fbdf9b",
+    "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/overwatch/config.yaml": "966f72e2474807281c6ac1638d36606d2046fc9da6e2828c56a69f0b2e720355",
+    "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/overwatch/atlas/config.json": "81faaf38eb47c4356323b00a39d118f4785c5553cc93fac052ad3f9e7f6411a3",
+    "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/overwatch/atlas/credential.json": "6c1a9829030a45518f19af9865415a6276aec092a62ccca1d8538ddbb583ea10",
+    "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/wordsmith/config.yaml": "ca5636ea71f8e868db4fda755d5dfa2678511ae8d112ff669124a21c2f5a2f5b",
+    "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/wordsmith/atlas/config.json": "e3187d0f6e727d300aad7b115039e4771c3d3b0fe40e55778a7bb98a253e947d",
+    "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/wordsmith/atlas/credential.json": "4b06975623900878546047700caca2cdcb7b39f9d3148dc2d5e953f06236577d",
+    "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/orchestrator/config.yaml": "b02e269f763f80927297d18f0ca962a0e9f5118cbfc5d2204f489ebfbf445307",
+    "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/orchestrator/atlas/config.json": "dd82d5322fb72aef526eddba26f5a195c772e04cbe52d546541ddcbdf11764c2",
+    "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/orchestrator/atlas/credential.json": "4576e8d36fe5cbe802ca362ebbf83eb9a5d256770741168f05a6afd97374f7b7"
+  },
+  "service_env_original_sha256": "444d7b4aea318581c7feb4fb9080430372c4a1002b0e84b075d3118c1dbb1f74",
+  "main_only_drain_seconds": 1.012,
+  "stopped": {
+    "MainPID": "0",
+    "Result": "success",
+    "NRestarts": "0",
+    "ExecMainStartTimestamp": "Sun 2026-11-08 22:56:31 +07",
+    "ExecMainStatus": "0",
+    "ActiveState": "inactive",
+    "SubState": "dead",
+    "InvocationID": "deb8fb64d5144354827f4f4dd9196eac"
+  },
+  "target_before": {
+    "events": "030fc1c8f5aefd3dbb000f3606d060e06db6f75f6be0c7b461dd7207d393a03c",
+    "jobs": "74378f946e5d707b8d9fd6a29782608752f5846076aa66df280a8068e4e8a697",
+    "memories": "87793902beac3b9370edbf8b3882f0181eb72a93f9a4904874aceffe4c401c7d",
+    "supports": "2fa6594b482aabb4146d28d5d6eeabe0d80009626980a81b35b0b56f3c8d147c",
+    "versions": "7f40d897f81b868ba68746cc278c6a23f8d1fd1463abad3001783255ae5e9d51",
+    "provider_holds": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "terminal_native_quota": "c73fd4e55c5b5e2b961cae480181fb40b3f9f831ebcc1db413aecade50a17980",
+    "event_admissions": "ee51766c55200d945be5265501bdabb7fce1b77d3d93fe0e71fb9f493bae74f6",
+    "jev_routes": "b9c2c423dda5daf2028b57d95ca3d854cfef935a8a0c8ff5c84c31a68543d678",
+    "reconciliations": "026efa76bd8fc39b10f7e141d6b2bcbe11ff757ee92d63ea55af67648ebcf243"
+  },
+  "subjects": {
+    "memory_0395458a-c8f0-4809-b1a0-5c56cb5c4f43": "agent:default",
+    "memory_0f55a9fe-2ac3-4b8c-a44e-81a0af606d24": "t_0b252f84",
+    "memory_23f92c66-8cf4-404d-a1cc-06f8c0445e6e": "t_801f3e17",
+    "memory_26ee592c-ff09-4cbb-84ce-712f00d976c8": "Atlas Zep memory-lifecycle research task t_951cec69",
+    "memory_28129045-93d9-4e9b-af5a-115a49002a0b": "t_3e1c1ed1",
+    "memory_2f48dfb4-1aa0-4b57-acd0-dccd8a1a72f6": "Creator Labs MCP setup attempt",
+    "memory_32bf764d-12ce-4c46-a7c9-b49394156908": "Atlas durable brain graph task t_1a164ffe",
+    "memory_3577584f-90ea-4a8d-a315-e3eb52cfd62d": "t_9a4fc271",
+    "memory_3af8444d-f11f-4da3-bd8d-674f604ae5b6": "t_3123a1d3",
+    "memory_3d8187be-a3f1-4cd0-9692-b4bdf41ed810": "The Atlas automatic shared and evolving memory system",
+    "memory_4c8c1855-b8e8-421c-82a0-d335b55ed5b6": "Reaver\u2019s Atlas behavior-case preparation task",
+    "memory_5728206e-8e1c-4958-bafd-e3a7a804e570": "Zep research task t_b0de68b3",
+    "memory_6111a961-6bde-44d2-bd17-c2f3a4dcf399": "t_a35405e4",
+    "memory_68a5e192-1e69-4619-b210-2a3f74fc239f": "t_ba0272d9",
+    "memory_7424958c-85d2-43d7-822e-91bd58f0ffba": "t_0d434979",
+    "memory_77d66cc3-002b-422d-9e9e-95ac750e8219": "t_6406e00d",
+    "memory_78c9e372-417b-405b-943e-35b9dc9497da": "Atlas native recall completion repair",
+    "memory_7c853ca7-64be-489b-8f36-cf425b51b1f8": "t_0991ad50",
+    "memory_c2d08a41-789b-4ea6-965e-1fbfbf63502e": "Atlas memory recommendation task t_b024aaa8",
+    "memory_c7870144-f960-4718-a37a-5298e409a4a7": "Atlas memory recommendation task t_1d36c940",
+    "memory_d13d8f60-0b69-4130-b75c-9e84fae5014e": "The Atlas rename task t_209c2730",
+    "memory_d717269e-3532-443f-9084-a648bacfacfa": "Atlas mixed-evidence recall selection repair",
+    "memory_e17592d2-05a7-41e2-bf2b-a92f7b7f9503": "t_7bb8aa11",
+    "memory_e5083112-b951-4db1-b60d-f026e2883e00": "t_70292de2",
+    "memory_f40f62c7-25f6-43ad-9032-b70d17fc9154": "ThreadAtlas v0.1.0-alpha.0 delivery task",
+    "memory_fb94d67f-4eda-495f-87f6-f56b64eeed28": "t_2d33f868"
+  },
+  "table_counts": {
+    "memory_events": 17504,
+    "memory_jobs": 17518,
+    "memories": 4680,
+    "memory_supports": 4757,
+    "memory_versions": 4685,
+    "memory_event_admissions": 10264,
+    "memory_jev_routes": 290122,
+    "memory_reconciliations": 1109
+  },
+  "backup": {
+    "directory": "/home/alex/.local/share/the-atlas/backups/t_cb043bca_automatic_notification_activation",
+    "sqlite_sha256": "0973a19c386773438cf29d1760ad87bfb3449dd08c586cbd4a42be4266ed1add",
+    "quick_check": "ok",
+    "full_stopped_sqlite_backup": true,
+    "service_env_and_admin_credential_copied": true
+  },
+  "quiesced_environment": {
+    "THE_ATLAS_WORKER": "false",
+    "all_other_lines_preserved": true,
+    "mode": 384
+  },
+  "after_quiesced_start": {
+    "MainPID": "3971539",
+    "Result": "success",
+    "NRestarts": "0",
+    "ExecMainStartTimestamp": "Mon 2026-11-09 01:33:38 +07",
+    "ExecMainStatus": "0",
+    "ActiveState": "active",
+    "SubState": "running",
+    "InvocationID": "d375972d20624a96936d6bee765ad79b"
+  },
+  "runtime_quiesced": {
+    "pid": 3971539,
+    "exe": "/home/alex/work/projects/the-atlas/.private/toolchain/bun-linux-x64/bun",
+    "cwd": "/home/alex/work/projects/the-atlas",
+    "worker_disabled": true,
+    "native_worker": true
+  },
+  "health": {
+    "status": "ok",
+    "api_version": "v1",
+    "schema_version": 2,
+    "request_id": "req_fc95406a-2594-473a-a7b9-f03ba6c22db8"
+  },
+  "status": {
+    "curate": "atlas_native_openai_responses",
+    "admission": "jev_single_decision_pipeline",
+    "embedding": "http",
+    "model": "gpt-6-luna",
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "availability": {
+      "luna": {
+        "configured": true,
+        "state": "available",
+        "reason": null,
+        "upstream_status": null,
+        "upstream_category": null,
+        "next_probe_at": null,
+        "probe_due": false
+      },
+      "jev": {
+        "configured": true,
+        "state": "available",
+        "reason": null,
+        "upstream_status": null,
+        "upstream_category": null,
+        "next_probe_at": null,
+        "probe_due": false
+      }
+    }
+  },
+  "quiesced_no_job_or_provider_effects": true,
+  "baseline_sha256": "d82cf9744a0e92a27a890372bdc72bf7fe650d56b531c8470575be0ca35949d7",
+  "baseline_summary": {
+    "reported_graph_present": {
+      "memory_78c9e372-417b-405b-943e-35b9dc9497da": true,
+      "memory_3577584f-90ea-4a8d-a315-e3eb52cfd62d": true,
+      "memory_0395458a-c8f0-4809-b1a0-5c56cb5c4f43": true,
+      "memory_3af8444d-f11f-4da3-bd8d-674f604ae5b6": true,
+      "memory_23f92c66-8cf4-404d-a1cc-06f8c0445e6e": true
+    },
+    "recall_notification_ids": [
+      "memory_e17592d2-05a7-41e2-bf2b-a92f7b7f9503"
+    ],
+    "relevant_crowded_out": true,
+    "recall_id": "recall_39c224f1-bfa8-4ee4-9022-a61d48062c9f",
+    "tokens_used": 423
+  },
+  "review_receipts": [
+    {
+      "memory_id": "memory_0395458a-c8f0-4809-b1a0-5c56cb5c4f43",
+      "review_id": "admissionreview_e9b8a5e8-5f47-491a-9182-da468b896bb8",
+      "proof_sha256": "643b423282f91fa12997cc403eb5911a9465ebcdb4a4dc99d1934c8f81d9fe0d",
+      "recorded_at": "2026-11-08T18:38:28.326Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_0f55a9fe-2ac3-4b8c-a44e-81a0af606d24",
+      "review_id": "admissionreview_91f69087-395e-4945-a597-e9a79ffdf9b8",
+      "proof_sha256": "ca66b3c36d9de351fda6353335b09dd4fce22eb4883616462d59a0ec7278adfb",
+      "recorded_at": "2026-11-08T18:38:28.349Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_23f92c66-8cf4-404d-a1cc-06f8c0445e6e",
+      "review_id": "admissionreview_e1ee0e6c-d147-4a2e-8b65-9d8d743dedcd",
+      "proof_sha256": "1ac295eb04e4291b0f63b54e824d8a55de1d3ff84f4ab306ea12e0884f337dde",
+      "recorded_at": "2026-11-08T18:38:28.370Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_26ee592c-ff09-4cbb-84ce-712f00d976c8",
+      "review_id": "admissionreview_872c2484-c6a6-45a6-86a0-6484bfddb8b9",
+      "proof_sha256": "a1ac8a8c9081861d4f1f734d0c4fac44ff10414bec90b49790f4b00c3d38ef84",
+      "recorded_at": "2026-11-08T18:38:28.393Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_28129045-93d9-4e9b-af5a-115a49002a0b",
+      "review_id": "admissionreview_fd8e0e70-229b-44a1-abca-23b41c5f0943",
+      "proof_sha256": "91f3f6073cf6e3801262452033365014a7feb0f228ec444b2e49ccc0cf4cfef3",
+      "recorded_at": "2026-11-08T18:38:28.416Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_2f48dfb4-1aa0-4b57-acd0-dccd8a1a72f6",
+      "review_id": "admissionreview_26a2f7a6-4566-45ed-a760-1bcfc3e2f720",
+      "proof_sha256": "e1ea8f199138a6f6cb948ae455f4410d2b9f6ba58ec0b6cee51dc4240dedaa4e",
+      "recorded_at": "2026-11-08T18:38:28.439Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_32bf764d-12ce-4c46-a7c9-b49394156908",
+      "review_id": "admissionreview_f75262cc-5885-42a5-95d4-68e45ffa19c2",
+      "proof_sha256": "567d2ba12a138afeb99d0f65148f176ed45f57463cd9ec032ad923e25c1da67c",
+      "recorded_at": "2026-11-08T18:38:28.462Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_3577584f-90ea-4a8d-a315-e3eb52cfd62d",
+      "review_id": "admissionreview_efbac884-cba2-4ae4-a7ad-e1390f144545",
+      "proof_sha256": "635609f13c23a6ed0cc45899c37ad9e0e7c36467a6b19deb71e871e127a93d4f",
+      "recorded_at": "2026-11-08T18:38:28.526Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_3af8444d-f11f-4da3-bd8d-674f604ae5b6",
+      "review_id": "admissionreview_52263549-c12a-4b55-bd24-dea88dfdb0f8",
+      "proof_sha256": "8e96d41760532b0263a9206693d29dfb8781347aebc5ee52e93f6f7281196b2d",
+      "recorded_at": "2026-11-08T18:38:28.549Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_3d8187be-a3f1-4cd0-9692-b4bdf41ed810",
+      "review_id": "admissionreview_21f653a6-be55-431d-aaa3-c8c6a06cb0d0",
+      "proof_sha256": "4c8fbbb86d7814fd5408a931f1a2fac914e3e0071fa83673f4ecc4f7fdb97c79",
+      "recorded_at": "2026-11-08T18:38:28.573Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_4c8c1855-b8e8-421c-82a0-d335b55ed5b6",
+      "review_id": "admissionreview_a96101fa-c91a-49aa-9616-5d45b57733e1",
+      "proof_sha256": "c9400245ab7a395af0f01420aac8d22008ead2d69463020bd8fdb6e5daec218c",
+      "recorded_at": "2026-11-08T18:38:28.599Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_5728206e-8e1c-4958-bafd-e3a7a804e570",
+      "review_id": "admissionreview_29fe2526-3afc-4677-8ba1-bf11142ee751",
+      "proof_sha256": "eef162a56a8e1229bf87742c17f0a31d6974429e31d503c5207d517a9c9b26c0",
+      "recorded_at": "2026-11-08T18:38:28.621Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_6111a961-6bde-44d2-bd17-c2f3a4dcf399",
+      "review_id": "admissionreview_d251ce2d-69bb-4aa5-96e0-2985dd1b2204",
+      "proof_sha256": "6caa05f5500f3e4d9f7be1f6c1367a8f3fb4bcd1468285f61595d33001a3d9c8",
+      "recorded_at": "2026-11-08T18:38:28.642Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_68a5e192-1e69-4619-b210-2a3f74fc239f",
+      "review_id": "admissionreview_7ea4762d-082a-4e5e-bc06-3a171f779887",
+      "proof_sha256": "98ced27d115cb275805c5a9fee704554a380f73b77af8718438a3635d587c57d",
+      "recorded_at": "2026-11-08T18:38:28.665Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_7424958c-85d2-43d7-822e-91bd58f0ffba",
+      "review_id": "admissionreview_a897eec9-3bf7-4436-b732-c25ff8fa39d5",
+      "proof_sha256": "06721cdd4de1e7aef1dac73feb7dcb3b86fda465b92d495cdc5b1f929d1faefa",
+      "recorded_at": "2026-11-08T18:38:28.689Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_77d66cc3-002b-422d-9e9e-95ac750e8219",
+      "review_id": "admissionreview_020db6a7-bbbe-459a-ac3e-61ed2cedbcfa",
+      "proof_sha256": "0004e697246322cd85f046ee57b27e97a943e159cafcb7be16b6b85dbaa0fb08",
+      "recorded_at": "2026-11-08T18:38:28.713Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_78c9e372-417b-405b-943e-35b9dc9497da",
+      "review_id": "admissionreview_27f86356-f1e7-4a56-a950-0700f20c2263",
+      "proof_sha256": "545a9fa1373ff1e452d9d8e8e3531edc4e933335aa4626d64358d37bb016b31e",
+      "recorded_at": "2026-11-08T18:38:28.736Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_7c853ca7-64be-489b-8f36-cf425b51b1f8",
+      "review_id": "admissionreview_a8ab2846-73c8-40f2-a353-9375d6e29f07",
+      "proof_sha256": "b10ca410d267506c89fb453446e378404597dc07f3bf7aba51e696c14b3ac275",
+      "recorded_at": "2026-11-08T18:38:28.758Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_c2d08a41-789b-4ea6-965e-1fbfbf63502e",
+      "review_id": "admissionreview_2838877f-df33-4cd4-b105-c0d9b2e1e3ce",
+      "proof_sha256": "e312ef71bc0e578c1dfbe913490f44cb20715b381bae8f3f93fb17f7229464b2",
+      "recorded_at": "2026-11-08T18:38:28.781Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_c7870144-f960-4718-a37a-5298e409a4a7",
+      "review_id": "admissionreview_2aaa03e7-0970-484f-b935-e05dcd330af4",
+      "proof_sha256": "59bd43fc691ca17592838726561b620164b2fc70d4ad839f686d2aa7594f8d9d",
+      "recorded_at": "2026-11-08T18:38:28.804Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_d13d8f60-0b69-4130-b75c-9e84fae5014e",
+      "review_id": "admissionreview_627d240e-96b7-4a06-a790-abd8353cfb94",
+      "proof_sha256": "afac687f2404dae1f6899224c4eb6efec4228891f5b827d2bff05bcf4c0eed57",
+      "recorded_at": "2026-11-08T18:38:28.826Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_d717269e-3532-443f-9084-a648bacfacfa",
+      "review_id": "admissionreview_c0d95db4-6eda-4b67-8995-79a04d8e17be",
+      "proof_sha256": "d2130fc6a1f3dffb2cc0b2dbbdd4405fbe387ce47068496d0531fc974045158b",
+      "recorded_at": "2026-11-08T18:38:28.848Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_e17592d2-05a7-41e2-bf2b-a92f7b7f9503",
+      "review_id": "admissionreview_dc5d75cb-f7a8-46ac-be4f-ee905614435b",
+      "proof_sha256": "ccadc762bb2dfbd5c1787af6c65e34294f722d53f405153511e4830de3fe430e",
+      "recorded_at": "2026-11-08T18:38:28.871Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_e5083112-b951-4db1-b60d-f026e2883e00",
+      "review_id": "admissionreview_025f24f9-ae53-44ce-acf7-b8cdf28088b9",
+      "proof_sha256": "174479fdb07cd467a4746778d4349d4072c46fc7cfc50c9ceba96cd9da36414b",
+      "recorded_at": "2026-11-08T18:38:28.892Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_f40f62c7-25f6-43ad-9032-b70d17fc9154",
+      "review_id": "admissionreview_2b72fbe2-6fd7-4519-84d3-2ac62bcd06e3",
+      "proof_sha256": "b920e7f80eeacc6bbeaafb143fde6084868ecb990aa8191dcec71d1755f76c11",
+      "recorded_at": "2026-11-08T18:38:28.917Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    },
+    {
+      "memory_id": "memory_fb94d67f-4eda-495f-87f6-f56b64eeed28",
+      "review_id": "admissionreview_0b8faa43-7e7a-4421-95e1-724aef71a39e",
+      "proof_sha256": "9dadcb8b645fffce65fec9283f55df6e6c2a9d6916e19b393de5b0310c8b5f66",
+      "recorded_at": "2026-11-08T18:38:28.937Z",
+      "reconciled_existing_without_post": false,
+      "http_200": 1
+    }
+  ],
+  "demotion_post_requests": 26,
+  "demotion_model_calls": 0,
+  "demotion_reconciled_without_post": 0,
+  "original_rows_unchanged_after_demotion": true,
+  "review_table_counts": {
+    "memory_admission_reviews": 3725,
+    "memory_admission_demotions": 3725
+  },
+  "current_graph": {
+    "memory_0395458a-c8f0-4809-b1a0-5c56cb5c4f43": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:31.418Z",
+        "recorded_at": "2026-11-08T18:38:31.418Z"
+      },
+      "target_status": null,
+      "edge_count": 35,
+      "truncated": false
+    },
+    "memory_0f55a9fe-2ac3-4b8c-a44e-81a0af606d24": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:32.343Z",
+        "recorded_at": "2026-11-08T18:38:32.343Z"
+      },
+      "target_status": null,
+      "edge_count": 2,
+      "truncated": false
+    },
+    "memory_23f92c66-8cf4-404d-a1cc-06f8c0445e6e": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:32.491Z",
+        "recorded_at": "2026-11-08T18:38:32.491Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_26ee592c-ff09-4cbb-84ce-712f00d976c8": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:32.622Z",
+        "recorded_at": "2026-11-08T18:38:32.622Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_28129045-93d9-4e9b-af5a-115a49002a0b": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:32.756Z",
+        "recorded_at": "2026-11-08T18:38:32.756Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_2f48dfb4-1aa0-4b57-acd0-dccd8a1a72f6": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:32.881Z",
+        "recorded_at": "2026-11-08T18:38:32.881Z"
+      },
+      "target_status": null,
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_32bf764d-12ce-4c46-a7c9-b49394156908": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:33.008Z",
+        "recorded_at": "2026-11-08T18:38:33.008Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_3577584f-90ea-4a8d-a315-e3eb52cfd62d": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:33.134Z",
+        "recorded_at": "2026-11-08T18:38:33.134Z"
+      },
+      "target_status": null,
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_3af8444d-f11f-4da3-bd8d-674f604ae5b6": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:33.265Z",
+        "recorded_at": "2026-11-08T18:38:33.265Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_3d8187be-a3f1-4cd0-9692-b4bdf41ed810": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:33.407Z",
+        "recorded_at": "2026-11-08T18:38:33.407Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_4c8c1855-b8e8-421c-82a0-d335b55ed5b6": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:33.548Z",
+        "recorded_at": "2026-11-08T18:38:33.548Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_5728206e-8e1c-4958-bafd-e3a7a804e570": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:33.678Z",
+        "recorded_at": "2026-11-08T18:38:33.678Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_6111a961-6bde-44d2-bd17-c2f3a4dcf399": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:33.802Z",
+        "recorded_at": "2026-11-08T18:38:33.802Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_68a5e192-1e69-4619-b210-2a3f74fc239f": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:33.930Z",
+        "recorded_at": "2026-11-08T18:38:33.930Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_7424958c-85d2-43d7-822e-91bd58f0ffba": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:34.049Z",
+        "recorded_at": "2026-11-08T18:38:34.049Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_77d66cc3-002b-422d-9e9e-95ac750e8219": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:34.180Z",
+        "recorded_at": "2026-11-08T18:38:34.180Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_78c9e372-417b-405b-943e-35b9dc9497da": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:34.314Z",
+        "recorded_at": "2026-11-08T18:38:34.314Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_7c853ca7-64be-489b-8f36-cf425b51b1f8": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:34.438Z",
+        "recorded_at": "2026-11-08T18:38:34.438Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_c2d08a41-789b-4ea6-965e-1fbfbf63502e": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:34.572Z",
+        "recorded_at": "2026-11-08T18:38:34.572Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_c7870144-f960-4718-a37a-5298e409a4a7": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:34.691Z",
+        "recorded_at": "2026-11-08T18:38:34.691Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_d13d8f60-0b69-4130-b75c-9e84fae5014e": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:34.821Z",
+        "recorded_at": "2026-11-08T18:38:34.821Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_d717269e-3532-443f-9084-a648bacfacfa": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:34.939Z",
+        "recorded_at": "2026-11-08T18:38:34.939Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_e17592d2-05a7-41e2-bf2b-a92f7b7f9503": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:35.057Z",
+        "recorded_at": "2026-11-08T18:38:35.057Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_e5083112-b951-4db1-b60d-f026e2883e00": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:35.180Z",
+        "recorded_at": "2026-11-08T18:38:35.180Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_f40f62c7-25f6-43ad-9032-b70d17fc9154": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:35.301Z",
+        "recorded_at": "2026-11-08T18:38:35.301Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    },
+    "memory_fb94d67f-4eda-495f-87f6-f56b64eeed28": {
+      "target_present": false,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:35.419Z",
+        "recorded_at": "2026-11-08T18:38:35.419Z"
+      },
+      "target_status": null,
+      "edge_count": 0,
+      "truncated": false
+    }
+  },
+  "pre_demotion_graph": {
+    "memory_0395458a-c8f0-4809-b1a0-5c56cb5c4f43": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:32.220Z",
+        "recorded_at": "2026-11-08T18:33:42.108Z"
+      },
+      "target_status": "active",
+      "edge_count": 49,
+      "truncated": false
+    },
+    "memory_0f55a9fe-2ac3-4b8c-a44e-81a0af606d24": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:32.423Z",
+        "recorded_at": "2026-11-08T18:33:42.192Z"
+      },
+      "target_status": "active",
+      "edge_count": 26,
+      "truncated": false
+    },
+    "memory_23f92c66-8cf4-404d-a1cc-06f8c0445e6e": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:32.557Z",
+        "recorded_at": "2026-11-08T18:33:42.259Z"
+      },
+      "target_status": "active",
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_26ee592c-ff09-4cbb-84ce-712f00d976c8": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:32.691Z",
+        "recorded_at": "2026-11-08T18:33:42.321Z"
+      },
+      "target_status": "active",
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_28129045-93d9-4e9b-af5a-115a49002a0b": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:32.820Z",
+        "recorded_at": "2026-11-08T18:33:42.383Z"
+      },
+      "target_status": "active",
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_2f48dfb4-1aa0-4b57-acd0-dccd8a1a72f6": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:32.944Z",
+        "recorded_at": "2026-11-08T18:33:42.443Z"
+      },
+      "target_status": "active",
+      "edge_count": 4,
+      "truncated": false
+    },
+    "memory_32bf764d-12ce-4c46-a7c9-b49394156908": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:33.066Z",
+        "recorded_at": "2026-11-08T18:33:42.505Z"
+      },
+      "target_status": "active",
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_3577584f-90ea-4a8d-a315-e3eb52cfd62d": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:33.198Z",
+        "recorded_at": "2026-11-08T18:33:42.572Z"
+      },
+      "target_status": "active",
+      "edge_count": 4,
+      "truncated": false
+    },
+    "memory_3af8444d-f11f-4da3-bd8d-674f604ae5b6": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:33.334Z",
+        "recorded_at": "2026-11-08T18:33:42.632Z"
+      },
+      "target_status": "active",
+      "edge_count": 6,
+      "truncated": false
+    },
+    "memory_3d8187be-a3f1-4cd0-9692-b4bdf41ed810": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:33.475Z",
+        "recorded_at": "2026-11-08T18:33:42.692Z"
+      },
+      "target_status": "active",
+      "edge_count": 2,
+      "truncated": false
+    },
+    "memory_4c8c1855-b8e8-421c-82a0-d335b55ed5b6": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:33.614Z",
+        "recorded_at": "2026-11-08T18:33:42.752Z"
+      },
+      "target_status": "active",
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_5728206e-8e1c-4958-bafd-e3a7a804e570": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:33.741Z",
+        "recorded_at": "2026-11-08T18:33:42.817Z"
+      },
+      "target_status": "active",
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_6111a961-6bde-44d2-bd17-c2f3a4dcf399": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:33.868Z",
+        "recorded_at": "2026-11-08T18:33:42.878Z"
+      },
+      "target_status": "active",
+      "edge_count": 4,
+      "truncated": false
+    },
+    "memory_68a5e192-1e69-4619-b210-2a3f74fc239f": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:33.990Z",
+        "recorded_at": "2026-11-08T18:33:42.939Z"
+      },
+      "target_status": "active",
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_7424958c-85d2-43d7-822e-91bd58f0ffba": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:34.111Z",
+        "recorded_at": "2026-11-08T18:33:42.999Z"
+      },
+      "target_status": "active",
+      "edge_count": 5,
+      "truncated": false
+    },
+    "memory_77d66cc3-002b-422d-9e9e-95ac750e8219": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:34.245Z",
+        "recorded_at": "2026-11-08T18:33:43.061Z"
+      },
+      "target_status": "active",
+      "edge_count": 11,
+      "truncated": false
+    },
+    "memory_78c9e372-417b-405b-943e-35b9dc9497da": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:34.377Z",
+        "recorded_at": "2026-11-08T18:33:43.129Z"
+      },
+      "target_status": "active",
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_7c853ca7-64be-489b-8f36-cf425b51b1f8": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:34.505Z",
+        "recorded_at": "2026-11-08T18:33:43.189Z"
+      },
+      "target_status": "active",
+      "edge_count": 3,
+      "truncated": false
+    },
+    "memory_c2d08a41-789b-4ea6-965e-1fbfbf63502e": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:34.632Z",
+        "recorded_at": "2026-11-08T18:33:43.251Z"
+      },
+      "target_status": "active",
+      "edge_count": 2,
+      "truncated": false
+    },
+    "memory_c7870144-f960-4718-a37a-5298e409a4a7": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:34.757Z",
+        "recorded_at": "2026-11-08T18:33:43.313Z"
+      },
+      "target_status": "active",
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_d13d8f60-0b69-4130-b75c-9e84fae5014e": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:34.880Z",
+        "recorded_at": "2026-11-08T18:33:43.374Z"
+      },
+      "target_status": "active",
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_d717269e-3532-443f-9084-a648bacfacfa": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:34.998Z",
+        "recorded_at": "2026-11-08T18:33:43.432Z"
+      },
+      "target_status": "active",
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_e17592d2-05a7-41e2-bf2b-a92f7b7f9503": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:35.120Z",
+        "recorded_at": "2026-11-08T18:33:43.494Z"
+      },
+      "target_status": "active",
+      "edge_count": 4,
+      "truncated": false
+    },
+    "memory_e5083112-b951-4db1-b60d-f026e2883e00": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:35.238Z",
+        "recorded_at": "2026-11-08T18:33:43.554Z"
+      },
+      "target_status": "active",
+      "edge_count": 12,
+      "truncated": false
+    },
+    "memory_f40f62c7-25f6-43ad-9032-b70d17fc9154": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:35.359Z",
+        "recorded_at": "2026-11-08T18:33:43.616Z"
+      },
+      "target_status": "active",
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_fb94d67f-4eda-495f-87f6-f56b64eeed28": {
+      "target_present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:38:35.478Z",
+        "recorded_at": "2026-11-08T18:33:43.678Z"
+      },
+      "target_status": "active",
+      "edge_count": 2,
+      "truncated": false
+    }
+  },
+  "after_recall": {
+    "recall_id": "recall_b5ad063d-f6de-4af0-ac24-4f7bf1d0de52",
+    "memory_ids": [
+      "memory_3d7f2f70-9bd9-44e7-a560-425187b317c9",
+      "memory_0911c79b-da38-443c-a0b0-8c34e1ba751d"
+    ],
+    "tokens_used": 422,
+    "token_budget": 500,
+    "pending_included": 0,
+    "pending_events_count": 0,
+    "semantic_status": "available",
+    "service_ms": 158.19573600002332,
+    "context_sha256": "28b678d8a2128fdd29468e67988dbe05d2ca730d46b65cf5ee4036188db18d76",
+    "query_sha256": "57b98265af9e1e0729e696ed0f735bf0a248f735b22bf990501f9bec182694d5"
+  },
+  "after_recall_notification_ids": [],
+  "after_recall_relevant_ids": [
+    "memory_0911c79b-da38-443c-a0b0-8c34e1ba751d"
+  ],
+  "after_audit": {
+    "candidate_count": 0,
+    "reported_all_demoted": true
+  },
+  "quick_check": "ok",
+  "final_drain_seconds": 1.012,
+  "stopped_before_normal": {
+    "MainPID": "0",
+    "Result": "success",
+    "NRestarts": "0",
+    "ExecMainStartTimestamp": "Mon 2026-11-09 01:33:38 +07",
+    "ExecMainStatus": "0",
+    "ActiveState": "inactive",
+    "SubState": "dead",
+    "InvocationID": "d375972d20624a96936d6bee765ad79b"
+  },
+  "after_normal_start": {
+    "MainPID": "3971763",
+    "Result": "success",
+    "NRestarts": "0",
+    "ExecMainStartTimestamp": "Mon 2026-11-09 01:38:37 +07",
+    "ExecMainStatus": "0",
+    "ActiveState": "active",
+    "SubState": "running",
+    "InvocationID": "2007dd79234447eab3fc6bc03df30ede"
+  },
+  "final_health": {
+    "status": "ok",
+    "api_version": "v1",
+    "schema_version": 2,
+    "request_id": "req_e542bca6-8d46-4864-80d2-6379f9ada6c7"
+  },
+  "final_memory_inference": {
+    "curate": "atlas_native_openai_responses",
+    "admission": "jev_single_decision_pipeline",
+    "embedding": "http",
+    "model": "gpt-6-luna",
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "availability": {
+      "luna": {
+        "configured": true,
+        "state": "available",
+        "reason": null,
+        "upstream_status": null,
+        "upstream_category": null,
+        "next_probe_at": null,
+        "probe_due": false
+      },
+      "jev": {
+        "configured": true,
+        "state": "available",
+        "reason": null,
+        "upstream_status": null,
+        "upstream_category": null,
+        "next_probe_at": null,
+        "probe_due": false
+      }
+    }
+  },
+  "protected_unchanged": true,
+  "serving_source_unchanged": true,
+  "original_target_rows_unchanged_after_normal_start": true,
+  "provider_holds_unchanged_during_cleanup_and_quiescence": true,
+  "terminal_native_quota_unchanged_during_cleanup_and_quiescence": true,
+  "terminal_native_quota_digest_same_after_normal_start": true,
+  "normal_worker_enabled": true,
+  "result": "pass"
+}

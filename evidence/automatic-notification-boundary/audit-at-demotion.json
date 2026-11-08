@@ -1,0 +1,492 @@
+{
+  "at": "2026-11-08T18:38:25.381Z",
+  "database": "readonly/query_only",
+  "classifier": "automaticStatusNotification",
+  "candidate_count": 26,
+  "reviewable_count": 26,
+  "unreviewable_count": 0,
+  "candidates": [
+    {
+      "memory_id": "memory_0395458a-c8f0-4809-b1a0-5c56cb5c4f43",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_fcb2138d-d070-4f18-9b1c-762083be58b4",
+        "event_id": "native:default:b175954c034d4d43826e2dd05f95622c:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_8048ce8a-0cea-4ea5-9908-1b7df7708d99",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_0f55a9fe-2ac3-4b8c-a44e-81a0af606d24",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_e3f15cd4-903e-4152-996e-09090e4ee431",
+        "event_id": "native:default:7817aba911034653b5700adaefe8a0c8:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_e8382b34-9617-422e-beb4-e50e0d286ff3",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_23f92c66-8cf4-404d-a1cc-06f8c0445e6e",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_e2368e2b-adcc-4105-a5b9-a72eeebeee31",
+        "event_id": "native:default:ae9a4c9562394fddbee4fd56a25bd7ff:part:0",
+        "revision": 2,
+        "agent_id": "default",
+        "job_id": "mjob_44f62757-5b98-4d72-ba36-4abce1b2ab6f",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_26ee592c-ff09-4cbb-84ce-712f00d976c8",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_570733ab-42eb-4f5e-b7b3-c5d105ef662e",
+        "event_id": "native:default:13f10bfb64724dd9b87fc7bddd108e49:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_9dd31508-5589-4a2b-8a3a-838b42a61baf",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_28129045-93d9-4e9b-af5a-115a49002a0b",
+      "scope": "business:alex",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_2f11017d-27e1-4fd8-b6b1-9ed3157ffeb5",
+        "event_id": "native:default:f4e8d3760aaf4482b4c2cea36f6d122d:part:0",
+        "revision": 2,
+        "agent_id": "default",
+        "job_id": "mjob_ef55eafa-adc3-4dfc-9007-2265bc79d285",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_2f48dfb4-1aa0-4b57-acd0-dccd8a1a72f6",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_2a48e1bb-b52c-4bc3-b6e3-4c06dd438646",
+        "event_id": "native:default:5203a2481ea44e6bb8e7615c2c667078:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_7fc4ae82-5c5c-4a6f-a5e1-3b1f61ed393a",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_32bf764d-12ce-4c46-a7c9-b49394156908",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_cd71b1ad-8fce-4470-b2d9-f3de9e27ae11",
+        "event_id": "native:default:7d6053bd1bbb4c2898f80a2771b08301:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_a5f46dc9-c71f-4adf-87c3-6fbc2dd9e6fd",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_3577584f-90ea-4a8d-a315-e3eb52cfd62d",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_4419f0b7-54ec-4880-964f-2a3d7cb67e54",
+        "event_id": "native:default:82f580bd6e8246e8b6f0ec546225bced:part:0",
+        "revision": 2,
+        "agent_id": "default",
+        "job_id": "mjob_e0dbadb9-68d6-4bb2-af04-b904eb9adf4d",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_3af8444d-f11f-4da3-bd8d-674f604ae5b6",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_9ea209af-4416-4255-98b9-a1cd7718517d",
+        "event_id": "native:default:95c7b82cf1794e7389de7b9f280483f9:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_bca32c72-555b-48da-8547-726a395d1c71",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_3d8187be-a3f1-4cd0-9692-b4bdf41ed810",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_fda17647-8db7-4088-8d81-f0dc4661e87f",
+        "event_id": "native:default:5f0db8ed189e427e9776ed123e43dd45:part:0",
+        "revision": 2,
+        "agent_id": "default",
+        "job_id": "mjob_83e90184-2053-4afb-8bfa-0e5a24c16120",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_4c8c1855-b8e8-421c-82a0-d335b55ed5b6",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_a484ed6c-a7d3-408a-af7b-a152aae89171",
+        "event_id": "native:default:ec76e849422d4cdf881ac8485205c3d7:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_51d88ba4-2cd6-4599-94e1-cd28b7d40c03",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_5728206e-8e1c-4958-bafd-e3a7a804e570",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_5e9499f2-7e2e-42a5-91e3-70f3d94da664",
+        "event_id": "native:default:4ed867e42db5409289865daa1897510e:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_24d8783a-742d-45be-9609-eb1bc54d591f",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_6111a961-6bde-44d2-bd17-c2f3a4dcf399",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_f3eb64c6-86df-4e21-a54b-4570cf243e67",
+        "event_id": "native:default:cee7770914fa42b98677dc58c9d7f3c1:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_4ade8b5d-d701-49b9-a7e8-fd4dfd6ea79f",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_68a5e192-1e69-4619-b210-2a3f74fc239f",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_f906e318-4f0c-458a-aa60-19ef99c54344",
+        "event_id": "native:default:939bfb348bde4009870efb2d42838715:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_df69bd50-466d-4a5b-95ca-d9b6d2203c81",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_7424958c-85d2-43d7-822e-91bd58f0ffba",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_0802212b-afa1-4160-b1d9-020b5a3aaad4",
+        "event_id": "native:default:948aa58003414e9790f694dcf925f1b2:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_20365ae1-a924-4824-b957-0a171d999781",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_77d66cc3-002b-422d-9e9e-95ac750e8219",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_1ea0266e-6922-4eab-b288-d4c154d2ddc6",
+        "event_id": "native:default:4c5b6205c43b47d3a9afb324a9f31308:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_f5e069df-85e1-4886-aba6-9abb52ce97cf",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_78c9e372-417b-405b-943e-35b9dc9497da",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_da8e334a-5a95-4655-bce7-abddb360968c",
+        "event_id": "native:default:11ae2bdaa72347b5b3a5b6c6df2bb53f:part:0",
+        "revision": 2,
+        "agent_id": "default",
+        "job_id": "mjob_ffbcda47-4bab-4a2f-a233-6985740ed26b",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_7c853ca7-64be-489b-8f36-cf425b51b1f8",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_1f5ff5f7-1eca-4615-8383-9f0a4f88be2f",
+        "event_id": "native:default:804838fd10bf4f7782c2ab0a12e29ce2:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_4304c9e8-9c78-4871-b741-c2bf2e51f8f8",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_c2d08a41-789b-4ea6-965e-1fbfbf63502e",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_174cc5bf-be50-4c3d-87e5-618e04a51f11",
+        "event_id": "native:default:a861e0aa69d7468dab61a056bc8c07b5:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_82d10d1b-416a-405f-ac88-bed6670a660e",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_c7870144-f960-4718-a37a-5298e409a4a7",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_73659845-9976-4471-8e06-28561a17b783",
+        "event_id": "native:default:db1699aec82c4cce87b84d5356904cdf:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_ed563744-cb30-4a4d-9e9f-2fe372fed004",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_d13d8f60-0b69-4130-b75c-9e84fae5014e",
+      "scope": "business:alex",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_f9cfd59f-5c35-4501-879b-73a3ccc97ebf",
+        "event_id": "native:default:a353b9a3e3a44ca7ab575bd26afeebf8:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_4ad1bc9a-bae6-484e-a57c-2e8f4f1e8e3a",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_d717269e-3532-443f-9084-a648bacfacfa",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_44fc1cf4-2e84-4ee2-aaf8-21ddb5680f1f",
+        "event_id": "native:default:900c4442d7094aa39c084aeefa216193:part:0",
+        "revision": 2,
+        "agent_id": "default",
+        "job_id": "mjob_e30a2053-2bfc-4e7f-b540-37bdb63bf3d2",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_e17592d2-05a7-41e2-bf2b-a92f7b7f9503",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_eb2afde0-9287-444b-86f2-3eef10298faf",
+        "event_id": "native:default:576b1df390e14e3cbaadb787a445c5b7:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_4559a972-deb3-47d6-83a6-9454b3ee6e25",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_e5083112-b951-4db1-b60d-f026e2883e00",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_b3cff658-cc37-40d1-b95c-4b5bc549d484",
+        "event_id": "native:default:c3b335f2d3fe4cba97df96f9f52059d3:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_07ff58fb-4d26-4acb-ad98-318a858e196c",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_f40f62c7-25f6-43ad-9032-b70d17fc9154",
+      "scope": "business:alex",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_9555a8fa-488d-49e6-aa43-1d0429f020ac",
+        "event_id": "native:default:d4a9e2669d494ba19e14ceba42d58ed1:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_d3494070-cbbb-4b69-8f46-20d2e349eda2",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "memory_id": "memory_fb94d67f-4eda-495f-87f6-f56b64eeed28",
+      "scope": "agent:default",
+      "support_count": 1,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_62352573-15e3-47a3-ade2-53f3742bee22",
+        "event_id": "native:default:a6e09865e44c47b984760d796eaac785:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_d8e500dc-60af-4d60-bae7-5a4121875ed8",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    }
+  ],
+  "reported": [
+    {
+      "prefix": "memory_78c9e372",
+      "memory_id": "memory_78c9e372-417b-405b-943e-35b9dc9497da",
+      "found": true,
+      "already_demoted": false,
+      "support_count": 1,
+      "all_supports_automatic": true,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_da8e334a-5a95-4655-bce7-abddb360968c",
+        "event_id": "native:default:11ae2bdaa72347b5b3a5b6c6df2bb53f:part:0",
+        "revision": 2,
+        "agent_id": "default",
+        "job_id": "mjob_ffbcda47-4bab-4a2f-a233-6985740ed26b",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "prefix": "memory_3577584f",
+      "memory_id": "memory_3577584f-90ea-4a8d-a315-e3eb52cfd62d",
+      "found": true,
+      "already_demoted": false,
+      "support_count": 1,
+      "all_supports_automatic": true,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_4419f0b7-54ec-4880-964f-2a3d7cb67e54",
+        "event_id": "native:default:82f580bd6e8246e8b6f0ec546225bced:part:0",
+        "revision": 2,
+        "agent_id": "default",
+        "job_id": "mjob_e0dbadb9-68d6-4bb2-af04-b904eb9adf4d",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "prefix": "memory_0395458a",
+      "memory_id": "memory_0395458a-c8f0-4809-b1a0-5c56cb5c4f43",
+      "found": true,
+      "already_demoted": false,
+      "support_count": 1,
+      "all_supports_automatic": true,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_fcb2138d-d070-4f18-9b1c-762083be58b4",
+        "event_id": "native:default:b175954c034d4d43826e2dd05f95622c:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_8048ce8a-0cea-4ea5-9908-1b7df7708d99",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "prefix": "memory_3af8444d",
+      "memory_id": "memory_3af8444d-f11f-4da3-bd8d-674f604ae5b6",
+      "found": true,
+      "already_demoted": false,
+      "support_count": 1,
+      "all_supports_automatic": true,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_9ea209af-4416-4255-98b9-a1cd7718517d",
+        "event_id": "native:default:95c7b82cf1794e7389de7b9f280483f9:part:0",
+        "revision": 1,
+        "agent_id": "default",
+        "job_id": "mjob_bca32c72-555b-48da-8547-726a395d1c71",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    },
+    {
+      "prefix": "memory_23f92c66",
+      "memory_id": "memory_23f92c66-8cf4-404d-a1cc-06f8c0445e6e",
+      "found": true,
+      "already_demoted": false,
+      "support_count": 1,
+      "all_supports_automatic": true,
+      "reviewable": true,
+      "source": {
+        "event_pk": "event_e2368e2b-adcc-4105-a5b9-a72eeebeee31",
+        "event_id": "native:default:ae9a4c9562394fddbee4fd56a25bd7ff:part:0",
+        "revision": 2,
+        "agent_id": "default",
+        "job_id": "mjob_44f62757-5b98-4d72-ba36-4abce1b2ab6f",
+        "event_status": "processed",
+        "job_status": "succeeded"
+      }
+    }
+  ]
+}

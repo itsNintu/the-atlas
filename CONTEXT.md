@@ -19,11 +19,22 @@ one-current-fact regression proves that demotion frees a 320-token recall packet
 
 A readonly live audit using the actual classifier found26 notification-only memories, all with a
 current reviewable source; the five reported IDs are included. Source verification on pinned Bun1.4.4:
-170tests/1641assertions across28files, focused notification+communication9tests, typecheck, and real
-on-disk HTTP/CLI E2E pass. The activation lane is this same task and carries receipt fix222e831;
-fresh stopped custody, a refreshed exact audit, bounded supported demotions and current graph/recall
-verification are recorded separately under `evidence/automatic-notification-boundary/`. No bulk
-failed-job retry, source/action replay or duplicate receipt task is involved.
+170tests/1641assertions across28files, focused notification+communication9tests/150assertions,
+typecheck, public check and real on-disk HTTP/CLI E2E pass.
+
+Live activation of product `0d20bbd8eabf4b90f7050764af7483efa2fcd0c1` (carrying receipt fix222e831)
+is complete. Fresh stopped custody is `/home/alex/.local/share/the-atlas/backups/t_cb043bca_automatic_notification_activation`
+(SQLite SHA256 `0973a19c386773438cf29d1760ad87bfb3449dd08c586cbd4a42be4266ed1add`, quick_check ok).
+A worker-disabled review start made zero JEV/OpenAI/backlog calls;26 authenticated/idempotent reviews
+returned nonempty persisted owner-directive receipts. All26 targets are absent from current graph and
+recall, all26 remain in pre-demotion recorded history, and original event/job/memory/support/version
+rows, provider holds and terminal native-quota rows are unchanged. The same500-token query changed
+from one automatic notice/423tokens with genuine requirements crowded out to genuine requirement
+`memory_0911c79b-da38-443c-a0b0-8c34e1ba751d`/422tokens, with no candidate or pending transcript.
+The exact original environment was restored before the normal start. Final PID3971763 is healthy with
+`atlas_native_openai_responses`+one-decision JEV and both providers available. No provider probe, job
+retry, source/action replay, SQL correction or duplicate receipt task occurred. Exact receipts are in
+`evidence/automatic-notification-boundary/OUTCOME.json` and `activation.json`.
 
 ## Failed-current execution owner exclusion — 2026-11-08
 

@@ -1,0 +1,64 @@
+{
+  "task": "t_cb043bca",
+  "at": "2026-11-08T18:38:41.449263+00:00",
+  "result": "pass",
+  "candidate_count": 26,
+  "demotion_post_requests": 26,
+  "demotion_reconciled_without_post": 0,
+  "demotion_model_calls": 0,
+  "job_retries": 0,
+  "source_or_action_replays": 0,
+  "current_graph_targets_present": 0,
+  "pre_demotion_history_targets_present": 26,
+  "after_recall": {
+    "recall_id": "recall_b5ad063d-f6de-4af0-ac24-4f7bf1d0de52",
+    "memory_ids": [
+      "memory_3d7f2f70-9bd9-44e7-a560-425187b317c9",
+      "memory_0911c79b-da38-443c-a0b0-8c34e1ba751d"
+    ],
+    "tokens_used": 422,
+    "token_budget": 500,
+    "pending_included": 0,
+    "pending_events_count": 0,
+    "semantic_status": "available",
+    "service_ms": 158.19573600002332,
+    "context_sha256": "28b678d8a2128fdd29468e67988dbe05d2ca730d46b65cf5ee4036188db18d76",
+    "query_sha256": "57b98265af9e1e0729e696ed0f735bf0a248f735b22bf990501f9bec182694d5"
+  },
+  "original_rows_unchanged": true,
+  "provider_holds_unchanged_during_cleanup": true,
+  "terminal_native_quota_unchanged_during_cleanup": true,
+  "backup": {
+    "directory": "/home/alex/.local/share/the-atlas/backups/t_cb043bca_automatic_notification_activation",
+    "sqlite_sha256": "0973a19c386773438cf29d1760ad87bfb3449dd08c586cbd4a42be4266ed1add",
+    "quick_check": "ok",
+    "full_stopped_sqlite_backup": true,
+    "service_env_and_admin_credential_copied": true
+  },
+  "service_stops": 2,
+  "service_starts": 2,
+  "final_pid": 3971763,
+  "final_route": "atlas_native_openai_responses",
+  "final_availability": {
+    "luna": {
+      "configured": true,
+      "state": "available",
+      "reason": null,
+      "upstream_status": null,
+      "upstream_category": null,
+      "next_probe_at": null,
+      "probe_due": false
+    },
+    "jev": {
+      "configured": true,
+      "state": "available",
+      "reason": null,
+      "upstream_status": null,
+      "upstream_category": null,
+      "next_probe_at": null,
+      "probe_due": false
+    }
+  },
+  "protected_unchanged": true,
+  "serving_source_unchanged": true
+}

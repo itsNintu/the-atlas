@@ -1,0 +1,298 @@
+{
+  "at": "2026-11-08T18:33:43.861862+00:00",
+  "graph": {
+    "memory_0395458a-c8f0-4809-b1a0-5c56cb5c4f43": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:42.108Z",
+        "recorded_at": "2026-11-08T18:33:42.108Z"
+      },
+      "edge_count": 36,
+      "truncated": false
+    },
+    "memory_0f55a9fe-2ac3-4b8c-a44e-81a0af606d24": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:42.192Z",
+        "recorded_at": "2026-11-08T18:33:42.192Z"
+      },
+      "edge_count": 3,
+      "truncated": false
+    },
+    "memory_23f92c66-8cf4-404d-a1cc-06f8c0445e6e": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:42.259Z",
+        "recorded_at": "2026-11-08T18:33:42.259Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_26ee592c-ff09-4cbb-84ce-712f00d976c8": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:42.321Z",
+        "recorded_at": "2026-11-08T18:33:42.321Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_28129045-93d9-4e9b-af5a-115a49002a0b": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:42.383Z",
+        "recorded_at": "2026-11-08T18:33:42.383Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_2f48dfb4-1aa0-4b57-acd0-dccd8a1a72f6": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:42.443Z",
+        "recorded_at": "2026-11-08T18:33:42.443Z"
+      },
+      "edge_count": 2,
+      "truncated": false
+    },
+    "memory_32bf764d-12ce-4c46-a7c9-b49394156908": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:42.505Z",
+        "recorded_at": "2026-11-08T18:33:42.505Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_3577584f-90ea-4a8d-a315-e3eb52cfd62d": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:42.572Z",
+        "recorded_at": "2026-11-08T18:33:42.572Z"
+      },
+      "edge_count": 2,
+      "truncated": false
+    },
+    "memory_3af8444d-f11f-4da3-bd8d-674f604ae5b6": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:42.632Z",
+        "recorded_at": "2026-11-08T18:33:42.632Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_3d8187be-a3f1-4cd0-9692-b4bdf41ed810": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:42.692Z",
+        "recorded_at": "2026-11-08T18:33:42.692Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_4c8c1855-b8e8-421c-82a0-d335b55ed5b6": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:42.752Z",
+        "recorded_at": "2026-11-08T18:33:42.752Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_5728206e-8e1c-4958-bafd-e3a7a804e570": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:42.817Z",
+        "recorded_at": "2026-11-08T18:33:42.817Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_6111a961-6bde-44d2-bd17-c2f3a4dcf399": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:42.878Z",
+        "recorded_at": "2026-11-08T18:33:42.878Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_68a5e192-1e69-4619-b210-2a3f74fc239f": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:42.939Z",
+        "recorded_at": "2026-11-08T18:33:42.939Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_7424958c-85d2-43d7-822e-91bd58f0ffba": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:42.999Z",
+        "recorded_at": "2026-11-08T18:33:42.999Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_77d66cc3-002b-422d-9e9e-95ac750e8219": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:43.061Z",
+        "recorded_at": "2026-11-08T18:33:43.061Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_78c9e372-417b-405b-943e-35b9dc9497da": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:43.129Z",
+        "recorded_at": "2026-11-08T18:33:43.129Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_7c853ca7-64be-489b-8f36-cf425b51b1f8": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:43.189Z",
+        "recorded_at": "2026-11-08T18:33:43.189Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_c2d08a41-789b-4ea6-965e-1fbfbf63502e": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:43.251Z",
+        "recorded_at": "2026-11-08T18:33:43.251Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_c7870144-f960-4718-a37a-5298e409a4a7": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:43.313Z",
+        "recorded_at": "2026-11-08T18:33:43.313Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_d13d8f60-0b69-4130-b75c-9e84fae5014e": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:43.374Z",
+        "recorded_at": "2026-11-08T18:33:43.374Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_d717269e-3532-443f-9084-a648bacfacfa": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:43.432Z",
+        "recorded_at": "2026-11-08T18:33:43.432Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_e17592d2-05a7-41e2-bf2b-a92f7b7f9503": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:43.494Z",
+        "recorded_at": "2026-11-08T18:33:43.494Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_e5083112-b951-4db1-b60d-f026e2883e00": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:43.554Z",
+        "recorded_at": "2026-11-08T18:33:43.554Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_f40f62c7-25f6-43ad-9032-b70d17fc9154": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:43.616Z",
+        "recorded_at": "2026-11-08T18:33:43.616Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    },
+    "memory_fb94d67f-4eda-495f-87f6-f56b64eeed28": {
+      "present": true,
+      "snapshot": {
+        "valid_at": "2026-11-08T18:33:43.678Z",
+        "recorded_at": "2026-11-08T18:33:43.678Z"
+      },
+      "edge_count": 1,
+      "truncated": false
+    }
+  },
+  "recall": {
+    "recall_id": "recall_39c224f1-bfa8-4ee4-9022-a61d48062c9f",
+    "memory_ids": [
+      "memory_e17592d2-05a7-41e2-bf2b-a92f7b7f9503",
+      "memory_3d7f2f70-9bd9-44e7-a560-425187b317c9"
+    ],
+    "tokens_used": 423,
+    "token_budget": 500,
+    "pending_included": 0,
+    "pending_events_count": 0,
+    "semantic_status": "available",
+    "service_ms": 122.2149159999999,
+    "context_sha256": "3ee6313d7b733a95f4c85f745a0449091296f2f04326cc58aa582fd7ab3c94f1",
+    "query_sha256": "57b98265af9e1e0729e696ed0f735bf0a248f735b22bf990501f9bec182694d5"
+  },
+  "relevant_ids": [
+    "memory_0911c79b-da38-443c-a0b0-8c34e1ba751d",
+    "memory_213a6666-082d-4815-b1ca-a829407058a1"
+  ],
+  "target_before": {
+    "events": "030fc1c8f5aefd3dbb000f3606d060e06db6f75f6be0c7b461dd7207d393a03c",
+    "jobs": "74378f946e5d707b8d9fd6a29782608752f5846076aa66df280a8068e4e8a697",
+    "memories": "87793902beac3b9370edbf8b3882f0181eb72a93f9a4904874aceffe4c401c7d",
+    "supports": "2fa6594b482aabb4146d28d5d6eeabe0d80009626980a81b35b0b56f3c8d147c",
+    "versions": "7f40d897f81b868ba68746cc278c6a23f8d1fd1463abad3001783255ae5e9d51",
+    "provider_holds": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "terminal_native_quota": "c73fd4e55c5b5e2b961cae480181fb40b3f9f831ebcc1db413aecade50a17980",
+    "event_admissions": "ee51766c55200d945be5265501bdabb7fce1b77d3d93fe0e71fb9f493bae74f6",
+    "jev_routes": "b9c2c423dda5daf2028b57d95ca3d854cfef935a8a0c8ff5c84c31a68543d678",
+    "reconciliations": "026efa76bd8fc39b10f7e141d6b2bcbe11ff757ee92d63ea55af67648ebcf243"
+  },
+  "subjects": {
+    "memory_0395458a-c8f0-4809-b1a0-5c56cb5c4f43": "agent:default",
+    "memory_0f55a9fe-2ac3-4b8c-a44e-81a0af606d24": "t_0b252f84",
+    "memory_23f92c66-8cf4-404d-a1cc-06f8c0445e6e": "t_801f3e17",
+    "memory_26ee592c-ff09-4cbb-84ce-712f00d976c8": "Atlas Zep memory-lifecycle research task t_951cec69",
+    "memory_28129045-93d9-4e9b-af5a-115a49002a0b": "t_3e1c1ed1",
+    "memory_2f48dfb4-1aa0-4b57-acd0-dccd8a1a72f6": "Creator Labs MCP setup attempt",
+    "memory_32bf764d-12ce-4c46-a7c9-b49394156908": "Atlas durable brain graph task t_1a164ffe",
+    "memory_3577584f-90ea-4a8d-a315-e3eb52cfd62d": "t_9a4fc271",
+    "memory_3af8444d-f11f-4da3-bd8d-674f604ae5b6": "t_3123a1d3",
+    "memory_3d8187be-a3f1-4cd0-9692-b4bdf41ed810": "The Atlas automatic shared and evolving memory system",
+    "memory_4c8c1855-b8e8-421c-82a0-d335b55ed5b6": "Reaver\u2019s Atlas behavior-case preparation task",
+    "memory_5728206e-8e1c-4958-bafd-e3a7a804e570": "Zep research task t_b0de68b3",
+    "memory_6111a961-6bde-44d2-bd17-c2f3a4dcf399": "t_a35405e4",
+    "memory_68a5e192-1e69-4619-b210-2a3f74fc239f": "t_ba0272d9",
+    "memory_7424958c-85d2-43d7-822e-91bd58f0ffba": "t_0d434979",
+    "memory_77d66cc3-002b-422d-9e9e-95ac750e8219": "t_6406e00d",
+    "memory_78c9e372-417b-405b-943e-35b9dc9497da": "Atlas native recall completion repair",
+    "memory_7c853ca7-64be-489b-8f36-cf425b51b1f8": "t_0991ad50",
+    "memory_c2d08a41-789b-4ea6-965e-1fbfbf63502e": "Atlas memory recommendation task t_b024aaa8",
+    "memory_c7870144-f960-4718-a37a-5298e409a4a7": "Atlas memory recommendation task t_1d36c940",
+    "memory_d13d8f60-0b69-4130-b75c-9e84fae5014e": "The Atlas rename task t_209c2730",
+    "memory_d717269e-3532-443f-9084-a648bacfacfa": "Atlas mixed-evidence recall selection repair",
+    "memory_e17592d2-05a7-41e2-bf2b-a92f7b7f9503": "t_7bb8aa11",
+    "memory_e5083112-b951-4db1-b60d-f026e2883e00": "t_70292de2",
+    "memory_f40f62c7-25f6-43ad-9032-b70d17fc9154": "ThreadAtlas v0.1.0-alpha.0 delivery task",
+    "memory_fb94d67f-4eda-495f-87f6-f56b64eeed28": "t_2d33f868"
+  }
+}

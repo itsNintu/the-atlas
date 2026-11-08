@@ -1,0 +1,61 @@
+{
+  "at": "2026-11-08T18:38:36.044Z",
+  "database": "readonly/query_only",
+  "classifier": "automaticStatusNotification",
+  "candidate_count": 0,
+  "reviewable_count": 0,
+  "unreviewable_count": 0,
+  "candidates": [],
+  "reported": [
+    {
+      "prefix": "memory_78c9e372",
+      "memory_id": "memory_78c9e372-417b-405b-943e-35b9dc9497da",
+      "found": true,
+      "already_demoted": true,
+      "support_count": 1,
+      "all_supports_automatic": true,
+      "reviewable": false,
+      "source": null
+    },
+    {
+      "prefix": "memory_3577584f",
+      "memory_id": "memory_3577584f-90ea-4a8d-a315-e3eb52cfd62d",
+      "found": true,
+      "already_demoted": true,
+      "support_count": 1,
+      "all_supports_automatic": true,
+      "reviewable": false,
+      "source": null
+    },
+    {
+      "prefix": "memory_0395458a",
+      "memory_id": "memory_0395458a-c8f0-4809-b1a0-5c56cb5c4f43",
+      "found": true,
+      "already_demoted": true,
+      "support_count": 1,
+      "all_supports_automatic": true,
+      "reviewable": false,
+      "source": null
+    },
+    {
+      "prefix": "memory_3af8444d",
+      "memory_id": "memory_3af8444d-f11f-4da3-bd8d-674f604ae5b6",
+      "found": true,
+      "already_demoted": true,
+      "support_count": 1,
+      "all_supports_automatic": true,
+      "reviewable": false,
+      "source": null
+    },
+    {
+      "prefix": "memory_23f92c66",
+      "memory_id": "memory_23f92c66-8cf4-404d-a1cc-06f8c0445e6e",
+      "found": true,
+      "already_demoted": true,
+      "support_count": 1,
+      "all_supports_automatic": true,
+      "reviewable": false,
+      "source": null
+    }
+  ]
+}
