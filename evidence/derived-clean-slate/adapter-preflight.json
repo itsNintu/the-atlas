@@ -1,0 +1,222 @@
+{
+  "mode": "windows_read_only_preflight",
+  "at": "2026-11-08T22:24:21.743564+00:00",
+  "profiles": [
+    {
+      "profile": "default",
+      "home": "C:\\Users\\alexb\\AppData\\Local\\hermes",
+      "files": {
+        "outbox.sqlite": {
+          "path": "C:\\Users\\alexb\\AppData\\Local\\hermes\\atlas\\outbox.sqlite",
+          "size": 37240832
+        },
+        "state.db": {
+          "path": "C:\\Users\\alexb\\AppData\\Local\\hermes\\state.db",
+          "size": 457641984
+        }
+      },
+      "protected_sha256": {
+        "config.yaml": "effdee331c3c8b8e9dd61a8668346519b7901d7881560ce65a5eb67852eab6ce",
+        "atlas/config.json": "e448e4c56b7aa8cce9601f773c1637583f93959b77dad10053adffe9963e3972",
+        "atlas/credential.json": "e87637cd22ad493d770f879cf080f42408a61faf8c3054b9f3fc501e5755428a"
+      },
+      "outbox": {
+        "identities": 17327,
+        "unacked_active": 0,
+        "unacked_superseded": 0,
+        "platform_pending": 0,
+        "feedback_pending": 0,
+        "cached_recall_receipts": 542,
+        "receipts": 898,
+        "max_rowid": 4328,
+        "max_receipt_sequence": 898
+      },
+      "native": {
+        "messages": 33220,
+        "journal_unexported": 0,
+        "journal_total": 4315,
+        "journal_cutoff": 4315
+      }
+    },
+    {
+      "profile": "builder",
+      "home": "C:\\Users\\alexb\\AppData\\Local\\hermes\\profiles\\builder",
+      "files": {
+        "outbox.sqlite": {
+          "path": "C:\\Users\\alexb\\AppData\\Local\\hermes\\profiles\\builder\\atlas\\outbox.sqlite",
+          "size": 135987200
+        },
+        "state.db": {
+          "path": "C:\\Users\\alexb\\AppData\\Local\\hermes\\profiles\\builder\\state.db",
+          "size": 530227200
+        }
+      },
+      "protected_sha256": {
+        "config.yaml": "35907a32cd58c34eb4145d18be781c669c526d9228e268327320f5319833a010",
+        "atlas/config.json": "743d1c36da7a8ff4ce608ae27e7a45c05eed5b866c8dd0897152da5b9e4ff632",
+        "atlas/credential.json": "37c96a240948aa893c44684aed6d4be641b3ee4d6908b055a5f88755aea031f3"
+      },
+      "outbox": {
+        "identities": 19667,
+        "unacked_active": 1,
+        "unacked_superseded": 0,
+        "platform_pending": 0,
+        "feedback_pending": 0,
+        "cached_recall_receipts": 1705,
+        "receipts": 2153,
+        "max_rowid": 8906,
+        "max_receipt_sequence": 2153
+      },
+      "native": {
+        "messages": 38385,
+        "journal_unexported": 1,
+        "journal_total": 6775,
+        "journal_cutoff": 6775
+      }
+    },
+    {
+      "profile": "reaver",
+      "home": "C:\\Users\\alexb\\AppData\\Local\\hermes\\profiles\\reaver",
+      "files": {
+        "outbox.sqlite": {
+          "path": "C:\\Users\\alexb\\AppData\\Local\\hermes\\profiles\\reaver\\atlas\\outbox.sqlite",
+          "size": 16175104
+        },
+        "state.db": {
+          "path": "C:\\Users\\alexb\\AppData\\Local\\hermes\\profiles\\reaver\\state.db",
+          "size": 26488832
+        }
+      },
+      "protected_sha256": {
+        "config.yaml": "7c7d8ae1eb910e0c1f6a52929fc0ac06185846c097e4d1e3a36c339f9a574237",
+        "atlas/config.json": "6e315b4b6cbd57453aa7f950b31508a155eda3392c2cbf290dfe098e6dc4ce2a",
+        "atlas/credential.json": "58e4b19de5835b0cce5b203f89cbea45740d2d3a91200fa1f0e566f755fbdf9b"
+      },
+      "outbox": {
+        "identities": 1426,
+        "unacked_active": 0,
+        "unacked_superseded": 0,
+        "platform_pending": 0,
+        "feedback_pending": 0,
+        "cached_recall_receipts": 250,
+        "receipts": 314,
+        "max_rowid": 1145,
+        "max_receipt_sequence": 314
+      },
+      "native": {
+        "messages": 1586,
+        "journal_unexported": 0,
+        "journal_total": 711,
+        "journal_cutoff": 711
+      }
+    },
+    {
+      "profile": "overwatch",
+      "home": "C:\\Users\\alexb\\AppData\\Local\\hermes\\profiles\\overwatch",
+      "files": {
+        "outbox.sqlite": {
+          "path": "C:\\Users\\alexb\\AppData\\Local\\hermes\\profiles\\overwatch\\atlas\\outbox.sqlite",
+          "size": 77029376
+        },
+        "state.db": {
+          "path": "C:\\Users\\alexb\\AppData\\Local\\hermes\\profiles\\overwatch\\state.db",
+          "size": 481595392
+        }
+      },
+      "protected_sha256": {
+        "config.yaml": "017341fd799809d90541d69667c08eca1c69a61854305d8196f7e898e1b68217",
+        "atlas/config.json": "81faaf38eb47c4356323b00a39d118f4785c5553cc93fac052ad3f9e7f6411a3",
+        "atlas/credential.json": "6c1a9829030a45518f19af9865415a6276aec092a62ccca1d8538ddbb583ea10"
+      },
+      "outbox": {
+        "identities": 18877,
+        "unacked_active": 0,
+        "unacked_superseded": 0,
+        "platform_pending": 0,
+        "feedback_pending": 0,
+        "cached_recall_receipts": 1055,
+        "receipts": 29217,
+        "max_rowid": 5052,
+        "max_receipt_sequence": 29217
+      },
+      "native": {
+        "messages": 40024,
+        "journal_unexported": 0,
+        "journal_total": 3658,
+        "journal_cutoff": 3658
+      }
+    },
+    {
+      "profile": "wordsmith",
+      "home": "C:\\Users\\alexb\\AppData\\Local\\hermes\\profiles\\wordsmith",
+      "files": {
+        "outbox.sqlite": {
+          "path": "C:\\Users\\alexb\\AppData\\Local\\hermes\\profiles\\wordsmith\\atlas\\outbox.sqlite",
+          "size": 1183744
+        },
+        "state.db": {
+          "path": "C:\\Users\\alexb\\AppData\\Local\\hermes\\profiles\\wordsmith\\state.db",
+          "size": 22327296
+        }
+      },
+      "protected_sha256": {
+        "config.yaml": "3f25f56194fa770bcb3efae0ffe11e5bddd0b1a224d892182a292e0416870a73",
+        "atlas/config.json": "e3187d0f6e727d300aad7b115039e4771c3d3b0fe40e55778a7bb98a253e947d",
+        "atlas/credential.json": "4b06975623900878546047700caca2cdcb7b39f9d3148dc2d5e953f06236577d"
+      },
+      "outbox": {
+        "identities": 516,
+        "unacked_active": 0,
+        "unacked_superseded": 0,
+        "platform_pending": 0,
+        "feedback_pending": 0,
+        "cached_recall_receipts": 15,
+        "receipts": 46,
+        "max_rowid": 70,
+        "max_receipt_sequence": 46
+      },
+      "native": {
+        "messages": 1378,
+        "journal_unexported": 0,
+        "journal_total": 42,
+        "journal_cutoff": 42
+      }
+    },
+    {
+      "profile": "orchestrator",
+      "home": "C:\\Users\\alexb\\AppData\\Local\\hermes\\profiles\\orchestrator",
+      "files": {
+        "outbox.sqlite": {
+          "path": "C:\\Users\\alexb\\AppData\\Local\\hermes\\profiles\\orchestrator\\atlas\\outbox.sqlite",
+          "size": 7458816
+        },
+        "state.db": {
+          "path": "C:\\Users\\alexb\\AppData\\Local\\hermes\\profiles\\orchestrator\\state.db",
+          "size": 56598528
+        }
+      },
+      "protected_sha256": {
+        "config.yaml": "b9d4ff4a6688ac9d426fc83d63fc19c57cf0f345c6ef13c1a16de53901019ceb",
+        "atlas/config.json": "dd82d5322fb72aef526eddba26f5a195c772e04cbe52d546541ddcbdf11764c2",
+        "atlas/credential.json": "4576e8d36fe5cbe802ca362ebbf83eb9a5d256770741168f05a6afd97374f7b7"
+      },
+      "outbox": {
+        "identities": 1463,
+        "unacked_active": 0,
+        "unacked_superseded": 0,
+        "platform_pending": 0,
+        "feedback_pending": 0,
+        "cached_recall_receipts": 63,
+        "receipts": 108,
+        "max_rowid": 408,
+        "max_receipt_sequence": 108
+      },
+      "native": {
+        "messages": 2968,
+        "journal_unexported": 0,
+        "journal_total": 243,
+        "journal_cutoff": 243
+      }
+    }
+  ]
+}

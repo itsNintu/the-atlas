@@ -1,0 +1,97 @@
+{
+  "result": "pass",
+  "reset_at": "2026-11-08T23:06:13.701Z",
+  "profiles": [
+    {
+      "profile": "default",
+      "snapshot": {
+        "valid_at": "2026-11-08T23:06:13.701Z",
+        "recorded_at": "2026-11-08T23:06:13.701Z"
+      },
+      "nodes": 0,
+      "edges": 0,
+      "changes": 0,
+      "scopes": [
+        "agent:default",
+        "business:alex",
+        "user:alex"
+      ]
+    },
+    {
+      "profile": "builder",
+      "snapshot": {
+        "valid_at": "2026-11-08T23:06:13.701Z",
+        "recorded_at": "2026-11-08T23:06:13.701Z"
+      },
+      "nodes": 0,
+      "edges": 0,
+      "changes": 0,
+      "scopes": [
+        "agent:builder",
+        "business:alex",
+        "user:alex"
+      ]
+    },
+    {
+      "profile": "reaver",
+      "snapshot": {
+        "valid_at": "2026-11-08T23:06:13.701Z",
+        "recorded_at": "2026-11-08T23:06:13.701Z"
+      },
+      "nodes": 0,
+      "edges": 0,
+      "changes": 0,
+      "scopes": [
+        "agent:reaver",
+        "business:alex",
+        "user:alex"
+      ]
+    },
+    {
+      "profile": "overwatch",
+      "snapshot": {
+        "valid_at": "2026-11-08T23:06:13.701Z",
+        "recorded_at": "2026-11-08T23:06:13.701Z"
+      },
+      "nodes": 0,
+      "edges": 0,
+      "changes": 0,
+      "scopes": [
+        "agent:overwatch",
+        "business:alex",
+        "user:alex"
+      ]
+    },
+    {
+      "profile": "wordsmith",
+      "snapshot": {
+        "valid_at": "2026-11-08T23:06:13.701Z",
+        "recorded_at": "2026-11-08T23:06:13.701Z"
+      },
+      "nodes": 0,
+      "edges": 0,
+      "changes": 0,
+      "scopes": [
+        "agent:wordsmith",
+        "business:alex",
+        "user:alex"
+      ]
+    },
+    {
+      "profile": "orchestrator",
+      "snapshot": {
+        "valid_at": "2026-11-08T23:06:13.701Z",
+        "recorded_at": "2026-11-08T23:06:13.701Z"
+      },
+      "nodes": 0,
+      "edges": 0,
+      "changes": 0,
+      "scopes": [
+        "agent:orchestrator",
+        "business:alex",
+        "user:alex"
+      ]
+    }
+  ],
+  "note": "Exact graph/UI read-model snapshot at reset completion; later genuine new-conversation nodes are separate."
+}

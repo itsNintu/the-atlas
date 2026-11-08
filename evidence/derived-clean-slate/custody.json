@@ -1,0 +1,378 @@
+{
+  "task": "t_210103dc",
+  "phase": "stop_backup",
+  "at": "2026-11-08T21:51:54.046130+00:00",
+  "source_commit": "e58d47a51577c3001848612868ff4ed21c0c5530",
+  "before": {
+    "MainPID": "3971763",
+    "Result": "success",
+    "NRestarts": "0",
+    "ExecMainStartTimestamp": "Mon 2026-11-09 01:38:37 +07",
+    "ExecMainStatus": "0",
+    "ActiveState": "active",
+    "SubState": "running",
+    "InvocationID": "2007dd79234447eab3fc6bc03df30ede"
+  },
+  "protected_sha256": {
+    "/home/alex/.local/share/the-atlas/service.env": "444d7b4aea318581c7feb4fb9080430372c4a1002b0e84b075d3118c1dbb1f74",
+    "/home/alex/.local/share/the-atlas/admin.credentials.json": "5d5657ee2508f724c109a4bba4b3c6b70aa3df6f790ec654d040c5e6964bdf42",
+    "/home/alex/.config/systemd/user/the-atlas.service": "0902e8e1271a90a5d4ad4858421b594d5643a0abe36f08baaeb4890a141dd07e",
+    "/mnt/d/Work/Operations/hermes/atlas-native/atlas_client.py": "5a5cfe1230e0486dd86181ac7da19840b9e03fe4154ed16617f758bc828f5d82"
+  },
+  "serving_sha256": {
+    "src/memory-truth.ts": "e9a8875bc55e644df9f4647bdbbbb561b104fa7dc13f851e80f2eb61bcbc4ffe",
+    "src/store.ts": "3bfef1a242f260509e77892b1e5f9aadb8cff9887b7f1819eeb0f06dae41cb5c",
+    "src/provider-availability.ts": "49380b52ab3f608c20f95bd3f792c68ad5b74ab9dc5523ca77a8769c3ff825d7",
+    "src/jev.ts": "5d9a83705032c026b36e3feb439abfe8525178036799bd6aa2ed2ea9fdafa770",
+    "src/server.ts": "3be5481dc936ce97db02699825b1c768439a72ce29469d29c69bae86cd4f3667",
+    "src/derived-reset.ts": "0fccf2b2264f17ec573a500d9ef42e72109ce0a88d9478ad30bec3832f5d89ea",
+    "src/memory-admission.ts": "7e0bc1efd03f76fa421e352568f3e039d6f19c59211c2bb07541fdad36bc0040",
+    "src/reset-state.ts": "40a99df5ef93e0b9b58984c41c3ed3171c761e2813e0c883a81501bcc10ff11c",
+    "src/memory-graph.ts": "0f65d17e8353cc395c9e62138f3c72d3bd4c8714d97645eda657629519e1d6e3",
+    "src/inference.ts": "2af4206c36bb9dd044a078fe680fde056f0a219823b4da95e54256bc04e266a2",
+    "src/config.ts": "3727b6e3bb7e931102d8ff5897e1cd5b93a8bc4a30e6d76c533f0352474d601e",
+    "src/memory.ts": "c50cb74f62e2f9316bb7dedc30f730ea450856836601ef8383145b1be10e81a9",
+    "src/app.ts": "43b1401cfac11bd0e3319eb04e3aee0d4d673b68fe77dab2b8186c57cef14f52",
+    "src/memory-scheduler.ts": "4cb7166e105bf611f4bbd40ca89f65d15ec2a1fdb9265517cf20d64b970be814",
+    "src/memory-schema.ts": "e9702467b1a5c8f3ff46e37b4ae98345876544b14120e6b6b175077f3bb1beeb",
+    "src/worker.ts": "a1f5a43292f0e74a78690c5e51196185734ea7224b28e096e685aa019d782877",
+    "src/errors.ts": "53de4c55b5c12d69beb532cca667871831e604657ba1e155fae539e6bd458ae4",
+    "src/recall-query.ts": "dedcc79fcc57d79c20c95f0cabf2dc951fcbb12c9a7bbae41960b4ad78916ede",
+    "src/cli.ts": "7cdbfea437ffdf38c3d39f9236f4973861e39dc84cdadd6e5602b18a2017da48",
+    "src/provider.ts": "dcc5123a4d0351033f0fbb08e8e11a99f36718a352c1786a42e069743d265641",
+    "src/schema.ts": "105d9eddcb992db4aaa7d606256cb01e687943bc2566cf09209a843fb0990959",
+    "src/native-luna.ts": "365af4ac243e264136f7bb788e833f7a7c9a7b48ed7dde2f22c9e38016371fdb",
+    "src/memory-repair.ts": "09a7951f7dce9a148e078b0cd6b6e8123fb181fcab189540cc4205a1ebc29ad5",
+    "src/memory-index.ts": "274c3a3a7f6068e4798e8126bba6d3908066f6518810c252565870aea1dc2776",
+    "src/native-openai.ts": "85ac3dd098f5655c92570138480ee89b5d97c9aa358911b3603e3678ca1d83cd",
+    "src/memory-identity.ts": "4aa3912d37d2384b38756d71cb04e9f4fd5f4709338c6078144f58bb924b9017",
+    "src/memory-reconciliation.ts": "e0ff4fe4fbc4ef609a30f27ebf29cf5ab30397fe8a7919f928111f708a8f992c",
+    "src/memory-correction-lookup.ts": "0f24801cd705eeb4b44f2d2b3c139f2a0738d31b46b7af2939027c304ffb8d7c",
+    "src/memory-corrections.ts": "256ecb267b3d75673b65be81571f928562d3fdf34047f4e76a5b466163f45df0",
+    "ui/brain.css": "6dfdd6fc67dad9fe1b15a2e8d3024507843f11fe1af194e7e7da0985c5043c55",
+    "ui/brain.js": "36f68e977b2e78e1da41de06076cf3b70962c744c76f37ca9726bdf1269a65ca",
+    "ui/index.html": "11e958903a424886a2ef833747649aa312cff67c90ddccc4344eb05dec88b4e0",
+    "ui/brand.css": "2e067a076e9659d1c2504d9ed4625ea6e9aaeaa9eadb658c88ab828b91a4d366",
+    "ui/ui.js": "4a81020a667407c275ac53055a3317b5dea514761f5208429013073d38ac96b2",
+    "ui/style.css": "0528a062eebb2e93a44fe512cf02082884c4746e7cf5771ce724fecf7180da4f",
+    "ui/brain.html": "e03b6d31a9c763850d6d30a4dd4b54bc519f38bd2c2d4ddd45d0f653522b7804",
+    "ui/brand/README.md": "70bef7654412a94758b34e9230ca7be02d585217def43efbbb80c5eb30d191d2",
+    "ui/brand/SpaceGrotesk-variable.ttf": "acad6de1fc93436f5c0f1f4137751ef04f1aea3063e7036535970ffcfbd79f72",
+    "ui/brand/IBMPlexMono-Medium.ttf": "a9b4c49bb299e05b5f6c481e7fb5e78943d2793249a0c8874ab574a2d1ea6755",
+    "ui/brand/sources.json": "e0c1688565bbc66fadd38c65021482afc671cc8a4ededea157422f7af8a25dfd",
+    "ui/brand/creator-labs-white.svg": "45df208b2b15569f2aead756fe4783ddf8008c7e6d6e7658ee1e844fbce553e0",
+    "ui/brand/IBMPlexMono-Regular.ttf": "6a3412f058c7d8dfd9170c41e85ade48e5156ecb89356110ca57a0a27734af46",
+    "ui/brand/IBMPlexMono-OFL.txt": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da",
+    "ui/brand/SpaceGrotesk-OFL.txt": "564ce565c371c5e5bbf286006565a7c9aa55a9f56e7ca58d56e05d649dd61a72"
+  },
+  "db_identity": [
+    2096,
+    2595582
+  ],
+  "stopped": {
+    "MainPID": "0",
+    "Result": "success",
+    "NRestarts": "0",
+    "ExecMainStartTimestamp": "Mon 2026-11-09 01:38:37 +07",
+    "ExecMainStatus": "0",
+    "ActiveState": "inactive",
+    "SubState": "dead",
+    "InvocationID": "2007dd79234447eab3fc6bc03df30ede"
+  },
+  "raw_digests": {
+    "workspaces": {
+      "columns": [
+        "id",
+        "name",
+        "created_at"
+      ],
+      "sha256": "ff275525e834218fe0d1171a4af468a177b2ba92eae7bc598e0fb4662f126f6a"
+    },
+    "principals": {
+      "columns": [
+        "id",
+        "workspace_id",
+        "name",
+        "kind",
+        "is_admin",
+        "created_at"
+      ],
+      "sha256": "9abe93a7e3e2be6f98a19ce6e630685db80119c9d673834dc6d4b5dfd9c2df96"
+    },
+    "credentials": {
+      "columns": [
+        "id",
+        "principal_id",
+        "token_hash",
+        "created_at",
+        "revoked_at"
+      ],
+      "sha256": "5bff4ade59286dcc78f235beb033b40b81cb924e597356190cc29c3a5adb9c43"
+    },
+    "projects": {
+      "columns": [
+        "id",
+        "workspace_id",
+        "name",
+        "created_at"
+      ],
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "spaces": {
+      "columns": [
+        "id",
+        "workspace_id",
+        "project_id",
+        "name",
+        "kind",
+        "owner_id",
+        "created_at"
+      ],
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "grants": {
+      "columns": [
+        "space_id",
+        "principal_id",
+        "action"
+      ],
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "sources": {
+      "columns": [
+        "id",
+        "workspace_id",
+        "space_id",
+        "external_id",
+        "current_revision_id",
+        "created_at",
+        "deleted_at"
+      ],
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "revisions": {
+      "columns": [
+        "id",
+        "source_id",
+        "revision_number",
+        "format",
+        "mode",
+        "source_timestamp",
+        "payload_json",
+        "assertions_json",
+        "recorded_at",
+        "superseded_at",
+        "deleted_at"
+      ],
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "idempotency": {
+      "columns": [
+        "principal_id",
+        "key",
+        "request_hash",
+        "response_json",
+        "created_at"
+      ],
+      "sha256": "6fe2c2de4cc4d387f332a9557fb6060df6100c79b13b786f06872ebc93805180"
+    },
+    "audit": {
+      "columns": [
+        "id",
+        "workspace_id",
+        "principal_id",
+        "request_id",
+        "operation",
+        "target_id",
+        "created_at"
+      ],
+      "sha256": "33089b5b96016a3466a7b9a25c7ae0de84501214cdc076b8c7b289907afb3612"
+    },
+    "memory_bindings": {
+      "columns": [
+        "principal_id",
+        "workspace_id",
+        "agent_id",
+        "created_at"
+      ],
+      "sha256": "e175b43cfed589a2c56c5ef5bebdaddb3d8faacf1d3d0340f360b6f9c43b6bd4"
+    },
+    "memory_grants": {
+      "columns": [
+        "principal_id",
+        "scope",
+        "action"
+      ],
+      "sha256": "b45a2b5bc7224d3ed98992ec7c49cb551bc84121215168619db32b64c6d40bf1"
+    },
+    "memory_events": {
+      "columns": [
+        "id",
+        "workspace_id",
+        "client_id",
+        "event_id",
+        "revision",
+        "operation",
+        "agent_id",
+        "thread_id",
+        "role",
+        "author_id",
+        "occurred_at",
+        "observed_at",
+        "accepted_at",
+        "content",
+        "metadata_json",
+        "causal_json",
+        "roots_json",
+        "body_hash",
+        "principal_id",
+        "credential_id",
+        "job_id",
+        "status",
+        "processed_at"
+      ],
+      "sha256": "6b062ccaf723f87a7c0dc78a4e36c57dc46ae185edbb5ee21d7d840de5d379c5"
+    },
+    "memory_roots": {
+      "columns": [
+        "workspace_id",
+        "root_id",
+        "owner_event_pk",
+        "forgotten_at"
+      ],
+      "sha256": "736eab3a124b931228029daf4a4987c8d49a1e118292e901a1d0af8dd6e0e02a"
+    },
+    "memory_heads": {
+      "columns": [
+        "workspace_id",
+        "client_id",
+        "event_id",
+        "event_pk",
+        "revision"
+      ],
+      "sha256": "8aca913b63ecb2ea55dfe31a09cd2b9faf794139e9323a49b3723741a06c4470"
+    },
+    "memory_curation_metrics": {
+      "columns": [
+        "job_id",
+        "event_pk",
+        "chunk_start",
+        "chunk_end",
+        "input_tokens",
+        "input_bytes",
+        "candidate_count",
+        "recent_count",
+        "decision_count",
+        "elapsed_ms",
+        "created_at"
+      ],
+      "sha256": "ab99fe972ab7373ae34b695216b0aba37fae45814d5d01ca412c994d3c58759d"
+    },
+    "memory_reprocess_requests": {
+      "columns": [
+        "job_id",
+        "previous_job_id",
+        "event_pk",
+        "principal_id",
+        "reason_code",
+        "prompt_sha256",
+        "previous_processed_at",
+        "created_at"
+      ],
+      "sha256": "accb04839478cb0ca5c35198db16f655d60717e129d44e6a5d892c246a1c017a"
+    },
+    "memory_reconsider_requests": {
+      "columns": [
+        "job_id",
+        "previous_job_id",
+        "event_pk",
+        "principal_id",
+        "reason_code",
+        "prompt_sha256",
+        "previous_captured_at",
+        "created_at"
+      ],
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "terminal_job_digests": {
+    "jobs": {
+      "columns": [
+        "id",
+        "revision_id",
+        "status",
+        "attempts",
+        "max_attempts",
+        "available_at",
+        "lease_until",
+        "lease_token",
+        "error_code",
+        "created_at",
+        "completed_at"
+      ],
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "memory_jobs": {
+      "columns": [
+        "id",
+        "event_pk",
+        "status",
+        "attempts",
+        "max_attempts",
+        "available_at",
+        "lease_until",
+        "lease_token",
+        "error_code",
+        "created_at",
+        "completed_at"
+      ],
+      "sha256": "18dac2beb96017d554dd5e136cedf5530e934a11cf0997b480faeda3a4b63b10"
+    }
+  },
+  "provider_hold_digest": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "derived_counts": {
+    "memory_feedback": 5,
+    "memory_recalls": 525,
+    "memory_admission_demotions": 3725,
+    "memory_admission_reviews": 3725,
+    "memory_change_invalidations": 2,
+    "memory_reconciliations": 1109,
+    "memory_event_admissions": 10264,
+    "memory_jev_routes": 290122,
+    "memory_lineage": 264,
+    "memory_entity_targets": 588,
+    "memory_supports": 4757,
+    "memory_changes": 278,
+    "memory_entity_equivalences": 63,
+    "memory_alias_sources": 4274,
+    "memory_versions": 4685,
+    "memory_vector_buckets": 112320,
+    "memory_chunk_progress": 87,
+    "memories": 4680,
+    "memory_scoped_aliases": 2239,
+    "memory_aliases": 1663,
+    "memory_entities": 2086,
+    "supports": 0,
+    "facts": 0,
+    "memory_search": 4680
+  },
+  "job_statuses": {
+    "jobs": {},
+    "memory_jobs": {
+      "cancelled": 61,
+      "failed": 8286,
+      "queued": 1381,
+      "retry": 11,
+      "skipped": 1754,
+      "succeeded": 6025
+    }
+  },
+  "backup": {
+    "directory": "/home/alex/.local/share/the-atlas/backups/t_210103dc_derived_clean_slate/atlas",
+    "sqlite_sha256": "a9476f4cc4570a405efa7fb7c72c88cdc78003e891f87ef912768d865db6e9eb",
+    "service_env_sha256": "444d7b4aea318581c7feb4fb9080430372c4a1002b0e84b075d3118c1dbb1f74",
+    "admin_credential_sha256": "5d5657ee2508f724c109a4bba4b3c6b70aa3df6f790ec654d040c5e6964bdf42",
+    "full_stopped_sqlite_backup": true
+  },
+  "backup_quick_check": "ok"
+}

@@ -1,0 +1,9 @@
+{
+  "result": "pass",
+  "reset_at": "2026-11-08T23:06:13.701Z",
+  "counts": "0 nodes / 0 relationships",
+  "status": "Snapshot: valid 2026-11-08T23:06:13.701Z · known 2026-11-08T23:06:13.701Z",
+  "node_elements": 0,
+  "empty_state_visible": true,
+  "screenshot": "/home/alex/work/projects/the-atlas/evidence/derived-clean-slate/graph-reset-snapshot.png"
+}

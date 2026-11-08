@@ -1,0 +1,141 @@
+{
+  "events": [
+    {
+      "agent_id": "builder",
+      "role": "assistant",
+      "author_id": "agent:builder",
+      "status": "captured",
+      "accepted_at": "2026-11-08T23:09:09.069Z",
+      "occurred_at": "2026-11-08T23:08:44.340Z",
+      "count": 1
+    },
+    {
+      "agent_id": "builder",
+      "role": "assistant",
+      "author_id": "agent:builder",
+      "status": "captured",
+      "accepted_at": "2026-11-08T23:09:09.119Z",
+      "occurred_at": "2026-11-08T23:08:46.262Z",
+      "count": 1
+    },
+    {
+      "agent_id": "builder",
+      "role": "assistant",
+      "author_id": "agent:builder",
+      "status": "captured",
+      "accepted_at": "2026-11-08T23:09:09.166Z",
+      "occurred_at": "2026-11-08T23:08:53.695Z",
+      "count": 1
+    },
+    {
+      "agent_id": "builder",
+      "role": "assistant",
+      "author_id": "agent:builder",
+      "status": "captured",
+      "accepted_at": "2026-11-08T23:09:09.213Z",
+      "occurred_at": "2026-11-08T23:09:04.049Z",
+      "count": 1
+    },
+    {
+      "agent_id": "builder",
+      "role": "assistant",
+      "author_id": "agent:builder",
+      "status": "captured",
+      "accepted_at": "2026-11-08T23:09:25.955Z",
+      "occurred_at": "2026-11-08T23:09:25.443Z",
+      "count": 1
+    },
+    {
+      "agent_id": "builder",
+      "role": "assistant",
+      "author_id": "agent:builder",
+      "status": "captured",
+      "accepted_at": "2026-11-08T23:09:45.075Z",
+      "occurred_at": "2026-11-08T23:09:44.010Z",
+      "count": 1
+    },
+    {
+      "agent_id": "builder",
+      "role": "assistant",
+      "author_id": "agent:builder",
+      "status": "captured",
+      "accepted_at": "2026-11-08T23:09:51.859Z",
+      "occurred_at": "2026-11-08T23:09:51.317Z",
+      "count": 1
+    },
+    {
+      "agent_id": "wordsmith",
+      "role": "inter_agent",
+      "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+      "status": "processed",
+      "accepted_at": "2026-11-08T23:10:43.715Z",
+      "occurred_at": "2026-11-08T23:10:43.032Z",
+      "count": 1
+    },
+    {
+      "agent_id": "wordsmith",
+      "role": "assistant",
+      "author_id": "agent:wordsmith",
+      "status": "captured",
+      "accepted_at": "2026-11-08T23:10:50.084Z",
+      "occurred_at": "2026-11-08T23:10:49.490Z",
+      "count": 1
+    },
+    {
+      "agent_id": "wordsmith",
+      "role": "assistant",
+      "author_id": "agent:wordsmith",
+      "status": "captured",
+      "accepted_at": "2026-11-08T23:10:57.284Z",
+      "occurred_at": "2026-11-08T23:10:56.473Z",
+      "count": 1
+    },
+    {
+      "agent_id": "wordsmith",
+      "role": "assistant",
+      "author_id": "agent:wordsmith",
+      "status": "captured",
+      "accepted_at": "2026-11-08T23:11:04.536Z",
+      "occurred_at": "2026-11-08T23:11:03.937Z",
+      "count": 1
+    },
+    {
+      "agent_id": "wordsmith",
+      "role": "assistant",
+      "author_id": "agent:wordsmith",
+      "status": "processed",
+      "accepted_at": "2026-11-08T23:11:15.837Z",
+      "occurred_at": "2026-11-08T23:11:15.683Z",
+      "count": 1
+    }
+  ],
+  "jobs": [
+    {
+      "status": "skipped",
+      "count": 10
+    },
+    {
+      "status": "succeeded",
+      "count": 2
+    }
+  ],
+  "admissions": [
+    {
+      "model": "jev-1.14.0",
+      "decision": "noise",
+      "count": 7
+    },
+    {
+      "model": "jev-1.14.0",
+      "decision": "session_context",
+      "count": 3
+    },
+    {
+      "model": "jev-1.14.0",
+      "decision": "session_episode",
+      "count": 2
+    }
+  ],
+  "memories": 1,
+  "routes": 4
+}

@@ -1,0 +1,504 @@
+{
+  "task": "t_210103dc",
+  "at": "2026-11-08T23:29:33.098081+00:00",
+  "result": "pass",
+  "source_commit": "e58d47a51577c3001848612868ff4ed21c0c5530",
+  "source_verification": {
+    "typecheck": true,
+    "tests": 173,
+    "assertions": 1800,
+    "on_disk_e2e": true
+  },
+  "physical_reset": {
+    "epoch": 3,
+    "reset_at": "2026-11-08T23:06:13.701Z",
+    "initial_derived_rows_excluding_fts_shadow": 447461,
+    "initial_counts": {
+      "memory_feedback": 5,
+      "memory_recalls": 525,
+      "memory_admission_demotions": 3725,
+      "memory_admission_reviews": 3725,
+      "memory_change_invalidations": 2,
+      "memory_reconciliations": 1109,
+      "memory_event_admissions": 10264,
+      "memory_jev_routes": 290122,
+      "memory_lineage": 264,
+      "memory_entity_targets": 588,
+      "memory_supports": 4757,
+      "memory_changes": 278,
+      "memory_entity_equivalences": 63,
+      "memory_alias_sources": 4274,
+      "memory_versions": 4685,
+      "memory_vector_buckets": 112320,
+      "memory_chunk_progress": 87,
+      "memories": 4680,
+      "memory_scoped_aliases": 2239,
+      "memory_aliases": 1663,
+      "memory_entities": 2086,
+      "supports": 0,
+      "facts": 0,
+      "memory_search": 4680
+    },
+    "initial_memory_scopes": [
+      {
+        "scope": "agent:builder",
+        "count": 2010
+      },
+      {
+        "scope": "agent:default",
+        "count": 475
+      },
+      {
+        "scope": "agent:orchestrator",
+        "count": 274
+      },
+      {
+        "scope": "agent:overwatch",
+        "count": 1106
+      },
+      {
+        "scope": "agent:reaver",
+        "count": 459
+      },
+      {
+        "scope": "agent:wordsmith",
+        "count": 1
+      },
+      {
+        "scope": "business:alex",
+        "count": 301
+      },
+      {
+        "scope": "user:alex",
+        "count": 54
+      }
+    ],
+    "initial_nonterminal_memory_jobs": 1392,
+    "after_reset_counts": {
+      "memory_feedback": 0,
+      "memory_recalls": 0,
+      "memory_admission_demotions": 0,
+      "memory_admission_reviews": 0,
+      "memory_change_invalidations": 0,
+      "memory_reconciliations": 0,
+      "memory_event_admissions": 0,
+      "memory_jev_routes": 0,
+      "memory_lineage": 0,
+      "memory_entity_targets": 0,
+      "memory_supports": 0,
+      "memory_changes": 0,
+      "memory_entity_equivalences": 0,
+      "memory_alias_sources": 0,
+      "memory_versions": 0,
+      "memory_vector_buckets": 0,
+      "memory_chunk_progress": 0,
+      "memories": 0,
+      "memory_scoped_aliases": 0,
+      "memory_aliases": 0,
+      "memory_entities": 0,
+      "supports": 0,
+      "facts": 0,
+      "memory_search": 0
+    },
+    "old_nonterminal_jobs_after_reset": 0,
+    "raw_history_configuration_preserved": true,
+    "terminal_history_preserved": true,
+    "historical_cancelled_preserved": {
+      "jobs": true,
+      "memory_jobs": true
+    },
+    "provider_holds_backoff_preserved_at_reset": true
+  },
+  "retained_at_final_reset": {
+    "workspaces": 1,
+    "principals": 7,
+    "credentials": 7,
+    "projects": 0,
+    "spaces": 0,
+    "grants": 0,
+    "sources": 0,
+    "revisions": 0,
+    "idempotency": 21416,
+    "audit": 21416,
+    "memory_bindings": 6,
+    "memory_grants": 54,
+    "memory_events": 17614,
+    "memory_roots": 11382,
+    "memory_heads": 17536,
+    "memory_curation_metrics": 7593,
+    "memory_reprocess_requests": 14,
+    "memory_reconsider_requests": 0
+  },
+  "retained_categories": [
+    "original native memory_events/raw revisions and roots/heads (including post-reset history)",
+    "configuration, credentials, grants and six bindings",
+    "terminal/cancelled/failed/skipped/succeeded job history and idempotency/audit receipts",
+    "non-content curation metrics and reprocess/reconsider receipts",
+    "provider availability holds/backoff (stale probe leases cleared)",
+    "non-content derived_brain_reset_receipts"
+  ],
+  "current_historical_curation_metrics_including_new": 7602,
+  "backup": {
+    "initial_full_stopped_atlas": {
+      "directory": "/home/alex/.local/share/the-atlas/backups/t_210103dc_derived_clean_slate/atlas",
+      "sqlite_sha256": "a9476f4cc4570a405efa7fb7c72c88cdc78003e891f87ef912768d865db6e9eb",
+      "service_env_sha256": "444d7b4aea318581c7feb4fb9080430372c4a1002b0e84b075d3118c1dbb1f74",
+      "admin_credential_sha256": "5d5657ee2508f724c109a4bba4b3c6b70aa3df6f790ec654d040c5e6964bdf42",
+      "full_stopped_sqlite_backup": true
+    },
+    "final_full_stopped_atlas": {
+      "directory": "/home/alex/.local/share/the-atlas/backups/t_210103dc_derived_clean_slate/atlas-release",
+      "sqlite_sha256": "010ade2032d339ccda0ca04d32697ffe37d43d6f68081ff356c2422cf88b6fef",
+      "service_env_sha256": "444d7b4aea318581c7feb4fb9080430372c4a1002b0e84b075d3118c1dbb1f74",
+      "admin_credential_sha256": "5d5657ee2508f724c109a4bba4b3c6b70aa3df6f790ec654d040c5e6964bdf42",
+      "full_stopped_sqlite_backup": true
+    },
+    "adapter_full_state_root": "/home/alex/.local/share/the-atlas/backups/t_210103dc_derived_clean_slate/adapter-state",
+    "adapter_final_queue_custody_root": "/home/alex/.local/share/the-atlas/backups/t_210103dc_derived_clean_slate/adapter-state-release",
+    "historical_backup_retention_is_not_active_brain": true
+  },
+  "adapter": {
+    "loaded_versions": [
+      {
+        "profile": "default",
+        "version": "1.2.3"
+      },
+      {
+        "profile": "builder",
+        "version": "1.2.3"
+      },
+      {
+        "profile": "reaver",
+        "version": "1.2.3"
+      },
+      {
+        "profile": "overwatch",
+        "version": "1.2.3"
+      },
+      {
+        "profile": "wordsmith",
+        "version": "1.2.3"
+      },
+      {
+        "profile": "orchestrator",
+        "version": "1.2.3"
+      }
+    ],
+    "original_configuration_restored": true,
+    "old_unacked_outbox": 0,
+    "old_unexported_journal": 0,
+    "old_platform_pending": 0,
+    "old_feedback_pending": 0,
+    "old_cached_recall_receipts": 0,
+    "drain_locks_released": true
+  },
+  "verification": {
+    "empty_graph_read_model_at_reset": {
+      "result": "pass",
+      "reset_at": "2026-11-08T23:06:13.701Z",
+      "profiles": [
+        {
+          "profile": "default",
+          "snapshot": {
+            "valid_at": "2026-11-08T23:06:13.701Z",
+            "recorded_at": "2026-11-08T23:06:13.701Z"
+          },
+          "nodes": 0,
+          "edges": 0,
+          "changes": 0,
+          "scopes": [
+            "agent:default",
+            "business:alex",
+            "user:alex"
+          ]
+        },
+        {
+          "profile": "builder",
+          "snapshot": {
+            "valid_at": "2026-11-08T23:06:13.701Z",
+            "recorded_at": "2026-11-08T23:06:13.701Z"
+          },
+          "nodes": 0,
+          "edges": 0,
+          "changes": 0,
+          "scopes": [
+            "agent:builder",
+            "business:alex",
+            "user:alex"
+          ]
+        },
+        {
+          "profile": "reaver",
+          "snapshot": {
+            "valid_at": "2026-11-08T23:06:13.701Z",
+            "recorded_at": "2026-11-08T23:06:13.701Z"
+          },
+          "nodes": 0,
+          "edges": 0,
+          "changes": 0,
+          "scopes": [
+            "agent:reaver",
+            "business:alex",
+            "user:alex"
+          ]
+        },
+        {
+          "profile": "overwatch",
+          "snapshot": {
+            "valid_at": "2026-11-08T23:06:13.701Z",
+            "recorded_at": "2026-11-08T23:06:13.701Z"
+          },
+          "nodes": 0,
+          "edges": 0,
+          "changes": 0,
+          "scopes": [
+            "agent:overwatch",
+            "business:alex",
+            "user:alex"
+          ]
+        },
+        {
+          "profile": "wordsmith",
+          "snapshot": {
+            "valid_at": "2026-11-08T23:06:13.701Z",
+            "recorded_at": "2026-11-08T23:06:13.701Z"
+          },
+          "nodes": 0,
+          "edges": 0,
+          "changes": 0,
+          "scopes": [
+            "agent:wordsmith",
+            "business:alex",
+            "user:alex"
+          ]
+        },
+        {
+          "profile": "orchestrator",
+          "snapshot": {
+            "valid_at": "2026-11-08T23:06:13.701Z",
+            "recorded_at": "2026-11-08T23:06:13.701Z"
+          },
+          "nodes": 0,
+          "edges": 0,
+          "changes": 0,
+          "scopes": [
+            "agent:orchestrator",
+            "business:alex",
+            "user:alex"
+          ]
+        }
+      ],
+      "note": "Exact graph/UI read-model snapshot at reset completion; later genuine new-conversation nodes are separate."
+    },
+    "browser_ui_at_reset": {
+      "result": "pass",
+      "reset_at": "2026-11-08T23:06:13.701Z",
+      "counts": "0 nodes / 0 relationships",
+      "status": "Snapshot: valid 2026-11-08T23:06:13.701Z \u00b7 known 2026-11-08T23:06:13.701Z",
+      "node_elements": 0,
+      "empty_state_visible": true,
+      "screenshot": "/home/alex/work/projects/the-atlas/evidence/derived-clean-slate/graph-reset-snapshot.png"
+    },
+    "known_old_queries": [
+      {
+        "profile": "default",
+        "known_query": "motorcycles_prior_cross_profile_recall",
+        "recall_id": "recall_cf23f997-9d4f-4956-abe6-d68c1c538567",
+        "old_memories": 0,
+        "new_post_reset_memories": 0,
+        "new_memory_ids": [],
+        "context_empty": true,
+        "pending_events": 0,
+        "pending_count_current_generation": 0,
+        "capture_only_count_current_generation": 0,
+        "semantic_status": "available"
+      },
+      {
+        "profile": "default",
+        "known_query": "notification_boundary_prior_recall",
+        "recall_id": "recall_481dd901-09d1-47ea-9abf-86f72a1cc1b3",
+        "old_memories": 0,
+        "new_post_reset_memories": 0,
+        "new_memory_ids": [],
+        "context_empty": true,
+        "pending_events": 0,
+        "pending_count_current_generation": 0,
+        "capture_only_count_current_generation": 0,
+        "semantic_status": "available"
+      },
+      {
+        "profile": "builder",
+        "known_query": "motorcycles_prior_cross_profile_recall",
+        "recall_id": "recall_53085b79-261a-417b-a67d-7ebe0d3013f8",
+        "old_memories": 0,
+        "new_post_reset_memories": 0,
+        "new_memory_ids": [],
+        "context_empty": true,
+        "pending_events": 0,
+        "pending_count_current_generation": 1,
+        "capture_only_count_current_generation": 17,
+        "semantic_status": "available"
+      },
+      {
+        "profile": "builder",
+        "known_query": "notification_boundary_prior_recall",
+        "recall_id": "recall_e4bbc520-f88b-460e-91de-d4f62e12da0c",
+        "old_memories": 0,
+        "new_post_reset_memories": 0,
+        "new_memory_ids": [],
+        "context_empty": true,
+        "pending_events": 0,
+        "pending_count_current_generation": 1,
+        "capture_only_count_current_generation": 17,
+        "semantic_status": "available"
+      },
+      {
+        "profile": "reaver",
+        "known_query": "motorcycles_prior_cross_profile_recall",
+        "recall_id": "recall_43a81cdf-990d-42fc-b99f-a7603adb3e83",
+        "old_memories": 0,
+        "new_post_reset_memories": 0,
+        "new_memory_ids": [],
+        "context_empty": true,
+        "pending_events": 0,
+        "pending_count_current_generation": 0,
+        "capture_only_count_current_generation": 0,
+        "semantic_status": "available"
+      },
+      {
+        "profile": "reaver",
+        "known_query": "notification_boundary_prior_recall",
+        "recall_id": "recall_f8e4c1e0-bcaf-4fa2-b8ba-ebc0f8155530",
+        "old_memories": 0,
+        "new_post_reset_memories": 0,
+        "new_memory_ids": [],
+        "context_empty": true,
+        "pending_events": 0,
+        "pending_count_current_generation": 0,
+        "capture_only_count_current_generation": 0,
+        "semantic_status": "available"
+      },
+      {
+        "profile": "overwatch",
+        "known_query": "motorcycles_prior_cross_profile_recall",
+        "recall_id": "recall_a82da71e-8acb-4b30-af1a-978a6f9703eb",
+        "old_memories": 0,
+        "new_post_reset_memories": 0,
+        "new_memory_ids": [],
+        "context_empty": true,
+        "pending_events": 0,
+        "pending_count_current_generation": 0,
+        "capture_only_count_current_generation": 0,
+        "semantic_status": "available"
+      },
+      {
+        "profile": "overwatch",
+        "known_query": "notification_boundary_prior_recall",
+        "recall_id": "recall_fd863d96-e94c-464e-8a98-287d9f27873f",
+        "old_memories": 0,
+        "new_post_reset_memories": 0,
+        "new_memory_ids": [],
+        "context_empty": true,
+        "pending_events": 0,
+        "pending_count_current_generation": 0,
+        "capture_only_count_current_generation": 0,
+        "semantic_status": "available"
+      },
+      {
+        "profile": "wordsmith",
+        "known_query": "motorcycles_prior_cross_profile_recall",
+        "recall_id": "recall_f5323cb0-37b1-4ef9-8011-d762c256866a",
+        "old_memories": 0,
+        "new_post_reset_memories": 0,
+        "new_memory_ids": [],
+        "context_empty": true,
+        "pending_events": 0,
+        "pending_count_current_generation": 0,
+        "capture_only_count_current_generation": 17,
+        "semantic_status": "available"
+      },
+      {
+        "profile": "wordsmith",
+        "known_query": "notification_boundary_prior_recall",
+        "recall_id": "recall_b421f4f1-a939-4cca-b36e-f59aaca37a17",
+        "old_memories": 0,
+        "new_post_reset_memories": 0,
+        "new_memory_ids": [],
+        "context_empty": true,
+        "pending_events": 0,
+        "pending_count_current_generation": 0,
+        "capture_only_count_current_generation": 17,
+        "semantic_status": "available"
+      },
+      {
+        "profile": "orchestrator",
+        "known_query": "motorcycles_prior_cross_profile_recall",
+        "recall_id": "recall_b736483f-799a-4d47-9672-f2cfd7979b6f",
+        "old_memories": 0,
+        "new_post_reset_memories": 0,
+        "new_memory_ids": [],
+        "context_empty": true,
+        "pending_events": 0,
+        "pending_count_current_generation": 0,
+        "capture_only_count_current_generation": 0,
+        "semantic_status": "available"
+      },
+      {
+        "profile": "orchestrator",
+        "known_query": "notification_boundary_prior_recall",
+        "recall_id": "recall_fbdf0eaa-5a28-49ef-b14e-a5a294e70710",
+        "old_memories": 0,
+        "new_post_reset_memories": 0,
+        "new_memory_ids": [],
+        "context_empty": true,
+        "pending_events": 0,
+        "pending_count_current_generation": 0,
+        "capture_only_count_current_generation": 0,
+        "semantic_status": "available"
+      }
+    ],
+    "current_old_derived_memories_present": 0,
+    "all_current_supports_new_generation": true,
+    "all_current_memories_recorded_after_reset": true,
+    "integrity_check": "ok",
+    "foreign_key_violations": 0,
+    "communication_only_and_notification_boundaries_source_active": true
+  },
+  "normal_service": {
+    "MainPID": "4138123",
+    "NRestarts": "0",
+    "ActiveState": "active",
+    "SubState": "running",
+    "InvocationID": "8f74c23214d8489ab062a0d4e9197b6f"
+  },
+  "post_reset_new_activity": {
+    "new_generation_events": 76,
+    "new_generation_memories": 7,
+    "new_generation_job_statuses": {
+      "running": 1,
+      "skipped": 70,
+      "succeeded": 5
+    },
+    "new_recall_receipts": 28,
+    "new_empty_recall_receipts": 28,
+    "reset_receipts": 3,
+    "old_nonterminal_jobs": 0,
+    "current_generation_tool_jobs": 0,
+    "old_derived_memories_present": 0,
+    "all_current_memories_recorded_after_reset": true,
+    "all_current_supports_new_generation": true,
+    "integrity_check": "ok",
+    "foreign_key_violations": 0
+  },
+  "intermediate_verification_cycles": {
+    "note": "Two early adapter-release verifications admitted stale maintenance rows before the final cutoff. Their derived outputs were physically purged by later reset epochs; no such row remains. These were process deviations, not retained brain state or evidence of a clean first attempt.",
+    "pre_final_cutoff_counts": {
+      "memory_event_admissions": 74,
+      "memory_jev_routes": 90,
+      "memories": 39
+    },
+    "final_cancelled_nonterminal_jobs": 11,
+    "final_provider_hold_or_backlog_replay_for_pre_reset_content_after_cutoff": false
+  },
+  "residual": "No pre-reset derived memory/graph/index row remains in the active database. Full stopped backups intentionally retain historical derived data outside the active brain. Current new-generation events/memories are genuine post-reset conversations, not residual old content."
+}

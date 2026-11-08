@@ -1,0 +1,349 @@
+{
+  "task": "t_210103dc",
+  "at": "2026-11-08T21:41:14.688615+00:00",
+  "mode": "read_only_preflight",
+  "source_head": "5188d720db4ca6870c942f2eedb6f21de2b5e8c3",
+  "service": {
+    "MainPID": "3971763",
+    "NRestarts": "0",
+    "ExecMainStartTimestamp": "Mon 2026-11-09 01:38:37 +07",
+    "ActiveState": "active",
+    "SubState": "running",
+    "InvocationID": "2007dd79234447eab3fc6bc03df30ede"
+  },
+  "protected_sha256": {
+    "/home/alex/.local/share/the-atlas/service.env": "444d7b4aea318581c7feb4fb9080430372c4a1002b0e84b075d3118c1dbb1f74",
+    "/home/alex/.local/share/the-atlas/admin.credentials.json": "5d5657ee2508f724c109a4bba4b3c6b70aa3df6f790ec654d040c5e6964bdf42",
+    "/home/alex/.config/systemd/user/the-atlas.service": "0902e8e1271a90a5d4ad4858421b594d5643a0abe36f08baaeb4890a141dd07e",
+    "/mnt/d/Work/Operations/hermes/atlas-native/atlas_client.py": "5a5cfe1230e0486dd86181ac7da19840b9e03fe4154ed16617f758bc828f5d82"
+  },
+  "quick_check": "ok",
+  "derived_counts": {
+    "memory_feedback": 5,
+    "memory_recalls": 525,
+    "memory_admission_demotions": 3725,
+    "memory_admission_reviews": 3725,
+    "memory_change_invalidations": 2,
+    "memory_reconciliations": 1109,
+    "memory_event_admissions": 10264,
+    "memory_jev_routes": 290122,
+    "memory_lineage": 264,
+    "memory_entity_targets": 588,
+    "memory_supports": 4757,
+    "memory_changes": 278,
+    "memory_entity_equivalences": 63,
+    "memory_alias_sources": 4274,
+    "memory_versions": 4685,
+    "memory_vector_buckets": 112320,
+    "memory_chunk_progress": 87,
+    "memories": 4680,
+    "memory_scoped_aliases": 2239,
+    "memory_aliases": 1663,
+    "memory_entities": 2086,
+    "supports": 0,
+    "facts": 0,
+    "memory_search": 4680
+  },
+  "raw_config_counts": {
+    "workspaces": 1,
+    "principals": 7,
+    "credentials": 7,
+    "projects": 0,
+    "spaces": 0,
+    "grants": 0,
+    "sources": 0,
+    "revisions": 0,
+    "idempotency": 21306,
+    "audit": 21306,
+    "memory_bindings": 6,
+    "memory_grants": 54,
+    "memory_events": 17504,
+    "memory_roots": 11272,
+    "memory_heads": 17426,
+    "memory_curation_metrics": 7577,
+    "memory_reprocess_requests": 14,
+    "memory_reconsider_requests": 0
+  },
+  "memory_scopes": [
+    {
+      "scope": "agent:builder",
+      "count": 2010
+    },
+    {
+      "scope": "agent:default",
+      "count": 475
+    },
+    {
+      "scope": "agent:orchestrator",
+      "count": 274
+    },
+    {
+      "scope": "agent:overwatch",
+      "count": 1106
+    },
+    {
+      "scope": "agent:reaver",
+      "count": 459
+    },
+    {
+      "scope": "agent:wordsmith",
+      "count": 1
+    },
+    {
+      "scope": "business:alex",
+      "count": 301
+    },
+    {
+      "scope": "user:alex",
+      "count": 54
+    }
+  ],
+  "job_statuses": [],
+  "memory_job_statuses": [
+    {
+      "status": "cancelled",
+      "count": 61
+    },
+    {
+      "status": "failed",
+      "count": 8286
+    },
+    {
+      "status": "queued",
+      "count": 1381
+    },
+    {
+      "status": "retry",
+      "count": 11
+    },
+    {
+      "status": "skipped",
+      "count": 1754
+    },
+    {
+      "status": "succeeded",
+      "count": 6025
+    }
+  ],
+  "event_statuses": [
+    {
+      "status": "captured",
+      "count": 1754
+    },
+    {
+      "status": "pending",
+      "count": 9678
+    },
+    {
+      "status": "processed",
+      "count": 5994
+    },
+    {
+      "status": "superseded",
+      "count": 78
+    }
+  ],
+  "provider_holds": [],
+  "bindings": [
+    {
+      "agent_id": "builder",
+      "count": 1
+    },
+    {
+      "agent_id": "default",
+      "count": 1
+    },
+    {
+      "agent_id": "orchestrator",
+      "count": 1
+    },
+    {
+      "agent_id": "overwatch",
+      "count": 1
+    },
+    {
+      "agent_id": "reaver",
+      "count": 1
+    },
+    {
+      "agent_id": "wordsmith",
+      "count": 1
+    }
+  ],
+  "db_file": {
+    "path": "/home/alex/.local/share/the-atlas/atlas.sqlite",
+    "size": 447668224,
+    "device": 2096,
+    "inode": 2595582
+  },
+  "profiles": [
+    {
+      "profile": "default",
+      "home": "/mnt/c/Users/alexb/AppData/Local/hermes",
+      "protected_sha256": {
+        "config.yaml": "e43673c753bced7a0c1bf63e4760ccc3a824fce8eabba6457617e630ab2bcb72",
+        "atlas/config.json": "e448e4c56b7aa8cce9601f773c1637583f93959b77dad10053adffe9963e3972",
+        "atlas/credential.json": "e87637cd22ad493d770f879cf080f42408a61faf8c3054b9f3fc501e5755428a"
+      },
+      "outbox_file": {
+        "path": "/mnt/c/Users/alexb/AppData/Local/hermes/atlas/outbox.sqlite",
+        "size": 34308096
+      },
+      "outbox": {
+        "identities": 4017,
+        "unacked_active": 1092,
+        "unacked_superseded": 162,
+        "platform_pending": 0,
+        "feedback_pending": 0,
+        "recall_receipts": 113,
+        "receipts": 896
+      },
+      "native_file": {
+        "path": "/mnt/c/Users/alexb/AppData/Local/hermes/state.db",
+        "size": 457641984
+      },
+      "native_error": "OperationalError; Windows-native preflight is authoritative"
+    },
+    {
+      "profile": "builder",
+      "home": "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/builder",
+      "protected_sha256": {
+        "config.yaml": "8396ff9a223bbb1ca4eb97c3dbeee1b573f0c3e371f65fe4bef580a2db018f8e",
+        "atlas/config.json": "743d1c36da7a8ff4ce608ae27e7a45c05eed5b866c8dd0897152da5b9e4ff632",
+        "atlas/credential.json": "37c96a240948aa893c44684aed6d4be641b3ee4d6908b055a5f88755aea031f3"
+      },
+      "outbox_file": {
+        "path": "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/builder/atlas/outbox.sqlite",
+        "size": 133140480
+      },
+      "outbox": {
+        "identities": 8830,
+        "unacked_active": 840,
+        "unacked_superseded": 0,
+        "platform_pending": 0,
+        "feedback_pending": 0,
+        "recall_receipts": 79,
+        "receipts": 2109
+      },
+      "native_file": {
+        "path": "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/builder/state.db",
+        "size": 527876096
+      },
+      "native_error": "OperationalError; Windows-native preflight is authoritative"
+    },
+    {
+      "profile": "reaver",
+      "home": "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/reaver",
+      "protected_sha256": {
+        "config.yaml": "717e3d2815bacabbbff9b7fff4242461cf49b1ca7fadebd51b44c70db984da40",
+        "atlas/config.json": "6e315b4b6cbd57453aa7f950b31508a155eda3392c2cbf290dfe098e6dc4ce2a",
+        "atlas/credential.json": "58e4b19de5835b0cce5b203f89cbea45740d2d3a91200fa1f0e566f755fbdf9b"
+      },
+      "outbox_file": {
+        "path": "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/reaver/atlas/outbox.sqlite",
+        "size": 16113664
+      },
+      "outbox": {
+        "identities": 1145,
+        "unacked_active": 0,
+        "unacked_superseded": 0,
+        "platform_pending": 0,
+        "feedback_pending": 0,
+        "recall_receipts": 35,
+        "receipts": 312
+      },
+      "native_file": {
+        "path": "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/reaver/state.db",
+        "size": 26488832
+      },
+      "native_error": "OperationalError; Windows-native preflight is authoritative"
+    },
+    {
+      "profile": "overwatch",
+      "home": "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/overwatch",
+      "protected_sha256": {
+        "config.yaml": "966f72e2474807281c6ac1638d36606d2046fc9da6e2828c56a69f0b2e720355",
+        "atlas/config.json": "81faaf38eb47c4356323b00a39d118f4785c5553cc93fac052ad3f9e7f6411a3",
+        "atlas/credential.json": "6c1a9829030a45518f19af9865415a6276aec092a62ccca1d8538ddbb583ea10"
+      },
+      "outbox_file": {
+        "path": "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/overwatch/atlas/outbox.sqlite",
+        "size": 73494528
+      },
+      "outbox": {
+        "identities": 5011,
+        "unacked_active": 230,
+        "unacked_superseded": 0,
+        "platform_pending": 0,
+        "feedback_pending": 0,
+        "recall_receipts": 114,
+        "receipts": 29176
+      },
+      "native_file": {
+        "path": "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/overwatch/state.db",
+        "size": 475697152
+      },
+      "native_error": "OperationalError; Windows-native preflight is authoritative"
+    },
+    {
+      "profile": "wordsmith",
+      "home": "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/wordsmith",
+      "protected_sha256": {
+        "config.yaml": "ca5636ea71f8e868db4fda755d5dfa2678511ae8d112ff669124a21c2f5a2f5b",
+        "atlas/config.json": "e3187d0f6e727d300aad7b115039e4771c3d3b0fe40e55778a7bb98a253e947d",
+        "atlas/credential.json": "4b06975623900878546047700caca2cdcb7b39f9d3148dc2d5e953f06236577d"
+      },
+      "outbox_file": {
+        "path": "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/wordsmith/atlas/outbox.sqlite",
+        "size": 1069056
+      },
+      "outbox": {
+        "identities": 70,
+        "unacked_active": 0,
+        "unacked_superseded": 0,
+        "platform_pending": 0,
+        "feedback_pending": 0,
+        "recall_receipts": 5,
+        "receipts": 44
+      },
+      "native_file": {
+        "path": "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/wordsmith/state.db",
+        "size": 22327296
+      },
+      "native_error": "OperationalError; Windows-native preflight is authoritative"
+    },
+    {
+      "profile": "orchestrator",
+      "home": "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/orchestrator",
+      "protected_sha256": {
+        "config.yaml": "b02e269f763f80927297d18f0ca962a0e9f5118cbfc5d2204f489ebfbf445307",
+        "atlas/config.json": "dd82d5322fb72aef526eddba26f5a195c772e04cbe52d546541ddcbdf11764c2",
+        "atlas/credential.json": "4576e8d36fe5cbe802ca362ebbf83eb9a5d256770741168f05a6afd97374f7b7"
+      },
+      "outbox_file": {
+        "path": "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/orchestrator/atlas/outbox.sqlite",
+        "size": 7163904
+      },
+      "outbox": {
+        "identities": 408,
+        "unacked_active": 0,
+        "unacked_superseded": 0,
+        "platform_pending": 0,
+        "feedback_pending": 0,
+        "recall_receipts": 13,
+        "receipts": 106
+      },
+      "native_file": {
+        "path": "/mnt/c/Users/alexb/AppData/Local/hermes/profiles/orchestrator/state.db",
+        "size": 56598528
+      },
+      "native_error": "OperationalError; Windows-native preflight is authoritative"
+    }
+  ],
+  "health": {
+    "status": "ok",
+    "api_version": "v1",
+    "schema_version": 2,
+    "request_id": "req_28345e69-4734-479b-a61d-62ea842b9bfe"
+  }
+}

@@ -1,0 +1,74 @@
+[
+  {
+    "profile": "default",
+    "session_running": false,
+    "version": "1.2.3",
+    "attribution_version": "notification-metadata-v1",
+    "source": "D:\\Work/Operations/hermes/atlas-native\\atlas_client.py",
+    "outbox": {
+      "1": 3074
+    },
+    "owner_instance": "0e9f7f319ed54d07ad2343aa334c280f",
+    "owner_epoch": 61
+  },
+  {
+    "profile": "builder",
+    "session_running": false,
+    "version": "1.2.3",
+    "attribution_version": "notification-metadata-v1",
+    "source": "D:\\Work/Operations/hermes/atlas-native\\atlas_client.py",
+    "outbox": {
+      "1": 8039
+    },
+    "owner_instance": "0e9f7f319ed54d07ad2343aa334c280f",
+    "owner_epoch": 61
+  },
+  {
+    "profile": "reaver",
+    "session_running": false,
+    "version": "1.2.3",
+    "attribution_version": "notification-metadata-v1",
+    "source": "D:\\Work/Operations/hermes/atlas-native\\atlas_client.py",
+    "outbox": {
+      "1": 1145
+    },
+    "owner_instance": "0e9f7f319ed54d07ad2343aa334c280f",
+    "owner_epoch": 61
+  },
+  {
+    "profile": "overwatch",
+    "session_running": false,
+    "version": "1.2.3",
+    "attribution_version": "notification-metadata-v1",
+    "source": "D:\\Work/Operations/hermes/atlas-native\\atlas_client.py",
+    "outbox": {
+      "1": 4794
+    },
+    "owner_instance": "0e9f7f319ed54d07ad2343aa334c280f",
+    "owner_epoch": 61
+  },
+  {
+    "profile": "wordsmith",
+    "session_running": false,
+    "version": "1.2.3",
+    "attribution_version": "notification-metadata-v1",
+    "source": "D:\\Work/Operations/hermes/atlas-native\\atlas_client.py",
+    "outbox": {
+      "1": 70
+    },
+    "owner_instance": "0e9f7f319ed54d07ad2343aa334c280f",
+    "owner_epoch": 61
+  },
+  {
+    "profile": "orchestrator",
+    "session_running": false,
+    "version": "1.2.3",
+    "attribution_version": "notification-metadata-v1",
+    "source": "D:\\Work/Operations/hermes/atlas-native\\atlas_client.py",
+    "outbox": {
+      "1": 408
+    },
+    "owner_instance": "0e9f7f319ed54d07ad2343aa334c280f",
+    "owner_epoch": 61
+  }
+]

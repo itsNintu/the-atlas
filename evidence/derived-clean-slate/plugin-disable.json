@@ -1,0 +1,90 @@
+{
+  "mode": "disable",
+  "at": "2026-11-08T22:55:05.323711+00:00",
+  "profiles": [
+    {
+      "profile": "default",
+      "before_sha256": {
+        "config.yaml": "e43673c753bced7a0c1bf63e4760ccc3a824fce8eabba6457617e630ab2bcb72",
+        "atlas/config.json": "e448e4c56b7aa8cce9601f773c1637583f93959b77dad10053adffe9963e3972",
+        "atlas/credential.json": "e87637cd22ad493d770f879cf080f42408a61faf8c3054b9f3fc501e5755428a"
+      },
+      "after_sha256": {
+        "config.yaml": "effdee331c3c8b8e9dd61a8668346519b7901d7881560ce65a5eb67852eab6ce",
+        "atlas/config.json": "e448e4c56b7aa8cce9601f773c1637583f93959b77dad10053adffe9963e3972",
+        "atlas/credential.json": "e87637cd22ad493d770f879cf080f42408a61faf8c3054b9f3fc501e5755428a"
+      },
+      "output": "\u2298 Plugin atlas-memory disabled.\nThe running gateway reloaded its plugins and unloaded atlas-memory; platform \nhooks it already wired up stay until a gateway restart (hermes gateway \nrestart)."
+    },
+    {
+      "profile": "builder",
+      "before_sha256": {
+        "config.yaml": "8396ff9a223bbb1ca4eb97c3dbeee1b573f0c3e371f65fe4bef580a2db018f8e",
+        "atlas/config.json": "743d1c36da7a8ff4ce608ae27e7a45c05eed5b866c8dd0897152da5b9e4ff632",
+        "atlas/credential.json": "37c96a240948aa893c44684aed6d4be641b3ee4d6908b055a5f88755aea031f3"
+      },
+      "after_sha256": {
+        "config.yaml": "35907a32cd58c34eb4145d18be781c669c526d9228e268327320f5319833a010",
+        "atlas/config.json": "743d1c36da7a8ff4ce608ae27e7a45c05eed5b866c8dd0897152da5b9e4ff632",
+        "atlas/credential.json": "37c96a240948aa893c44684aed6d4be641b3ee4d6908b055a5f88755aea031f3"
+      },
+      "output": "\u2298 Plugin atlas-memory disabled.\nThe running gateway reloaded its plugins and unloaded atlas-memory; platform \nhooks it already wired up stay until a gateway restart (hermes gateway \nrestart)."
+    },
+    {
+      "profile": "reaver",
+      "before_sha256": {
+        "config.yaml": "717e3d2815bacabbbff9b7fff4242461cf49b1ca7fadebd51b44c70db984da40",
+        "atlas/config.json": "6e315b4b6cbd57453aa7f950b31508a155eda3392c2cbf290dfe098e6dc4ce2a",
+        "atlas/credential.json": "58e4b19de5835b0cce5b203f89cbea45740d2d3a91200fa1f0e566f755fbdf9b"
+      },
+      "after_sha256": {
+        "config.yaml": "7c7d8ae1eb910e0c1f6a52929fc0ac06185846c097e4d1e3a36c339f9a574237",
+        "atlas/config.json": "6e315b4b6cbd57453aa7f950b31508a155eda3392c2cbf290dfe098e6dc4ce2a",
+        "atlas/credential.json": "58e4b19de5835b0cce5b203f89cbea45740d2d3a91200fa1f0e566f755fbdf9b"
+      },
+      "output": "\u2298 Plugin atlas-memory disabled.\nThe running gateway reloaded its plugins and unloaded atlas-memory; platform \nhooks it already wired up stay until a gateway restart (hermes gateway \nrestart)."
+    },
+    {
+      "profile": "overwatch",
+      "before_sha256": {
+        "config.yaml": "966f72e2474807281c6ac1638d36606d2046fc9da6e2828c56a69f0b2e720355",
+        "atlas/config.json": "81faaf38eb47c4356323b00a39d118f4785c5553cc93fac052ad3f9e7f6411a3",
+        "atlas/credential.json": "6c1a9829030a45518f19af9865415a6276aec092a62ccca1d8538ddbb583ea10"
+      },
+      "after_sha256": {
+        "config.yaml": "017341fd799809d90541d69667c08eca1c69a61854305d8196f7e898e1b68217",
+        "atlas/config.json": "81faaf38eb47c4356323b00a39d118f4785c5553cc93fac052ad3f9e7f6411a3",
+        "atlas/credential.json": "6c1a9829030a45518f19af9865415a6276aec092a62ccca1d8538ddbb583ea10"
+      },
+      "output": "\u2298 Plugin atlas-memory disabled.\nThe running gateway reloaded its plugins and unloaded atlas-memory; platform \nhooks it already wired up stay until a gateway restart (hermes gateway \nrestart)."
+    },
+    {
+      "profile": "wordsmith",
+      "before_sha256": {
+        "config.yaml": "ca5636ea71f8e868db4fda755d5dfa2678511ae8d112ff669124a21c2f5a2f5b",
+        "atlas/config.json": "e3187d0f6e727d300aad7b115039e4771c3d3b0fe40e55778a7bb98a253e947d",
+        "atlas/credential.json": "4b06975623900878546047700caca2cdcb7b39f9d3148dc2d5e953f06236577d"
+      },
+      "after_sha256": {
+        "config.yaml": "3f25f56194fa770bcb3efae0ffe11e5bddd0b1a224d892182a292e0416870a73",
+        "atlas/config.json": "e3187d0f6e727d300aad7b115039e4771c3d3b0fe40e55778a7bb98a253e947d",
+        "atlas/credential.json": "4b06975623900878546047700caca2cdcb7b39f9d3148dc2d5e953f06236577d"
+      },
+      "output": "\u2298 Plugin atlas-memory disabled.\nThe running gateway reloaded its plugins and unloaded atlas-memory; platform \nhooks it already wired up stay until a gateway restart (hermes gateway \nrestart)."
+    },
+    {
+      "profile": "orchestrator",
+      "before_sha256": {
+        "config.yaml": "b02e269f763f80927297d18f0ca962a0e9f5118cbfc5d2204f489ebfbf445307",
+        "atlas/config.json": "dd82d5322fb72aef526eddba26f5a195c772e04cbe52d546541ddcbdf11764c2",
+        "atlas/credential.json": "4576e8d36fe5cbe802ca362ebbf83eb9a5d256770741168f05a6afd97374f7b7"
+      },
+      "after_sha256": {
+        "config.yaml": "b9d4ff4a6688ac9d426fc83d63fc19c57cf0f345c6ef13c1a16de53901019ceb",
+        "atlas/config.json": "dd82d5322fb72aef526eddba26f5a195c772e04cbe52d546541ddcbdf11764c2",
+        "atlas/credential.json": "4576e8d36fe5cbe802ca362ebbf83eb9a5d256770741168f05a6afd97374f7b7"
+      },
+      "output": "\u2298 Plugin atlas-memory disabled.\nThe running gateway reloaded its plugins and unloaded atlas-memory; platform \nhooks it already wired up stay until a gateway restart (hermes gateway \nrestart)."
+    }
+  ]
+}
