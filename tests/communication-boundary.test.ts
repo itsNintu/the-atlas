@@ -1,10 +1,11 @@
 import { test, expect } from 'bun:test';
+import { App } from '../src/app.ts';
 import { Store, now } from '../src/store.ts';
 import { Memory, MemoryWorker } from '../src/memory.ts';
 
 const at = '2026-01-01T00:00:00.000Z';
 function fixture() {
-  const store = new Store(':memory:'), actor = store.authenticate(store.bootstrap('Synthetic communication boundary').token);
+  const store = new Store(':memory:'), credential = store.bootstrap('Synthetic communication boundary'), actor = store.authenticate(credential.token);
   const inputs: any[] = [], audits: any[] = [];
   const inference = {
     async curate(input: any) { inputs.push(structuredClone(input)); return { decisions: [{ kind: 'nothing' as const }] }; },
@@ -17,7 +18,7 @@ function fixture() {
     client_id: 'communication', event_id, revision: 1, operation: 'upsert', agent_id: 'default', thread_id: event_id,
     role: 'user', author_id: 'alex', occurred_at: at, observed_at: now(), content: `Fictional communication ${event_id}`, metadata: {}, ...extra,
   });
-  return { store, actor, memory, worker, inputs, audits, event };
+  return { store, actor, credential, memory, worker, inputs, audits, event };
 }
 
 const executionAssertion = (event_id: string, object: string, scope: string) => ({
@@ -144,29 +145,77 @@ test('failed current execution sources demote deterministically without provider
   } finally { f.store.close(); }
 });
 
+test('admission-review HTTP returns and replays the persisted owner-directive receipt', async () => {
+  const f = fixture();
+  const app = new App(f.store);
+  app.memory = f.memory;
+  const server = Bun.serve({ hostname: '127.0.0.1', port: 0, fetch: request => app.fetch(request) });
+  try {
+    const target = failedExecution(f, 'http-receipt', 'SYNTHETIC_HTTP_RECEIPT');
+    const key = 'synthetic-admission-review-receipt';
+    const body = {
+      agent_id: 'default', memory_id: target.memory, expected_revision: 1,
+      reason_code: 'execution_content_owner_exclusion',
+    };
+    const call = async () => {
+      const response = await fetch(new URL(`/v1/memory/jobs/${target.job_id}/admission-review`, server.url), {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${f.credential.token}`,
+          'Content-Type': 'application/json',
+          'Idempotency-Key': key,
+        },
+        body: JSON.stringify(body),
+      });
+      return { status: response.status, body: await response.json() as any };
+    };
+
+    const first = await call();
+    expect(first.status).toBe(200);
+    expect(first.body.data).toMatchObject({
+      memory_id: target.memory, decision: 'session_context', model: 'owner_directive',
+      confidence: 1, demoted: true,
+    });
+    expect(first.body.data.review_id).toStartWith('admissionreview_');
+    expect(first.body.data.proof_sha256).toMatch(/^[a-f0-9]{64}$/);
+    const persisted = f.store.one('SELECT response_json FROM idempotency WHERE principal_id=? AND key=?', f.actor.id, key);
+    expect(JSON.parse(persisted.response_json)).toEqual(first.body.data);
+
+    const replay = await call();
+    expect(replay.status).toBe(200);
+    const { idempotent_replay, ...replayedReceipt } = replay.body.data;
+    expect(idempotent_replay).toBe(true);
+    expect(replayedReceipt).toEqual(first.body.data);
+    expect(f.store.one('SELECT response_json FROM idempotency WHERE principal_id=? AND key=?', f.actor.id, key).response_json).toBe(persisted.response_json);
+    expect(f.store.one('SELECT COUNT(*) AS n FROM memory_admission_reviews').n).toBe(1);
+    expect(f.store.one('SELECT COUNT(*) AS n FROM memory_admission_demotions').n).toBe(1);
+    expect(f.inputs).toHaveLength(0); expect(f.audits).toHaveLength(0);
+  } finally { await server.stop(true); f.store.close(); }
+});
+
 test('failed-current execution demotion retains exact current job, revision, direct support, grant and status fences', async () => {
   const f = fixture();
   try {
     const target = failedExecution(f, 'failed-current-fences', 'SYNTHETIC_FAILED_FENCES');
     const other = failedExecution(f, 'failed-current-other', 'SYNTHETIC_OTHER_SUPPORT');
-    await expect(f.memory.reviewAdmission(f.actor, 'default', target.job_id, target.memory, 1, 'session_local_owner_correction')).rejects.toThrow('Only a completed source job');
-    await expect(f.memory.reviewAdmission(f.actor, 'default', target.job_id, target.memory, 2, 'execution_content_owner_exclusion')).rejects.toThrow('Memory event revision changed');
-    await expect(f.memory.reviewAdmission(f.actor, 'default', target.job_id, other.memory, 1, 'execution_content_owner_exclusion')).rejects.toThrow('Memory with direct source support');
+    expect(() => f.memory.reviewAdmission(f.actor, 'default', target.job_id, target.memory, 1, 'session_local_owner_correction')).toThrow('Only a completed source job');
+    expect(() => f.memory.reviewAdmission(f.actor, 'default', target.job_id, target.memory, 2, 'execution_content_owner_exclusion')).toThrow('Memory event revision changed');
+    expect(() => f.memory.reviewAdmission(f.actor, 'default', target.job_id, other.memory, 1, 'execution_content_owner_exclusion')).toThrow('Memory with direct source support');
 
     f.store.run("DELETE FROM memory_grants WHERE principal_id=? AND scope='user:alex' AND action='write'", f.actor.id);
-    await expect(f.memory.reviewAdmission(f.actor, 'default', target.job_id, target.memory, 1, 'execution_content_owner_exclusion')).rejects.toThrow('Memory read/write grant required');
+    expect(() => f.memory.reviewAdmission(f.actor, 'default', target.job_id, target.memory, 1, 'execution_content_owner_exclusion')).toThrow('Memory read/write grant required');
     f.store.run("INSERT INTO memory_grants VALUES (?,?,?)", f.actor.id, 'user:alex', 'write');
 
     f.store.run('UPDATE memory_events SET job_id=? WHERE id=?', other.job_id, target.source.id);
-    await expect(f.memory.reviewAdmission(f.actor, 'default', other.job_id, target.memory, 1, 'execution_content_owner_exclusion')).rejects.toThrow('Memory with direct source support');
+    expect(() => f.memory.reviewAdmission(f.actor, 'default', other.job_id, target.memory, 1, 'execution_content_owner_exclusion')).toThrow('Memory with direct source support');
     const replacement = 'mjob_failed_current_replacement';
     f.store.run("INSERT INTO memory_jobs (id,event_pk,status,available_at,created_at) VALUES (?,?,'queued',?,?)", replacement, target.source.id, Date.now(), now());
     f.store.run('UPDATE memory_events SET job_id=? WHERE id=?', replacement, target.source.id);
-    await expect(f.memory.reviewAdmission(f.actor, 'default', target.job_id, target.memory, 1, 'execution_content_owner_exclusion')).rejects.toThrow('Current source job not found');
-    await expect(f.memory.reviewAdmission(f.actor, 'default', replacement, target.memory, 1, 'execution_content_owner_exclusion')).rejects.toThrow('Only a completed source job');
+    expect(() => f.memory.reviewAdmission(f.actor, 'default', target.job_id, target.memory, 1, 'execution_content_owner_exclusion')).toThrow('Current source job not found');
+    expect(() => f.memory.reviewAdmission(f.actor, 'default', replacement, target.memory, 1, 'execution_content_owner_exclusion')).toThrow('Only a completed source job');
     f.store.run("UPDATE memory_jobs SET status='failed',completed_at=? WHERE id=?", now(), replacement);
     f.store.run("UPDATE memory_events SET status='processed',processed_at=? WHERE id=?", now(), target.source.id);
-    await expect(f.memory.reviewAdmission(f.actor, 'default', replacement, target.memory, 1, 'execution_content_owner_exclusion')).rejects.toThrow('Only a completed source job');
+    expect(() => f.memory.reviewAdmission(f.actor, 'default', replacement, target.memory, 1, 'execution_content_owner_exclusion')).toThrow('Only a completed source job');
     expect(f.store.one('SELECT COUNT(*) AS n FROM memory_admission_reviews').n).toBe(0);
     expect(f.store.one('SELECT COUNT(*) AS n FROM memory_admission_demotions').n).toBe(0);
     expect(f.inputs).toHaveLength(0); expect(f.audits).toHaveLength(0);

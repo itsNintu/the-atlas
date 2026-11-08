@@ -574,7 +574,7 @@ export class Memory {
       return {job_id,previous_job_id,event_id:e.event_id,revision:e.revision,status:"queued",memory_only:true,reconsidered:reconsider};
     });
   }
-  async reviewAdmission(a:Actor, agent:string, previous_job_id:string, memory_id:string, expected_revision:unknown, reason_code:unknown) {
+  reviewAdmission(a:Actor, agent:string, previous_job_id:string, memory_id:string, expected_revision:unknown, reason_code:unknown) {
     this.authorize(a,agent,'read'); this.authorize(a,agent,'write');
     const revision=integer(expected_revision,'expected_revision',1,Number.MAX_SAFE_INTEGER);
     const reason=text(reason_code,'reason_code',80);
