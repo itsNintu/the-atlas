@@ -5,7 +5,7 @@
   "product_commit": "e4ceeb472bbfe4977c5eb0f7200c603a165109ee",
   "product_tree": "2a421ab245bf0cfceecda45445a7fe0f6998717b",
   "base_commit": "badccf119370d3cad1b296b1f0511e60aac57081",
-  "handoff_sha256": "aa2e9f75dec3779fbaa03c92382ef6206596ae2dd3ef207c609e84f8adbc824c",
+  "handoff_sha256": "ce422dc5ae85fcf01ef304d1169c122d010e4b3473b3e40c18711740059b374f",
   "root_cause_evidence": {
     "readonly_cutoff": "2026-11-07T23:17:57Z",
     "queued_jobs": 9537,
@@ -78,7 +78,7 @@
     "docs/capabilities.md": "894a25da8340edb047ef29fd57bce5061101b31bc961b2781d655107028623d0",
     "docs/contract.md": "d7f03ce8a5edc50f586988c1552a6356b42f771a2d7b599ad85fd25fcd771509",
     "docs/operations.md": "fcc3544f5d318ac0a8d4d45c9df07971aaf99dcf8a857fadc98f9b4e971df98d",
-    "evidence/sustained-dreaming/HANDOFF.md": "aa2e9f75dec3779fbaa03c92382ef6206596ae2dd3ef207c609e84f8adbc824c",
+    "evidence/sustained-dreaming/HANDOFF.md": "ce422dc5ae85fcf01ef304d1169c122d010e4b3473b3e40c18711740059b374f",
     "src/app.ts": "d9f92e6dc4d392381088d1ee898bf87514af9541432ec02c8da254ba520e02c3",
     "src/inference.ts": "c71a543ee6380346bebdeacd05cb12993771b4b3adbc56472982b4c7849d1d7f",
     "src/jev.ts": "2f6e9affa81fe576510599211c9cb4388ba640300578a2095b6e9d6780994b14",

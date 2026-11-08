@@ -69,7 +69,7 @@ Content-Type: application/json
 
 Expected: `demoted:true`, `model:"owner_directive"`. Reconcile first if a prior demotion already exists; the same proof is idempotent, a different demotion is a conflict. Verify current recall/graph no longer serves that memory ID, while original event `event_befab48d-fd58-4f83-8792-f207f9199485`, source job, memory/support rows and pre-demotion recorded history remain. Do not SQL-delete or manually correct it and do not replay the original message.
 
-5. Let existing jobs run naturally; do not reprioritize/edit queue rows, replay original messages/tools or manufacture memories. Observe thread `20261108_050646_37bcf2ab` for the owner's roughly 10–15 minute objective, separating:
+5. Start with the new scheduler. If live evidence shows inherited nonterminal memory work still prevents the roughly 10–15 minute objective, Overwatch may make targeted scheduling/priority adjustments to `queued`/`retry` memory jobs. Preserve event/job identity, source data, original message/tool actions and every terminal job effect; do not mark work processed/succeeded without actual digestion, replay original messages/tools or manufacture memories. Record the exact job IDs, before/after scheduling state, reason and observed result. Observe thread `20261108_050646_37bcf2ab`, separating:
    - durable capture accepted times;
    - `memory_event_admissions` / `memory_jev_routes` decisions and elapsed costs;
    - `captured` + `skipped` versus actually `processed` + `succeeded` events;
