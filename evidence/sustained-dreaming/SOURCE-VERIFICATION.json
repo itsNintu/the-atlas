@@ -1,0 +1,103 @@
+{
+  "task": "t_bdec7ab0",
+  "activation_task": "t_05e9321c",
+  "canonical_repository": "/home/alex/work/projects/the-atlas",
+  "product_commit": "e4ceeb472bbfe4977c5eb0f7200c603a165109ee",
+  "product_tree": "2a421ab245bf0cfceecda45445a7fe0f6998717b",
+  "base_commit": "badccf119370d3cad1b296b1f0511e60aac57081",
+  "handoff_sha256": "aa2e9f75dec3779fbaa03c92382ef6206596ae2dd3ef207c609e84f8adbc824c",
+  "root_cause_evidence": {
+    "readonly_cutoff": "2026-11-07T23:17:57Z",
+    "queued_jobs": 9537,
+    "retry_jobs": 27,
+    "running_jobs": 4,
+    "eligible_thread_heads": 64,
+    "current_thread": "20261108_050646_37bcf2ab",
+    "current_thread_processed_events": 3,
+    "current_thread_unattempted_jobs": 91,
+    "current_thread_processed_times": [
+      "2026-11-07T22:06:57.348Z",
+      "2026-11-07T22:31:55.770Z",
+      "2026-11-07T22:56:59.049Z"
+    ],
+    "observed_pattern": "one turn per full inherited-thread rotation, not a current-job model failure",
+    "last_hour_tool_chunks": 90,
+    "last_hour_zero_decision_tool_chunks": 85,
+    "current_design": "24-claim fair conversation focus, bounded JEV admission/routing, direct OAuth Luna"
+  },
+  "checks": {
+    "typecheck": "pass",
+    "full_suite": { "tests": 155, "assertions": 1422, "failures": 0 },
+    "focused_native_jev_sustained": { "tests": 13, "assertions": 218, "failures": 0, "note": "subset of full suite" },
+    "final_affected_after_retention": { "tests": 24, "assertions": 300, "failures": 0, "note": "subset of full suite" },
+    "frozen_install": "pass",
+    "on_disk_http_cli_e2e": "pass on pinned Bun 1.4.4; initial ambient Bun 1.2.21 failed before scenario and was not counted as a product failure",
+    "diff_check": "pass"
+  },
+  "real_native_probe": {
+    "transport": "direct OAuth HTTP/SSE Responses",
+    "provider": "atlas_native_oauth_http_sse",
+    "model": "gpt-6-luna",
+    "output": { "decisions": [] },
+    "input_tokens": 88,
+    "output_tokens": 9,
+    "elapsed_ms": 3019,
+    "tools": 0,
+    "cli_or_app_server": false,
+    "hermes_inference": false,
+    "public_api_key_fallback": false
+  },
+  "oauth": {
+    "completed_by": "Overwatch through existing protected owner flow",
+    "home": "/home/alex/.local/share/the-atlas/codex-home",
+    "login_status": "Logged in using ChatGPT",
+    "catalog_contains_gpt_6_luna": true,
+    "tokens_or_callback_credentials_in_evidence": false
+  },
+  "demotion_target": {
+    "memory_id": "memory_d76817d0-477b-4099-ab96-dc1d13bccef3",
+    "job_id": "mjob_0002f7b1-7e70-4ada-9ada-13fe29bf786f",
+    "event_pk": "event_befab48d-fd58-4f83-8792-f207f9199485",
+    "event_id": "native:default:84a5b9fd38b849a69e87573171d656e6:part:0",
+    "expected_revision": 1,
+    "reason_code": "session_local_owner_correction",
+    "method": "supported owner_directive admission review; no model vote, SQL deletion, source replay or replacement memory"
+  },
+  "additive_tables": [
+    "memory_event_admissions",
+    "memory_jev_routes",
+    "memory_admission_reviews",
+    "memory_admission_demotions",
+    "memory_reconsider_requests",
+    "memory_conversation_focus"
+  ],
+  "sha256": {
+    "AGENTS.md": "25c35540a2dced32511b10e8fd52238b2ef6fe8391a7e68084037f2673053562",
+    "CONTEXT.md": "4adb370202ab47ce9796c3aa347bf2397158bbb20c4b3e3de0a13c32b698907e",
+    ".env.example": "ed285eedd1512af9c1d4a134a0cb0ad01c73f8a94f6cf4a41004564a82fe8b94",
+    "docs/capabilities.md": "894a25da8340edb047ef29fd57bce5061101b31bc961b2781d655107028623d0",
+    "docs/contract.md": "d7f03ce8a5edc50f586988c1552a6356b42f771a2d7b599ad85fd25fcd771509",
+    "docs/operations.md": "fcc3544f5d318ac0a8d4d45c9df07971aaf99dcf8a857fadc98f9b4e971df98d",
+    "evidence/sustained-dreaming/HANDOFF.md": "aa2e9f75dec3779fbaa03c92382ef6206596ae2dd3ef207c609e84f8adbc824c",
+    "src/app.ts": "d9f92e6dc4d392381088d1ee898bf87514af9541432ec02c8da254ba520e02c3",
+    "src/inference.ts": "c71a543ee6380346bebdeacd05cb12993771b4b3adbc56472982b4c7849d1d7f",
+    "src/jev.ts": "2f6e9affa81fe576510599211c9cb4388ba640300578a2095b6e9d6780994b14",
+    "src/memory-admission.ts": "67ccc1441a591af9723996403a779f73a945162deb5b7b8454910e0c5de32240",
+    "src/memory-index.ts": "cff256f5d108d2ea7ff4974a0f0a71fe2245611d9266a572ff1174a0074776ce",
+    "src/memory-scheduler.ts": "44a542010e8bd4ae76f652af6a532bd1bca15577f117a6fb981124c4ba0fb773",
+    "src/memory.ts": "0c8010ddbc33d4589891ba1df8dd87f3d7b863cce39908ef87ef1fbc40e05241",
+    "src/native-luna.ts": "0e97b9d33959e035ff1c03f34f0dabb555411f35a6b82ac145354efbfd0f9869",
+    "src/server.ts": "3be5481dc936ce97db02699825b1c768439a72ce29469d29c69bae86cd4f3667",
+    "tests/jev.test.ts": "3bf21fc19ff238ebf6bb7a4930ef72b240aee120de3c71624a4fbd1adc65f46c",
+    "tests/native-luna.test.ts": "d94f8e9167d67ac2b371c995f59955549f20721e44db05ca4b0a9a4135ccb0e7",
+    "tests/sustained-dreaming.test.ts": "001e34e1bfe02f7b4c2d566f42458c107307b1399fafd4019230ff8462394690"
+  },
+  "not_claimed": [
+    "live JEV probe or production JEV credential activation",
+    "production restart or current-thread semantic acceptance",
+    "global queue-empty or universal 10-15 minute SLA",
+    "perfect extraction/relevance accuracy",
+    "production demotion already applied"
+  ],
+  "excluded_dirty_state": "Prior reports and sibling evidence directories were not staged or modified by this delivery. See git status for the preserved unrelated state."
+}
