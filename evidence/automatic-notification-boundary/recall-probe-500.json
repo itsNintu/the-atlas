@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-08T18:15:35.132423+00:00",
+  "query_sha256": "57b98265af9e1e0729e696ed0f735bf0a248f735b22bf990501f9bec182694d5",
+  "query": "There is nothing useful for the brain in events, tasks or tool calls. This is communication only. Exclude automatic status notifications from Atlas durable communication memory; preserve genuine Alex and agent-to-agent discussion. What is the current relevant communication requirement for task t_cb043bca?",
+  "recall_id": "recall_cd476c69-f1c0-44c6-9a6b-b6758af5516d",
+  "memory_ids": [
+    "memory_e17592d2-05a7-41e2-bf2b-a92f7b7f9503",
+    "memory_3d7f2f70-9bd9-44e7-a560-425187b317c9"
+  ],
+  "tokens_used": 423,
+  "token_budget": 500,
+  "pending_included": 0,
+  "pending_events_count": 0,
+  "semantic_status": "available",
+  "service_ms": 112.26926199998707,
+  "context_sha256": "3ee6313d7b733a95f4c85f745a0449091296f2f04326cc58aa582fd7ab3c94f1"
+}

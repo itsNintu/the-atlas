@@ -43,6 +43,16 @@ bulk-demote historical brain content. `execution_content_owner_exclusion` permit
 owner-directed admission review for affected agent-private or shared memories with current grants;
 original jobs/events/history remain intact and no provider request occurs.
 
+Automatic Kanban/status wakes, delivery receipts, internal notifications and background-process
+completion notices are metadata/events, not durable communication, even when an adapter labels them
+`user` or `inter_agent`. Explicit native producer/attribution metadata and start-anchored machine
+forms (including the Discord `[Alex] [kanban] Task …` variant) are rejected before source/job
+insertion. There is no broad task/result/completion substring ban: genuine Alex task requirements
+and agent-to-agent reasoning, including delegated results, remain eligible. Already-captured notice
+jobs finish as capture-only `skipped` with an `automatic_status_boundary` audit when no earlier
+admission exists, without JEV/Luna; notices are also removed from prior/recent provider context and
+candidate supports, and cannot be retried or reprocessed. Historical source rows are not deleted.
+
 A 24-claim persisted conversation-focus lease provides coherent service, then rotates to the
 least-served human conversation. Other threads and inherited work continue concurrently and
 every fourth claim reserves oldest accepted work. This replaces the observed one-turn-per-
@@ -54,17 +64,21 @@ content follows RAW_RETENTION_DAYS; original owner and assistant message content
 retained for reconsideration.
 
 `POST /v1/memory/jobs/:job_id/admission-review` is the bounded owner-directed correction for
-session/global admission errors and execution-derived content. It requires the exact current job and
-source-head revision, direct retained `memory_supports` provenance and affected read/write grants.
-`session_local_owner_correction` handles completed shared claims and keeps its succeeded+processed
-requirement. `execution_content_owner_exclusion` handles affected own/shared claims and additionally
-accepts a failed current job with a still-pending source event, including retained partial support.
+session/global admission errors, execution-derived content and automatic-notification-only memories.
+It requires the exact current job and source-head revision, direct retained `memory_supports`
+provenance and affected read/write grants. `session_local_owner_correction` handles completed shared
+claims and keeps its succeeded+processed requirement. `execution_content_owner_exclusion` handles
+affected own/shared claims and additionally accepts a failed current job with a still-pending source
+event, including retained partial support. `automatic_notification_owner_exclusion` uses the same
+completed/failed-current content-exclusion states and own/shared scopes, but additionally requires
+the exact source to match the automatic-notification classifier and every retained direct support
+to be notification-only; mixed genuine/notice memories are not eligible for this reason.
 Each appends an `owner_directive` review and demotion proof; no new model vote, failed-job retry,
 source replay or SQL deletion is involved. Post-review recall/graph projections exclude that derived
 claim while pre-review recorded history remains inspectable. Shared restoration requires later
-genuine user support; agent-private execution exclusions can use later genuine communication.
-Restoration is bounded by the requested recorded time, so later support cannot rewrite the demoted
-interval.
+genuine user support; agent-private execution/notification exclusions can use later genuine
+communication. Automatic notices never restore a demotion. Restoration is bounded by the requested
+recorded time, so later support cannot rewrite the demoted interval.
 
 Additive audit tables are `memory_event_admissions`, `memory_jev_routes`,
 `memory_admission_reviews`, `memory_admission_demotions`, `memory_reconsider_requests` and

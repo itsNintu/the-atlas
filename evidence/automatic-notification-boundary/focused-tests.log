@@ -1,0 +1,19 @@
+bun test v1.4.4 (38afee6c8)
+
+tests/communication-boundary.test.ts:
+(pass) admission accepts only Alex/agent and agent/agent communication and creates no tool-event source or job [43.43ms]
+(pass) legacy execution rows stay unchanged and unclaimed, never enter provider context, and support proof-bound demotion [16.03ms]
+(pass) failed current execution sources demote deterministically without provider, retry or base-row mutation and retain restoration semantics [15.04ms]
+(pass) admission-review HTTP returns and replays the persisted owner-directive receipt [10.65ms]
+(pass) failed-current execution demotion retains exact current job, revision, direct support, grant and status fences [4.97ms]
+
+tests/automatic-notification-boundary.test.ts:
+(pass) exact machine status and delivery notices are not admitted, while genuine task discussion remains eligible [25.36ms]
+(pass) legacy queued notices are capture-only without JEV/Luna and cannot contaminate later provider context or reprocess [9.61ms]
+(pass) notification-only owner demotion preserves history and frees compact recall for the current relevant fact [30.68ms]
+(pass) automatic-notification demotion enforces exact source, revision, direct-support, notification-only and grant fences without model calls [6.49ms]
+
+ 9 pass
+ 0 fail
+ 150 expect() calls
+Ran 9 tests across 2 files. [344.00ms]

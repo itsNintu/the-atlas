@@ -5,9 +5,10 @@ Use Bun/TypeScript. Canonical code is this repository; no Hermes runtime depende
 Digestion uses Atlas-owned direct OAuth or OpenAI Responses providers and bounded JEV decisions,
 never a Codex CLI, app-server, agent runtime or Hermes per-call bridge. The dedicated OpenAI API
 credential/project is an allowed native route; keep credentials private and do not silently switch
-providers on failure. Only user/assistant/inter_agent communication may enter memory ingestion,
-JEV, Luna or the brain. Tool calls/results, task events, execution output and event feeds are not
-admitted; preserve original execution history outside brain without replay or synthetic facts.
+providers on failure. Only genuine user/assistant/inter_agent communication may enter memory
+ingestion, JEV, Luna or the brain. Tool calls/results, task events, execution output, automatic
+status/delivery notices and event feeds are not admitted; preserve original history outside brain
+without replay, synthetic facts or broad substring bans on genuine task discussion.
 Read CONTEXT.md and docs/contract.md before changing behavior. Workspace is the tenant boundary;
 all knowledge access requires explicit space/action grants, including workspace administrators.
 Keep deterministic assertions distinct from natural-language extraction. Never fake provider results.

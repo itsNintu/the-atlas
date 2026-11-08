@@ -1,5 +1,30 @@
 # Current project context
 
+## Automatic status-notification exclusion — 2026-11-08
+
+Source task t_cb043bca adds a communication-only automatic-notification boundary. Explicit native
+producer/attribution metadata and exact start-anchored Kanban/status, delivery, internal-notification
+and background-process forms (including Discord `[Alex]` variants) are rejected before source/job
+creation. Existing captured notices become capture-only skipped jobs without JEV/Luna and are removed
+from provider context/candidate supports; retry/reprocess is denied. Genuine Alex task requirements
+and agent-to-agent reasoning, including delegated results, remain eligible. No message history is
+deleted and there is no broad task/result/completion substring rule.
+
+`automatic_notification_owner_exclusion` extends the existing deterministic admission review with
+exact current job/head, expected revision, affected grants, direct support, an automatic exact source
+and notification-only retained supports. Mixed genuine/notice memories are ineligible. Append-only
+owner demotion preserves base rows and pre-demotion history, needs no model call/retry/replay, and
+later restoration requires genuine communication rather than another notice. The same five-notice/
+one-current-fact regression proves that demotion frees a 320-token recall packet for the relevant fact.
+
+A readonly live audit using the actual classifier found26 notification-only memories, all with a
+current reviewable source; the five reported IDs are included. Source verification on pinned Bun1.4.4:
+170tests/1641assertions across28files, focused notification+communication9tests, typecheck, and real
+on-disk HTTP/CLI E2E pass. The activation lane is this same task and carries receipt fix222e831;
+fresh stopped custody, a refreshed exact audit, bounded supported demotions and current graph/recall
+verification are recorded separately under `evidence/automatic-notification-boundary/`. No bulk
+failed-job retry, source/action replay or duplicate receipt task is involved.
+
 ## Failed-current execution owner exclusion — 2026-11-08
 
 Source task t_0ebd3ba0 narrowly extends `execution_content_owner_exclusion`: besides the existing

@@ -161,6 +161,17 @@ remove tool-only supports before identity/reconciliation; existing graph/recall 
 rewritten by this admission boundary. No tool action, task event or execution feed is an allowed
 new source of memory evidence.
 
+Automatic status/delivery notifications are likewise not communication content. Explicit native
+`generated_notification`/`internal_notification`/notification-author provenance and exact
+start-anchored forms for Kanban wakes/statuses, completion receipts, internal notices and background
+process completion are rejected with `automatic_status_notification` before source/job insertion.
+The forms include optional native Discord `[Alex]` display attribution; there is no general ban on
+task, result or completion words inside genuine communication. Existing captured notices terminate
+as capture-only `skipped` jobs without JEV/Luna, receive a deterministic `automatic_status_boundary`
+admission only when no earlier admission exists, and are excluded from auditor/recent context and
+provider candidate supports. They cannot be retried or reprocessed. Genuine Alex-authored durable
+requirements and genuine inter-agent reasoning remain eligible, and source history is not deleted.
+
 JEV is used only in asynchronous digestion. `THE_ATLAS_JEV_API_KEY`, `JEV_MODEL` (default
 `jev-1.14.0`), `JEV_URL` (default TypeSafe System One) and `JEV_CONCURRENCY` (default4, maximum16)
 control it. Every request has exactly one named `decision` question and exactly one validated
@@ -203,22 +214,26 @@ admission history, source content, roots, revision or existing knowledge.
 
 `POST /v1/memory/jobs/:job_id/admission-review` requires normal authentication, Idempotency-Key,
 `{agent_id,memory_id,expected_revision,reason_code}` and current affected-scope read/write grants.
-The accepted reasons are `session_local_owner_correction` and `execution_content_owner_exclusion`.
-The exact named job must be the current job for the current source head, with the expected revision,
-and that source revision must directly support the named memory through retained `memory_supports`;
-raw source content is not required for this deterministic demotion. `session_local_owner_correction`
-still requires a succeeded job and processed source. `execution_content_owner_exclusion` accepts that
-completed state and additionally a failed current job whose current source event remains pending, so
-retained partial direct support can be excluded without retrying the failed digestion. Session-local
-correction targets `user:alex`/`business:alex`; execution exclusion additionally covers the bound
-agent's private scope under current grants. The operation appends an `owner_directive` review and
-demotion proof; it does not call a new model, execute the original action, alter the source/job/
-memory/support rows or synthesize a replacement memory. Post-demotion graph/recall excludes that
-derived claim while pre-demotion recorded history remains inspectable. A later restoration is visible
-only at/after its accepted time and does not rewrite the intervening demoted history. Later
-independently supported user evidence can restore shared claims; agent-private execution exclusions
-can instead be restored by genuine user/assistant/inter_agent communication. These bounded
-owner-directed reasons are not arbitrary caller-authored fact editing.
+The accepted reasons are `session_local_owner_correction`, `execution_content_owner_exclusion` and
+`automatic_notification_owner_exclusion`. The exact named job must be the current job for the
+current source head, with the expected revision, and that source revision must directly support the
+named memory through retained `memory_supports`; raw source content is not required for this
+deterministic demotion. `session_local_owner_correction` still requires a succeeded job and processed
+source. Execution and automatic-notification exclusions accept that completed state and additionally
+a failed current job whose current source event remains pending, so retained partial direct support
+can be excluded without retrying the failed digestion. Session-local correction targets
+`user:alex`/`business:alex`; the other exclusions additionally cover the bound agent's private scope
+under current grants. Automatic-notification exclusion further requires the exact current source to
+match the native provenance/structural notification classifier and every retained direct support to
+be notification-only. A memory with any genuine or execution support is not eligible for that reason.
+The operation appends an `owner_directive` review and demotion proof; it does not call a new model,
+execute the original action, alter the source/job/memory/support rows or synthesize a replacement
+memory. Post-demotion graph/recall excludes that derived claim while pre-demotion recorded history
+remains inspectable. A later restoration is visible only at/after its accepted time and does not
+rewrite the intervening demoted history. Later independently supported genuine user evidence can
+restore shared claims; agent-private execution/notification exclusions can instead be restored by
+genuine user/assistant/inter_agent communication. Automatic notices never restore a demotion.
+These bounded owner-directed reasons are not arbitrary caller-authored fact editing.
 
 ### Processing-decision consistency and supported repair
 

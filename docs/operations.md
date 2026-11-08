@@ -28,6 +28,14 @@ billing and rate limits separately. New capture adapters must send only user/ass
 communication, never tool results, task events or execution feeds. `CODEX_REASONING_EFFORT=low`,
 `JEV_MODEL=jev-1.14.0` and `JEV_CONCURRENCY=4` are the current defaults. Keep the resident
 `EMBED_URL` separate from Luna and JEV. `auth.json` must remain mode0600 and its parent mode0700.
+Capture adapters must also suppress automatic Kanban wakes/statuses, delivery receipts, internal
+notifications and background-process completion notices rather than relabelling them as user or
+inter-agent conversation. Atlas independently rejects their exact native provenance/structural
+forms before source/job creation and capture-skips pre-existing notice jobs without provider calls.
+Genuine task requirements and agent reasoning are not filtered by broad content substrings.
+Notification-only owner demotion uses the documented authenticated/idempotent admission-review
+procedure, with reason `automatic_notification_owner_exclusion`; no migration or provider probe is
+needed for that deterministic review.
 Stop Atlas before replacing OAuth/config state; preserve existing account identity and do not copy
 another profile's auth cache. Refresh locks are self-recovering after stale PIDs. An ambiguous
 refresh may require the supported OAuth reconnection after access expiry; never replay it blindly.

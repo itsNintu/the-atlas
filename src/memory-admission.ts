@@ -3,6 +3,39 @@ import { canonical, hash } from './store.ts';
 export const COMMUNICATION_ROLES = ['user', 'assistant', 'inter_agent'] as const;
 export const communicationRole = (role: unknown) => COMMUNICATION_ROLES.includes(role as any);
 
+export const AUTOMATIC_NOTIFICATION_PRODUCERS = new Set([
+  'kanban-wake', 'loop-tick', 'async_delegation', 'completion',
+  'watch_match', 'watch_disabled', 'cron', 'heartbeat',
+]);
+const AUTOMATIC_STATUS_PREFIXES = [
+  /^\s*(?:\[Alex\]\s*)?\[kanban-wake\b/i,
+  /^\s*(?:\[Alex\]\s*)?\[completion\b/i,
+  /^\s*(?:\[Alex\]\s*)?\[IMPORTANT:\s*(?:\d+\s+)?Background process\b/i,
+  /^\s*(?:\[Alex\]\s*)?\[kanban\]\s*Task\s+t_[0-9a-f]+\s+(?:completed|blocked|failed|cancelled|crashed)\b/i,
+  /^\s*(?:\[Alex\]\s*)?\[INTERNAL NOTIFICATION\b/i,
+];
+function notificationMetadata(event: any) {
+  const raw = event.metadata ?? event.metadata_json;
+  if (raw && typeof raw === 'object' && !Array.isArray(raw)) return raw;
+  if (typeof raw !== 'string' || !raw) return {};
+  try { const value = JSON.parse(raw); return value && typeof value === 'object' && !Array.isArray(value) ? value : {}; }
+  catch { return {}; }
+}
+// Native producer/attribution metadata is authoritative. The text fallbacks are
+// complete machine-form prefixes, never broad task/result/completion substrings.
+export function automaticStatusNotification(event: any) {
+  if (!communicationRole(event?.role)) return false;
+  const metadata = notificationMetadata(event);
+  const producer = typeof metadata.notification_source === 'string' ? metadata.notification_source : null;
+  const author = String(event.author_id ?? '');
+  const authorProducer = author.match(/^native:notification:([a-z_-]+)$/i)?.[1] ?? null;
+  if (metadata.display_kind === 'internal_notification' ||
+      (metadata.boundary === 'generated_notification' && producer && AUTOMATIC_NOTIFICATION_PRODUCERS.has(producer)) ||
+      (authorProducer && AUTOMATIC_NOTIFICATION_PRODUCERS.has(authorProducer))) return true;
+  const content = String(event.content ?? '');
+  return AUTOMATIC_STATUS_PREFIXES.some(pattern => pattern.test(content));
+}
+
 // JEV receives a bounded auditor view of communication only, never the whole
 // pending transcript or execution/task payloads. Full source provenance stays durable.
 export function auditorEvent(event: any, latest = false) {

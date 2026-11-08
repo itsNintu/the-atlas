@@ -19,7 +19,7 @@ import { cosine } from "./provider.ts";
 import { indexedCandidates, queryTerms } from "./memory-index.ts";
 import { claimMemoryJob } from "./memory-scheduler.ts";
 import { beginJevRequest, isJevPayment, isLunaCapacity, providerRequestSucceeded, recordProviderHold, releaseProviderProbe } from './provider-availability.ts';
-import { admissionProof, auditorState, routeRecord, communicationRole } from "./memory-admission.ts";
+import { admissionProof, auditorState, routeRecord, communicationRole, automaticStatusNotification } from "./memory-admission.ts";
 import { EXTRACT_PROMPT, RECONCILE_PROMPT, validateReconciliations, normalizeReconciliation, mergeReconciliations, type Reconciliation } from './memory-reconciliation.ts';
 import { IDENTITY_PROMPT, identityResponseContract, resolvedIdentity, candidateIdentities } from './memory-identity.ts';
 import { correctionReplacements } from "./memory-correction-lookup.ts";
@@ -186,6 +186,8 @@ export class Memory {
     const metadata = redact(JSON.stringify(object(b.metadata ?? {})));
     if (metadata.length > 16_000)
       fail(400, "invalid_event", "metadata too large");
+    if (b.operation === 'upsert' && automaticStatusNotification({ ...b, content }))
+      fail(400, 'automatic_status_notification', 'Automatic status/delivery notification events are metadata, not durable communication');
     const body_hash = hash(canonical(b));
     return this.store.transaction(() => {
       const old = this.store.one(
@@ -529,12 +531,13 @@ export class Memory {
   retry(a: Actor, agent: string, job_id: string) {
     this.authorize(a, agent, "write");
     const j = this.store.one(
-      "SELECT j.* FROM memory_jobs j JOIN memory_events e ON e.id=j.event_pk JOIN memory_heads h ON h.event_pk=e.id WHERE j.id=? AND e.workspace_id=? AND e.agent_id=? AND e.operation='upsert' AND e.role IN ('user','assistant','inter_agent')",
+      "SELECT j.*,e.role,e.author_id,e.content,e.metadata_json FROM memory_jobs j JOIN memory_events e ON e.id=j.event_pk JOIN memory_heads h ON h.event_pk=e.id WHERE j.id=? AND e.workspace_id=? AND e.agent_id=? AND e.operation='upsert' AND e.role IN ('user','assistant','inter_agent')",
       job_id,
       a.workspace_id,
       agent,
     );
     if (!j) fail(404, "not_found", "Current memory job not found");
+    if (automaticStatusNotification(j)) fail(409, 'automatic_status_notification', 'Automatic status/delivery notification events cannot be retried');
     if (!["failed", "retry"].includes(j.status))
       fail(409, "job_not_retryable", "Only failed/retry jobs can be retried");
     this.store.run(
@@ -554,6 +557,7 @@ export class Memory {
         WHERE j.id=? AND e.workspace_id=? AND e.agent_id=? AND e.operation='upsert'`, previous_job_id,a.workspace_id,agent);
       if (!e) fail(404, "not_found", "Current memory job not found");
       if (!communicationRole(e.role)) fail(409, 'communication_only', 'Only communication events can be reprocessed');
+      if (automaticStatusNotification(e)) fail(409, 'automatic_status_notification', 'Automatic status/delivery notification events cannot be reprocessed');
       if (e.revision !== revision) fail(409, "revision_conflict", "Memory event revision changed");
       const completed = e.job_status === "succeeded" && e.status === "processed";
       const reconsider = e.job_status === "skipped" && e.status === "captured";
@@ -579,18 +583,25 @@ export class Memory {
     const revision=integer(expected_revision,'expected_revision',1,Number.MAX_SAFE_INTEGER);
     const reason=text(reason_code,'reason_code',80);
     if(!/^[a-z0-9_-]+$/.test(reason))fail(400,'invalid_request','reason_code must be a non-content diagnostic identifier');
-    if(!['session_local_owner_correction','execution_content_owner_exclusion'].includes(reason))fail(400,'invalid_request','Unsupported owner-directed admission review reason');
+    if(!['session_local_owner_correction','execution_content_owner_exclusion','automatic_notification_owner_exclusion'].includes(reason))fail(400,'invalid_request','Unsupported owner-directed admission review reason');
     const executionExclusion=reason==='execution_content_owner_exclusion';
-    const reviewScopes=executionExclusion?['user:alex','business:alex',own(agent)]:['user:alex','business:alex'];
+    const notificationExclusion=reason==='automatic_notification_owner_exclusion';
+    const contentExclusion=executionExclusion||notificationExclusion;
+    const reviewScopes=contentExclusion?['user:alex','business:alex',own(agent)]:['user:alex','business:alex'];
     const e=this.store.one(`SELECT e.*,j.status AS job_status FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id JOIN memory_jobs j ON j.id=e.job_id AND j.event_pk=e.id WHERE j.id=? AND e.workspace_id=? AND e.agent_id=? AND e.operation='upsert'`,previous_job_id,a.workspace_id,agent);
     if(!e)fail(404,'not_found','Current source job not found');
     if(e.revision!==revision)fail(409,'revision_conflict','Memory event revision changed');
     const completed=e.job_status==='succeeded'&&e.status==='processed';
-    const failedExecution=executionExclusion&&e.job_status==='failed'&&e.status==='pending';
-    if(!completed&&!failedExecution)fail(409,'job_not_reviewable','Only a completed source job or a failed/pending execution exclusion can be admission-reviewed');
+    const failedContentExclusion=contentExclusion&&e.job_status==='failed'&&e.status==='pending';
+    if(!completed&&!failedContentExclusion)fail(409,'job_not_reviewable','Only a completed source job or a failed/pending content exclusion can be admission-reviewed');
     if(!this.eventCurrent(e))fail(409,'source_unavailable','Original memory source revision is no longer current');
+    if(notificationExclusion&&!automaticStatusNotification(e))fail(409,'not_automatic_notification','Source is not an automatic status/delivery notification');
     const m=this.store.one(`SELECT m.* FROM memories m JOIN memory_supports s ON s.memory_id=m.id AND s.event_pk=? WHERE m.id=? AND m.workspace_id=? AND m.scope IN (${reviewScopes.map(()=>'?').join(',')})`,e.id,memory_id,a.workspace_id,...reviewScopes);
     if(!m)fail(404,'not_found','Memory with direct source support was not found');
+    if(notificationExclusion){
+      const supports=this.store.all('SELECT e.* FROM memory_supports s JOIN memory_events e ON e.id=s.event_pk WHERE s.memory_id=?',memory_id);
+      if(!supports.length||supports.some(source=>!automaticStatusNotification(source)))fail(409,'notification_only_support_required','automatic_notification_owner_exclusion requires notification-only direct support');
+    }
     const readable=this.authorize(a,agent,'read'),writable=this.authorize(a,agent,'write');
     if(!readable.includes(m.scope)||!writable.includes(m.scope))fail(403,'memory_grant_required','Memory read/write grant required');
     const previous=this.auditPrevious(e,readable,5);
@@ -614,7 +625,7 @@ export class Memory {
     return this.store.all(
       "SELECT e.* FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id WHERE e.workspace_id=? AND e.agent_id=? AND e.thread_id=? AND e.accepted_at<=? AND e.rowid<(SELECT rowid FROM memory_events WHERE id=?) AND e.role IN ('user','assistant','inter_agent') AND e.content IS NOT NULL AND e.status NOT IN ('forgotten','deleted','superseded') ORDER BY e.accepted_at DESC,e.rowid DESC LIMIT ?",
       e.workspace_id,e.agent_id,e.thread_id,e.accepted_at,e.id,limit,
-    ).filter(x=>this.visibleEvent(x,e.agent_id,readable)).reverse();
+    ).filter(x=>!automaticStatusNotification(x)&&this.visibleEvent(x,e.agent_id,readable)).reverse();
   }
   canonicalEntity(workspace:string,scope:string,entity:string,recorded_at=now(),path:string[]=[]):string {
     if(path.includes(entity)||path.length>=16)return entity;
@@ -669,8 +680,10 @@ export class Memory {
     if (m.recorded_from > recorded_at) return null;
     const demoted = this.store.one('SELECT d.recorded_at,d.reason_code FROM memory_admission_demotions d WHERE d.memory_id=? AND d.recorded_at<=?',m.id,recorded_at);
     if (demoted) {
-      const restorationRoles = demoted.reason_code === 'execution_content_owner_exclusion' && m.scope.startsWith('agent:') ? "('user','assistant','inter_agent')" : "('user')";
-      if (!this.store.one(`SELECT 1 FROM memory_supports s JOIN memory_events e ON e.id=s.event_pk WHERE s.memory_id=? AND e.role IN ${restorationRoles} AND e.accepted_at>? AND e.accepted_at<=?`,m.id,demoted.recorded_at,recorded_at)) return null;
+      const contentExclusion = ['execution_content_owner_exclusion','automatic_notification_owner_exclusion'].includes(demoted.reason_code);
+      const restorationRoles = contentExclusion && m.scope.startsWith('agent:') ? "('user','assistant','inter_agent')" : "('user')";
+      const later = this.store.all(`SELECT e.role,e.author_id,e.content,e.metadata_json FROM memory_supports s JOIN memory_events e ON e.id=s.event_pk WHERE s.memory_id=? AND e.role IN ${restorationRoles} AND e.accepted_at>? AND e.accepted_at<=?`,m.id,demoted.recorded_at,recorded_at);
+      if (!later.some(source=>!automaticStatusNotification(source))) return null;
     }
     const support = this.support(m, recorded_at);
     if (!support.length) return null;
@@ -719,7 +732,13 @@ export class Memory {
     };
   }
   communicationSupport(m: any) {
-    return this.support(m).filter((support: any) => communicationRole(support.role));
+    const supports = this.support(m).filter((support: any) => communicationRole(support.role));
+    if (!supports.length) return [];
+    const automatic = new Set(this.store.all(
+      'SELECT e.client_id,e.event_id,e.revision,e.role,e.author_id,e.content,e.metadata_json FROM memory_supports s JOIN memory_events e ON e.id=s.event_pk WHERE s.memory_id=?',
+      m.id,
+    ).filter(automaticStatusNotification).map((source:any)=>`${source.client_id}:${source.event_id}@${source.revision}`));
+    return supports.filter((support:any)=>!automatic.has(`${support.client_id}:${support.event_id}@${support.revision}`));
   }
   candidates(workspace: string, scopes: string[], query: string, count = Math.min(12, positiveSetting("CURATION_CANDIDATE_LIMIT", 8)), rank?: (row:any)=>number) {
     return indexedCandidates(this.store, workspace, scopes, query, undefined, undefined, Math.max(24,count*2))
@@ -1092,6 +1111,18 @@ export class MemoryWorker {
       const readable = this.memory.authorize(a, e.agent_id, "read");
       const auditPrevious = this.memory.auditPrevious(e, readable, 5);
       const auditState = auditorState(e, auditPrevious);
+      if (automaticStatusNotification(e)) {
+        const result = { choice:'noise', confidence:1, model:'automatic_status_boundary', elapsed_ms:0 };
+        const proof = admissionProof('automatic_status_boundary',j,e,auditPrevious,result);
+        this.store.transaction(() => {
+          if (!this.live(j)) return;
+          if (!this.store.one('SELECT 1 FROM memory_event_admissions WHERE job_id=?',j.id))
+            this.store.run('INSERT INTO memory_event_admissions VALUES (?,?,?,?,?,?,?,?)',j.id,e.id,result.choice,result.model,result.confidence,proof,result.elapsed_ms,now());
+          this.store.run("UPDATE memory_events SET status='captured',processed_at=NULL WHERE id=?",e.id);
+          this.finish(j,'skipped');
+        });
+        return true;
+      }
       let admission = this.store.one('SELECT * FROM memory_event_admissions WHERE job_id=?', j.id);
       if (!admission && this.inference.audit) {
         let result: any;
@@ -1132,7 +1163,7 @@ export class MemoryWorker {
       const recent = this.store.all(
         "SELECT e.* FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id WHERE e.workspace_id=? AND e.agent_id=? AND e.thread_id=? AND e.accepted_at<=? AND e.rowid<(SELECT rowid FROM memory_events WHERE id=?) AND e.role IN ('user','assistant','inter_agent') AND e.content IS NOT NULL AND e.status NOT IN ('forgotten','deleted','superseded') ORDER BY e.accepted_at DESC,e.rowid DESC LIMIT 2",
         e.workspace_id, e.agent_id, e.thread_id, e.accepted_at, e.id,
-      ).filter(x => this.memory.visibleEvent(x, e.agent_id, readable)).reverse();
+      ).filter(x => !automaticStatusNotification(x) && this.memory.visibleEvent(x, e.agent_id, readable)).reverse();
       const candidates = this.memory.candidates(e.workspace_id, readable, content.slice(offset, end) + " " + recent.map(x => x.content.slice(-600)).join(" "));
       const continuityIds = [e.id, ...recent.map(x => x.id)];
       const continuity = this.store.all(`SELECT DISTINCT m.* FROM memories m JOIN memory_supports s ON s.memory_id=m.id WHERE m.workspace_id=? AND m.scope IN (${readable.map(() => "?").join(",")}) AND s.event_pk IN (${continuityIds.map(() => "?").join(",")}) ORDER BY m.recorded_from DESC,m.id LIMIT 8`, e.workspace_id, ...readable, ...continuityIds);
