@@ -17,10 +17,15 @@ Never share a real .env, database, credential file, or source export in an issue
 
 ### Atlas-native Luna and JEV
 
-Set `THE_ATLAS_NATIVE_WORKER=true`, `THE_ATLAS_CODEX_HOME` to the completed Atlas-private OAuth
-home, `THE_ATLAS_EXTRACTION_MODEL=gpt-6-luna` and the protected `THE_ATLAS_JEV_API_KEY` through
-the owning credential channel. Remove the old Hermes `INFERENCE_COMMAND`; do not configure a
-Codex CLI/app-server or public API-key fallback. `CODEX_REASONING_EFFORT=low`,
+Set `THE_ATLAS_NATIVE_WORKER=true`. For the verified direct OpenAI Responses route, provision the
+selected permanent credential privately as `THE_ATLAS_PROVIDER_API_KEY` (or `OPENAI_API_KEY`) and set
+`THE_ATLAS_OPENAI_PROJECT_ID` to the dedicated project. Optional `THE_ATLAS_OPENAI_BASE_URL` defaults
+to `https://api.openai.com/v1`. Without that credential, `THE_ATLAS_CODEX_HOME` selects the existing
+OAuth route; API failure never silently switches providers. Keep `THE_ATLAS_EXTRACTION_MODEL=gpt-6-luna`
+and protected `THE_ATLAS_JEV_API_KEY` in the owning credential channel. Remove the old Hermes
+`INFERENCE_COMMAND`; do not configure a Codex CLI/app-server. Report API authentication, credit,
+billing and rate limits separately. New capture adapters must send only user/assistant/inter_agent
+communication, never tool results, task events or execution feeds. `CODEX_REASONING_EFFORT=low`,
 `JEV_MODEL=jev-1.14.0` and `JEV_CONCURRENCY=4` are the current defaults. Keep the resident
 `EMBED_URL` separate from Luna and JEV. `auth.json` must remain mode0600 and its parent mode0700.
 Stop Atlas before replacing OAuth/config state; preserve existing account identity and do not copy

@@ -2,16 +2,21 @@
 
 ## Sustained selective dreaming with native Luna and JEV (source; activation separate)
 
-Atlas owns direct OAuth-backed Luna inference. `src/native-luna.ts` adapts the lightweight
-Creators growth transport: pinned ChatGPT OAuth client/account identity, direct
-`https://chatgpt.com/backend-api/codex/responses` HTTP/SSE, no tools, bounded1MB stream,
-exact requested-model completion and local JSON validation. There is no Codex CLI,
-app-server, agent runtime, Hermes PluginLlm/per-call bridge or public API-key fallback.
+Atlas owns direct OAuth-backed Luna and direct regular OpenAI Responses native transports. With
+`THE_ATLAS_NATIVE_WORKER=true`, a configured `THE_ATLAS_PROVIDER_API_KEY`/`OPENAI_API_KEY` selects
+`https://api.openai.com/v1/responses`; `THE_ATLAS_OPENAI_PROJECT_ID` supplies the dedicated project
+header. Without an API credential, the existing OAuth HTTP/SSE route remains available. API errors
+do not silently switch providers. Neither route uses a Codex CLI, app-server, agent runtime or Hermes
+PluginLlm/per-call bridge. The owner handoff separately verifies the dedicated API credential,
+project, credit and HTTP200; production provisioning/activation is not implied by this source change.
 OAuth tokens remain in the Atlas-private mode0600 `auth.json`; rotating refresh is
-single-flight with PID/CAS stale-lock recovery and account preservation. Temporary
-throttling uses bounded retry. An ambiguous refresh is never blindly replayed: a still-valid
-access token may continue, while expiry after an unresolved rotation requires supported
-reconnection rather than guessing its outcome.
+single-flight with PID/CAS stale-lock recovery and account preservation. Luna 429 responses
+propagate only sanitized status/category plus whitelisted Retry-After/primary-reset guidance.
+A persisted shared hold stops new memory-job claims without consuming capacity-failure attempts;
+one lease-fenced real request probes expiry. Capture, recall and the unrelated action worker
+remain available, and terminal jobs are never bulk-retried. An ambiguous refresh is never blindly
+replayed: a still-valid access token may continue, while expiry after an unresolved rotation
+requires supported reconnection rather than guessing its outcome.
 
 JEV is the asynchronous first auditor/router, never the graph writer and never on foreground
 recall. Each HTTP request has exactly one typed question and exactly one validated answer;
@@ -25,6 +30,18 @@ decision. JEV graph-area only prioritizes supplied areas. Per-candidate calls re
 `irrelevant` relations; uncertain/unexamined and relevant session-local history remain.
 Unavailable admission/routing calls are audited as `unavailable` and continue as uncertain rather
 than making JEV a hidden eligibility gate; missing JEV configuration remains a deployment error.
+JEV402 opens a bounded JEV-only hold (five minutes without upstream guidance, at most31days with
+it), so subsequent jobs fail open to Luna without one new paid JEV attempt per job. A single
+DB-fenced valid request probes expiry; only a real success declares recovery. Sanitized hold state,
+reason and next-probe time are exposed through `/v1/status` without credentials or response bodies.
+
+Only user/assistant/inter_agent communication can create new memory jobs. Tool upserts fail before
+source/job insertion; legacy tool rows remain unchanged but are ineligible for claims, retry or
+reprocess. Auditor/recent-event queries include communication roles only, and provider candidates
+require at least one communication support with tool-only supports removed. This does not delete or
+bulk-demote historical brain content. `execution_content_owner_exclusion` permits a supported
+owner-directed admission review for affected agent-private or shared memories with current grants;
+original jobs/events/history remain intact and no provider request occurs.
 
 A 24-claim persisted conversation-focus lease provides coherent service, then rotates to the
 least-served human conversation. Other threads and inherited work continue concurrently and
@@ -32,25 +49,26 @@ every fourth claim reserves oldest accepted work. This replaces the observed one
 full-rotation starvation without a newest-thread monopoly. Capture remains immediate;
 `captured` is not `processed`, and recall exposes `freshness.capture_only_count` while keeping
 pending transcripts empty. Capture-filtered events support a new audited `/reprocess` route
-with `memory_reconsider_requests`; original jobs/decisions remain unchanged. Excluded
-captured tool content follows RAW_RETENTION_DAYS; original owner and assistant message content is
+with `memory_reconsider_requests`; original jobs/decisions remain unchanged. Legacy captured tool
+content follows RAW_RETENTION_DAYS; original owner and assistant message content is
 retained for reconsideration.
 
 `POST /v1/memory/jobs/:job_id/admission-review` is the bounded owner-directed correction for
-the known session/global admission error. With current source revision and affected shared
-read/write grants plus `reason_code=session_local_owner_correction`, it appends an
+session/global admission errors and execution-derived content. With current source revision and
+affected read/write grants, `session_local_owner_correction` handles shared claims and
+`execution_content_owner_exclusion` handles affected own/shared claims. Each appends an
 `owner_directive` review and demotion proof; no new model vote, source replay or SQL deletion
-is involved. Post-review recall/graph projections exclude that derived shared claim while
-pre-review recorded history remains inspectable. Later genuine user support can restore the
-same fingerprint without deleting the demotion audit.
+is involved. Post-review recall/graph projections exclude that derived claim while pre-review
+recorded history remains inspectable. Shared restoration requires later genuine user support;
+agent-private execution exclusions can use later genuine communication.
 
 Additive audit tables are `memory_event_admissions`, `memory_jev_routes`,
 `memory_admission_reviews`, `memory_admission_demotions`, `memory_reconsider_requests` and
-`memory_conversation_focus`. Existing source/event/job/memory/support identities and terminal
+`memory_conversation_focus`; `memory_provider_holds` stores only sanitized availability state. Existing source/event/job/memory/support identities and terminal
 job effects remain. A synthetic direct OAuth/SSE probe completed valid `{"decisions":[]}` on
 `gpt-6-luna` in3.019s (88input/9output tokens), with no agent runtime or tools. Source
-verification:155tests/1422assertions, typecheck, frozen install and real on-disk pinned-Bun
-HTTP/CLI E2E pass. Live JEV and current-conversation activation outcomes remain Overwatch
+verification:163tests/1517assertions and typecheck pass; prior frozen-install and real on-disk
+pinned-Bun HTTP/CLI E2E evidence is reused for unchanged paths. Live JEV and current-conversation activation outcomes remain Overwatch
 `t_05e9321c`; no production activation, global queue-empty or universal semantic claim is made.
 
 ## Claim-consistency repair and correction-preserving recall (source only)

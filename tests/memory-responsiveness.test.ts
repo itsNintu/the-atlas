@@ -173,7 +173,7 @@ test("unrelated capture and unused grant removal do not invalidate packed contex
   try {
     for (let i = 0; i < 40; i++) f.event(`pending-${i}`);
     const mutation = new Promise<void>(resolve => setTimeout(() => {
-      f.event("unrelated", { role: "tool", author_id: "synthetic-tool" });
+      f.event("unrelated", { role: "inter_agent", author_id: "agent:other" });
       f.store.run("DELETE FROM memory_grants WHERE principal_id=? AND scope='business:alex' AND action='read'", f.actor.id);
       resolve();
     }, 1));

@@ -3,13 +3,14 @@ import { ApiError, fail } from './errors.ts';
 import { chmod, mkdir, open, readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { randomUUID } from 'node:crypto';
+import { upstreamDetails } from './provider-availability.ts';
 
 export const ATLAS_OAUTH_CLIENT_ID = 'app_EMoamEEZ73f0CkXaXp7hrann';
 export const ATLAS_RESPONSES_URL = 'https://chatgpt.com/backend-api/codex/responses';
 const OAUTH_TOKEN_URL = 'https://auth.openai.com/oauth/token';
 
 type Auth = { access: string; refresh: string; accountId: string; expiresAt: number; raw: any };
-async function bounded(response: Response, max: number) {
+export async function bounded(response: Response, max: number) {
   const reader = response.body?.getReader();
   if (!reader) fail(503, 'native_invalid_response', 'Native response body is empty', true);
   const decoder = new TextDecoder(), chunks: Uint8Array[] = []; let size = 0;
@@ -194,9 +195,17 @@ export class NativeLunaWorker {
       await response.body?.cancel(); auth = await this.credentials(true);
     }
     if (!response) fail(503, 'native_unavailable', 'Atlas-native Luna returned no response', true);
-    if (response.status === 429) { await response.body?.cancel(); fail(503, 'native_quota', 'Atlas-native Luna is temporarily rate limited', true); }
+    if (response.status === 429) {
+      const details = upstreamDetails(response.headers, response.status, this.now());
+      await response.body?.cancel();
+      throw new ApiError(503, 'native_quota', 'Atlas-native Luna is temporarily rate limited', true, details);
+    }
     if (response.status === 401 || response.status === 403) { await response.body?.cancel(); fail(503, 'native_oauth_required', 'Atlas OAuth requires reconnection', false); }
-    if (!response.ok) { await response.body?.cancel(); fail(503, 'native_unavailable', `Atlas-native Luna HTTP ${response.status}`, response.status >= 500); }
+    if (!response.ok) {
+      const details = upstreamDetails(response.headers, response.status, this.now());
+      await response.body?.cancel();
+      throw new ApiError(503, 'native_unavailable', `Atlas-native Luna HTTP ${response.status}`, response.status >= 500, details);
+    }
     const parsed = parseNativeStream(await bounded(response, 1_000_000), model);
     return { output: parsed.value, usage: { provider: 'atlas_native_oauth_http_sse', model, ...parsed.usage, elapsed_ms: this.now() - started } };
   }

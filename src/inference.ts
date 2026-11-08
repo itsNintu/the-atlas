@@ -4,6 +4,7 @@ import { id } from "./store.ts";
 import { RECONCILE_PROMPT, LEGACY_RECONCILE_PROMPT, validateReconciliations, validateCandidateAssessments, type Reconciliation } from './memory-reconciliation.ts';
 import { IDENTITY_PROMPT } from './memory-identity.ts';
 import { NativeLunaWorker } from './native-luna.ts';
+import { NativeOpenAIWorker, nativeOpenAIConfigured } from './native-openai.ts';
 import { JevClient } from './jev.ts';
 
 export type Decision = {
@@ -184,7 +185,7 @@ export function validateVectors(raw: any, count: number) {
 export function inferenceStatus() {
   const native = setting('NATIVE_WORKER') === 'true';
   return {
-    curate: native ? 'atlas_native_oauth_http_sse' : setting("INFERENCE_COMMAND")
+    curate: native ? (nativeOpenAIConfigured() ? 'atlas_native_openai_responses' : 'atlas_native_oauth_http_sse') : setting("INFERENCE_COMMAND")
       ? "command"
       : setting("PROVIDER_API_KEY") || process.env.OPENAI_API_KEY
         ? "openai_compatible"
@@ -205,9 +206,12 @@ export function inferenceStatus() {
 }
 export class Inference implements MemoryInference {
   last_usage: Record<string, unknown> = {};
-  private native?: NativeLunaWorker;
+  private native?: NativeLunaWorker | NativeOpenAIWorker;
   private jev?: JevClient;
-  private nativeWorker() { return this.native ??= new NativeLunaWorker(); }
+  private nativeWorker() {
+    if (!this.native) this.native = nativeOpenAIConfigured() ? new NativeOpenAIWorker() : new NativeLunaWorker();
+    return this.native;
+  }
   private jevClient() { return this.jev ??= new JevClient(); }
   async audit(input: any) {
     if (setting('NATIVE_WORKER') !== 'true') return null;

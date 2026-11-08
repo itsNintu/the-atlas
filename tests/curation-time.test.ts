@@ -37,7 +37,7 @@ test("curator date adaptation retains calendar/UTC/interval validation and never
   expect(() => parse(exact, "2026-11-07T03:52:04.100Z")).toThrow();
 });
 
-test("both dated tool representations process with unchanged identities, attribution and one evidence root", async () => {
+test("both dated inter-agent representations process with unchanged identities, attribution and one evidence root", async () => {
   const s = new Store(":memory:");
   const a = s.authenticate(s.bootstrap("Synthetic dated observations").token);
   const inference = {
@@ -47,18 +47,17 @@ test("both dated tool representations process with unchanged identities, attribu
   const m = new Memory(s, inference), w = new MemoryWorker(s, inference);
   m.bind(a, a.id, "overwatch");
   const receipt = { synthetic: true, project: "Lantern-Cobalt-573", build: "R573", actual_deployment: false, status: "fixture_runtime_observed", receipt_id: "cobalt573-check-001", observed_at: exact, reported_health: "ready" };
-  const result = JSON.stringify({ output: JSON.stringify(receipt), exit_code: 0, error: null });
-  const contents = [JSON.stringify({ result, status: "ok", tool: "terminal" }), result];
-  const root = "native-tool-result:overwatch:synthetic-session:call-observe";
-  const ids = ["tool-outcome:overwatch:synthetic-session:call-observe:part:0", "native:overwatch:synthetic-result:part:0"];
+  const contents = [`Agent one reports ${JSON.stringify(receipt)}`, `Agent two acknowledges ${JSON.stringify(receipt)}`];
+  const root = "agent-observation:overwatch:synthetic-session:observe";
+  const ids = ["agent-observation:overwatch:synthetic-session:part:0", "agent-followup:overwatch:synthetic-session:part:0"];
   for (const [i, event_id] of ids.entries()) {
-    const captured = m.event(a, { client_id: "synthetic", event_id, revision: 1, operation: "upsert", agent_id: "overwatch", thread_id: "synthetic-session", role: "tool", author_id: "tool", occurred_at: "2026-11-07T03:52:04.290Z", observed_at: "2026-11-07T03:52:11.000Z", content: contents[i], causal_parent_ids: [], evidence_root_ids: [root], metadata: {} });
+    const captured = m.event(a, { client_id: "synthetic", event_id, revision: 1, operation: "upsert", agent_id: "overwatch", thread_id: "synthetic-session", role: "inter_agent", author_id: "agent:observer", occurred_at: "2026-11-07T03:52:04.290Z", observed_at: "2026-11-07T03:52:11.000Z", content: contents[i], causal_parent_ids: [], evidence_root_ids: [root], metadata: {} });
     await w.runOnce();
     expect(s.one("SELECT status FROM memory_jobs WHERE id=?", captured.job_id).status).toBe("succeeded");
     const e = s.one("SELECT * FROM memory_events WHERE event_id=?", event_id);
     expect(e.revision).toBe(1);
-    expect(e.role).toBe("tool");
-    expect(e.author_id).toBe("tool");
+    expect(e.role).toBe("inter_agent");
+    expect(e.author_id).toBe("agent:observer");
     expect(e.content).toBe(contents[i]);
   }
   const memories = s.all("SELECT * FROM memories");
@@ -78,7 +77,7 @@ test("accepting natural dates does not relax current-event lineage checks", asyn
   const inference = { curate: async () => ({ decisions: [episode("wrong-event")] }), embed: async () => { throw new Error("must not embed"); } };
   const m = new Memory(s, inference), w = new MemoryWorker(s, inference);
   m.bind(a, a.id, "overwatch");
-  const e = m.event(a, { client_id: "synthetic", event_id: "real-event", revision: 1, operation: "upsert", agent_id: "overwatch", thread_id: "synthetic", role: "tool", author_id: "tool", occurred_at: "2026-11-07T03:52:04.290Z", observed_at: "2026-11-07T03:52:11.000Z", content: episode().object, causal_parent_ids: [], evidence_root_ids: [], metadata: {} });
+  const e = m.event(a, { client_id: "synthetic", event_id: "real-event", revision: 1, operation: "upsert", agent_id: "overwatch", thread_id: "synthetic", role: "inter_agent", author_id: "agent:observer", occurred_at: "2026-11-07T03:52:04.290Z", observed_at: "2026-11-07T03:52:11.000Z", content: episode().object, causal_parent_ids: [], evidence_root_ids: [], metadata: {} });
   await w.runOnce();
   expect(s.one("SELECT error_code FROM memory_jobs WHERE id=?", e.job_id).error_code).toBe("curator_lineage_violation");
   expect(s.all("SELECT * FROM memories").length).toBe(0);

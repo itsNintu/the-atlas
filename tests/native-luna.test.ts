@@ -62,11 +62,24 @@ test('expired OAuth refreshes once with identity preservation and recovers an ab
   } finally { restore(); rmSync(dir, { recursive: true, force: true }); }
 });
 
-test('Luna throttling remains bounded-retryable and a valid token survives an ambiguous refresh marker', async () => {
-  const dir = mkdtempSync(join(tmpdir(), 'atlas-native-luna-')), restore = env(dir), now = Date.parse('2026-11-08T00:00:00Z'), access = token(now + 3600_000);
+test('Luna throttling propagates exact bounded reset guidance and a valid token survives an ambiguous refresh marker', async () => {
+  const resetAt = 1796696415, resetAfter = 2560406, now = resetAt * 1000 - resetAfter * 1000;
+  const dir = mkdtempSync(join(tmpdir(), 'atlas-native-luna-')), restore = env(dir), access = token(now + 3600_000);
   writeFileSync(join(dir, 'auth.json'), JSON.stringify({ atlas_refresh_ambiguous_at: '2026-11-07T23:00:00.000Z', tokens: { access_token: access, refresh_token: 'refresh-old', account_id: account } }));
   try {
-    const worker = new NativeLunaWorker({ fetch: (async () => new Response('', { status: 429 })) as any, now: () => now, home: dir });
-    await expect(worker.structured({}, 'Curate memory')).rejects.toMatchObject({ code: 'native_quota', retryable: true });
+    const response = new Response('sensitive upstream body must not persist', { status: 429, headers: {
+      'Retry-After': '60',
+      'x-codex-primary-reset-at': String(resetAt),
+      'x-codex-primary-reset-after': String(resetAfter),
+    } });
+    const worker = new NativeLunaWorker({ fetch: (async () => response) as any, now: () => now, home: dir });
+    await expect(worker.structured({}, 'Curate memory')).rejects.toMatchObject({
+      code: 'native_quota', retryable: true,
+      details: {
+        upstream_status: 429, upstream_category: 'provider_capacity',
+        retry_after_ms: 60_000, primary_reset_after_ms: 2_560_406_000,
+        reset_at_ms: 1_796_696_415_000, hold_until_ms: 1_796_696_415_000,
+      },
+    });
   } finally { restore(); rmSync(dir, { recursive: true, force: true }); }
 });

@@ -6,7 +6,7 @@ function fixture(){
  const inf={async curate(){throw Error('No provider in deterministic ranking regression');},async embed(){return {vectors:[[1,0]],model:'specificity-double'};}};
  const m=new Memory(s,inf),w=new MemoryWorker(s,inf);m.bind(a,a.id,'builder');
  const seed=(id:string,subject:string,predicate:string,object:string,at:string,similarity=1,content='independent fictional observation')=>{
-  m.event(a,{client_id:'specificity',event_id:id,revision:1,operation:'upsert',agent_id:'builder',thread_id:id,role:'tool',author_id:'fictional-tool',occurred_at:at,observed_at:now(),content});
+  m.event(a,{client_id:'specificity',event_id:id,revision:1,operation:'upsert',agent_id:'builder',thread_id:id,role:'inter_agent',author_id:'agent:fictional-observer',occurred_at:at,observed_at:now(),content});
   const e=s.one('SELECT * FROM memory_events WHERE event_id=?',id);
   w.apply(e,{kind:'episode',scope:'agent:builder',subject,predicate,object,valid_from:at,valid_to:null,importance:.8,confidence:.9,evidence_event_ids:[id]},[similarity,Math.sqrt(1-similarity**2)],'specificity-double',['agent:builder']);
   return s.one('SELECT memory_id id FROM memory_supports WHERE event_pk=?',e.id).id;

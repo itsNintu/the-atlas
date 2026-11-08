@@ -1,5 +1,6 @@
 import { setting } from './config.ts';
 import { ApiError, fail } from './errors.ts';
+import { upstreamDetails } from './provider-availability.ts';
 
 export type JevChoice = {
   choice: string;
@@ -83,7 +84,11 @@ export class JevClient {
         if (error instanceof ApiError) throw error;
         fail(503, 'jev_unavailable', 'JEV request failed or timed out', true);
       }
-      if (!response.ok) fail(503, 'jev_http_error', `JEV HTTP ${response.status}`, response.status === 429 || response.status >= 500);
+      if (!response.ok) {
+        const details = upstreamDetails(response.headers, response.status);
+        await response.body?.cancel();
+        throw new ApiError(503, 'jev_http_error', `JEV HTTP ${response.status}`, response.status === 429 || response.status >= 500, details);
+      }
       let payload: any;
       try {
         const reader = response.body!.getReader(), chunks: Uint8Array[] = []; let size = 0;

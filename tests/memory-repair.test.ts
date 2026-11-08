@@ -94,7 +94,7 @@ function fixture() {
   };
 }
 
-test("forget root repairs echoes and pending retells but not independent later tool observations", async () => {
+test("forget root repairs echoes and pending retells but not independent later inter-agent observations", async () => {
   const f = fixture();
   f.set(async (i) => ({ decisions: [f.d(i.event.event_id)] }));
   f.event("root");
@@ -123,12 +123,12 @@ test("forget root repairs echoes and pending retells but not independent later t
     ],
   }));
   f.event("verified", {
-    role: "tool",
-    author_id: "runtime-check",
+    role: "inter_agent",
+    author_id: "agent:runtime-check",
     occurred_at: mar,
-    causal_parent_ids: ["root"],
+    causal_parent_ids: [],
   });
-  // Process pending retell then independent tool; both remain bounded ordinary jobs.
+  // Process pending retell then independent inter-agent observation.
   await f.w.runOnce();
   await f.w.runOnce();
   f.event("root", { revision: 2, operation: "delete" });

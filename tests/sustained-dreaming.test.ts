@@ -45,7 +45,7 @@ function fixture(path = ':memory:') {
 test('JEV filters only complete context/noise; truncated negatives and useful session episodes reach Luna', async () => {
   const f = fixture();
   try {
-    const long = f.event('long-noise', { role: 'tool', author_id: 'tool', content: 'noise '.repeat(5000) });
+    const long = f.event('long-noise', { role: 'inter_agent', author_id: 'agent:other', content: 'noise '.repeat(5000) });
     const question = f.event('assistant-context', { role: 'assistant', author_id: 'agent:default', content: 'Which fictional detail matters?' });
     f.setAdmission((content: string) => content.includes('Which fictional') ? 'noise' : content.includes('session instruction') ? 'session_context' : content.includes('session fact') ? 'session_episode' : content.includes('noise') ? 'noise' : 'durable_candidate');
     const instruction = f.event('session-instruction', { content: 'For this session instruction only, ask one question at a time.' });
@@ -144,7 +144,7 @@ test('bounded conversation focus drains coherent owner turns and rotates without
   const f = fixture();
   try {
     for (let n = 0; n < 64; n++) {
-      f.event(`inherited-${n}`, { thread_id: `inherited-${n}`, role: 'tool', author_id: 'tool', content: 'Fictional inherited tool', occurred_at: at });
+      f.event(`inherited-${n}`, { thread_id: `inherited-${n}`, role: 'inter_agent', author_id: 'agent:other', content: 'Fictional inherited inter-agent communication', occurred_at: at });
       const job = f.legacyJob(`inherited-${n}`);
       f.s.run('UPDATE memory_events SET accepted_at=? WHERE event_id=?', at, `inherited-${n}`);
       f.s.run('UPDATE memory_jobs SET created_at=? WHERE id=?', at, job);

@@ -1,5 +1,31 @@
 # Current project context
 
+## Native API provider, communication-only admission and availability holds — 2026-11-08
+
+Source task t_dda54603 adds a direct regular OpenAI Responses native route alongside the existing
+OAuth Luna transport. `THE_ATLAS_NATIVE_WORKER=true` selects the API route when the dedicated
+`THE_ATLAS_PROVIDER_API_KEY`/`OPENAI_API_KEY` is configured; `THE_ATLAS_OPENAI_PROJECT_ID` supplies
+the project header. It does not silently fall back to OAuth, Hermes or Codex. The owner handoff at
+`D:/Work/Operations/hermes/atlas-native/API-PROVIDER-HANDOFF.md` verifies the dedicated project,
+permanent service-account credential, model catalog, actual credit and a regular Responses HTTP200
+in2.463s. Builder did not read or provision the production credential and did not activate Atlas.
+
+Only user/assistant/inter_agent communication is admitted to new memory jobs. Tool upserts are
+rejected before source/job creation; historical tool rows remain stored but cannot be claimed,
+retried or reprocessed, and their raw events/supports are excluded from new JEV/Luna context.
+Existing derived brain content is not bulk rewritten. `execution_content_owner_exclusion` extends
+the supported proof-bound admission review to affected own/shared scopes with append-only demotion;
+shared restoration still requires genuine user support. Overwatch t_b7e29b89 owns actual cleanup.
+
+Additive `memory_provider_holds` stops new memory claims for native402/429 capacity outcomes without
+consuming attempts or changing terminal rows. JEV402 has a separate bounded fail-open circuit; a
+DB-fenced real success is required after expiry. Sanitized reset guidance and hold state are visible
+through `/v1/status`. No backlog retry, live probe, service restart or availability-restoration claim
+belongs to this source phase. Source verification is 163 tests/1,517 assertions, typecheck and diff
+check on pinned Bun1.4.4; the communication-boundary change required the full suite. Prior frozen-
+install and on-disk E2E evidence is reused for unchanged paths. Activation and bounded communication-
+only outcome verification remain Overwatch t_b7e29b89.
+
 ## Sustained selective dreaming, Atlas-native OAuth and JEV — 2026-11-08
 
 Source task t_bdec7ab0 addresses the observed sustained-conversation failure, not another Atlas
@@ -9,8 +35,9 @@ jobs were queued without errors. Tool volume dominated the inherited queue and85
 chunks produced no decisions. The repair therefore covers scheduling, admission and transport,
 not raw worker count or a model-name swap.
 
-Atlas now uses direct OAuth HTTP/SSE Responses inference adapted from Creators growth-model,
-with no Codex CLI/app-server, Hermes per-call bridge or public API-key fallback. Overwatch
+Atlas's earlier accepted source used direct OAuth HTTP/SSE Responses inference adapted from Creators
+growth-model, with no Codex CLI/app-server or Hermes per-call bridge. The direct OpenAI Responses
+route and owner-verified API setup are described in the current section above. Overwatch
 completed the owner's official OAuth sign-in through the existing protected account flow in the
 Atlas-private CODEX_HOME and verified the native catalog contains gpt-6-luna. The later owner
 correction removed the app-server draft/dependency; only the direct transport remains. A real

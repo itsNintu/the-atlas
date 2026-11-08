@@ -3,6 +3,7 @@ import { Memory } from "./memory.ts";
 import { repairPlan, repairReconciliation } from "./memory-repair.ts";
 import { memoryGraph } from "./memory-graph.ts";
 import { inferenceStatus } from "./inference.ts";
+import { providerDiagnostics } from "./provider-availability.ts";
 import { SCHEMA_VERSION } from "./schema.ts";
 import { Store, id, now, hash, canonical, type Actor } from "./store.ts";
 import { ApiError, fail, integer, object, text, timestamp } from "./errors.ts";
@@ -248,7 +249,7 @@ export class App {
           api_version: "v1",
           schema_version: SCHEMA_VERSION,
           provider: providerStatus(),
-          memory_inference: inferenceStatus(),
+          memory_inference: { ...inferenceStatus(), availability: providerDiagnostics(this.store) },
           storage: "sqlite_wal_single_node",
           sqlite_version: this.store.sqlite_version,
           sqlite_wal_reset_fix: this.store.sqlite_wal_reset_fix,

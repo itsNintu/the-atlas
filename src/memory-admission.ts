@@ -1,7 +1,10 @@
 import { canonical, hash } from './store.ts';
 
-// JEV receives a bounded auditor view, never the whole pending transcript or a
-// large tool payload. Full source content and provenance remain durable in Atlas.
+export const COMMUNICATION_ROLES = ['user', 'assistant', 'inter_agent'] as const;
+export const communicationRole = (role: unknown) => COMMUNICATION_ROLES.includes(role as any);
+
+// JEV receives a bounded auditor view of communication only, never the whole
+// pending transcript or execution/task payloads. Full source provenance stays durable.
 export function auditorEvent(event: any, latest = false) {
   const content = String(event.content ?? '');
   const limit = latest ? 4000 : 600;

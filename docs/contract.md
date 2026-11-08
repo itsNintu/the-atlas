@@ -102,7 +102,9 @@ leases for 60 seconds, heartbeats, fences results with a per-claim token, and re
 after restart. It checks cancellation/supersession before starting a later provider call and again
 before commit. A request already sent to a provider cannot be unsent. Persisted errors contain safe
 codes, never provider responses that might echo payloads/secrets. Automatic attempts cap at five;
-transient backoff starts at 500 ms and caps at 30 seconds. An expired final-attempt lease becomes
+transient backoff starts at 500 ms and caps at 30 seconds. A shared native Luna capacity outage is
+the bounded exception: its failed claim does not consume a job attempt, and the same nonterminal job
+waits for the provider hold instead of becoming terminal. An expired final-attempt lease becomes
 failed, not stranded. Manual retry of current evidence starts a new bounded attempt family.
 
 Writes use a principal-scoped key and canonical operation/path/body hash. Same request replays stored
@@ -121,23 +123,43 @@ Bun before the structured API envelope; ordinary API validation uses the envelop
 
 ### Native Luna transport and bounded JEV admission/routing
 
-With `THE_ATLAS_NATIVE_WORKER=true`, extraction, identity and reconciliation all use Atlas's
-own OAuth-backed HTTP/SSE Responses transport, never a Codex CLI/app-server, agent runtime,
-Hermes inference bridge or public API-key fallback. `THE_ATLAS_CODEX_HOME` names the private
-OAuth home; `THE_ATLAS_EXTRACTION_MODEL=gpt-6-luna` remains exact and no Sol fallback exists.
-The direct endpoint is `https://chatgpt.com/backend-api/codex/responses`, with the pinned OAuth
-client, bearer token and `ChatGPT-Account-ID`. Calls use `store:false`, `stream:true`, `tools:[]`,
-low reasoning by default and a bounded1MB SSE response. The final response must complete on the
-requested model and parse as JSON before existing decision/phase validators apply. No source or
-tool action is exposed to the model for execution.
+With `THE_ATLAS_NATIVE_WORKER=true`, extraction, identity and reconciliation use Atlas-owned direct
+providers, never a Codex CLI/app-server, agent runtime or Hermes inference bridge. A configured
+`THE_ATLAS_PROVIDER_API_KEY`/`OPENAI_API_KEY` selects regular OpenAI Responses at
+`https://api.openai.com/v1/responses`; `THE_ATLAS_OPENAI_PROJECT_ID` supplies the dedicated project
+header. This route uses `store:false`, `stream:false`, `tools:[]`, bounded1MB JSON and exact-model
+completion. Without an API credential, `THE_ATLAS_CODEX_HOME` selects the existing OAuth HTTP/SSE
+transport at `https://chatgpt.com/backend-api/codex/responses` with `stream:true`. Both parse JSON
+before the existing decision/phase validators and never expose source/tool actions for execution.
+`THE_ATLAS_EXTRACTION_MODEL=gpt-6-luna` remains exact. Provider errors do not silently switch routes.
 
 `auth.json` remains private mode0600. Access/refresh identity is JWT/account checked. Refresh is
 single-flight, preserves account identity, persists updates atomically and recovers stale locks by
-PID plus compare-before-unlink. Refresh/429 transport failures use bounded retry; a rotating
-refresh with an unknown outcome is not replayed. A valid access token can continue during that
-ambiguity, but expired credentials require the supported reconnect path. `INFERENCE_COMMAND`
-and OpenAI-compatible HTTP remain only for explicitly non-native custom configurations, not as a
-fallback from the native Luna route.
+PID plus compare-before-unlink. Refresh and ordinary transient failures use bounded retry; native
+Luna429 uses the shared hold below. A rotating refresh with an unknown outcome is not replayed.
+A valid access token can continue during that ambiguity, but expired credentials require the
+supported reconnect path. `INFERENCE_COMMAND` and OpenAI-compatible HTTP remain available for
+explicit custom configurations; neither native route silently falls back to them. Native provider
+credentials and project configuration stay in protected service configuration, never Git/evidence.
+
+Native provider402/429 errors carry only sanitized upstream status/category and whitelisted
+Retry-After or `x-codex-primary-reset-at`/`x-codex-primary-reset-after` guidance in `ApiError.details`; response
+bodies and credentials are not persisted. A shared additive `memory_provider_holds` row stops NEW
+memory-job claims across workers until the bounded reset/hold. Capacity failures restore the current
+claim's attempt and retain the same nonterminal job; already-terminal rows are untouched. Expiry
+admits one lease-fenced real request rather than a worker stampede. Capture, recall and the unrelated
+action worker remain available, and recovery never automatically retries terminal jobs. Upstream
+holds are capped at31days; absent usable guidance uses a bounded five-minute hold.
+
+Only `user`, `assistant` and `inter_agent` upserts are admitted to memory ingestion. A tool-role
+upsert fails `invalid_event` before source/job insertion; a tool-role delete remains available for
+existing source cleanup and never creates a job. Existing nonterminal tool rows retain their stored
+status/attempts but are excluded from scheduler heads and `live` fences, so they cannot reach JEV or
+Luna. Manual retry/reprocess of those rows is not supported. Auditor previous-event and recent-event
+queries include communication roles only. Curation candidates require communication support and
+remove tool-only supports before identity/reconciliation; existing graph/recall rows are not bulk
+rewritten by this admission boundary. No tool action, task event or execution feed is an allowed
+new source of memory evidence.
 
 JEV is used only in asynchronous digestion. `THE_ATLAS_JEV_API_KEY`, `JEV_MODEL` (default
 `jev-1.14.0`), `JEV_URL` (default TypeSafe System One) and `JEV_CONCURRENCY` (default4, maximum16)
@@ -161,6 +183,14 @@ relationships are audited separately; only `irrelevant` removes that evaluated c
 Relevant, uncertain, unexamined and session-local-but-relevant relationships remain available.
 Unavailable admission/routing is persisted as `unavailable` and fails open to Luna; missing JEV
 configuration remains an explicit deployment error rather than silently disabling the pipeline.
+JEV402 Payment Required opens a bounded JEV-only circuit with sanitized status/category and any
+standard Retry-After guidance. During the hold, admission/routing is honestly `unavailable` without
+another paid request and Luna remains eligible. Expiry permits one DB-fenced request; only its real
+validated success closes the circuit. No-reset holds are five minutes, upstream holds are capped at
+31days, and this circuit never blocks Luna by itself.
+`GET /v1/status` exposes `memory_inference.availability` for Luna and JEV: configured/not_configured,
+available, held with reason and next-probe time, or probing. It contains no credentials, prompts or
+provider response bodies.
 `memory_event_admissions` and `memory_jev_routes` persist non-content decisions, model,
 confidence, proof and elapsed time for these calls. Admission is reused across chunk retries;
 new jobs/reconsiderations receive fresh review.
@@ -173,14 +203,16 @@ admission history, source content, roots, revision or existing knowledge.
 
 `POST /v1/memory/jobs/:job_id/admission-review` requires normal authentication, Idempotency-Key,
 `{agent_id,memory_id,expected_revision,reason_code}` and current affected-scope read/write grants.
-The only accepted reason is `session_local_owner_correction`. The completed current source revision
-must directly support the named `user:alex` or `business:alex` memory through retained
-`memory_supports`; raw source content is not required for this deterministic demotion. The operation
-appends an `owner_directive` review and demotion proof; it does not call a new model, execute the
-original action, alter the source/job/memory/support rows or synthesize a replacement memory.
-Post-demotion graph/recall excludes that derived shared claim. Pre-demotion recorded history is
-retained, and a later independently supported user event can restore the same fingerprint without
-deleting audit. This bounded route exists for the owner's explicit session/global correction, not
+The accepted reasons are `session_local_owner_correction` and `execution_content_owner_exclusion`.
+The completed current source revision must directly support the named memory through retained
+`memory_supports`; raw source content is not required for this deterministic demotion. Session-local
+correction targets `user:alex`/`business:alex`; execution exclusion additionally covers the bound
+agent's private scope under current grants. The operation appends an `owner_directive` review and
+demotion proof; it does not call a new model, execute the original action, alter the source/job/
+memory/support rows or synthesize a replacement memory. Post-demotion graph/recall excludes that
+derived claim while pre-demotion recorded history remains inspectable. Later independently supported
+user evidence can restore shared claims; agent-private execution exclusions can instead be restored
+by genuine user/assistant/inter_agent communication. These bounded owner-directed reasons are not
 arbitrary caller-authored fact editing.
 
 ### Processing-decision consistency and supported repair

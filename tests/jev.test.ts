@@ -53,6 +53,27 @@ test('a multi-answer response is rejected instead of being relabelled as a singl
   } finally { await server.stop(true); }
 });
 
+test('JEV 402 is a sanitized nonretryable payment outcome with Retry-After guidance', async () => {
+  const sensitive = 'upstream response prompt and token must not persist';
+  const server = Bun.serve({ hostname: '127.0.0.1', port: 0, fetch() {
+    return new Response(sensitive, { status: 402, headers: { 'Retry-After': '120' } });
+  } });
+  try {
+    await withEnv(new URL('/v1/systemone', server.url).href, async () => {
+      try {
+        await new JevClient().decide({}, admissionQuestion());
+        throw new Error('Expected JEV 402');
+      } catch (error: any) {
+        expect(error).toMatchObject({ code: 'jev_http_error', retryable: false, details: {
+          upstream_status: 402, upstream_category: 'payment_required', retry_after_ms: 120_000,
+        } });
+        expect(error.message).not.toContain(sensitive);
+        expect(JSON.stringify(error.details)).not.toContain(sensitive);
+      }
+    });
+  } finally { await server.stop(true); }
+});
+
 test('question builders never combine admission, graph area and relationship judgments', () => {
   expect(admissionQuestion().instructions).not.toContain('graph area');
   expect(graphAreaQuestion([{ id: 'area_0', label: 'fictional' }]).instructions).not.toContain('standing preference');

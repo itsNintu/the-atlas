@@ -2,8 +2,12 @@
 
 Apache-2.0 source-linked graph/context-memory product. M0 is a bounded alpha, not Zep parity.
 Use Bun/TypeScript. Canonical code is this repository; no Hermes runtime dependency.
-Digestion uses Atlas-owned direct OAuth HTTP/SSE and bounded JEV decisions, never a Codex CLI,
-app-server, agent runtime, Hermes per-call bridge or public API-key fallback.
+Digestion uses Atlas-owned direct OAuth or OpenAI Responses providers and bounded JEV decisions,
+never a Codex CLI, app-server, agent runtime or Hermes per-call bridge. The dedicated OpenAI API
+credential/project is an allowed native route; keep credentials private and do not silently switch
+providers on failure. Only user/assistant/inter_agent communication may enter memory ingestion,
+JEV, Luna or the brain. Tool calls/results, task events, execution output and event feeds are not
+admitted; preserve original execution history outside brain without replay or synthetic facts.
 Read CONTEXT.md and docs/contract.md before changing behavior. Workspace is the tenant boundary;
 all knowledge access requires explicit space/action grants, including workspace administrators.
 Keep deterministic assertions distinct from natural-language extraction. Never fake provider results.

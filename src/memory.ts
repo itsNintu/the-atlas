@@ -18,7 +18,8 @@ export const memoryPromptHash = (focused=true) => hash(focused ? canonical({extr
 import { cosine } from "./provider.ts";
 import { indexedCandidates, queryTerms } from "./memory-index.ts";
 import { claimMemoryJob } from "./memory-scheduler.ts";
-import { admissionProof, auditorState, routeRecord } from "./memory-admission.ts";
+import { beginJevRequest, isJevPayment, isLunaCapacity, providerRequestSucceeded, recordProviderHold, releaseProviderProbe } from './provider-availability.ts';
+import { admissionProof, auditorState, routeRecord, communicationRole } from "./memory-admission.ts";
 import { EXTRACT_PROMPT, RECONCILE_PROMPT, validateReconciliations, normalizeReconciliation, mergeReconciliations, type Reconciliation } from './memory-reconciliation.ts';
 import { IDENTITY_PROMPT, identityResponseContract, resolvedIdentity, candidateIdentities } from './memory-identity.ts';
 import { correctionReplacements } from "./memory-correction-lookup.ts";
@@ -151,8 +152,8 @@ export class Memory {
       revision = integer(b.revision, "revision", 1, 2147483647);
     if (!["upsert", "delete"].includes(b.operation))
       fail(400, "invalid_event", "operation must be upsert or delete");
-    if (!["user", "assistant", "tool", "inter_agent"].includes(b.role))
-      fail(400, "invalid_event", "Invalid event role");
+    if (!(communicationRole(b.role) || (b.operation === 'delete' && b.role === 'tool')))
+      fail(400, "invalid_event", "Invalid event role; only user/assistant/inter_agent communication is admitted");
     const thread_id = text(b.thread_id, "thread_id", 512),
       author_id = text(b.author_id, "author_id", 128);
     const occurred_at = timestamp(b.occurred_at, "occurred_at"),
@@ -528,7 +529,7 @@ export class Memory {
   retry(a: Actor, agent: string, job_id: string) {
     this.authorize(a, agent, "write");
     const j = this.store.one(
-      "SELECT j.* FROM memory_jobs j JOIN memory_events e ON e.id=j.event_pk JOIN memory_heads h ON h.event_pk=e.id WHERE j.id=? AND e.workspace_id=? AND e.agent_id=? AND e.operation='upsert'",
+      "SELECT j.* FROM memory_jobs j JOIN memory_events e ON e.id=j.event_pk JOIN memory_heads h ON h.event_pk=e.id WHERE j.id=? AND e.workspace_id=? AND e.agent_id=? AND e.operation='upsert' AND e.role IN ('user','assistant','inter_agent')",
       job_id,
       a.workspace_id,
       agent,
@@ -552,6 +553,7 @@ export class Memory {
       const e = this.store.one(`SELECT e.*,j.status AS job_status FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id JOIN memory_jobs j ON j.id=e.job_id
         WHERE j.id=? AND e.workspace_id=? AND e.agent_id=? AND e.operation='upsert'`, previous_job_id,a.workspace_id,agent);
       if (!e) fail(404, "not_found", "Current memory job not found");
+      if (!communicationRole(e.role)) fail(409, 'communication_only', 'Only communication events can be reprocessed');
       if (e.revision !== revision) fail(409, "revision_conflict", "Memory event revision changed");
       const completed = e.job_status === "succeeded" && e.status === "processed";
       const reconsider = e.job_status === "skipped" && e.status === "captured";
@@ -577,23 +579,25 @@ export class Memory {
     const revision=integer(expected_revision,'expected_revision',1,Number.MAX_SAFE_INTEGER);
     const reason=text(reason_code,'reason_code',80);
     if(!/^[a-z0-9_-]+$/.test(reason))fail(400,'invalid_request','reason_code must be a non-content diagnostic identifier');
-    if(reason!=='session_local_owner_correction')fail(400,'invalid_request','This bounded demotion requires the owner session-local correction reason');
+    if(!['session_local_owner_correction','execution_content_owner_exclusion'].includes(reason))fail(400,'invalid_request','Unsupported owner-directed admission review reason');
+    const executionExclusion=reason==='execution_content_owner_exclusion';
+    const reviewScopes=executionExclusion?['user:alex','business:alex',own(agent)]:['user:alex','business:alex'];
     const e=this.store.one(`SELECT e.*,j.status AS job_status FROM memory_jobs j JOIN memory_events e ON e.id=j.event_pk JOIN memory_heads h ON h.event_pk=e.id WHERE j.id=? AND e.workspace_id=? AND e.agent_id=? AND e.operation='upsert'`,previous_job_id,a.workspace_id,agent);
     if(!e)fail(404,'not_found','Current source job not found');
     if(e.revision!==revision)fail(409,'revision_conflict','Memory event revision changed');
     if(e.job_status!=='succeeded'||e.status!=='processed')fail(409,'job_not_reviewable','Only a completed source job can be admission-reviewed');
     if(!this.eventCurrent(e))fail(409,'source_unavailable','Original memory source revision is no longer current');
-    const m=this.store.one(`SELECT m.* FROM memories m JOIN memory_supports s ON s.memory_id=m.id AND s.event_pk=? WHERE m.id=? AND m.workspace_id=? AND m.scope IN ('user:alex','business:alex')`,e.id,memory_id,a.workspace_id);
-    if(!m)fail(404,'not_found','Shared memory supported by this source was not found');
+    const m=this.store.one(`SELECT m.* FROM memories m JOIN memory_supports s ON s.memory_id=m.id AND s.event_pk=? WHERE m.id=? AND m.workspace_id=? AND m.scope IN (${reviewScopes.map(()=>'?').join(',')})`,e.id,memory_id,a.workspace_id,...reviewScopes);
+    if(!m)fail(404,'not_found','Memory with direct source support was not found');
     const readable=this.authorize(a,agent,'read'),writable=this.authorize(a,agent,'write');
-    if(!readable.includes(m.scope)||!writable.includes(m.scope))fail(403,'memory_grant_required','Shared memory read/write grant required');
+    if(!readable.includes(m.scope)||!writable.includes(m.scope))fail(403,'memory_grant_required','Memory read/write grant required');
     const previous=this.auditPrevious(e,readable,5);
     const result={choice:'session_context',confidence:1,model:'owner_directive',elapsed_ms:0};
     const proof=admissionProof('admission_review',e.job_id?{id:e.job_id}:{id:previous_job_id},e,previous,result,{memory_id,reason});
     return this.store.transaction(()=>{
       if(!this.eventCurrent(e))fail(409,'curation_context_changed','Source changed during admission review',true);
       const currentReadable=this.authorize(a,agent,'read'),currentWritable=this.authorize(a,agent,'write');
-      if(!currentReadable.includes(m.scope)||!currentWritable.includes(m.scope))fail(403,'memory_grant_required','Shared memory grant changed');
+      if(!currentReadable.includes(m.scope)||!currentWritable.includes(m.scope))fail(403,'memory_grant_required','Memory grant changed');
       const prior=this.store.one('SELECT r.id,d.reason_code,d.recorded_at FROM memory_admission_reviews r JOIN memory_admission_demotions d ON d.review_id=r.id WHERE r.memory_id=? AND r.proof_sha256=?',memory_id,proof);
       if(prior)return{review_id:prior.id,memory_id,decision:result.choice,model:result.model,confidence:result.confidence,demoted:true,proof_sha256:proof,recorded_at:prior.recorded_at};
       if(this.store.one('SELECT 1 FROM memory_admission_demotions WHERE memory_id=?',memory_id))fail(409,'admission_already_demoted','Memory already has a supported admission demotion');
@@ -606,7 +610,7 @@ export class Memory {
   }
   auditPrevious(e:any, readable:string[], limit=5) {
     return this.store.all(
-      "SELECT e.* FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id WHERE e.workspace_id=? AND e.agent_id=? AND e.thread_id=? AND e.accepted_at<=? AND e.rowid<(SELECT rowid FROM memory_events WHERE id=?) AND e.content IS NOT NULL AND e.status NOT IN ('forgotten','deleted','superseded') ORDER BY e.accepted_at DESC,e.rowid DESC LIMIT ?",
+      "SELECT e.* FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id WHERE e.workspace_id=? AND e.agent_id=? AND e.thread_id=? AND e.accepted_at<=? AND e.rowid<(SELECT rowid FROM memory_events WHERE id=?) AND e.role IN ('user','assistant','inter_agent') AND e.content IS NOT NULL AND e.status NOT IN ('forgotten','deleted','superseded') ORDER BY e.accepted_at DESC,e.rowid DESC LIMIT ?",
       e.workspace_id,e.agent_id,e.thread_id,e.accepted_at,e.id,limit,
     ).filter(x=>this.visibleEvent(x,e.agent_id,readable)).reverse();
   }
@@ -661,8 +665,11 @@ export class Memory {
   }
   effective(m: any, valid_at: string, recorded_at: string) {
     if (m.recorded_from > recorded_at) return null;
-    const demoted = this.store.one('SELECT recorded_at FROM memory_admission_demotions WHERE memory_id=? AND recorded_at<=?',m.id,recorded_at);
-    if (demoted && !this.store.one("SELECT 1 FROM memory_supports s JOIN memory_events e ON e.id=s.event_pk WHERE s.memory_id=? AND e.role='user' AND e.accepted_at>?",m.id,demoted.recorded_at)) return null;
+    const demoted = this.store.one('SELECT d.recorded_at,d.reason_code FROM memory_admission_demotions d WHERE d.memory_id=? AND d.recorded_at<=?',m.id,recorded_at);
+    if (demoted) {
+      const restorationRoles = demoted.reason_code === 'execution_content_owner_exclusion' && m.scope.startsWith('agent:') ? "('user','assistant','inter_agent')" : "('user')";
+      if (!this.store.one(`SELECT 1 FROM memory_supports s JOIN memory_events e ON e.id=s.event_pk WHERE s.memory_id=? AND e.role IN ${restorationRoles} AND e.accepted_at>?`,m.id,demoted.recorded_at)) return null;
+    }
     const support = this.support(m, recorded_at);
     if (!support.length) return null;
     const changes = activeChanges(this.store,m.id,recorded_at);
@@ -709,17 +716,21 @@ export class Memory {
       evidence_roots: [...new Set(support.flatMap((s) => s.evidence_root_ids))],
     };
   }
+  communicationSupport(m: any) {
+    return this.support(m).filter((support: any) => communicationRole(support.role));
+  }
   candidates(workspace: string, scopes: string[], query: string, count = Math.min(12, positiveSetting("CURATION_CANDIDATE_LIMIT", 8)), rank?: (row:any)=>number) {
     return indexedCandidates(this.store, workspace, scopes, query, undefined, undefined, Math.max(24,count*2))
       .sort((a,b) => (rank ? rank(b)-rank(a) : relevance(query, `${b.subject} ${b.predicate} ${b.object}`) - relevance(query, `${a.subject} ${a.predicate} ${a.object}`)) || b.recorded_from.localeCompare(a.recorded_from))
-      .slice(0, Math.min(24,count))
       .map(m => ({ id: m.id, scope: m.scope, kind: m.kind, subject: m.subject,
         predicate: m.predicate, object: m.object, version: m.version,
         valid_from: m.valid_from, valid_to: m.valid_to, derived: m.derived,
-        supports: this.support(m),
+        supports: this.communicationSupport(m),
         changes: activeChanges(this.store,m.id).map(({type,effective_at,replacement_id})=>({type,effective_at,replacement_id})),
         lineage: this.store.all("SELECT parent_id,parent_version FROM memory_lineage WHERE child_id=?", m.id),
-      }));
+      }))
+      .filter(candidate => candidate.supports.length > 0)
+      .slice(0, Math.min(24,count));
   }
   async recall(a: Actor, b: any) {
     const started = performance.now();
@@ -958,7 +969,7 @@ export class Memory {
         "Used IDs must belong to authorized recall",
       );
     const e = this.store.one(
-      "SELECT e.* FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id WHERE e.workspace_id=? AND e.event_id=? AND e.agent_id=? AND e.principal_id=? AND e.thread_id=? AND e.operation='upsert' AND e.role IN ('assistant','tool','inter_agent') AND e.accepted_at>=? ORDER BY e.accepted_at DESC LIMIT 1",
+      "SELECT e.* FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id JOIN memory_jobs j ON j.event_pk=e.id WHERE e.workspace_id=? AND e.event_id=? AND e.agent_id=? AND e.principal_id=? AND e.thread_id=? AND e.operation='upsert' AND e.role IN ('assistant','inter_agent') AND e.accepted_at>=? ORDER BY e.accepted_at DESC LIMIT 1",
       a.workspace_id,
       outcome,
       b.agent_id,
@@ -1020,12 +1031,26 @@ export class MemoryWorker {
   ) {
     this.memory = new Memory(store, inference);
   }
+  async callJev(j: any, request: () => Promise<any>) {
+    const permit = beginJevRequest(this.store);
+    if (!permit.allowed)
+      throw new ApiError(503, 'jev_circuit_open', 'JEV provider hold is active', false);
+    try {
+      const result = await request();
+      if (permit.probeToken) providerRequestSucceeded(this.store, 'jev', permit.probeToken);
+      return result;
+    } catch (error) {
+      if (isJevPayment(error)) recordProviderHold(this.store, 'jev', error);
+      if (permit.probeToken) releaseProviderProbe(this.store, 'jev', permit.probeToken);
+      throw error;
+    }
+  }
   claim() {
     return claimMemoryJob(this.store, this.lease_ms);
   }
   live(j: any) {
     const e = this.store.one(
-      "SELECT e.* FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id JOIN memory_jobs j ON j.event_pk=e.id JOIN credentials c ON c.id=e.credential_id AND c.revoked_at IS NULL WHERE j.id=? AND j.status='running' AND j.lease_token=? AND e.operation='upsert'",
+      "SELECT e.* FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id JOIN memory_jobs j ON j.event_pk=e.id JOIN credentials c ON c.id=e.credential_id AND c.revoked_at IS NULL WHERE j.id=? AND j.status='running' AND j.lease_token=? AND e.operation='upsert' AND e.role IN ('user','assistant','inter_agent')",
       j.id,
       j.lease_token,
     );
@@ -1068,7 +1093,7 @@ export class MemoryWorker {
       let admission = this.store.one('SELECT * FROM memory_event_admissions WHERE job_id=?', j.id);
       if (!admission && this.inference.audit) {
         let result: any;
-        try { result = await this.inference.audit(auditState); }
+        try { result = await this.callJev(j, () => this.inference.audit!(auditState)); }
         catch (error) {
           if (error instanceof ApiError && error.code === 'jev_unconfigured') throw error;
           result = { choice:'unavailable', confidence:0, probabilities:{}, model:error instanceof ApiError?error.code:'jev_unavailable', elapsed_ms:0 };
@@ -1103,7 +1128,7 @@ export class MemoryWorker {
         if (/[\uD800-\uDBFF]/.test(content[end - 1] ?? "")) end--;
       }
       const recent = this.store.all(
-        "SELECT e.* FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id WHERE e.workspace_id=? AND e.agent_id=? AND e.thread_id=? AND e.accepted_at<=? AND e.rowid<(SELECT rowid FROM memory_events WHERE id=?) AND e.content IS NOT NULL AND e.status NOT IN ('forgotten','deleted','superseded') ORDER BY e.accepted_at DESC,e.rowid DESC LIMIT 2",
+        "SELECT e.* FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id WHERE e.workspace_id=? AND e.agent_id=? AND e.thread_id=? AND e.accepted_at<=? AND e.rowid<(SELECT rowid FROM memory_events WHERE id=?) AND e.role IN ('user','assistant','inter_agent') AND e.content IS NOT NULL AND e.status NOT IN ('forgotten','deleted','superseded') ORDER BY e.accepted_at DESC,e.rowid DESC LIMIT 2",
         e.workspace_id, e.agent_id, e.thread_id, e.accepted_at, e.id,
       ).filter(x => this.memory.visibleEvent(x, e.agent_id, readable)).reverse();
       const candidates = this.memory.candidates(e.workspace_id, readable, content.slice(offset, end) + " " + recent.map(x => x.content.slice(-600)).join(" "));
@@ -1112,7 +1137,7 @@ export class MemoryWorker {
       for (const m of continuity) {
         if (candidates.some(c => c.id === m.id)) continue;
         candidates.push({ id: m.id, scope: m.scope, kind: m.kind, subject: m.subject, predicate: m.predicate, object: m.object, version: m.version, valid_from: m.valid_from, valid_to: m.valid_to, derived: m.derived,
-          supports: this.memory.support(m), changes: activeChanges(this.store,m.id).map(({type,effective_at,replacement_id})=>({type,effective_at,replacement_id})),
+          supports: this.memory.communicationSupport(m), changes: activeChanges(this.store,m.id).map(({type,effective_at,replacement_id})=>({type,effective_at,replacement_id})),
           lineage: this.store.all("SELECT parent_id,parent_version FROM memory_lineage WHERE child_id=?", m.id) });
       }
       candidates.splice(12);
@@ -1121,7 +1146,7 @@ export class MemoryWorker {
       if (this.inference.routeGraphArea && candidates.length) {
         const areas = candidates.slice(0,8).map((c,index)=>({id:`area_${index}`,label:`${c.scope}: ${c.subject} (${c.kind})`.slice(0,240),scope:c.scope,subject:c.subject}));
         let result: any;
-        try { result = await this.inference.routeGraphArea({state:auditState,areas:areas.map(({id,label})=>({id,label}))}); }
+        try { result = await this.callJev(j, () => this.inference.routeGraphArea!({state:auditState,areas:areas.map(({id,label})=>({id,label}))})); }
         catch (error) { result = { choice:'unavailable', confidence:0, probabilities:{}, model:error instanceof ApiError?error.code:'jev_unavailable', elapsed_ms:0 }; }
         if (result) {
           const valid = new Set([...areas.map(a=>a.id),'none','uncertain','unavailable']);
@@ -1141,7 +1166,7 @@ export class MemoryWorker {
       }
       if (this.inference.auditRelationship && candidates.length) {
         const evaluated = candidates.slice(0,Math.min(6,candidates.length));
-        const settled = await Promise.allSettled(evaluated.map(c=>this.inference.auditRelationship!({...auditState,candidate:{id:c.id,scope:c.scope,subject:c.subject,predicate:c.predicate,object:c.object,valid_from:c.valid_from,valid_to:c.valid_to}})));
+        const settled = await Promise.allSettled(evaluated.map(c=>this.callJev(j, () => this.inference.auditRelationship!({...auditState,candidate:{id:c.id,scope:c.scope,subject:c.subject,predicate:c.predicate,object:c.object,valid_from:c.valid_from,valid_to:c.valid_to}}))));
         const results = settled.map((result:any) => result.status === 'fulfilled' ? result.value : { choice:'unavailable', confidence:0, probabilities:{}, model:result.reason instanceof ApiError?result.reason.code:'jev_unavailable', elapsed_ms:0 });
         const rejected = new Set<string>();
         this.store.transaction(() => {
@@ -1206,7 +1231,7 @@ export class MemoryWorker {
           if (
             !c || c.version !== old.version ||
             canonical(changes) !== canonical(old.changes) ||
-            canonical(this.memory.support(c)) !== canonical(old.supports)
+            canonical(this.memory.communicationSupport(c)) !== canonical(old.supports)
           ) fail(409, "curation_context_changed", "Candidate changed during curation", true);
         }
         return true;
@@ -1232,7 +1257,9 @@ export class MemoryWorker {
       const included = candidates.filter(c => input.candidates.some(sent => sent.id === c.id));
       // No provider sees stale/forgotten input after a cooperative packing yield.
       if (!contextCurrent()) return this.cancel(j);
-      const result = validateDecisions(await this.inference.curate(input));
+      const curated = await this.inference.curate(input);
+      providerRequestSucceeded(this.store, 'luna', j.lease_token);
+      const result = validateDecisions(curated);
       if (!contextCurrent()) return this.cancel(j);
       if (!this.live(j)) return this.cancel(j);
       const stillReadable = this.memory.authorize(a, e.agent_id, "read");
@@ -1312,6 +1339,15 @@ export class MemoryWorker {
         this.finish(j, "cancelled");
       this.memory.retain();
     } catch (error) {
+      if (isLunaCapacity(error)) {
+        const holdUntil = recordProviderHold(this.store, 'luna', error);
+        this.store.run(
+          "UPDATE memory_jobs SET status='retry',attempts=MAX(0,attempts-1),error_code=?,available_at=?,completed_at=NULL,lease_token=NULL,lease_until=NULL WHERE id=? AND lease_token=? AND status='running'",
+          error.code, holdUntil, j.id, j.lease_token,
+        );
+        return true;
+      }
+      releaseProviderProbe(this.store, 'luna', j.lease_token);
       const retryable = error instanceof ApiError && error.retryable;
       const status =
         retryable && j.attempts < j.max_attempts ? "retry" : "failed";
@@ -1333,7 +1369,7 @@ export class MemoryWorker {
     for (const old of candidates) {
       const current = this.store.one('SELECT * FROM memories WHERE id=?',old.id);
       const changes = activeChanges(this.store,old.id).map(({type,effective_at,replacement_id})=>({type,effective_at,replacement_id}));
-      if (!current || current.version!==old.version || canonical(this.memory.support(current))!==canonical(old.supports) || canonical(changes)!==canonical(old.changes))
+      if (!current || current.version!==old.version || canonical(this.memory.communicationSupport(current))!==canonical(old.supports) || canonical(changes)!==canonical(old.changes))
         fail(409,'curation_context_changed','Reconciliation evidence changed',true);
     }
   }
@@ -1487,6 +1523,7 @@ export class MemoryWorker {
     return true;
   }
   finish(j: any, status: string) {
+    releaseProviderProbe(this.store, 'luna', j.lease_token);
     this.store.run(
       "UPDATE memory_jobs SET status=?,completed_at=?,lease_token=NULL,lease_until=NULL WHERE id=? AND lease_token=? AND status='running'",
       status,

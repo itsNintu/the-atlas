@@ -138,7 +138,7 @@ test("additive serving migration backfills populated schema2 with unchanged cust
     expect(reopened.one("SELECT * FROM credentials")).toEqual(credential);
     expect(indexedCandidates(reopened,f.a.workspace_id,["business:alex"],"kiln")).toHaveLength(1);
     const m=new Memory(reopened,f.m.inference),w=new MemoryWorker(reopened,f.m.inference);
-    const receipt=m.event(f.a,{client_id:"fixture",event_id:"large-restart",revision:1,operation:"upsert",agent_id:"builder",thread_id:"restart",role:"tool",author_id:"fictional",occurred_at:at,observed_at:now(),content:"Routine noise. ".repeat(3000)});
+    const receipt=m.event(f.a,{client_id:"fixture",event_id:"large-restart",revision:1,operation:"upsert",agent_id:"builder",thread_id:"restart",role:"inter_agent",author_id:"agent:fictional-observer",occurred_at:at,observed_at:now(),content:"Routine noise. ".repeat(3000)});
     await w.runOnce();
     const offset=reopened.one("SELECT offset_chars FROM memory_chunk_progress").offset_chars;
     expect(offset).toBeGreaterThan(0);

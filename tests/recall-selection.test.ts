@@ -19,7 +19,7 @@ function fixture() {
   const event = (event_id: string, content: string, role = "user") => memory.event(actor, {
     client_id: "synthetic", event_id, revision: 1, operation: "upsert",
     agent_id: "builder", thread_id: "selection-fixture", role,
-    author_id: role === "user" ? "alex" : "synthetic-tool",
+    author_id: role === "user" ? "alex" : "agent:other",
     occurred_at: at, observed_at: now(), content, causal_parent_ids: [], evidence_root_ids: [], metadata: {},
   });
   const seed = (event_id: string, scope: string, subject: string, object: string, role: string, vector = [1, 0]) => {
@@ -47,9 +47,9 @@ test("busy pending intake cannot enter or starve relevant own/shared processed r
     const shared = f.seed("shared-source", "user:alex", "P01 communication rule attribution status",
       "Synthetic native_probe originally said short progress and detailed architecture. Attribution to actual Alex withdrawn; history retained, no opposite preference.", "user");
     const own = f.seed("own-source", "agent:builder", "Lantern Cobalt dated receipt",
-      "Synthetic tool cobalt-check-001 at 2026-01-01T00:00:00.000Z reported fixture ready; synthetic=true actual_deployment=false. Not continuing health.", "tool");
-    for (let i = 0; i < 40; i++) f.seed(`distractor-${i}`, "agent:builder", `Unrelated ${i}`, `Synthetic unrelated durable record ${i}`, "tool", [0, 1]);
-    for (let i = 0; i < 942; i++) f.event(`backlog-${i}`, detail, "tool");
+      "Synthetic inter-agent cobalt-check-001 at 2026-01-01T00:00:00.000Z discussed fixture readiness; synthetic=true actual_deployment=false. Not continuing health.", "inter_agent");
+    for (let i = 0; i < 40; i++) f.seed(`distractor-${i}`, "agent:builder", `Unrelated ${i}`, `Synthetic unrelated durable record ${i}`, "inter_agent", [0, 1]);
+    for (let i = 0; i < 942; i++) f.event(`backlog-${i}`, detail, "inter_agent");
     f.event("newest-correction", "CORRECTION P01 communication: synthetic fixture attribution only, not an actual Alex preference or evidence of opposite preference.");
     f.store.run("UPDATE memory_events SET accepted_at=? WHERE event_id='newest-correction'", now());
     for (const budget of [2000, 99744]) {
@@ -85,7 +85,7 @@ test("busy pending intake cannot enter or starve relevant own/shared processed r
 test("large pending intake does not displace an indivisible processed record", async () => {
   const f = fixture();
   try {
-    const id = f.seed("large-source", "agent:builder", "P01 communication rule", detail.slice(0, 1600), "tool");
+    const id = f.seed("large-source", "agent:builder", "P01 communication rule", detail.slice(0, 1600), "inter_agent");
     f.event("large-newest-correction", "CORRECTION synthetic fixture only: " + detail);
     const r = await f.recall(1000);
     expect(r.memories.map((m: any) => m.id)).toContain(id);
@@ -99,8 +99,8 @@ test("large pending intake does not displace an indivisible processed record", a
 test("semantic-only evidence cannot be starved by a large pending backlog", async () => {
   const f = fixture();
   try {
-    const id = f.seed("semantic-source", "agent:builder", "unmatched-entity", "Synthetic semantic-only context-qualified evidence.", "tool");
-    for (let i = 0; i < 383; i++) f.event(`pending-${i}`, detail, "tool");
+    const id = f.seed("semantic-source", "agent:builder", "unmatched-entity", "Synthetic semantic-only context-qualified evidence.", "inter_agent");
+    for (let i = 0; i < 383; i++) f.event(`pending-${i}`, detail, "inter_agent");
     const r = await f.recall(2000);
     const m = r.memories.find((m: any) => m.id === id);
     expect(m).toBeDefined();
