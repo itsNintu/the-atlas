@@ -1,5 +1,37 @@
 # Capability map
 
+## Offline derived-brain clean slate
+
+A local OS operator can physically reset the complete derived brain with
+`bun run cli reset-derived-brain --db EXISTING_FILE --confirm RESET_DERIVED_BRAIN`.
+The command refuses a missing/default database path and requires the exact confirmation. It is an
+**offline stopped-custody operation**: stop Atlas and capture producers, take a fresh full database
+and configuration backup, then run it once. It is not an HTTP endpoint, per-source forget, demotion,
+or replay operation.
+
+The transaction removes both legacy facts/supports and every native memory scope, including demoted
+memories, entities/aliases, relations, changes/versions/lineage, admission/review/reconciliation
+artifacts, embeddings, FTS/LSH indexes, curation cursors, recall/feedback projections and scheduler
+focus state. Original sources/revisions and native `memory_events`, heads/roots, credentials,
+workspaces/grants/bindings, idempotency/audit, terminal jobs, non-content processing metrics and
+reprocess/reconsider receipts remain. Existing terminal jobs are not retried. Current-generation
+queued/running/retry jobs become `cancelled` with `derived_brain_reset`; provider capacity/payment
+holds and backoff timestamps remain, while stale single-flight probe leases clear.
+
+Additive reset generations fence old jobs and raw events from both schedulers, manual
+retry/reprocess/review/repair, auditor/recent provider context, recall freshness and graph processing
+counts. New source revisions and new native events receive the new generation and work normally;
+exact old idempotent/event replays remain historical receipts rather than new work. A non-content
+`derived_brain_reset_receipts` row records exact table counts. Unknown future tables fail closed and
+deletion/verification runs in one immediate transaction with foreign-key and quick checks.
+
+Atlas cannot reach producer-local outboxes. Pause and explicitly fence each adapter's pre-reset
+journal/outbox/platform/feedback queues and in-memory recall cache while preserving its native
+transcript, credentials and configuration; otherwise a producer could redeliver old content with a
+fresh queue state. Restore the normal worker-enabled service after that coordinated reset. Backups
+are retained historical custody, not active-brain rows; SQL deletion is not a claim of backup,
+provider-log, SSD or consumer-copy forensic erasure.
+
 ## Sustained selective dreaming with native Luna and JEV (source; activation separate)
 
 Atlas owns direct OAuth-backed Luna and direct regular OpenAI Responses native transports. With

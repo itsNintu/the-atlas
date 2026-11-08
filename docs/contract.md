@@ -462,3 +462,26 @@ Optional resident embedding transport: POST `THE_ATLAS_EMBED_URL` with
 protocol/request_id and `output:{vectors,model}` in the response, optional `usage`. Timeout3s,
 response max4MB, valid vector shape/nonzero/model validation. No credentials are exported by this
 transport. Native/model route activation remains an operations concern, not implied by this API.
+
+### Offline derived-brain reset
+
+`bun run cli reset-derived-brain --db EXISTING_FILE --confirm RESET_DERIVED_BRAIN` is the supported
+local-OS-operator full clean-slate operation. It is not an HTTP API and requires the stopped full
+DB/configuration custody procedure in operations.md. All legacy facts/supports and all native derived
+memories in every scope (including demoted rows), graph entities/aliases/relations/changes/versions/
+lineage, admission/review/reconciliation artifacts, embeddings/indexes, chunk cursors, recall/
+feedback projections and scheduler focus state are physically deleted in one immediate transaction.
+FTS is rebuilt empty and exact before/after table counts are returned and stored in additive
+`derived_brain_reset_receipts`.
+
+Raw `sources`, `revisions`, `memory_events`, `memory_heads` and `memory_roots` survive, as do
+credentials/workspace/grants/bindings, idempotency/audit, terminal jobs, non-content curation metrics
+and reprocess/reconsider receipts. Nonterminal jobs in the closing generation become `cancelled`
+with `derived_brain_reset`. Provider holds/backoff remain, with stale probe leases cleared. Additive
+`reset_epoch` columns on `jobs`, `memory_jobs` and `memory_events`, plus
+`derived_brain_reset_state`, fence old jobs/events from both schedulers, manual retry/reprocess/
+review/repair, auditor/recent provider context, recall freshness and graph processing counts. New
+source revisions and new native events receive the current generation; exact old replays do not
+create work. Producer-local queues/caches require the coordinated external fencing procedure.
+Retained backups and other external copies are historical custody, not active-brain state or a
+forensic-erasure claim.

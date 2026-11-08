@@ -4,6 +4,7 @@ import { repairPlan, repairReconciliation } from "./memory-repair.ts";
 import { memoryGraph } from "./memory-graph.ts";
 import { inferenceStatus } from "./inference.ts";
 import { providerDiagnostics } from "./provider-availability.ts";
+import { assertCurrentJobEpoch } from "./reset-state.ts";
 import { SCHEMA_VERSION } from "./schema.ts";
 import { Store, id, now, hash, canonical, type Actor } from "./store.ts";
 import { ApiError, fail, integer, object, text, timestamp } from "./errors.ts";
@@ -577,6 +578,7 @@ export class App {
           },
           () => {
             const job = this.job(a, job_id, "write");
+            assertCurrentJobEpoch(this.store, job.reset_epoch);
             if (!["failed", "retry"].includes(job.status))
               fail(
                 409,

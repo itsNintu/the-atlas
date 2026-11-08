@@ -103,7 +103,7 @@ export function memoryGraph(memory: Memory, actor: Actor, body: any) {
   // Diagnostics deliberately cover only the caller-bound agent, never private
   // intake from another agent even when shared curated memory is readable.
   const processing = store.all(
-    "SELECT j.status,COUNT(*) AS count,MIN(j.created_at) AS oldest_at FROM memory_jobs j JOIN memory_events e ON e.id=j.event_pk JOIN memory_heads h ON h.event_pk=e.id WHERE e.workspace_id=? AND e.agent_id=? AND e.operation='upsert' GROUP BY j.status", actor.workspace_id, body.agent_id,
+    "SELECT j.status,COUNT(*) AS count,MIN(j.created_at) AS oldest_at FROM memory_jobs j JOIN memory_events e ON e.id=j.event_pk JOIN memory_heads h ON h.event_pk=e.id WHERE j.reset_epoch=(SELECT epoch FROM derived_brain_reset_state WHERE singleton=1) AND e.reset_epoch=(SELECT epoch FROM derived_brain_reset_state WHERE singleton=1) AND e.workspace_id=? AND e.agent_id=? AND e.operation='upsert' GROUP BY j.status", actor.workspace_id, body.agent_id,
   );
   return { nodes: [...nodes.values()], edges, changes: changes.slice(0, 200), snapshot: { valid_at, recorded_at }, truncated: truncated || changesTruncated || changes.length > 200,
     scopes, available_scopes: allowed, processing: { agent_id: body.agent_id, jobs: processing, note: "Caller-agent intake only. Pending intake is not graph knowledge; other agents' shared digestion may lag." },

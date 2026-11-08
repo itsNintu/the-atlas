@@ -18,7 +18,9 @@ export function claimMemoryJob(s:Store,leaseMs:number) {
     MAX(e.accepted_at) OVER (PARTITION BY e.workspace_id,e.agent_id,e.thread_id) AS latest_accepted,
     MAX(CASE WHEN e.role='user' THEN e.accepted_at ELSE NULL END) OVER (PARTITION BY e.workspace_id,e.agent_id,e.thread_id) AS latest_user_accepted
    FROM memory_jobs j JOIN memory_events e ON e.id=j.event_pk
-   WHERE (j.status IN ('queued','retry','running') AND j.attempts<j.max_attempts
+   WHERE j.reset_epoch=(SELECT epoch FROM derived_brain_reset_state WHERE singleton=1)
+     AND e.reset_epoch=(SELECT epoch FROM derived_brain_reset_state WHERE singleton=1)
+     AND (j.status IN ('queued','retry','running') AND j.attempts<j.max_attempts
       OR j.status='running' AND j.lease_until>? AND j.attempts=j.max_attempts)
      AND e.role IN ('user','assistant','inter_agent')
   ) SELECT u.* FROM unfinished u LEFT JOIN memory_thread_schedule f
@@ -35,7 +37,7 @@ export function claimMemoryJob(s:Store,leaseMs:number) {
     if(j)s.run('UPDATE memory_conversation_focus SET remaining=remaining-1 WHERE singleton=1');
    }
    if(!j){
-    const focusStillActive=focus.remaining>0&&s.one("SELECT 1 AS active FROM memory_jobs j JOIN memory_events e ON e.id=j.event_pk WHERE e.workspace_id=? AND e.agent_id=? AND e.thread_id=? AND e.role IN ('user','assistant','inter_agent') AND j.status IN ('queued','retry','running') AND j.attempts<j.max_attempts LIMIT 1",focus.workspace_id,focus.agent_id,focus.thread_id);
+    const focusStillActive=focus.remaining>0&&s.one("SELECT 1 AS active FROM memory_jobs j JOIN memory_events e ON e.id=j.event_pk WHERE j.reset_epoch=(SELECT epoch FROM derived_brain_reset_state WHERE singleton=1) AND e.reset_epoch=(SELECT epoch FROM derived_brain_reset_state WHERE singleton=1) AND e.workspace_id=? AND e.agent_id=? AND e.thread_id=? AND e.role IN ('user','assistant','inter_agent') AND j.status IN ('queued','retry','running') AND j.attempts<j.max_attempts LIMIT 1",focus.workspace_id,focus.agent_id,focus.thread_id);
     j=s.one(heads+' ORDER BY CASE WHEN u.latest_user_accepted IS NULL THEN 1 ELSE 0 END,COALESCE(f.last_claim,0),u.latest_user_accepted DESC,u.event_order DESC LIMIT 1',t,t,t);
     if(j?.latest_user_accepted&&!focusStillActive)s.run('UPDATE memory_conversation_focus SET workspace_id=?,agent_id=?,thread_id=?,remaining=23 WHERE singleton=1',j.workspace_id,j.agent_id,j.thread_id);
     else if(!focusStillActive&&focus.remaining>0)s.run("UPDATE memory_conversation_focus SET workspace_id='',agent_id='',thread_id='',remaining=0 WHERE singleton=1");

@@ -5,6 +5,7 @@ import { createHash, randomBytes, randomUUID } from "node:crypto";
 import { schema, SCHEMA_VERSION } from "./schema.ts";
 import { memorySchema } from "./memory-schema.ts";
 import { installMemoryIndex } from "./memory-index.ts";
+import { currentResetEpoch } from "./reset-state.ts";
 import { fail, object, text, timestamp } from "./errors.ts";
 
 export const id = (prefix: string) => `${prefix}_${randomUUID()}`;
@@ -121,6 +122,11 @@ export class Store {
     this.transaction(() => {
       this.db.exec(schema);
       this.db.exec(memorySchema);
+      for (const [table, column] of [["jobs", "reset_epoch"], ["memory_events", "reset_epoch"], ["memory_jobs", "reset_epoch"]] as const) {
+        const columns = this.all(`PRAGMA table_info(${table})`).map((row) => row.name);
+        if (!columns.includes(column))
+          this.db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} INTEGER NOT NULL DEFAULT 0`);
+      }
       installMemoryIndex(this);
       // Backfill source-root ownership for pre-release schema2 deployments without changing source payloads.
       this.db.exec(
@@ -361,11 +367,12 @@ export class Store {
       source_id,
     );
     this.run(
-      "INSERT INTO jobs (id,revision_id,status,available_at,created_at) VALUES (?,?,'queued',?,?)",
+      "INSERT INTO jobs (id,revision_id,status,available_at,created_at,reset_epoch) VALUES (?,?,'queued',?,?,?)",
       job_id,
       revision_id,
       Date.now(),
       at,
+      currentResetEpoch(this),
     );
     return {
       source_id,

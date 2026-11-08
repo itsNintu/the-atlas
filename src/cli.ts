@@ -11,9 +11,11 @@ import {
   readFileSync,
   statSync,
   fsyncSync,
+  existsSync,
 } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { ApiError } from "./errors.ts";
+import { resetDerivedBrain } from "./derived-reset.ts";
 
 const args = process.argv.slice(2),
   command = args.shift();
@@ -115,6 +117,18 @@ try {
       closeSync(fd);
       store?.close();
     }
+  } else if (command === "reset-derived-brain") {
+    const confirmation = option("confirm");
+    if (!db || !existsSync(resolve(db)))
+      throw Error("reset-derived-brain requires an existing explicit --db FILE; a missing path is never created");
+    const store = new Store(resolve(db));
+    try {
+      const result = resetDerivedBrain(store, confirmation ?? "");
+      const checkpoint = store.checkpoint();
+      output({ ...result, checkpoint, raw_history_preserved: true, configuration_preserved: true });
+    } finally {
+      store.close();
+    }
   } else if (command === "api") {
     const method = args.shift()?.toUpperCase(),
       path = args.shift();
@@ -186,6 +200,7 @@ try {
       commands: [
         "bootstrap --name NAME --credential-file FILE [--db FILE]",
         "issue-key --principal-id ID --credential-file NEW_FILE [--db FILE] (local OS operator)",
+        "reset-derived-brain --db EXISTING_FILE --confirm RESET_DERIVED_BRAIN (offline; stopped full DB/config backup first)",
         "api METHOD /v1/PATH [--file JSON]",
         "ingest|context|graph --file JSON",
         "inspect SOURCE_ID",

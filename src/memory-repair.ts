@@ -1,13 +1,15 @@
 import type { Memory } from './memory.ts';
 import { canonical,hash,now,type Actor } from './store.ts';
 import { fail,integer,text } from './errors.ts';
+import { assertCurrentJobEpoch } from './reset-state.ts';
 
 // Supported narrow repair of a contradictory compiled processing disposition.
 // Never accepts caller facts, valid-time edits, or arbitrary change deletion.
 export function repairPlan(memory:Memory,a:Actor,agent:string,job:string,revision:unknown) {
   const scopes=memory.authorize(a,agent),writes=memory.authorize(a,agent,'write'),s=memory.store;
-  const e=s.one(`SELECT e.*,j.status AS job_status FROM memory_jobs j JOIN memory_events e ON e.id=j.event_pk JOIN memory_heads h ON h.event_pk=e.id WHERE j.id=? AND e.workspace_id=? AND e.agent_id=?`,job,a.workspace_id,agent);
+  const e=s.one(`SELECT e.*,j.status AS job_status,j.reset_epoch AS job_reset_epoch FROM memory_jobs j JOIN memory_events e ON e.id=j.event_pk JOIN memory_heads h ON h.event_pk=e.id WHERE j.id=? AND e.workspace_id=? AND e.agent_id=?`,job,a.workspace_id,agent);
   if(!e)fail(404,'not_found','Current reconciliation not found');
+  assertCurrentJobEpoch(s,e.reset_epoch,e.job_reset_epoch);
   if(e.revision!==integer(revision,'expected_revision',1,Number.MAX_SAFE_INTEGER))fail(409,'revision_conflict','Event revision changed');
   if(e.job_status!=='succeeded'||e.status!=='processed'||e.operation!=='upsert')fail(409,'repair_conflict','Repair requires a completed retained current source');
   const rows=s.all('SELECT * FROM memory_reconciliations WHERE job_id=? AND event_pk=?',job,e.id),changes=new Map<string,any>(),proof:any[]=[];

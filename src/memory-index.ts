@@ -80,6 +80,9 @@ export function installMemoryIndex(s: Store) {
     CREATE TABLE IF NOT EXISTS memory_reconsider_requests(job_id TEXT PRIMARY KEY REFERENCES memory_jobs(id),previous_job_id TEXT NOT NULL REFERENCES memory_jobs(id),event_pk TEXT NOT NULL REFERENCES memory_events(id),principal_id TEXT NOT NULL,reason_code TEXT NOT NULL,prompt_sha256 TEXT NOT NULL,previous_captured_at TEXT NOT NULL,created_at TEXT NOT NULL);
     CREATE TABLE IF NOT EXISTS memory_conversation_focus(singleton INTEGER PRIMARY KEY CHECK(singleton=1),workspace_id TEXT NOT NULL,agent_id TEXT NOT NULL,thread_id TEXT NOT NULL,remaining INTEGER NOT NULL);
     INSERT OR IGNORE INTO memory_conversation_focus VALUES(1,'','','',0);
+    CREATE TABLE IF NOT EXISTS derived_brain_reset_state(singleton INTEGER PRIMARY KEY CHECK(singleton=1),epoch INTEGER NOT NULL,reset_id TEXT,reset_at TEXT);
+    INSERT OR IGNORE INTO derived_brain_reset_state VALUES(1,0,NULL,NULL);
+    CREATE TABLE IF NOT EXISTS derived_brain_reset_receipts(epoch INTEGER PRIMARY KEY,reset_id TEXT NOT NULL UNIQUE,reset_at TEXT NOT NULL,before_json TEXT NOT NULL,after_json TEXT NOT NULL);
   `);
   if (!s.one("SELECT 1 FROM memory_index_meta WHERE version=1")) {
     s.db.exec(`INSERT INTO memory_search(memory_search) VALUES('rebuild');

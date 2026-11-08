@@ -99,6 +99,44 @@ rows, uses SQLite secure_delete and attempts a truncating WAL checkpoint. It is 
 erasure, not a certification of forensic deletion. Metadata/tombstones/audit/idempotency receipts
 (without source contents) remain. Other independently supported sources remain deliberately intact.
 
+## Derived-brain clean-slate reset
+
+For an explicit owner-authorized full reset, use stopped custody and the local privileged command:
+
+```sh
+bun run cli reset-derived-brain \
+  --db /absolute/existing/the-atlas.sqlite \
+  --confirm RESET_DERIVED_BRAIN
+```
+
+1. Stop every Atlas process and quiesce capture producers. Take the complete stopped SQLite and
+   configuration/credential backup described above before opening the reset command.
+2. Fence producer-local pre-reset journals, unacknowledged outbox rows, platform/feedback queues and
+   in-memory recall caches without deleting native transcripts or producer configuration. Atlas's
+   database command cannot perform that external producer step.
+3. Run the command against the explicit existing path. It never creates a missing database. Its
+   immediate transaction physically removes all legacy facts/supports and all native derived memory
+   scopes, including demotions, graph entities/relations/history, embeddings, FTS/LSH, cursors,
+   recall/feedback projections and scheduler focus state. It resets the FTS external-content index
+   through SQLite's supported rebuild command.
+4. Original `sources`/`revisions`/`memory_events`, heads/roots, account/configuration/grant/binding
+   state, idempotency/audit, terminal jobs, non-content curation metrics and reprocess/reconsider
+   receipts remain. Existing nonterminal jobs become cancelled with `derived_brain_reset`; no old
+   job is retried or replayed. Provider holds remain as availability protection, but stale probe
+   leases clear.
+5. Inspect the returned exact before/after counts and quick check. `derived_brain_reset_receipts`
+   stores the same non-content reset receipt. The operation fails closed on an unclassified table,
+   rolls back on deletion/foreign-key failure, and verifies every derived table is empty.
+6. Restore the exact normal service environment and start Atlas with its ordinary workers enabled.
+   Do not leave a maintenance-disabled worker configuration behind.
+
+Reset generations fence all pre-reset jobs/events from scheduler claims, retry, reprocess, admission
+review, reconciliation repair, JEV/Luna prior/recent context, recall freshness and graph processing
+counts. A new source revision or new native event belongs to the new generation and processes under
+the normal contract; an exact old idempotent/event replay remains a historical duplicate/receipt.
+This is physical deletion of active derived rows, not a demotion or a promise to erase retained
+backups, provider logs, SSD remnants or already returned consumer copies.
+
 ## Upgrade / release
 
 Schema version is PRAGMA user_version=1. Opening a newer schema fails rather than silently downgrading.

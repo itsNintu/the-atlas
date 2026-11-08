@@ -21,7 +21,7 @@ export class Worker {
         t,
       );
       const job = this.store.one(
-        "SELECT * FROM jobs WHERE ((status IN ('queued','retry') AND available_at<=?) OR (status='running' AND lease_until<=?)) AND attempts<max_attempts ORDER BY created_at,id LIMIT 1",
+        "SELECT * FROM jobs WHERE reset_epoch=(SELECT epoch FROM derived_brain_reset_state WHERE singleton=1) AND ((status IN ('queued','retry') AND available_at<=?) OR (status='running' AND lease_until<=?)) AND attempts<max_attempts ORDER BY created_at,id LIMIT 1",
         t,
         t,
       );
@@ -140,7 +140,7 @@ export class Worker {
   }
   live(job: any) {
     return this.store.one(
-      "SELECT j.id FROM jobs j JOIN revisions r ON r.id=j.revision_id JOIN sources s ON s.id=r.source_id WHERE j.id=? AND j.lease_token=? AND j.status='running' AND s.deleted_at IS NULL AND r.deleted_at IS NULL AND s.current_revision_id=r.id",
+      "SELECT j.id FROM jobs j JOIN revisions r ON r.id=j.revision_id JOIN sources s ON s.id=r.source_id WHERE j.id=? AND j.lease_token=? AND j.status='running' AND j.reset_epoch=(SELECT epoch FROM derived_brain_reset_state WHERE singleton=1) AND s.deleted_at IS NULL AND r.deleted_at IS NULL AND s.current_revision_id=r.id",
       job.id,
       job.lease_token,
     );

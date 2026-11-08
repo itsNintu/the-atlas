@@ -25,6 +25,7 @@ import { IDENTITY_PROMPT, identityResponseContract, resolvedIdentity, candidateI
 import { correctionReplacements } from "./memory-correction-lookup.ts";
 import { correctionEvidence, correctionLines } from "./memory-corrections.ts";
 import { activeChanges, consistentReconciliation } from "./memory-truth.ts";
+import { assertCurrentJobEpoch, currentResetEpoch } from "./reset-state.ts";
 import { recallFocus, needsRecallContext, asksAboutRecallProcess, isContextAvailabilityNote } from "./recall-query.ts";
 
 // Share a turn budget across recalls and workers. Promise/microtask yields alone
@@ -233,7 +234,8 @@ export class Memory {
           job_id: null,
         };
       const pk = id("event"),
-        at = now();
+        at = now(),
+        epoch = currentResetEpoch(this.store);
       let job_id = b.operation === "upsert" ? id("mjob") : null;
       const inputRoots = roots.length
         ? roots
@@ -272,7 +274,7 @@ export class Memory {
           );
       }
       this.store.run(
-        "INSERT INTO memory_events (id,workspace_id,client_id,event_id,revision,operation,agent_id,thread_id,role,author_id,occurred_at,observed_at,accepted_at,content,metadata_json,causal_json,roots_json,body_hash,principal_id,credential_id,job_id,status) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        "INSERT INTO memory_events (id,workspace_id,client_id,event_id,revision,operation,agent_id,thread_id,role,author_id,occurred_at,observed_at,accepted_at,content,metadata_json,causal_json,roots_json,body_hash,principal_id,credential_id,job_id,status,reset_epoch) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
         pk,
         a.workspace_id,
         client_id,
@@ -295,6 +297,7 @@ export class Memory {
         a.credential_id,
         job_id,
         job_id ? "pending" : "deleted",
+        epoch,
       );
       this.store.run(
         "INSERT INTO memory_heads VALUES (?,?,?,?,?) ON CONFLICT(workspace_id,client_id,event_id) DO UPDATE SET event_pk=excluded.event_pk,revision=excluded.revision",
@@ -349,11 +352,12 @@ export class Memory {
       }
       if (job_id)
         this.store.run(
-          "INSERT INTO memory_jobs (id,event_pk,status,available_at,created_at) VALUES (?,?,'queued',?,?)",
+          "INSERT INTO memory_jobs (id,event_pk,status,available_at,created_at,reset_epoch) VALUES (?,?,'queued',?,?,?)",
           job_id,
           pk,
           Date.now(),
           at,
+          epoch,
         );
       return { event_id, revision, status: "accepted", durable: true, job_id };
     });
@@ -537,6 +541,7 @@ export class Memory {
       agent,
     );
     if (!j) fail(404, "not_found", "Current memory job not found");
+    assertCurrentJobEpoch(this.store, j.reset_epoch);
     if (automaticStatusNotification(j)) fail(409, 'automatic_status_notification', 'Automatic status/delivery notification events cannot be retried');
     if (!["failed", "retry"].includes(j.status))
       fail(409, "job_not_retryable", "Only failed/retry jobs can be retried");
@@ -553,9 +558,10 @@ export class Memory {
     const reason = text(reason_code, "reason_code", 80);
     if (!/^[a-z0-9_-]+$/.test(reason)) fail(400, "invalid_request", "reason_code must be a non-content diagnostic identifier");
     return this.store.transaction(() => {
-      const e = this.store.one(`SELECT e.*,j.status AS job_status FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id JOIN memory_jobs j ON j.id=e.job_id
+      const e = this.store.one(`SELECT e.*,j.status AS job_status,j.reset_epoch AS job_reset_epoch FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id JOIN memory_jobs j ON j.id=e.job_id
         WHERE j.id=? AND e.workspace_id=? AND e.agent_id=? AND e.operation='upsert'`, previous_job_id,a.workspace_id,agent);
       if (!e) fail(404, "not_found", "Current memory job not found");
+      assertCurrentJobEpoch(this.store, e.reset_epoch, e.job_reset_epoch);
       if (!communicationRole(e.role)) fail(409, 'communication_only', 'Only communication events can be reprocessed');
       if (automaticStatusNotification(e)) fail(409, 'automatic_status_notification', 'Automatic status/delivery notification events cannot be reprocessed');
       if (e.revision !== revision) fail(409, "revision_conflict", "Memory event revision changed");
@@ -566,7 +572,7 @@ export class Memory {
       if (this.store.one(`SELECT 1 FROM memory_jobs j JOIN memory_events x ON x.id=j.event_pk WHERE x.workspace_id=? AND x.agent_id=? AND x.thread_id=? AND j.status='running'`,e.workspace_id,agent,e.thread_id))
         fail(409, "conversation_busy", "Conversation has active curation; retry after its current claim");
       const job_id = id("mjob"), at = now();
-      this.store.run("INSERT INTO memory_jobs (id,event_pk,status,available_at,created_at) VALUES (?,?,'queued',?,?)",job_id,e.id,Date.now(),at);
+      this.store.run("INSERT INTO memory_jobs (id,event_pk,status,available_at,created_at,reset_epoch) VALUES (?,?,'queued',?,?,?)",job_id,e.id,Date.now(),at,currentResetEpoch(this.store));
       if (completed)
         this.store.run("INSERT INTO memory_reprocess_requests VALUES (?,?,?,?,?,?,?,?)",job_id,previous_job_id,e.id,a.id,reason,memoryPromptHash(!!this.inference.reconcile),e.processed_at,at);
       else
@@ -588,8 +594,9 @@ export class Memory {
     const notificationExclusion=reason==='automatic_notification_owner_exclusion';
     const contentExclusion=executionExclusion||notificationExclusion;
     const reviewScopes=contentExclusion?['user:alex','business:alex',own(agent)]:['user:alex','business:alex'];
-    const e=this.store.one(`SELECT e.*,j.status AS job_status FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id JOIN memory_jobs j ON j.id=e.job_id AND j.event_pk=e.id WHERE j.id=? AND e.workspace_id=? AND e.agent_id=? AND e.operation='upsert'`,previous_job_id,a.workspace_id,agent);
+    const e=this.store.one(`SELECT e.*,j.status AS job_status,j.reset_epoch AS job_reset_epoch FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id JOIN memory_jobs j ON j.id=e.job_id AND j.event_pk=e.id WHERE j.id=? AND e.workspace_id=? AND e.agent_id=? AND e.operation='upsert'`,previous_job_id,a.workspace_id,agent);
     if(!e)fail(404,'not_found','Current source job not found');
+    assertCurrentJobEpoch(this.store,e.reset_epoch,e.job_reset_epoch);
     if(e.revision!==revision)fail(409,'revision_conflict','Memory event revision changed');
     const completed=e.job_status==='succeeded'&&e.status==='processed';
     const failedContentExclusion=contentExclusion&&e.job_status==='failed'&&e.status==='pending';
@@ -623,7 +630,7 @@ export class Memory {
   }
   auditPrevious(e:any, readable:string[], limit=5) {
     return this.store.all(
-      "SELECT e.* FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id WHERE e.workspace_id=? AND e.agent_id=? AND e.thread_id=? AND e.accepted_at<=? AND e.rowid<(SELECT rowid FROM memory_events WHERE id=?) AND e.role IN ('user','assistant','inter_agent') AND e.content IS NOT NULL AND e.status NOT IN ('forgotten','deleted','superseded') ORDER BY e.accepted_at DESC,e.rowid DESC LIMIT ?",
+      "SELECT e.* FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id WHERE e.reset_epoch=(SELECT epoch FROM derived_brain_reset_state WHERE singleton=1) AND e.workspace_id=? AND e.agent_id=? AND e.thread_id=? AND e.accepted_at<=? AND e.rowid<(SELECT rowid FROM memory_events WHERE id=?) AND e.role IN ('user','assistant','inter_agent') AND e.content IS NOT NULL AND e.status NOT IN ('forgotten','deleted','superseded') ORDER BY e.accepted_at DESC,e.rowid DESC LIMIT ?",
       e.workspace_id,e.agent_id,e.thread_id,e.accepted_at,e.id,limit,
     ).filter(x=>!automaticStatusNotification(x)&&this.visibleEvent(x,e.agent_id,readable)).reverse();
   }
@@ -946,7 +953,7 @@ export class Memory {
       COALESCE(SUM(CASE WHEN e.status='pending' AND e.operation='upsert' AND e.accepted_at<=? AND e.occurred_at<=? THEN 1 ELSE 0 END),0) AS pending_count,
       COALESCE(SUM(CASE WHEN e.status='captured' AND e.operation='upsert' AND e.accepted_at<=? AND e.occurred_at<=? THEN 1 ELSE 0 END),0) AS capture_only_count
       FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id
-      WHERE e.workspace_id=? AND ((e.agent_id=? AND ?=1) OR (e.role='user' AND e.author_id='alex' AND ?=1))`,
+      WHERE e.reset_epoch=(SELECT epoch FROM derived_brain_reset_state WHERE singleton=1) AND e.workspace_id=? AND ((e.agent_id=? AND ?=1) OR (e.role='user' AND e.author_id='alex' AND ?=1))`,
       recorded_at, valid_at, recorded_at, valid_at, a.workspace_id, b.agent_id, Number(currentScopes.includes(own(b.agent_id))), Number(currentScopes.includes("user:alex")));
     const recall_id = id("recall");
     this.store.run("INSERT INTO memory_recalls VALUES (?,?,?,?,?,?)", recall_id, a.id, b.agent_id, thread_id, JSON.stringify(selected.map(m => m.id)), now());
@@ -1037,7 +1044,7 @@ export class Memory {
     if (!Number.isFinite(days) || days <= 0) return;
     const cutoff = new Date(Date.now() - days * 86400000).toISOString();
     this.store.run(
-      "UPDATE memory_events SET content=NULL,metadata_json=NULL WHERE accepted_at<? AND (status IN ('processed','superseded','deleted') OR (status='captured' AND role='tool')) AND NOT EXISTS(SELECT 1 FROM memory_jobs j WHERE j.event_pk=memory_events.id AND j.status IN ('queued','running','retry','failed'))",
+      "UPDATE memory_events SET content=NULL,metadata_json=NULL WHERE reset_epoch=(SELECT epoch FROM derived_brain_reset_state WHERE singleton=1) AND accepted_at<? AND (status IN ('processed','superseded','deleted') OR (status='captured' AND role='tool')) AND NOT EXISTS(SELECT 1 FROM memory_jobs j WHERE j.event_pk=memory_events.id AND j.status IN ('queued','running','retry','failed'))",
       cutoff,
     );
   }
@@ -1071,7 +1078,7 @@ export class MemoryWorker {
   }
   live(j: any) {
     const e = this.store.one(
-      "SELECT e.* FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id JOIN memory_jobs j ON j.event_pk=e.id JOIN credentials c ON c.id=e.credential_id AND c.revoked_at IS NULL WHERE j.id=? AND j.status='running' AND j.lease_token=? AND e.operation='upsert' AND e.role IN ('user','assistant','inter_agent')",
+      "SELECT e.* FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id JOIN memory_jobs j ON j.event_pk=e.id JOIN credentials c ON c.id=e.credential_id AND c.revoked_at IS NULL WHERE j.id=? AND j.status='running' AND j.lease_token=? AND j.reset_epoch=(SELECT epoch FROM derived_brain_reset_state WHERE singleton=1) AND e.reset_epoch=(SELECT epoch FROM derived_brain_reset_state WHERE singleton=1) AND e.operation='upsert' AND e.role IN ('user','assistant','inter_agent')",
       j.id,
       j.lease_token,
     );
@@ -1161,7 +1168,7 @@ export class MemoryWorker {
         if (/[\uD800-\uDBFF]/.test(content[end - 1] ?? "")) end--;
       }
       const recent = this.store.all(
-        "SELECT e.* FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id WHERE e.workspace_id=? AND e.agent_id=? AND e.thread_id=? AND e.accepted_at<=? AND e.rowid<(SELECT rowid FROM memory_events WHERE id=?) AND e.role IN ('user','assistant','inter_agent') AND e.content IS NOT NULL AND e.status NOT IN ('forgotten','deleted','superseded') ORDER BY e.accepted_at DESC,e.rowid DESC LIMIT 2",
+        "SELECT e.* FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id WHERE e.reset_epoch=(SELECT epoch FROM derived_brain_reset_state WHERE singleton=1) AND e.workspace_id=? AND e.agent_id=? AND e.thread_id=? AND e.accepted_at<=? AND e.rowid<(SELECT rowid FROM memory_events WHERE id=?) AND e.role IN ('user','assistant','inter_agent') AND e.content IS NOT NULL AND e.status NOT IN ('forgotten','deleted','superseded') ORDER BY e.accepted_at DESC,e.rowid DESC LIMIT 2",
         e.workspace_id, e.agent_id, e.thread_id, e.accepted_at, e.id,
       ).filter(x => !automaticStatusNotification(x) && this.memory.visibleEvent(x, e.agent_id, readable)).reverse();
       const candidates = this.memory.candidates(e.workspace_id, readable, content.slice(offset, end) + " " + recent.map(x => x.content.slice(-600)).join(" "));
@@ -1219,7 +1226,7 @@ export class MemoryWorker {
       if (!this.live(j)) return this.cancel(j);
       const knownRowid = this.store.one("SELECT COALESCE(MAX(rowid),0) AS n FROM memories").n;
       const cadence = positiveSetting("CONSOLIDATE_EVERY", 16);
-      const processed = this.store.one("SELECT COUNT(*) AS n FROM memory_events WHERE workspace_id=? AND status='processed'", e.workspace_id).n;
+      const processed = this.store.one("SELECT COUNT(*) AS n FROM memory_events WHERE workspace_id=? AND status='processed' AND reset_epoch=(SELECT epoch FROM derived_brain_reset_state WHERE singleton=1)", e.workspace_id).n;
       // Full roots, metadata and original content remain durable. The curator
       // sees only the focused fragment plus explicitly explanatory continuity.
       const input = {
