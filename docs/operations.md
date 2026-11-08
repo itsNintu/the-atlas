@@ -15,6 +15,25 @@ Provider variables are in .env.example. CLI adds THE_ATLAS_URL and THE_ATLAS_CRE
 Legacy `THREADATLAS_` variables and existing data/credentials remain usable; see [rename notes](rename.md).
 Never share a real .env, database, credential file, or source export in an issue.
 
+### Atlas-native Luna and JEV
+
+Set `THE_ATLAS_NATIVE_WORKER=true`, `THE_ATLAS_CODEX_HOME` to the completed Atlas-private OAuth
+home, `THE_ATLAS_EXTRACTION_MODEL=gpt-6-luna` and the protected `THE_ATLAS_JEV_API_KEY` through
+the owning credential channel. Remove the old Hermes `INFERENCE_COMMAND`; do not configure a
+Codex CLI/app-server or public API-key fallback. `CODEX_REASONING_EFFORT=low`,
+`JEV_MODEL=jev-1.14.0` and `JEV_CONCURRENCY=4` are the current defaults. Keep the resident
+`EMBED_URL` separate from Luna and JEV. `auth.json` must remain mode0600 and its parent mode0700.
+Stop Atlas before replacing OAuth/config state; preserve existing account identity and do not copy
+another profile's auth cache. Refresh locks are self-recovering after stale PIDs. An ambiguous
+refresh may require the supported OAuth reconnection after access expiry; never replay it blindly.
+
+`JEV_URL` defaults to the supported TypeSafe System One endpoint and may be loopback only for
+tests. Each request is one typed decision. Before activation, run one real admission, one graph-
+area and one independent relationship request, checking exact response names/types and bounded
+latency, then run one direct structured Luna request. JEV and Luna credentials never appear in
+logs, receipts, task cards or screenshots. See contract.md for admission/demotion/reconsideration
+semantics and required current-conversation checks.
+
 Use a private local directory, local filesystem (not network-shared SQLite), and a dedicated OS user
 for deployment. Workspace administrators are trusted to create shared grants but are not granted
 knowledge access automatically. Local OS/database access bypasses application permissions by design.

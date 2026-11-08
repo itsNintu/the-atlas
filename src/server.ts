@@ -61,6 +61,7 @@ async function stop() {
   stopping = true;
   await server.stop(true);
   await loop;
+  if (memoryWorker.inference.close) await memoryWorker.inference.close();
   store.close();
   process.exit(0);
 }

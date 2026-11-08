@@ -213,6 +213,13 @@ export class App {
             u.searchParams.get("agent_id") ?? "",
           ),
         };
+      else if (method === "POST" && match(/^\/v1\/memory\/jobs\/([^/]+)\/admission-review$/))
+        result = {
+          data: write(
+            () => { this.memory.authorize(a, b.agent_id, "read"); this.memory.authorize(a, b.agent_id, "write"); },
+            () => this.memory.reviewAdmission(a,b.agent_id,match(/^\/v1\/memory\/jobs\/([^/]+)\/admission-review$/)!,b.memory_id,b.expected_revision,b.reason_code),
+          ),
+        };
       else if (
         method === "POST" &&
         match(/^\/v1\/memory\/jobs\/([^/]+)\/(retry|reprocess)$/)

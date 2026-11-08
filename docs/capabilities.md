@@ -1,5 +1,58 @@
 # Capability map
 
+## Sustained selective dreaming with native Luna and JEV (source; activation separate)
+
+Atlas owns direct OAuth-backed Luna inference. `src/native-luna.ts` adapts the lightweight
+Creators growth transport: pinned ChatGPT OAuth client/account identity, direct
+`https://chatgpt.com/backend-api/codex/responses` HTTP/SSE, no tools, bounded1MB stream,
+exact requested-model completion and local JSON validation. There is no Codex CLI,
+app-server, agent runtime, Hermes PluginLlm/per-call bridge or public API-key fallback.
+OAuth tokens remain in the Atlas-private mode0600 `auth.json`; rotating refresh is
+single-flight with PID/CAS stale-lock recovery and account preservation. Temporary
+throttling uses bounded retry. An ambiguous refresh is never blindly replayed: a still-valid
+access token may continue, while expiry after an unresolved rotation requires supported
+reconnection rather than guessing its outcome.
+
+JEV is the asynchronous first auditor/router, never the graph writer and never on foreground
+recall. Each HTTP request has exactly one typed question and exactly one validated answer;
+admission, graph-area and each candidate relationship are separate calls under bounded
+concurrency (default4). The latest event plus up to five prior events is bounded to head/tail
+excerpts, not a whole transcript. `durable_candidate`, `session_episode` and `uncertain`
+reach Luna; complete `session_context`/`noise` stays captured with a skipped job; any
+truncated negative also reaches Luna so omitted text cannot become an eligibility fence.
+Useful session episodes remain eligible for Luna's durable/session/history/correction/noise
+decision. JEV graph-area only prioritizes supplied areas. Per-candidate calls remove only
+`irrelevant` relations; uncertain/unexamined and relevant session-local history remain.
+Unavailable admission/routing calls are audited as `unavailable` and continue as uncertain rather
+than making JEV a hidden eligibility gate; missing JEV configuration remains a deployment error.
+
+A 24-claim persisted conversation-focus lease provides coherent service, then rotates to the
+least-served human conversation. Other threads and inherited work continue concurrently and
+every fourth claim reserves oldest accepted work. This replaces the observed one-turn-per-
+full-rotation starvation without a newest-thread monopoly. Capture remains immediate;
+`captured` is not `processed`, and recall exposes `freshness.capture_only_count` while keeping
+pending transcripts empty. Capture-filtered events support a new audited `/reprocess` route
+with `memory_reconsider_requests`; original jobs/decisions remain unchanged. Excluded
+captured tool content follows RAW_RETENTION_DAYS; original owner and assistant message content is
+retained for reconsideration.
+
+`POST /v1/memory/jobs/:job_id/admission-review` is the bounded owner-directed correction for
+the known session/global admission error. With current source revision and affected shared
+read/write grants plus `reason_code=session_local_owner_correction`, it appends an
+`owner_directive` review and demotion proof; no new model vote, source replay or SQL deletion
+is involved. Post-review recall/graph projections exclude that derived shared claim while
+pre-review recorded history remains inspectable. Later genuine user support can restore the
+same fingerprint without deleting the demotion audit.
+
+Additive audit tables are `memory_event_admissions`, `memory_jev_routes`,
+`memory_admission_reviews`, `memory_admission_demotions`, `memory_reconsider_requests` and
+`memory_conversation_focus`. Existing source/event/job/memory/support identities and terminal
+job effects remain. A synthetic direct OAuth/SSE probe completed valid `{"decisions":[]}` on
+`gpt-6-luna` in3.019s (88input/9output tokens), with no agent runtime or tools. Source
+verification:155tests/1422assertions, typecheck, frozen install and real on-disk pinned-Bun
+HTTP/CLI E2E pass. Live JEV and current-conversation activation outcomes remain Overwatch
+`t_05e9321c`; no production activation, global queue-empty or universal semantic claim is made.
+
 ## Claim-consistency repair and correction-preserving recall (source only)
 
 Equivalent claim-group propagation is conservative when a supplied member is explicitly
@@ -93,9 +146,11 @@ framing fails visibly as `curation_budget_too_small`, retaining custody. Other c
 `TOKEN_ENCODING` (`o200k_base` or `cl100k_base`) and `RAW_RETENTION_DAYS` (30, nonpositive disables).
 All names accept `THE_ATLAS_` and compatible legacy `THREADATLAS_` prefixes.
 
-The proven host-owned route is `openai-codex/gpt-6-luna`; no Sol fallback or primary-chat change.
-Product source remains inference-provider independent: `INFERENCE_COMMAND` is a JSON argv, never a
-shell; OpenAI-compatible HTTP also remains available. Native account/model routing is host-owned.
+The current digestion route is Atlas-native direct OAuth HTTP/SSE to `gpt-6-luna`; no Sol fallback,
+Codex CLI/app-server, Hermes per-call bridge or primary-chat change. Product source remains
+inference-provider independent for retained custom paths: `INFERENCE_COMMAND` is a JSON argv,
+never a shell; OpenAI-compatible HTTP also remains available for those non-native configurations.
+Native account/model routing and JEV admission/routing are Atlas-owned.
 The actual fictional Luna exercise selected connected responsibilities/reporting, discarded noise,
 reconciled a handover with January history, retained a useful final fact from an 11,082-character
 source in two calls, and corrected a never-true delivery-owner claim. The real run exposed a model
@@ -168,16 +223,18 @@ requested recall windows remain practical limitations, not a promise of cognitio
 
 ## Fair event scheduling and specific historical recall — 2026-11-07 follow-up
 
-Event-memory claims use a persisted three fair-thread turns to one oldest-work turn. Fair turns
-choose the least-recently-claimed eligible conversation; unseen-thread ties favor latest accepted
-intake. There is no age cutoff that can strand an already-overdue conversation outside the fair lane.
+Event-memory claims use a persisted three conversation-service turns to one oldest-work turn.
+The current sustained-use revision gives a selected human conversation a bounded24-claim focus
+lease, then rotates focus to the least-recently-claimed eligible human conversation; unseen ties
+favor latest accepted intake. Independent workers serve other heads while that conversation is
+running. There is no age cutoff that can strand an already-overdue conversation outside the fair lane.
 Oldest turns use original event accepted_at/rowid, not chunk requeue time. Each conversation's oldest
 unfinished event is its sole head: running leases, retries/backoff and incomplete fragments block
 later events in that same conversation, while independent conversations can run concurrently. A
-persisted claim clock and per-thread service cursor survive reopen/multiple workers. No sources are
-dropped, marked processed en masse, replayed or moved into recall. This is a service allocation
-policy, NOT a universal latency bound; a long source or retry can still delay its own conversation,
-and sustained input above provider throughput still grows backlog.
+persisted claim clock, focus lease and per-thread service cursor survive reopen/multiple workers.
+No sources are dropped, marked processed en masse, replayed or moved into recall. This is a service
+allocation policy, NOT a universal latency bound; a long source or retry can still delay its own
+conversation, and sustained input above provider throughput still grows backlog.
 
 The additive non-content tables are `memory_schedule_clock(singleton,sequence)` and
 `memory_thread_schedule(workspace_id,agent_id,thread_id,last_claim)`. Existing jobs, source revisions,

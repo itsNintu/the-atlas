@@ -1,5 +1,39 @@
 # Current project context
 
+## Sustained selective dreaming, Atlas-native OAuth and JEV — 2026-11-08
+
+Source task t_bdec7ab0 addresses the observed sustained-conversation failure, not another Atlas
+acceptance graph. Read `docs/capabilities.md` and `docs/contract.md` first. Live inspection found
+64 eligible thread heads and the current owner thread served only about every25minutes; its next
+jobs were queued without errors. Tool volume dominated the inherited queue and85/90 recent tool
+chunks produced no decisions. The repair therefore covers scheduling, admission and transport,
+not raw worker count or a model-name swap.
+
+Atlas now uses direct OAuth HTTP/SSE Responses inference adapted from Creators growth-model,
+with no Codex CLI/app-server, Hermes per-call bridge or public API-key fallback. Overwatch
+completed the owner's official OAuth sign-in through the existing protected account flow in the
+Atlas-private CODEX_HOME and verified the native catalog contains gpt-6-luna. The later owner
+correction removed the app-server draft/dependency; only the direct transport remains. A real
+synthetic direct structured probe returned valid `{"decisions":[]}` on gpt-6-luna in3.019s
+(88input/9output tokens), with no agent runtime or tools.
+
+Asynchronous JEV uses one typed decision per request for admission, graph-area and each candidate
+relationship under bounded concurrency. Complete context/noise stays captured; durable, useful
+session episodes, uncertain and truncated negatives still reach Luna. A persisted24-claim
+conversation-focus lease rotates fairly and every fourth claim reserves inherited work. Capture-
+filtered sources have audited reconsideration. A source/proof-bound owner-directed admission
+review demotes the wrongly globalized session instruction without model approval, source replay
+or history deletion; later genuine user support can restore it. Existing truth/correction/
+provenance/retrieval fences and compact pending-free recall remain.
+
+Source verification:155tests/1422assertions and typecheck pass, frozen install passes, and real
+on-disk HTTP/CLI E2E passes on pinned Bun1.4.4 (initial ambient Bun1.2.21 invocation retained as
+a toolchain mismatch, not a product failure). Live JEV single-decision probes, production
+activation, the exact wrong-memory demotion and current-thread10–15minute selective digestion
+belong to Overwatch t_05e9321c. No production restart/queue mutation/native capture replay or
+current-thread semantic outcome is claimed by this source phase. Exact evidence/handoff is in
+`evidence/sustained-dreaming/`.
+
 ## Claim-safe truth repair and concise correction recall — 2026-11-07
 
 Source task t_c3cd6ab0 repairs the concrete live regression from t_4fe812c6, not its

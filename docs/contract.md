@@ -119,6 +119,70 @@ Bun before the structured API envelope; ordinary API validation uses the envelop
 
 ## Automatic event memory: durable intake, selective graph and indexed recall
 
+### Native Luna transport and bounded JEV admission/routing
+
+With `THE_ATLAS_NATIVE_WORKER=true`, extraction, identity and reconciliation all use Atlas's
+own OAuth-backed HTTP/SSE Responses transport, never a Codex CLI/app-server, agent runtime,
+Hermes inference bridge or public API-key fallback. `THE_ATLAS_CODEX_HOME` names the private
+OAuth home; `THE_ATLAS_EXTRACTION_MODEL=gpt-6-luna` remains exact and no Sol fallback exists.
+The direct endpoint is `https://chatgpt.com/backend-api/codex/responses`, with the pinned OAuth
+client, bearer token and `ChatGPT-Account-ID`. Calls use `store:false`, `stream:true`, `tools:[]`,
+low reasoning by default and a bounded1MB SSE response. The final response must complete on the
+requested model and parse as JSON before existing decision/phase validators apply. No source or
+tool action is exposed to the model for execution.
+
+`auth.json` remains private mode0600. Access/refresh identity is JWT/account checked. Refresh is
+single-flight, preserves account identity, persists updates atomically and recovers stale locks by
+PID plus compare-before-unlink. Refresh/429 transport failures use bounded retry; a rotating
+refresh with an unknown outcome is not replayed. A valid access token can continue during that
+ambiguity, but expired credentials require the supported reconnect path. `INFERENCE_COMMAND`
+and OpenAI-compatible HTTP remain only for explicitly non-native custom configurations, not as a
+fallback from the native Luna route.
+
+JEV is used only in asynchronous digestion. `THE_ATLAS_JEV_API_KEY`, `JEV_MODEL` (default
+`jev-1.14.0`), `JEV_URL` (default TypeSafe System One) and `JEV_CONCURRENCY` (default4, maximum16)
+control it. Every request has exactly one named `decision` question and exactly one validated
+choice/probability/usage response. Admission, graph-area and each relationship are independent
+calls; no multi-question battery or bundled candidate evaluation is accepted. JEV never runs on
+foreground recall and never writes a memory or relationship.
+
+The latest event plus up to five visible preceding same-thread events forms the auditor view.
+The latest content is bounded to the first/last2,000 characters (600 each for context), with
+`content_truncated` disclosed. Admission choices are:
+- `durable_candidate`, `session_episode`, `uncertain`: continue through bounded Luna curation;
+- `session_context`, `noise`: preserve captured source with a terminal `skipped` job, but only
+  when the complete source was audited;
+- any negative on a truncated source: continue to Luna rather than excluding unseen evidence.
+
+Luna still decides durable/session-only/history/correction/noise; session-local instructions
+must not be globalized as standing shared preferences. JEV graph-area selects/prioritizes one
+supplied area or none/uncertain, without deleting unexamined areas. Up to6 candidate
+relationships are audited separately; only `irrelevant` removes that evaluated candidate.
+Relevant, uncertain, unexamined and session-local-but-relevant relationships remain available.
+Unavailable admission/routing is persisted as `unavailable` and fails open to Luna; missing JEV
+configuration remains an explicit deployment error rather than silently disabling the pipeline.
+`memory_event_admissions` and `memory_jev_routes` persist non-content decisions, model,
+confidence, proof and elapsed time for these calls. Admission is reused across chunk retries;
+new jobs/reconsiderations receive fresh review.
+
+A capture-filtered current event supports the same authenticated/idempotent `/reprocess`
+operation as a completed event. Its new job links through `memory_reconsider_requests` with the
+original accepted time; completed jobs continue using `memory_reprocess_requests` with the
+original processed time. Neither operation replays source tools/actions or changes the old job,
+admission history, source content, roots, revision or existing knowledge.
+
+`POST /v1/memory/jobs/:job_id/admission-review` requires normal authentication, Idempotency-Key,
+`{agent_id,memory_id,expected_revision,reason_code}` and current affected-scope read/write grants.
+The only accepted reason is `session_local_owner_correction`. The completed current source revision
+must directly support the named `user:alex` or `business:alex` memory through retained
+`memory_supports`; raw source content is not required for this deterministic demotion. The operation
+appends an `owner_directive` review and demotion proof; it does not call a new model, execute the
+original action, alter the source/job/memory/support rows or synthesize a replacement memory.
+Post-demotion graph/recall excludes that derived shared claim. Pre-demotion recorded history is
+retained, and a later independently supported user event can restore the same fingerprint without
+deleting audit. This bounded route exists for the owner's explicit session/global correction, not
+arbitrary caller-authored fact editing.
+
 ### Processing-decision consistency and supported repair
 
 Claim-equivalence expansion must not override an explicit `unaffected_ids` member. Such a
@@ -286,8 +350,8 @@ messages). Only ambiguous followups use recent context: at most two user/assista
 characters, as query resolution, not evidence. No conversational inference call is made by default.
 Response retains `recall_id`, `context`, `memories`, `pending_events`, token accounting, times,
 `freshness` and `retrieval`. `pending_events` is now always empty; no raw pending transcript is
-injected. `freshness` retains authorized non-content latest intake/processed times and pending
-counts, with included0 and omitted=pending_count. Asynchronous selection can legitimately return
+injected. `freshness` retains authorized non-content latest intake/processed times, pending counts and
+`capture_only_count` for JEV-filtered source-only events, with included0 and omitted=pending_count. Asynchronous selection can legitimately return
 no memory. Empty query also returns no memory, not the whole graph. The exact tokenizer budget
 covers injected framing/citations, not response JSON or native outer message framing.
 
@@ -301,13 +365,15 @@ revocation; stale context fails retryably rather than returning cached text. See
 for engineering thresholds and approximate-search limitations.
 
 Curation sends coherent event fragments plus focused context under4,096 exact tokens. Durable
-full content/roots and source revision identity are not truncated. Event claims now use persisted
-3fair-thread:1oldest-work turns: least-recently-claimed conversation heads, unseen ties newest intake,
-every fourth claim oldest original accepted event. No age cutoff; a conversation's running/retry/
-incomplete head prevents later same-conversation claims, not independent-thread concurrency. Lease
-fencing and resumable atomic cursors remain. Additive non-content schedule tables are
-`memory_schedule_clock(singleton,sequence)` and
-`memory_thread_schedule(workspace_id,agent_id,thread_id,last_claim)`. Fairness is not a latency SLA.
+full content/roots and source revision identity are not truncated. Event claims use persisted
+3conversation-service:1oldest-work turns. A selected human conversation receives a bounded24-claim
+focus lease, then focus rotates to the least-recently-claimed human conversation; unseen ties favor
+newest intake. Every fourth claim reserves oldest original accepted work. No age cutoff; a
+conversation's running/retry/incomplete head prevents later same-conversation claims, not
+independent-thread concurrency. Lease fencing and resumable atomic cursors remain. Additive
+non-content schedule tables are `memory_schedule_clock(singleton,sequence)`,
+`memory_thread_schedule(workspace_id,agent_id,thread_id,last_claim)` and
+`memory_conversation_focus(singleton,workspace_id,agent_id,thread_id,remaining)`. Fairness is not a latency SLA.
 
 Recall `retrieval.specificity` discloses named topic identifiers, unchanged lexical/configured semantic
 admission, optional ISO source-time focus and ranking weights. Named topics affect ranking only, not

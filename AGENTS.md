@@ -2,6 +2,8 @@
 
 Apache-2.0 source-linked graph/context-memory product. M0 is a bounded alpha, not Zep parity.
 Use Bun/TypeScript. Canonical code is this repository; no Hermes runtime dependency.
+Digestion uses Atlas-owned direct OAuth HTTP/SSE and bounded JEV decisions, never a Codex CLI,
+app-server, agent runtime, Hermes per-call bridge or public API-key fallback.
 Read CONTEXT.md and docs/contract.md before changing behavior. Workspace is the tenant boundary;
 all knowledge access requires explicit space/action grants, including workspace administrators.
 Keep deterministic assertions distinct from natural-language extraction. Never fake provider results.

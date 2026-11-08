@@ -18,6 +18,7 @@ export const memoryPromptHash = (focused=true) => hash(focused ? canonical({extr
 import { cosine } from "./provider.ts";
 import { indexedCandidates, queryTerms } from "./memory-index.ts";
 import { claimMemoryJob } from "./memory-scheduler.ts";
+import { admissionProof, auditorState, routeRecord } from "./memory-admission.ts";
 import { EXTRACT_PROMPT, RECONCILE_PROMPT, validateReconciliations, normalizeReconciliation, mergeReconciliations, type Reconciliation } from './memory-reconciliation.ts';
 import { IDENTITY_PROMPT, identityResponseContract, resolvedIdentity, candidateIdentities } from './memory-identity.ts';
 import { correctionReplacements } from "./memory-correction-lookup.ts";
@@ -552,19 +553,62 @@ export class Memory {
         WHERE j.id=? AND e.workspace_id=? AND e.agent_id=? AND e.operation='upsert'`, previous_job_id,a.workspace_id,agent);
       if (!e) fail(404, "not_found", "Current memory job not found");
       if (e.revision !== revision) fail(409, "revision_conflict", "Memory event revision changed");
-      if (e.job_status !== "succeeded" || e.status !== "processed") fail(409, "job_not_reprocessable", "Only a completed current memory event can be reprocessed");
+      const completed = e.job_status === "succeeded" && e.status === "processed";
+      const reconsider = e.job_status === "skipped" && e.status === "captured";
+      if (!completed && !reconsider) fail(409, "job_not_reprocessable", "Only a completed or capture-filtered current memory event can be reprocessed");
       if (!e.content || !this.eventCurrent(e)) fail(409, "source_unavailable", "Original memory content is no longer available");
       if (this.store.one(`SELECT 1 FROM memory_jobs j JOIN memory_events x ON x.id=j.event_pk WHERE x.workspace_id=? AND x.agent_id=? AND x.thread_id=? AND j.status='running'`,e.workspace_id,agent,e.thread_id))
         fail(409, "conversation_busy", "Conversation has active curation; retry after its current claim");
       const job_id = id("mjob"), at = now();
       this.store.run("INSERT INTO memory_jobs (id,event_pk,status,available_at,created_at) VALUES (?,?,'queued',?,?)",job_id,e.id,Date.now(),at);
-      this.store.run("INSERT INTO memory_reprocess_requests VALUES (?,?,?,?,?,?,?,?)",job_id,previous_job_id,e.id,a.id,reason,memoryPromptHash(!!this.inference.reconcile),e.processed_at,at);
+      if (completed)
+        this.store.run("INSERT INTO memory_reprocess_requests VALUES (?,?,?,?,?,?,?,?)",job_id,previous_job_id,e.id,a.id,reason,memoryPromptHash(!!this.inference.reconcile),e.processed_at,at);
+      else
+        this.store.run("INSERT INTO memory_reconsider_requests VALUES (?,?,?,?,?,?,?,?)",job_id,previous_job_id,e.id,a.id,reason,memoryPromptHash(!!this.inference.reconcile),e.accepted_at,at);
       // Keep source identity/content/roots, original accepted time, old job and
       // metrics, existing knowledge and recorded history. Only memory digestion
       // is queued; no original tool/action is executable through this route.
       this.store.run("UPDATE memory_events SET status='pending',job_id=? WHERE id=?",job_id,e.id);
-      return {job_id,previous_job_id,event_id:e.event_id,revision:e.revision,status:"queued",memory_only:true};
+      return {job_id,previous_job_id,event_id:e.event_id,revision:e.revision,status:"queued",memory_only:true,reconsidered:reconsider};
     });
+  }
+  async reviewAdmission(a:Actor, agent:string, previous_job_id:string, memory_id:string, expected_revision:unknown, reason_code:unknown) {
+    this.authorize(a,agent,'read'); this.authorize(a,agent,'write');
+    const revision=integer(expected_revision,'expected_revision',1,Number.MAX_SAFE_INTEGER);
+    const reason=text(reason_code,'reason_code',80);
+    if(!/^[a-z0-9_-]+$/.test(reason))fail(400,'invalid_request','reason_code must be a non-content diagnostic identifier');
+    if(reason!=='session_local_owner_correction')fail(400,'invalid_request','This bounded demotion requires the owner session-local correction reason');
+    const e=this.store.one(`SELECT e.*,j.status AS job_status FROM memory_jobs j JOIN memory_events e ON e.id=j.event_pk JOIN memory_heads h ON h.event_pk=e.id WHERE j.id=? AND e.workspace_id=? AND e.agent_id=? AND e.operation='upsert'`,previous_job_id,a.workspace_id,agent);
+    if(!e)fail(404,'not_found','Current source job not found');
+    if(e.revision!==revision)fail(409,'revision_conflict','Memory event revision changed');
+    if(e.job_status!=='succeeded'||e.status!=='processed')fail(409,'job_not_reviewable','Only a completed source job can be admission-reviewed');
+    if(!this.eventCurrent(e))fail(409,'source_unavailable','Original memory source revision is no longer current');
+    const m=this.store.one(`SELECT m.* FROM memories m JOIN memory_supports s ON s.memory_id=m.id AND s.event_pk=? WHERE m.id=? AND m.workspace_id=? AND m.scope IN ('user:alex','business:alex')`,e.id,memory_id,a.workspace_id);
+    if(!m)fail(404,'not_found','Shared memory supported by this source was not found');
+    const readable=this.authorize(a,agent,'read'),writable=this.authorize(a,agent,'write');
+    if(!readable.includes(m.scope)||!writable.includes(m.scope))fail(403,'memory_grant_required','Shared memory read/write grant required');
+    const previous=this.auditPrevious(e,readable,5);
+    const result={choice:'session_context',confidence:1,model:'owner_directive',elapsed_ms:0};
+    const proof=admissionProof('admission_review',e.job_id?{id:e.job_id}:{id:previous_job_id},e,previous,result,{memory_id,reason});
+    return this.store.transaction(()=>{
+      if(!this.eventCurrent(e))fail(409,'curation_context_changed','Source changed during admission review',true);
+      const currentReadable=this.authorize(a,agent,'read'),currentWritable=this.authorize(a,agent,'write');
+      if(!currentReadable.includes(m.scope)||!currentWritable.includes(m.scope))fail(403,'memory_grant_required','Shared memory grant changed');
+      const prior=this.store.one('SELECT r.id,d.reason_code,d.recorded_at FROM memory_admission_reviews r JOIN memory_admission_demotions d ON d.review_id=r.id WHERE r.memory_id=? AND r.proof_sha256=?',memory_id,proof);
+      if(prior)return{review_id:prior.id,memory_id,decision:result.choice,model:result.model,confidence:result.confidence,demoted:true,proof_sha256:proof,recorded_at:prior.recorded_at};
+      if(this.store.one('SELECT 1 FROM memory_admission_demotions WHERE memory_id=?',memory_id))fail(409,'admission_already_demoted','Memory already has a supported admission demotion');
+      const review_id=id('admissionreview'),at=now();
+      this.store.run('INSERT INTO memory_admission_reviews VALUES (?,?,?,?,?,?,?,?,?,?,?)',review_id,previous_job_id,e.id,memory_id,a.id,result.choice,result.model,result.confidence,proof,result.elapsed_ms,at);
+      const demoted=['session_context','noise'].includes(result.choice);
+      if(demoted)this.store.run('INSERT INTO memory_admission_demotions VALUES (?,?,?,?,?)',memory_id,review_id,reason,proof,at);
+      return{review_id,memory_id,decision:result.choice,model:result.model,confidence:result.confidence,demoted,proof_sha256:proof,recorded_at:at};
+    });
+  }
+  auditPrevious(e:any, readable:string[], limit=5) {
+    return this.store.all(
+      "SELECT e.* FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id WHERE e.workspace_id=? AND e.agent_id=? AND e.thread_id=? AND e.accepted_at<=? AND e.rowid<(SELECT rowid FROM memory_events WHERE id=?) AND e.content IS NOT NULL AND e.status NOT IN ('forgotten','deleted','superseded') ORDER BY e.accepted_at DESC,e.rowid DESC LIMIT ?",
+      e.workspace_id,e.agent_id,e.thread_id,e.accepted_at,e.id,limit,
+    ).filter(x=>this.visibleEvent(x,e.agent_id,readable)).reverse();
   }
   canonicalEntity(workspace:string,scope:string,entity:string,recorded_at=now(),path:string[]=[]):string {
     if(path.includes(entity)||path.length>=16)return entity;
@@ -617,6 +661,8 @@ export class Memory {
   }
   effective(m: any, valid_at: string, recorded_at: string) {
     if (m.recorded_from > recorded_at) return null;
+    const demoted = this.store.one('SELECT recorded_at FROM memory_admission_demotions WHERE memory_id=? AND recorded_at<=?',m.id,recorded_at);
+    if (demoted && !this.store.one("SELECT 1 FROM memory_supports s JOIN memory_events e ON e.id=s.event_pk WHERE s.memory_id=? AND e.role='user' AND e.accepted_at>?",m.id,demoted.recorded_at)) return null;
     const support = this.support(m, recorded_at);
     if (!support.length) return null;
     const changes = activeChanges(this.store,m.id,recorded_at);
@@ -865,10 +911,11 @@ export class Memory {
         fail(409, "memory_context_changed", "Memory changed during recall; request fresh context", true);
     }
     const freshness = this.store.one(`SELECT MAX(e.accepted_at) AS latest_accepted_at,MAX(e.processed_at) AS latest_processed_at,
-      COALESCE(SUM(CASE WHEN e.status='pending' AND e.operation='upsert' AND e.accepted_at<=? AND e.occurred_at<=? THEN 1 ELSE 0 END),0) AS pending_count
+      COALESCE(SUM(CASE WHEN e.status='pending' AND e.operation='upsert' AND e.accepted_at<=? AND e.occurred_at<=? THEN 1 ELSE 0 END),0) AS pending_count,
+      COALESCE(SUM(CASE WHEN e.status='captured' AND e.operation='upsert' AND e.accepted_at<=? AND e.occurred_at<=? THEN 1 ELSE 0 END),0) AS capture_only_count
       FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id
       WHERE e.workspace_id=? AND ((e.agent_id=? AND ?=1) OR (e.role='user' AND e.author_id='alex' AND ?=1))`,
-      recorded_at, valid_at, a.workspace_id, b.agent_id, Number(currentScopes.includes(own(b.agent_id))), Number(currentScopes.includes("user:alex")));
+      recorded_at, valid_at, recorded_at, valid_at, a.workspace_id, b.agent_id, Number(currentScopes.includes(own(b.agent_id))), Number(currentScopes.includes("user:alex")));
     const recall_id = id("recall");
     this.store.run("INSERT INTO memory_recalls VALUES (?,?,?,?,?,?)", recall_id, a.id, b.agent_id, thread_id, JSON.stringify(selected.map(m => m.id)), now());
     return {
@@ -958,7 +1005,7 @@ export class Memory {
     if (!Number.isFinite(days) || days <= 0) return;
     const cutoff = new Date(Date.now() - days * 86400000).toISOString();
     this.store.run(
-      "UPDATE memory_events SET content=NULL,metadata_json=NULL WHERE accepted_at<? AND status IN ('processed','superseded','deleted') AND NOT EXISTS(SELECT 1 FROM memory_jobs j WHERE j.event_pk=memory_events.id AND j.status IN ('queued','running','retry','failed'))",
+      "UPDATE memory_events SET content=NULL,metadata_json=NULL WHERE accepted_at<? AND (status IN ('processed','superseded','deleted') OR (status='captured' AND role='tool')) AND NOT EXISTS(SELECT 1 FROM memory_jobs j WHERE j.event_pk=memory_events.id AND j.status IN ('queued','running','retry','failed'))",
       cutoff,
     );
   }
@@ -1015,6 +1062,34 @@ export class MemoryWorker {
         return true;
       }
       const { e, a, scopes } = live;
+      const readable = this.memory.authorize(a, e.agent_id, "read");
+      const auditPrevious = this.memory.auditPrevious(e, readable, 5);
+      const auditState = auditorState(e, auditPrevious);
+      let admission = this.store.one('SELECT * FROM memory_event_admissions WHERE job_id=?', j.id);
+      if (!admission && this.inference.audit) {
+        let result: any;
+        try { result = await this.inference.audit(auditState); }
+        catch (error) {
+          if (error instanceof ApiError && error.code === 'jev_unconfigured') throw error;
+          result = { choice:'unavailable', confidence:0, probabilities:{}, model:error instanceof ApiError?error.code:'jev_unavailable', elapsed_ms:0 };
+        }
+        if (result) {
+          if (!['durable_candidate','session_episode','session_context','noise','uncertain','unavailable'].includes(result.choice))
+            fail(503,'jev_invalid_decision','JEV admission decision is invalid',true);
+          const proof = admissionProof('admission',j,e,auditPrevious,result);
+          admission = { decision: result.choice, model: result.model, confidence: result.confidence, proof_sha256: proof, elapsed_ms: result.elapsed_ms };
+          this.store.transaction(() => {
+            if (!this.live(j)) return;
+            this.store.run('INSERT INTO memory_event_admissions VALUES (?,?,?,?,?,?,?,?)',j.id,e.id,result.choice,result.model,result.confidence,proof,result.elapsed_ms,now());
+            if (['session_context','noise'].includes(result.choice) && !auditState.latest.content_truncated) {
+              this.store.run("UPDATE memory_events SET status='captured',processed_at=NULL WHERE id=?",e.id);
+              this.finish(j,'skipped');
+            }
+          });
+        }
+      }
+      if (admission && ['session_context','noise'].includes(admission.decision) && !auditState.latest.content_truncated) return true;
+      if (!this.live(j)) return this.cancel(j);
       const started = performance.now();
       const offset = this.store.one("SELECT offset_chars FROM memory_chunk_progress WHERE event_pk=?", e.id)?.offset_chars ?? 0;
       const content: string = e.content ?? "";
@@ -1027,7 +1102,6 @@ export class MemoryWorker {
         if (boundary >= 0) end = offset + 3000 + boundary + 1;
         if (/[\uD800-\uDBFF]/.test(content[end - 1] ?? "")) end--;
       }
-      const readable = this.memory.authorize(a, e.agent_id, "read");
       const recent = this.store.all(
         "SELECT e.* FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id WHERE e.workspace_id=? AND e.agent_id=? AND e.thread_id=? AND e.accepted_at<=? AND e.rowid<(SELECT rowid FROM memory_events WHERE id=?) AND e.content IS NOT NULL AND e.status NOT IN ('forgotten','deleted','superseded') ORDER BY e.accepted_at DESC,e.rowid DESC LIMIT 2",
         e.workspace_id, e.agent_id, e.thread_id, e.accepted_at, e.id,
@@ -1042,6 +1116,49 @@ export class MemoryWorker {
           lineage: this.store.all("SELECT parent_id,parent_version FROM memory_lineage WHERE child_id=?", m.id) });
       }
       candidates.splice(12);
+      let graphArea: string | null = null;
+      const routedCandidateIds: string[] = [];
+      if (this.inference.routeGraphArea && candidates.length) {
+        const areas = candidates.slice(0,8).map((c,index)=>({id:`area_${index}`,label:`${c.scope}: ${c.subject} (${c.kind})`.slice(0,240),scope:c.scope,subject:c.subject}));
+        let result: any;
+        try { result = await this.inference.routeGraphArea({state:auditState,areas:areas.map(({id,label})=>({id,label}))}); }
+        catch (error) { result = { choice:'unavailable', confidence:0, probabilities:{}, model:error instanceof ApiError?error.code:'jev_unavailable', elapsed_ms:0 }; }
+        if (result) {
+          const valid = new Set([...areas.map(a=>a.id),'none','uncertain','unavailable']);
+          if (!valid.has(result.choice)) fail(503,'jev_invalid_decision','JEV graph-area decision is invalid',true);
+          graphArea = result.choice === 'unavailable' ? 'uncertain' : result.choice;
+          const proof = admissionProof('graph_area',j,e,auditPrevious,result,areas.map(({id,label})=>({id,label})));
+          this.store.transaction(() => {
+            if (!this.live(j)) return;
+            const route = routeRecord('graph_area',result.choice,result,proof);
+            this.store.run('INSERT INTO memory_jev_routes VALUES (?,?,?,?,?,?,?,?,?,?,?)',id('jevroute'),j.id,e.id,route.kind,route.target_id,route.decision,route.model,route.confidence,route.proof_sha256,route.elapsed_ms,now());
+          });
+          if (result.choice !== 'uncertain' && result.choice !== 'none' && result.choice !== 'unavailable') {
+            const selected = areas.find(a=>a.id===result.choice)!;
+            candidates.sort((a,b)=>Number(b.scope===selected.scope&&b.subject===selected.subject)-Number(a.scope===selected.scope&&a.subject===selected.subject));
+          }
+        }
+      }
+      if (this.inference.auditRelationship && candidates.length) {
+        const evaluated = candidates.slice(0,Math.min(6,candidates.length));
+        const settled = await Promise.allSettled(evaluated.map(c=>this.inference.auditRelationship!({...auditState,candidate:{id:c.id,scope:c.scope,subject:c.subject,predicate:c.predicate,object:c.object,valid_from:c.valid_from,valid_to:c.valid_to}})));
+        const results = settled.map((result:any) => result.status === 'fulfilled' ? result.value : { choice:'unavailable', confidence:0, probabilities:{}, model:result.reason instanceof ApiError?result.reason.code:'jev_unavailable', elapsed_ms:0 });
+        const rejected = new Set<string>();
+        this.store.transaction(() => {
+          if (!this.live(j)) return;
+          for (let index=0;index<evaluated.length;index++) {
+            const c=evaluated[index],result=results[index];
+            if (!result) { routedCandidateIds.push(c.id); continue; }
+            if (!['relevant','irrelevant','uncertain','unavailable'].includes(result.choice)) fail(503,'jev_invalid_decision','JEV relationship decision is invalid',true);
+            const proof=admissionProof('relationship',j,e,auditPrevious,result,{id:c.id,scope:c.scope});
+            const route=routeRecord('relationship',c.id,result,proof);
+            this.store.run('INSERT INTO memory_jev_routes VALUES (?,?,?,?,?,?,?,?,?,?,?)',id('jevroute'),j.id,e.id,route.kind,route.target_id,route.decision,route.model,route.confidence,route.proof_sha256,route.elapsed_ms,now());
+            if (result.choice==='irrelevant') rejected.add(c.id); else routedCandidateIds.push(c.id);
+          }
+        });
+        if (rejected.size) for (let index=candidates.length-1;index>=0;index--) if (rejected.has(candidates[index].id)) candidates.splice(index,1);
+      }
+      if (!this.live(j)) return this.cancel(j);
       const knownRowid = this.store.one("SELECT COALESCE(MAX(rowid),0) AS n FROM memories").n;
       const cadence = positiveSetting("CONSOLIDATE_EVERY", 16);
       const processed = this.store.one("SELECT COUNT(*) AS n FROM memory_events WHERE workspace_id=? AND status='processed'", e.workspace_id).n;
@@ -1049,6 +1166,8 @@ export class MemoryWorker {
       // sees only the focused fragment plus explicitly explanatory continuity.
       const input = {
         schema_version: 1, consolidation_due: candidates.length >= 3 && (processed + 1) % cadence === 0,
+        jev: { admission: admission?.decision ?? 'not_evaluated', graph_area: graphArea, routed_candidate_ids: routedCandidateIds, source_excerpt_truncated: auditState.latest.content_truncated,
+          session_contract: admission?.decision === 'session_episode' ? 'JEV suggests a session-scoped episode. Independently decide durable/session/history/correction/noise; do not globalize a session-local instruction unless the source explicitly supports a standing preference.' : null },
         system_prompt: this.inference.reconcile ? EXTRACT_PROMPT : CURATE_PROMPT,
         event: { event_id: e.event_id, agent_id: e.agent_id, role: e.role, author_id: e.author_id,
           occurred_at: e.occurred_at, observed_at: e.observed_at, content: content.slice(offset, end),
