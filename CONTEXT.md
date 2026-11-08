@@ -1,5 +1,20 @@
 # Current project context
 
+## Failed-current execution owner exclusion — 2026-11-08
+
+Source task t_0ebd3ba0 narrowly extends `execution_content_owner_exclusion`: besides the existing
+succeeded+processed state, it accepts the exact current failed job with a still-pending current
+source event and retained direct `memory_supports`. The job must be `memory_events.job_id` at the
+current head; expected revision and affected read/write grants remain mandatory.
+`session_local_owner_correction` retains its completed-only gate. Review remains deterministic
+`owner_directive`: no JEV/Luna call, retry, execution replay, source/job/memory/support mutation or
+replacement memory. Pre-demotion history remains, and later genuine communication restores only at
+or after its accepted time rather than rewriting the demoted recorded interval. Source verification
+is165tests/1562assertions, focused admission/communication/provider23tests/359assertions and
+typecheck on pinned Bun1.4.4. Builder performed no production/provider/DB action. Overwatch
+t_b7e29b89 retains sole activation and bounded residual demotion; receipt task t_a16c3e71 remains
+separate and gated after that activation lane.
+
 ## Native API provider, communication-only admission and availability holds — 2026-11-08
 
 Source task t_dda54603 adds a direct regular OpenAI Responses native route alongside the existing

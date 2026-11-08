@@ -1,0 +1,41 @@
+bun test v1.4.4 (38afee6c8)
+
+tests/native-openai.test.ts:
+(pass) native API credential selects direct regular OpenAI Responses with the dedicated project and no OAuth runtime [6.46ms]
+(pass) direct OpenAI payment/capacity responses share native hold classification without persisting response bodies [0.72ms]
+
+tests/jev.test.ts:
+(pass) every JEV request carries exactly one typed question and one validated answer [4.61ms]
+(pass) a multi-answer response is rejected instead of being relabelled as a single decision [2.18ms]
+(pass) JEV 402 is a sanitized nonretryable payment outcome with Retry-After guidance [1.66ms]
+(pass) question builders never combine admission, graph area and relationship judgments [0.06ms]
+
+tests/communication-boundary.test.ts:
+(pass) admission accepts only Alex/agent and agent/agent communication and creates no tool-event source or job [45.36ms]
+(pass) legacy execution rows stay unchanged and unclaimed, never enter provider context, and support proof-bound demotion [15.35ms]
+(pass) failed current execution sources demote deterministically without provider, retry or base-row mutation and retain restoration semantics [14.57ms]
+(pass) failed-current execution demotion retains exact current job, revision, direct support, grant and status fences [5.26ms]
+
+tests/provider-availability.test.ts:
+(pass) Luna capacity preserves attempts and terminal rows, blocks all memory claims, and admits one recovery probe [121.57ms]
+(pass) JEV 402 opens only a bounded JEV circuit, fails open to Luna, and recovers after one real success [152.42ms]
+(pass) ordinary retryable and schema errors retain bounded per-job attempts without opening a provider hold [29.96ms]
+
+tests/native-luna.test.ts:
+(pass) direct OAuth HTTP/SSE uses no tools and validates the exact model and output [2.56ms]
+(pass) expired OAuth refreshes once with identity preservation and recovers an abandoned lock [4.68ms]
+(pass) Luna throttling propagates exact bounded reset guidance and a valid token survives an ambiguous refresh marker [1.10ms]
+
+tests/sustained-dreaming.test.ts:
+(pass) JEV filters only complete context/noise; truncated negatives and useful session episodes reach Luna [58.84ms]
+(pass) capture-filtered source supports audited reconsideration without changing old history [11.00ms]
+(pass) graph-area and each relationship use separate typed calls and only irrelevant candidates are removed [13.00ms]
+(pass) unavailable JEV routing is audited as uncertain and never blocks Luna from retained candidates [13.60ms]
+(pass) unavailable admission transport is audited and Luna still decides the captured source [9.41ms]
+(pass) owner-directed demotion hides shared recall but preserves history and allows later user-supported restoration [12.95ms]
+(pass) bounded conversation focus drains coherent owner turns and rotates without starving inherited work [52.88ms]
+
+ 23 pass
+ 0 fail
+ 359 expect() calls
+Ran 23 tests across 6 files. [767.00ms]

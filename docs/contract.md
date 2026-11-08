@@ -204,16 +204,21 @@ admission history, source content, roots, revision or existing knowledge.
 `POST /v1/memory/jobs/:job_id/admission-review` requires normal authentication, Idempotency-Key,
 `{agent_id,memory_id,expected_revision,reason_code}` and current affected-scope read/write grants.
 The accepted reasons are `session_local_owner_correction` and `execution_content_owner_exclusion`.
-The completed current source revision must directly support the named memory through retained
-`memory_supports`; raw source content is not required for this deterministic demotion. Session-local
+The exact named job must be the current job for the current source head, with the expected revision,
+and that source revision must directly support the named memory through retained `memory_supports`;
+raw source content is not required for this deterministic demotion. `session_local_owner_correction`
+still requires a succeeded job and processed source. `execution_content_owner_exclusion` accepts that
+completed state and additionally a failed current job whose current source event remains pending, so
+retained partial direct support can be excluded without retrying the failed digestion. Session-local
 correction targets `user:alex`/`business:alex`; execution exclusion additionally covers the bound
 agent's private scope under current grants. The operation appends an `owner_directive` review and
 demotion proof; it does not call a new model, execute the original action, alter the source/job/
 memory/support rows or synthesize a replacement memory. Post-demotion graph/recall excludes that
-derived claim while pre-demotion recorded history remains inspectable. Later independently supported
-user evidence can restore shared claims; agent-private execution exclusions can instead be restored
-by genuine user/assistant/inter_agent communication. These bounded owner-directed reasons are not
-arbitrary caller-authored fact editing.
+derived claim while pre-demotion recorded history remains inspectable. A later restoration is visible
+only at/after its accepted time and does not rewrite the intervening demoted history. Later
+independently supported user evidence can restore shared claims; agent-private execution exclusions
+can instead be restored by genuine user/assistant/inter_agent communication. These bounded
+owner-directed reasons are not arbitrary caller-authored fact editing.
 
 ### Processing-decision consistency and supported repair
 

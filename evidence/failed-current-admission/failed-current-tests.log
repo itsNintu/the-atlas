@@ -1,0 +1,12 @@
+bun test v1.4.4 (38afee6c8)
+
+tests/communication-boundary.test.ts:
+(pass) admission accepts only Alex/agent and agent/agent communication and creates no tool-event source or job [44.00ms]
+(pass) legacy execution rows stay unchanged and unclaimed, never enter provider context, and support proof-bound demotion [14.32ms]
+(pass) failed current execution sources demote deterministically without provider, retry or base-row mutation and retain restoration semantics [14.37ms]
+(pass) failed-current execution demotion retains exact current job, revision, direct support, grant and status fences [4.98ms]
+
+ 4 pass
+ 0 fail
+ 71 expect() calls
+Ran 4 tests across 1 file. [257.00ms]

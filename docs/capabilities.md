@@ -54,20 +54,24 @@ content follows RAW_RETENTION_DAYS; original owner and assistant message content
 retained for reconsideration.
 
 `POST /v1/memory/jobs/:job_id/admission-review` is the bounded owner-directed correction for
-session/global admission errors and execution-derived content. With current source revision and
-affected read/write grants, `session_local_owner_correction` handles shared claims and
-`execution_content_owner_exclusion` handles affected own/shared claims. Each appends an
-`owner_directive` review and demotion proof; no new model vote, source replay or SQL deletion
-is involved. Post-review recall/graph projections exclude that derived claim while pre-review
-recorded history remains inspectable. Shared restoration requires later genuine user support;
-agent-private execution exclusions can use later genuine communication.
+session/global admission errors and execution-derived content. It requires the exact current job and
+source-head revision, direct retained `memory_supports` provenance and affected read/write grants.
+`session_local_owner_correction` handles completed shared claims and keeps its succeeded+processed
+requirement. `execution_content_owner_exclusion` handles affected own/shared claims and additionally
+accepts a failed current job with a still-pending source event, including retained partial support.
+Each appends an `owner_directive` review and demotion proof; no new model vote, failed-job retry,
+source replay or SQL deletion is involved. Post-review recall/graph projections exclude that derived
+claim while pre-review recorded history remains inspectable. Shared restoration requires later
+genuine user support; agent-private execution exclusions can use later genuine communication.
+Restoration is bounded by the requested recorded time, so later support cannot rewrite the demoted
+interval.
 
 Additive audit tables are `memory_event_admissions`, `memory_jev_routes`,
 `memory_admission_reviews`, `memory_admission_demotions`, `memory_reconsider_requests` and
 `memory_conversation_focus`; `memory_provider_holds` stores only sanitized availability state. Existing source/event/job/memory/support identities and terminal
 job effects remain. A synthetic direct OAuth/SSE probe completed valid `{"decisions":[]}` on
 `gpt-6-luna` in3.019s (88input/9output tokens), with no agent runtime or tools. Source
-verification:163tests/1517assertions and typecheck pass; prior frozen-install and real on-disk
+verification:165tests/1562assertions and typecheck pass; prior frozen-install and real on-disk
 pinned-Bun HTTP/CLI E2E evidence is reused for unchanged paths. Live JEV and current-conversation activation outcomes remain Overwatch
 `t_05e9321c`; no production activation, global queue-empty or universal semantic claim is made.
 

@@ -582,10 +582,12 @@ export class Memory {
     if(!['session_local_owner_correction','execution_content_owner_exclusion'].includes(reason))fail(400,'invalid_request','Unsupported owner-directed admission review reason');
     const executionExclusion=reason==='execution_content_owner_exclusion';
     const reviewScopes=executionExclusion?['user:alex','business:alex',own(agent)]:['user:alex','business:alex'];
-    const e=this.store.one(`SELECT e.*,j.status AS job_status FROM memory_jobs j JOIN memory_events e ON e.id=j.event_pk JOIN memory_heads h ON h.event_pk=e.id WHERE j.id=? AND e.workspace_id=? AND e.agent_id=? AND e.operation='upsert'`,previous_job_id,a.workspace_id,agent);
+    const e=this.store.one(`SELECT e.*,j.status AS job_status FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id JOIN memory_jobs j ON j.id=e.job_id AND j.event_pk=e.id WHERE j.id=? AND e.workspace_id=? AND e.agent_id=? AND e.operation='upsert'`,previous_job_id,a.workspace_id,agent);
     if(!e)fail(404,'not_found','Current source job not found');
     if(e.revision!==revision)fail(409,'revision_conflict','Memory event revision changed');
-    if(e.job_status!=='succeeded'||e.status!=='processed')fail(409,'job_not_reviewable','Only a completed source job can be admission-reviewed');
+    const completed=e.job_status==='succeeded'&&e.status==='processed';
+    const failedExecution=executionExclusion&&e.job_status==='failed'&&e.status==='pending';
+    if(!completed&&!failedExecution)fail(409,'job_not_reviewable','Only a completed source job or a failed/pending execution exclusion can be admission-reviewed');
     if(!this.eventCurrent(e))fail(409,'source_unavailable','Original memory source revision is no longer current');
     const m=this.store.one(`SELECT m.* FROM memories m JOIN memory_supports s ON s.memory_id=m.id AND s.event_pk=? WHERE m.id=? AND m.workspace_id=? AND m.scope IN (${reviewScopes.map(()=>'?').join(',')})`,e.id,memory_id,a.workspace_id,...reviewScopes);
     if(!m)fail(404,'not_found','Memory with direct source support was not found');
@@ -668,7 +670,7 @@ export class Memory {
     const demoted = this.store.one('SELECT d.recorded_at,d.reason_code FROM memory_admission_demotions d WHERE d.memory_id=? AND d.recorded_at<=?',m.id,recorded_at);
     if (demoted) {
       const restorationRoles = demoted.reason_code === 'execution_content_owner_exclusion' && m.scope.startsWith('agent:') ? "('user','assistant','inter_agent')" : "('user')";
-      if (!this.store.one(`SELECT 1 FROM memory_supports s JOIN memory_events e ON e.id=s.event_pk WHERE s.memory_id=? AND e.role IN ${restorationRoles} AND e.accepted_at>?`,m.id,demoted.recorded_at)) return null;
+      if (!this.store.one(`SELECT 1 FROM memory_supports s JOIN memory_events e ON e.id=s.event_pk WHERE s.memory_id=? AND e.role IN ${restorationRoles} AND e.accepted_at>? AND e.accepted_at<=?`,m.id,demoted.recorded_at,recorded_at)) return null;
     }
     const support = this.support(m, recorded_at);
     if (!support.length) return null;
