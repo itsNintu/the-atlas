@@ -399,5 +399,7 @@ non-agent packet. Unknown predicates remain valid; this is not a closed ontology
 its existing typed pet claim. It can record name history as an entity equivalence, invalidate an exact
 mistaken retraction, and close only that retraction's overgeneralized sibling. It does not replay
 sources, call a provider, or rewrite valid time. Graph reads expose predicate-sourced entity types and
-the original object text, including a superseded name. Activation uses this same endpoint against the
-existing correction source; it does not replay the imported thread or require another approval gate.
+the original object text, including a superseded name. The activated serving commit is
+`85c7b80cd85783b2561c2949933fe749eef48bdd`. Live reconciliation used the existing correction
+source, preserved history, and did not replay intake; evidence is
+`evidence/entity-focused-recall/activation.json`.
