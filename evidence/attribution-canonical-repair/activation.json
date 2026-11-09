@@ -1,0 +1,3236 @@
+{
+  "commit": "6191527ca8e39f32bbcf75bd444731a45950ba98",
+  "backup": "/home/alex/.local/share/the-atlas/backups/t_aa47fb9a-20261109T214044Z",
+  "before": {
+    "at": "2026-11-09T21:40:44.033866+00:00",
+    "commit": "57546331b3f28a1b8071a870f15d21ca95056e54",
+    "service": {
+      "MainPID": "63255",
+      "NRestarts": "0",
+      "ExecMainStartTimestamp": "Mon 2026-11-09 18:36:26 +07",
+      "ActiveState": "active",
+      "SubState": "running"
+    },
+    "counts": {
+      "jobs": {
+        "cancelled": 1,
+        "failed": 40,
+        "running": 1,
+        "skipped": 1459,
+        "succeeded": 230
+      },
+      "holds": [],
+      "events": 19345,
+      "quick_check": "ok"
+    },
+    "job": {
+      "id": "mjob_811b3150-0eca-4f0b-912c-0c4e00b91232",
+      "status": "failed",
+      "attempts": 5,
+      "max_attempts": 5,
+      "error_code": "curator_attribution_violation",
+      "completed_at": "2026-11-09T16:57:45.904Z"
+    },
+    "recalls": [
+      {
+        "name": "work",
+        "query": "What are my current work trial, interview, remote and onsite arrangements with Paradev and Retell?",
+        "http_ms": 103.821,
+        "tokens_used": 212,
+        "service_ms": 100.12142799794674,
+        "embedding_ms": 8.645317003130913,
+        "semantic_status": "available",
+        "memories": [
+          {
+            "id": "memory_f3d4db99-4913-4f32-949b-e782a7bac8fa",
+            "scope": "user:alex",
+            "subject": "Alex",
+            "predicate": "is_interviewing_for",
+            "object": "a new job at a few companies",
+            "historical": false
+          },
+          {
+            "id": "memory_13d17ede-00b6-477b-9e9d-2134e6daa495",
+            "scope": "user:alex",
+            "subject": "Alex",
+            "predicate": "typically_works_with",
+            "object": "early-stage technology startups, usually based in San Francisco",
+            "historical": false
+          },
+          {
+            "id": "memory_cd96361d-dcd9-41b1-84dc-60eb848c9689",
+            "scope": "user:alex",
+            "subject": "Alex",
+            "predicate": "job_title",
+            "object": "Founding Growth",
+            "historical": false
+          },
+          {
+            "id": "memory_8cdd9f99-c6c9-4505-b559-8840135160e1",
+            "scope": "user:alex",
+            "subject": "Alex",
+            "predicate": "works_in",
+            "object": "startup growth",
+            "historical": false
+          },
+          {
+            "id": "memory_4be72690-771b-402a-bbc0-f1a6aed8e409",
+            "scope": "business:alex",
+            "subject": "Alex",
+            "predicate": "aspires_to_build",
+            "object": "his own brand",
+            "historical": false
+          },
+          {
+            "id": "memory_145e05fd-85d1-452c-8ef7-2d6d99478312",
+            "scope": "agent:default",
+            "subject": "Paradev",
+            "predicate": "hiring_context",
+            "object": "Building an in-person San Francisco team; its hiring process ends with a five-day paid work trial.",
+            "historical": false
+          },
+          {
+            "id": "memory_154bc2f0-a3db-43af-87f7-e23414b947bd",
+            "scope": "user:alex",
+            "subject": "Alex",
+            "predicate": "has_final_call_to_discuss",
+            "object": "Compensation and starting a work trial with Paradev",
+            "historical": false
+          },
+          {
+            "id": "memory_47929ac1-a02b-43f5-88f2-d3044c426c62",
+            "scope": "agent:default",
+            "subject": "agent:default",
+            "predicate": "curation_failure_observed",
+            "object": "The final remote-trial message exhausted five curation attempts with curator_attribution_violation; the complete preference for a remote trial first, followed by future onsite work, was not reliably stored.",
+            "historical": false
+          }
+        ]
+      },
+      {
+        "name": "blog_exclusion",
+        "query": "What blog functionality did I exclude from platform features?",
+        "http_ms": 69.331,
+        "tokens_used": 718,
+        "service_ms": 67.90765399485826,
+        "embedding_ms": 5.778818003833294,
+        "semantic_status": "available",
+        "memories": [
+          {
+            "id": "memory_8f9c591a-ce59-4d39-89e1-20f15e29bd54",
+            "scope": "business:alex",
+            "subject": "Alex1568360644204298412",
+            "predicate": "excludes",
+            "object": "blog functionality from platform features",
+            "historical": false
+          },
+          {
+            "id": "memory_1db9d4fb-2a89-4b14-b668-9bd01ba10a58",
+            "scope": "business:alex",
+            "subject": "Alex1568360644204298412",
+            "predicate": "excludes",
+            "object": "blog functionality from Creator Platform features, including blog building, hosting, native blog posts, comments, and moderation",
+            "historical": false
+          },
+          {
+            "id": "memory_709d5c51-3c41-479b-8e51-6cbd4a6d7c15",
+            "scope": "business:alex",
+            "subject": "Alex",
+            "predicate": "excludes",
+            "object": "Blog functionality from platform features, including blog building, hosting, native posts, comments, and moderation; this exclusion does not extend to external-blog marketing.",
+            "historical": false
+          },
+          {
+            "id": "memory_38d0d552-9994-44ac-b530-f05a0bd0aab3",
+            "scope": "business:alex",
+            "subject": "Creator Platform",
+            "predicate": "excludes_from_platform_features",
+            "object": "blog functionality, including blog building, hosting, native blog posts, comments, and moderation",
+            "historical": false
+          },
+          {
+            "id": "memory_ebeff154-067b-4d0d-a124-0040e0bba085",
+            "scope": "business:alex",
+            "subject": "Alex1568360644204298412",
+            "predicate": "excludes_from_platform_features",
+            "object": "blog functionality, including blog building, hosting, native blog posts, comments, and moderation",
+            "historical": false
+          },
+          {
+            "id": "memory_21194930-ca25-433b-abd7-fcfec6c88d29",
+            "scope": "business:alex",
+            "subject": "Alex1568360644204298412",
+            "predicate": "excludes_from_platform_features",
+            "object": "blog functionality, including blog building, hosting, native blog posts, comments, and moderation",
+            "historical": false
+          },
+          {
+            "id": "memory_90737570-be16-4a71-b24d-e7a7da45b731",
+            "scope": "business:alex",
+            "subject": "Creator Platform",
+            "predicate": "excludes",
+            "object": "blog functionality in platform features, including blog building, hosting, native blog posts, comments, and moderation",
+            "historical": false
+          },
+          {
+            "id": "memory_763dbca2-4237-44f7-9b45-7538bb501303",
+            "scope": "business:alex",
+            "subject": "Creator Platform",
+            "predicate": "excludes",
+            "object": "blog functionality, including blog building, hosting, native blog posts, comments, and moderation",
+            "historical": false
+          },
+          {
+            "id": "memory_248030d3-cf30-480a-8765-3254a1116fed",
+            "scope": "business:alex",
+            "subject": "Creator Platform",
+            "predicate": "excludes",
+            "object": "blog functionality, including blog building, hosting, native posts, comments, and moderation",
+            "historical": false
+          },
+          {
+            "id": "memory_16799797-e41b-409d-bbe9-4db4d07cbe43",
+            "scope": "business:alex",
+            "subject": "Creator Platform",
+            "predicate": "excludes",
+            "object": "blog functionality, including blog building, hosting, native posts, comments, and moderation",
+            "historical": false
+          },
+          {
+            "id": "memory_3afa156b-8aea-4584-b211-cc79ac9e4c28",
+            "scope": "business:alex",
+            "subject": "Alex1568360644204298412",
+            "predicate": "prefers_excluding",
+            "object": "Blog functionality from platform features, including blog building, hosting, native blog posts, comments, and moderation",
+            "historical": false
+          }
+        ]
+      },
+      {
+        "name": "dog_name",
+        "query": "What is Alex's dog's name?",
+        "http_ms": 83.406,
+        "tokens_used": 18,
+        "service_ms": 81.2845060005784,
+        "embedding_ms": 5.341679006814957,
+        "semantic_status": "available",
+        "memories": [
+          {
+            "id": "memory_74cdb036-2eb7-4498-94dc-433ee04a5b7a",
+            "scope": "user:alex",
+            "subject": "Alex",
+            "predicate": "has_dog",
+            "object": "Ghosty",
+            "historical": false
+          }
+        ]
+      }
+    ]
+  },
+  "repair": {
+    "operation": "canonical_graph_repair_v1",
+    "proof_sha256": "26be0d4cbe3dd972bf79b5e6150e4213ad35fd676381d994b4697b7ab84ad6e4",
+    "repair_recorded_at": "2026-11-09T21:42:31.504Z",
+    "before": {
+      "active_total": 322,
+      "malformed_owner_active": 11,
+      "blog_exclusion_active": 5,
+      "operational_status_active": 63,
+      "empty_object_active": 0,
+      "wrong_owner_equivalences_active": 2
+    },
+    "after": {
+      "active_total": 257,
+      "malformed_owner_active": 0,
+      "blog_exclusion_active": 1,
+      "operational_status_active": 0,
+      "empty_object_active": 0,
+      "wrong_owner_equivalences_active": 0
+    },
+    "operations": [
+      {
+        "category": "owner_subject",
+        "source_memory_id": "memory_21194930-ca25-433b-abd7-fcfec6c88d29",
+        "canonical_memory_id": "memory_3acf2204-f2db-4059-be27-84509bce3355"
+      },
+      {
+        "category": "owner_subject",
+        "source_memory_id": "memory_5142ea16-6549-4f80-a28f-01c9292e8c71",
+        "canonical_memory_id": "memory_e1a5738c-4aec-4fc8-8d87-09ee0426ba4b"
+      },
+      {
+        "category": "owner_subject",
+        "source_memory_id": "memory_6a2370ed-7b78-4592-95d8-7c3560017e25",
+        "canonical_memory_id": "memory_da9f59cc-6516-4992-b488-b323db0ddfcd"
+      },
+      {
+        "category": "owner_subject",
+        "source_memory_id": "memory_89e96608-f09b-4589-87da-f76c6977619b",
+        "canonical_memory_id": "memory_e67bbe1d-9189-4709-82c4-b8da6e305e6f"
+      },
+      {
+        "category": "owner_subject",
+        "source_memory_id": "memory_9938b931-8cae-4a90-bd13-62b6473c8609",
+        "canonical_memory_id": "memory_1147d639-4b8a-44d0-b96c-5613415c57b2"
+      },
+      {
+        "category": "owner_subject",
+        "source_memory_id": "memory_cc3f1afb-d6f3-4ea7-ae18-5734d9d5b8da",
+        "canonical_memory_id": "memory_99a9f66d-c858-4e73-be80-72276a9cb404"
+      },
+      {
+        "category": "owner_subject",
+        "source_memory_id": "memory_e0ffec92-44bb-4152-9cbb-830b9d1efadb",
+        "canonical_memory_id": "memory_280bb8f8-8836-4e81-9a23-2718455764dd"
+      },
+      {
+        "category": "owner_subject",
+        "source_memory_id": "memory_ebeff154-067b-4d0d-a124-0040e0bba085",
+        "canonical_memory_id": "memory_36d17836-a8f9-4fe7-9a7d-7904ace35e3c"
+      },
+      {
+        "category": "atomic_work_relationships",
+        "source_memory_id": "memory_154bc2f0-a3db-43af-87f7-e23414b947bd",
+        "canonical_memory_ids": [
+          "memory_f120d09e-dbef-4813-8cca-d6e7bde44372",
+          "memory_b98788cf-a8f9-4694-b9ff-fa5c70243f9c",
+          "memory_97a13305-ba13-4905-bb15-a2e9ad3faac6"
+        ]
+      },
+      {
+        "category": "blog_exclusion",
+        "canonical_memory_id": "memory_709d5c51-3c41-479b-8e51-6cbd4a6d7c15",
+        "duplicate_memory_ids": [
+          "memory_1db9d4fb-2a89-4b14-b668-9bd01ba10a58",
+          "memory_3afa156b-8aea-4584-b211-cc79ac9e4c28",
+          "memory_8f9c591a-ce59-4d39-89e1-20f15e29bd54",
+          "memory_90737570-be16-4a71-b24d-e7a7da45b731"
+        ]
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_0598bdbb-27cd-4a72-893c-9e6bb6f825c7",
+        "review_id": "admissionreview_060889cf-8cfa-4a78-afed-a2a944fb673d"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_060f656f-110d-4c9b-b325-1c6cc46e0160",
+        "review_id": "admissionreview_5f0b2245-6fd5-49af-bb42-9d4169059701"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_0859c78b-107d-4c19-9194-c105e4ba98c3",
+        "review_id": "admissionreview_74ba78f0-d1da-4cab-9353-53f0e1de3ec5"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_106c0d53-83dd-429d-a0af-d69993354864",
+        "review_id": "admissionreview_b7ba4701-996c-4996-bcaa-bd702ae790fe"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_1082e619-fc8c-4a25-814f-259dc333c65e",
+        "review_id": "admissionreview_070d3dd2-f984-4d64-a5ec-76fa86fd8bd6"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_1d7328ec-4c7e-4e31-80ff-e4e33fda26ac",
+        "review_id": "admissionreview_4fe17d0a-f26b-493b-9447-b1ac94e636c1"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_2a541178-0220-4b48-b0f7-0f50a86e1a60",
+        "review_id": "admissionreview_77d73d52-503b-4fd7-88d3-a439372655b0"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_2b757d38-27e6-4c23-b243-9d54a5020ac3",
+        "review_id": "admissionreview_64cbe52a-4b71-4204-a081-5c67efd945ab"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_2b80d7af-02cf-4823-b725-7a5c897ab083",
+        "review_id": "admissionreview_16633349-6a9d-47b6-99cf-5d8fc13e96ba"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_2cabd0f6-6514-4904-8df0-ffbbccfa5a83",
+        "review_id": "admissionreview_70bada80-5c61-4bc0-bc69-33370b998107"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_30c1e447-3ed9-4b1e-a83d-330a710432e6",
+        "review_id": "admissionreview_16068bf5-b722-42a7-ae4b-2f210a0563b7"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_30fffc8d-8ab5-4954-967f-67783d107125",
+        "review_id": "admissionreview_282cb79e-2f76-4eca-82c7-167c55847dae"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_33d5331d-53be-4516-8cf5-51df317272dc",
+        "review_id": "admissionreview_d51f533e-54cc-44af-88cd-8fb5602b9456"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_3caf2107-805c-429e-8084-1a6f127ac9f2",
+        "review_id": "admissionreview_0db38f8c-f9f6-4b1b-8548-1272252d05c7"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_3f158b62-b978-45f8-a4e7-0bf3d5f2b22d",
+        "review_id": "admissionreview_fa44fee2-9444-4fee-93a9-a87f678182ff"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_3f59eac2-d94a-4240-9250-f4b7fc4ea66f",
+        "review_id": "admissionreview_9947228e-0a08-4c87-abbc-cf8e7b6be579"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_41dd14d3-337d-476c-ab45-010cd3e6f15c",
+        "review_id": "admissionreview_dad7d2af-1e08-481b-bcae-0dc81b8e9c23"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_42dd86d0-2334-4ffa-bbdb-3a3abbc78148",
+        "review_id": "admissionreview_ee760d47-25b8-4710-899b-878df2ed5cc9"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_4314ffb7-57c6-416b-aa2d-06a682ec17b1",
+        "review_id": "admissionreview_3fdf7a7b-5fa2-4ab4-bfa0-203bbb72315a"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_47929ac1-a02b-43f5-88f2-d3044c426c62",
+        "review_id": "admissionreview_9d47669b-0b95-4a22-b7d4-3c34be545ad8"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_4aafea19-38e4-4277-9abe-473bf63fb127",
+        "review_id": "admissionreview_8b95ed2f-581d-4fa9-aced-fdb59bf01599"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_4accbd3d-260c-46ab-93d9-8f2f4e6c2da3",
+        "review_id": "admissionreview_122d694b-1449-4f8b-9fe2-e4ed5cfc3fff"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_57e35bcc-1c4a-4995-8a6f-972fbda03e10",
+        "review_id": "admissionreview_294168bb-f3e2-4eb8-b64b-9dc728a3f7a8"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_59397562-5c31-4eb8-a929-4e2d15475d5b",
+        "review_id": "admissionreview_58e345f3-926d-4fc4-b92c-429fa041490c"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_68336336-559b-4f4e-8e5a-3809fa69f9d5",
+        "review_id": "admissionreview_c6b52a7d-d4f5-4b0c-a2de-97b6f546ecdf"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_710eb585-fc00-496e-85b0-722616fda28b",
+        "review_id": "admissionreview_1824dd84-64c5-4c64-a0b8-8c1f708fbd21"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_735d8485-99d2-44bf-8e1c-7bc0434f7ac7",
+        "review_id": "admissionreview_46758215-7ab5-45bb-8a24-4866cbec2ef9"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_7432c58a-ab61-4b0e-bbec-71b14c526ffe",
+        "review_id": "admissionreview_c9e52aeb-57e4-47f6-b5c1-381b3df26ad0"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_759f2150-3ca5-484a-911b-7d0061f749ef",
+        "review_id": "admissionreview_187ce066-c0ee-49f9-b71d-b23a9f300fcc"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_7982883b-180c-47aa-b8a6-fcc4f4e2d879",
+        "review_id": "admissionreview_b682ce79-9ea7-4a5c-a227-101293ccbbf8"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_7a20b081-cbe5-45b4-9960-063b91dde1cf",
+        "review_id": "admissionreview_59b2c571-6675-4fb6-a80c-1ea66c561445"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_7df6ce28-c220-4648-b48f-8246b655fd11",
+        "review_id": "admissionreview_be4b27d4-04c9-4f5f-8bbd-931c80f76820"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_7e10b220-50e7-4f35-83e8-ba071ebd4e39",
+        "review_id": "admissionreview_466d9532-a2dc-408b-8eb9-49c88e96e3f1"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_7fc3c87a-59d3-4f8f-a488-7c0665b66c45",
+        "review_id": "admissionreview_8d02efca-653d-4d6b-ba4b-220fed0bf3ea"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_80786bd2-f35a-4382-9f2c-54f6e421f5e8",
+        "review_id": "admissionreview_823003a5-1820-4b15-a0b0-e95312c98981"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_8c3b1afc-36cd-4f0c-b2ae-415402c3b760",
+        "review_id": "admissionreview_02bec90f-6357-447b-abc1-7318dc22a9ce"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_8d4aca36-b660-4e6d-84ff-351169aa07d3",
+        "review_id": "admissionreview_7ec1ec5e-7dc1-4f2c-9e39-5c8dc46a46e2"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_99376fa5-541d-4875-94d9-6a5efa4b65eb",
+        "review_id": "admissionreview_13fe757f-9668-469d-8c0f-0d4b63466f70"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_9d84eda3-690f-4451-b987-5d77d80db555",
+        "review_id": "admissionreview_7e8467f6-1a7e-4988-bb93-43574a199669"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_a0afec11-c6fa-47b7-8051-da628b7c5c29",
+        "review_id": "admissionreview_332241e1-b6d3-4b31-84b5-061aeb75be55"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_a63ebc0b-ecce-49de-be7b-a99e638d4437",
+        "review_id": "admissionreview_10db829b-6949-4458-bf8d-679de926dc37"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_a679998d-a468-4f93-8172-b05208cbc587",
+        "review_id": "admissionreview_bdde63a7-b186-42fa-b743-0c45a76058bd"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_a73ead3c-7633-4f70-b531-5f0aa9b29c40",
+        "review_id": "admissionreview_047faf2e-a98d-4b02-ab80-3bb5aa18ace2"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_a962b5a6-76ad-43d1-b37a-41d3e4323dcc",
+        "review_id": "admissionreview_74fb89c2-aa73-4ed4-918d-3250edf05e5b"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_b31adadf-d96f-4aa9-b75b-d251e7242242",
+        "review_id": "admissionreview_27be89fd-63fb-48c1-aa64-d27aadb12ef1"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_c2c7e184-d2ef-4e06-8d5f-789988bd9989",
+        "review_id": "admissionreview_da3db979-6f0c-4552-b2e6-3cb476732b91"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_c37c3803-3648-4b0f-b0ad-29f58ea6e045",
+        "review_id": "admissionreview_8902f893-6080-41f0-8ee4-4f6e0bce6bfa"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_c7217b77-e253-42ed-9fad-773295adf708",
+        "review_id": "admissionreview_e13fa4bc-c2ce-449f-abe7-6d8e27fc9778"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_c8f85b01-465e-4654-b157-41c65ba5bb80",
+        "review_id": "admissionreview_ba418d12-5552-4fe6-93a9-47e9f93e8c97"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_cec6596b-1521-498e-9d5f-181940f6ce54",
+        "review_id": "admissionreview_06429894-15cc-4d09-b59f-5ce525b8820a"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_d4cfc756-61dd-4256-b382-921a15f24a83",
+        "review_id": "admissionreview_33198711-b1b1-4a10-924e-6ab2cddc494e"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_d5744d59-e788-4cdf-8587-b0fd590a8ce3",
+        "review_id": "admissionreview_4ce53f98-d88f-463e-ab79-a6944d71fca4"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_dcbe1df3-0b1b-4775-8c70-7852d79428ca",
+        "review_id": "admissionreview_c27df359-bac2-490a-b7d9-22f2b31f3541"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_de11c8a1-b40c-4d36-9046-37f5207a65df",
+        "review_id": "admissionreview_54b5f668-108d-4b20-a583-44088023f39d"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_e088bc16-3ccf-4a6d-b939-2c9e83cc4062",
+        "review_id": "admissionreview_3e74eba3-20c7-4489-8118-cf10506c5ae3"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_e6986973-74d8-4014-b699-92a794f22bed",
+        "review_id": "admissionreview_b28a4754-d65d-4380-8a02-0dc3b8e1f78e"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_e6ad916c-d194-4e1b-9273-48d8a9d53f6e",
+        "review_id": "admissionreview_d796ffd9-ecb9-4c89-9733-6ec4f8cadba6"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_ea120cb6-86ee-42d5-b2ac-0c052794dc8f",
+        "review_id": "admissionreview_1a722f45-83d6-41e4-82e6-e20c208d2d32"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_eda4863f-ccfa-4d59-8924-43af6f43130a",
+        "review_id": "admissionreview_eacef3a3-8f33-4f03-8ac1-7c4afa9cc569"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_f3437ef3-61db-427d-8375-13750850e53f",
+        "review_id": "admissionreview_845e0756-c64b-45be-90fd-97eb47311f3c"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_f4a14c2c-dfb8-4748-9010-203619724173",
+        "review_id": "admissionreview_d257586f-4e5e-402f-91b9-3c29b877873e"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_f9f0087c-b119-4677-b7bb-996148ef5cb4",
+        "review_id": "admissionreview_60a4a3df-4006-4fd4-8f2f-1624425404ae"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_fea8abd3-7839-4c5c-abeb-551b996c3f0b",
+        "review_id": "admissionreview_0387d8cb-15b3-4180-bdfc-5b5976bc7150"
+      }
+    ],
+    "raw_history_preserved": true,
+    "provider_calls": 0,
+    "foreign_key_check": "ok",
+    "quick_check": "ok",
+    "idempotent_replay": false,
+    "checkpoint": {
+      "busy": 0,
+      "log": 0,
+      "checkpointed": 0
+    },
+    "configuration_preserved": true
+  },
+  "followup_repair": {
+    "operation": "canonical_graph_repair_v1",
+    "proof_sha256": "2abcaec3ecc1229edc6a317d5ed093b40d4c0f40d7207c9acf052b3c127b68be",
+    "repair_recorded_at": "2026-11-09T22:27:49.603Z",
+    "before": {
+      "active_total": 281,
+      "malformed_owner_active": 0,
+      "blog_exclusion_active": 1,
+      "operational_status_active": 0,
+      "empty_object_active": 0,
+      "wrong_owner_equivalences_active": 0
+    },
+    "after": {
+      "active_total": 283,
+      "malformed_owner_active": 0,
+      "blog_exclusion_active": 1,
+      "operational_status_active": 0,
+      "empty_object_active": 0,
+      "wrong_owner_equivalences_active": 0
+    },
+    "operations": [
+      {
+        "category": "context_work_entity_link",
+        "source_memory_id": "memory_cf781da5-06d8-44e3-86bb-59399710bf01",
+        "canonical_memory_id": "memory_e9140769-b775-4859-bc60-22e000e14f1e",
+        "company_memory_id": "memory_2b2a811e-867d-4e3e-91bc-10f67e6316ff"
+      },
+      {
+        "category": "context_work_entity_link",
+        "source_memory_id": "memory_ecbbb368-f6b9-426d-b250-9975e3d6d31c",
+        "canonical_memory_id": "memory_0123a72e-d518-48a6-b5ba-860b183d2f42",
+        "company_memory_id": "memory_2b2a811e-867d-4e3e-91bc-10f67e6316ff"
+      }
+    ],
+    "raw_history_preserved": true,
+    "provider_calls": 0,
+    "foreign_key_check": "ok",
+    "quick_check": "ok",
+    "idempotent_replay": false,
+    "checkpoint": {
+      "busy": 0,
+      "log": 0,
+      "checkpointed": 0
+    },
+    "configuration_preserved": true
+  },
+  "blog_repair": {
+    "operation": "canonical_graph_repair_v1",
+    "proof_sha256": "dad73846c99ab013c9dcabe4806f41f416a785ab7f55b12c8bfe3e0023312109",
+    "repair_recorded_at": "2026-11-09T22:42:34.487Z",
+    "before": {
+      "active_total": 298,
+      "malformed_owner_active": 0,
+      "blog_exclusion_active": 7,
+      "operational_status_active": 0,
+      "empty_object_active": 0,
+      "wrong_owner_equivalences_active": 0
+    },
+    "after": {
+      "active_total": 292,
+      "malformed_owner_active": 0,
+      "blog_exclusion_active": 1,
+      "operational_status_active": 0,
+      "empty_object_active": 0,
+      "wrong_owner_equivalences_active": 0
+    },
+    "operations": [
+      {
+        "category": "blog_exclusion",
+        "canonical_memory_id": "memory_709d5c51-3c41-479b-8e51-6cbd4a6d7c15",
+        "duplicate_memory_ids": [
+          "memory_16799797-e41b-409d-bbe9-4db4d07cbe43",
+          "memory_248030d3-cf30-480a-8765-3254a1116fed",
+          "memory_36d17836-a8f9-4fe7-9a7d-7904ace35e3c",
+          "memory_38d0d552-9994-44ac-b530-f05a0bd0aab3",
+          "memory_3acf2204-f2db-4059-be27-84509bce3355",
+          "memory_763dbca2-4237-44f7-9b45-7538bb501303"
+        ]
+      }
+    ],
+    "raw_history_preserved": true,
+    "provider_calls": 0,
+    "foreign_key_check": "ok",
+    "quick_check": "ok",
+    "idempotent_replay": false,
+    "checkpoint": {
+      "busy": 0,
+      "log": 0,
+      "checkpointed": 0
+    },
+    "configuration_preserved": true
+  },
+  "status_repair": {
+    "operation": "canonical_graph_repair_v1",
+    "proof_sha256": "5ab5da27a3bb2447b018f46fef993aa4a5a51390a7f749079a567ba66e72e4af",
+    "repair_recorded_at": "2026-11-09T22:54:09.131Z",
+    "before": {
+      "active_total": 301,
+      "malformed_owner_active": 0,
+      "blog_exclusion_active": 1,
+      "operational_status_active": 3,
+      "empty_object_active": 0,
+      "wrong_owner_equivalences_active": 0
+    },
+    "after": {
+      "active_total": 298,
+      "malformed_owner_active": 0,
+      "blog_exclusion_active": 1,
+      "operational_status_active": 0,
+      "empty_object_active": 0,
+      "wrong_owner_equivalences_active": 0
+    },
+    "operations": [
+      {
+        "category": "operational_status",
+        "memory_id": "memory_48738892-ebc5-4aa2-8b87-ad156d2be2fb",
+        "review_id": "admissionreview_053b8bf4-fde5-44e3-81c1-172c4ca2e3e4"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_d491db3c-05f3-402e-9867-a8ff626a6860",
+        "review_id": "admissionreview_3a652506-e2f4-429f-8057-05bba6d994c0"
+      },
+      {
+        "category": "operational_status",
+        "memory_id": "memory_d4d89752-880b-4afb-bfbb-53dd12f24dc4",
+        "review_id": "admissionreview_ba7ca52a-ef49-46dc-ad65-0beccb6f6859"
+      }
+    ],
+    "raw_history_preserved": true,
+    "provider_calls": 0,
+    "foreign_key_check": "ok",
+    "quick_check": "ok",
+    "idempotent_replay": false,
+    "checkpoint": {
+      "busy": 0,
+      "log": 0,
+      "checkpointed": 0
+    },
+    "configuration_preserved": true
+  },
+  "retry": {
+    "job_id": "mjob_811b3150-0eca-4f0b-912c-0c4e00b91232",
+    "status": "queued",
+    "http_ms": 92.173
+  },
+  "after": {
+    "at": "2026-11-09T22:54:21.701836+00:00",
+    "service": {
+      "MainPID": "121979",
+      "NRestarts": "0",
+      "ExecMainStartTimestamp": "Tue 2026-11-10 05:54:15 +07",
+      "ActiveState": "active",
+      "SubState": "running"
+    },
+    "counts": {
+      "jobs": {
+        "cancelled": 1,
+        "failed": 41,
+        "running": 1,
+        "skipped": 1582,
+        "succeeded": 252
+      },
+      "holds": [],
+      "events": 19491,
+      "quick_check": "ok"
+    },
+    "job": {
+      "id": "mjob_811b3150-0eca-4f0b-912c-0c4e00b91232",
+      "status": "succeeded",
+      "attempts": 1,
+      "max_attempts": 5,
+      "error_code": null,
+      "completed_at": "2026-11-09T21:44:38.958Z"
+    },
+    "recalls": [
+      {
+        "name": "work",
+        "query": "What are my current work trial, interview, remote and onsite arrangements with Paradev and Retell?",
+        "http_ms": 424.253,
+        "tokens_used": 148,
+        "service_ms": 417.3692430000001,
+        "embedding_ms": 11.074837000000116,
+        "semantic_status": "available",
+        "memories": [
+          {
+            "id": "memory_97a13305-ba13-4905-bb15-a2e9ad3faac6",
+            "scope": "user:alex",
+            "subject": "Alex",
+            "predicate": "plans_work_trial_with",
+            "object": "Paradev",
+            "historical": false
+          },
+          {
+            "id": "memory_0123a72e-d518-48a6-b5ba-860b183d2f42",
+            "scope": "business:alex",
+            "subject": "Alex",
+            "predicate": "expects_remote_work_trial_with",
+            "object": "Paradev",
+            "historical": false
+          },
+          {
+            "id": "memory_ecbbb368-f6b9-426d-b250-9975e3d6d31c",
+            "scope": "business:alex",
+            "subject": "Alex",
+            "predicate": "expects_work_trial_format",
+            "object": "Remote, because Alex doubts the company will pay to bring him there for the trial.",
+            "historical": false
+          },
+          {
+            "id": "memory_b98788cf-a8f9-4694-b9ff-fa5c70243f9c",
+            "scope": "user:alex",
+            "subject": "Alex",
+            "predicate": "has_final_call_with",
+            "object": "Paradev",
+            "historical": false
+          },
+          {
+            "id": "memory_f120d09e-dbef-4813-8cca-d6e7bde44372",
+            "scope": "user:alex",
+            "subject": "Alex",
+            "predicate": "discussing_compensation_with",
+            "object": "Paradev",
+            "historical": false
+          },
+          {
+            "id": "memory_2b2a811e-867d-4e3e-91bc-10f67e6316ff",
+            "scope": "user:alex",
+            "subject": "Alex",
+            "predicate": "interviewing_with",
+            "object": "Paradev",
+            "historical": false
+          },
+          {
+            "id": "memory_280bb8f8-8836-4e81-9a23-2718455764dd",
+            "scope": "business:alex",
+            "subject": "Alex",
+            "predicate": "worked_at",
+            "object": "Retell",
+            "historical": false
+          },
+          {
+            "id": "memory_e9140769-b775-4859-bc60-22e000e14f1e",
+            "scope": "business:alex",
+            "subject": "Alex",
+            "predicate": "expects_future_onsite_with",
+            "object": "Paradev",
+            "historical": false
+          }
+        ]
+      },
+      {
+        "name": "blog_exclusion",
+        "query": "What blog functionality did I exclude from platform features?",
+        "http_ms": 118.369,
+        "tokens_used": 76,
+        "service_ms": 117.06844699999965,
+        "embedding_ms": 6.699421999999686,
+        "semantic_status": "available",
+        "memories": [
+          {
+            "id": "memory_709d5c51-3c41-479b-8e51-6cbd4a6d7c15",
+            "scope": "business:alex",
+            "subject": "Alex",
+            "predicate": "excludes",
+            "object": "Blog functionality from platform features, including blog building, hosting, native posts, comments, and moderation; this exclusion does not extend to external-blog marketing.",
+            "historical": false
+          }
+        ]
+      },
+      {
+        "name": "dog_name",
+        "query": "What is Alex's dog's name?",
+        "http_ms": 282.217,
+        "tokens_used": 18,
+        "service_ms": 280.8443040000002,
+        "embedding_ms": 5.825563999999758,
+        "semantic_status": "available",
+        "memories": [
+          {
+            "id": "memory_74cdb036-2eb7-4498-94dc-433ee04a5b7a",
+            "scope": "user:alex",
+            "subject": "Alex",
+            "predicate": "has_dog",
+            "object": "Ghosty",
+            "historical": false
+          }
+        ]
+      }
+    ],
+    "graphs": {
+      "Alex": {
+        "http_ms": 668.037,
+        "nodes": [
+          {
+            "id": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "label": "Alex",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "person",
+                "relation_id": "memory_0123a72e-d518-48a6-b5ba-860b183d2f42",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "person",
+                "relation_id": "memory_e9140769-b775-4859-bc60-22e000e14f1e",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "person",
+                "relation_id": "memory_ecbbb368-f6b9-426d-b250-9975e3d6d31c",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "person",
+                "relation_id": "memory_280bb8f8-8836-4e81-9a23-2718455764dd",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "person",
+                "relation_id": "memory_99a9f66d-c858-4e73-be80-72276a9cb404",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "person",
+                "relation_id": "memory_da9f59cc-6516-4992-b488-b323db0ddfcd",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "person",
+                "relation_id": "memory_e1a5738c-4aec-4fc8-8d87-09ee0426ba4b",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          },
+          {
+            "id": "entity:b6ba7cd119605d348d1d877ce6283fab1dceca91fba3f0af92e1c7a40d9e1059",
+            "label": "Paradev",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "organization",
+                "relation_id": "memory_0123a72e-d518-48a6-b5ba-860b183d2f42",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "organization",
+                "relation_id": "memory_e9140769-b775-4859-bc60-22e000e14f1e",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          },
+          {
+            "id": "literal:7cc83f3ca44811228ad55df9169b9a43e25c3931d61dd17535c59a00c8a41f0d",
+            "label": "An in-person session at some point in the future if the trial goes well.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:8c29cb4f7b6e9529898e83db5028f0e9c1631304a625f844cec6a642d2a326e0",
+            "label": "Remote, because Alex doubts the company will pay to bring him there for the trial.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "label": "Alex",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "person",
+                "relation_id": "memory_97a13305-ba13-4905-bb15-a2e9ad3faac6",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "person",
+                "relation_id": "memory_b98788cf-a8f9-4694-b9ff-fa5c70243f9c",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "person",
+                "relation_id": "memory_f120d09e-dbef-4813-8cca-d6e7bde44372",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "person",
+                "relation_id": "memory_2b2a811e-867d-4e3e-91bc-10f67e6316ff",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "person",
+                "relation_id": "memory_74cdb036-2eb7-4498-94dc-433ee04a5b7a",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "person",
+                "relation_id": "memory_d8b623f9-f31a-40b8-805c-71824ec473c1",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "person",
+                "relation_id": "memory_24a4d88b-6359-49d6-bde5-d714ccf0302c",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "person",
+                "relation_id": "memory_1ead0149-d5f5-4d4d-a2aa-b8f9c5971d85",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          },
+          {
+            "id": "entity:46c29ff1564a7b2293ed32f11eac57b4b16a3e0787bb472a7fdba0835fec2bb3",
+            "label": "Paradev",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "organization",
+                "relation_id": "memory_97a13305-ba13-4905-bb15-a2e9ad3faac6",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "organization",
+                "relation_id": "memory_b98788cf-a8f9-4694-b9ff-fa5c70243f9c",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "organization",
+                "relation_id": "memory_f120d09e-dbef-4813-8cca-d6e7bde44372",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "organization",
+                "relation_id": "memory_2b2a811e-867d-4e3e-91bc-10f67e6316ff",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          },
+          {
+            "id": "entity:3d3d455c575c3ec8cb273113bc31bcd23461f80b587e525be6f8f32167258a5c",
+            "label": "Retell",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "organization",
+                "relation_id": "memory_280bb8f8-8836-4e81-9a23-2718455764dd",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          },
+          {
+            "id": "literal:0460175588568431baf83f4d97328d397849ee2f0d7227c92b7a96d2d4b50597",
+            "label": "San Francisco, to keep things moving",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:b6ab0bb16f0e29c9bbdc635347dcab9b0b8ff184bc9368ce97ac4cdcea7b87ca",
+            "label": "Atlas entity relationships, categorization/storage, and focused retrieval, with connections to Alex and family relationships",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:db1b35425369e54aa1ee9186d4967771fb80f7197aba20f28dc4a5e97f25a9dd",
+            "label": "After each user message, fetch the latest memory before responding; make retrieval a fast, native-feeling hidden layer so memory-related replies do not say “let me check.” Preserve the existing system behavior otherwise, without adding a blocker or requiring the LLM to be more aware of the retrieval mechanism.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:76e038affee6fd1095b24978cc13db687894da92e3888ffec7214b4fcd3ab9a6",
+            "label": "Remote; Alex does not plan to move to San Francisco.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:65afad307ef773154e159767f18974b3e738d138132c790a3818fda7d4366d6a",
+            "label": "About a month in the office, followed by 3–4 months working remotely from home; Alex described this as a hybrid model on a longer time scale.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:0871b024b92f5867ee7051500d4587dfbb9cda4f5da02debe9f975de1e3cdffc",
+            "label": "For small, straightforward changes such as changing a Hermes setting, it is usually acceptable to assume the change works and let Alex report any issues.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:b335cbe38c0be1eebad87590f83dd0d2c062b6a65682d8cf6c0345498e1f514c",
+            "label": "For UI work, the assistant should test and refine it until it is good.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:4fe9b3ebc47d29b4cfb04bf98f9dee7d089707ee546d0f8272b21a3209e53e45",
+            "label": "Use proportionate testing rather than many redundant tests for basic changes; hand off some tests to Alex or defer them until the end when appropriate.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:12fe338a8ee3ba3b16bff6ee3aa879ab7c17bffecce8b892b85f760aaf7cce2a",
+            "label": "income-generating work",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "entity:e4e74810f40bf0026499214f25b0f6525a4e578ceaf0526f89d357d28825a3b6",
+            "label": "Alex",
+            "kind": "entity",
+            "types": []
+          },
+          {
+            "id": "literal:acd6c3deea5f1b793e01cdd07bebacd2db511f91723c088c8ead89a9a8e654a4",
+            "label": "When Kimi reaches its limit, switch to GPT; add Grok as a fallback; do not change the broader setup.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:1a9f74bf21bacc301181e2a3344f97319fa3fd68072d24b523bc406ac18cc549",
+            "label": "the read-access problem preventing easy retrieval of usage numbers",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:95a358a6176547810b029fa2785910116ae975cff41e21b2154e73a7bac738d6",
+            "label": "Memories should be actively fetched based on the conversation, including current work details when the conversation turns to work.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "entity:06232d8e0f147acecc1484a8f9f0e8bc0ed10884b30aa842a66812fc2ee22d2c",
+            "label": "agent:default",
+            "kind": "entity",
+            "types": []
+          },
+          {
+            "id": "literal:90ce496f3fed056b563ab3405026b9d22e4cf556d7bebd9ed132db3818bc74a6",
+            "label": "Use entity-centric relationships for the dog-name regression case: connect Alex to Ghosty as a pet and Ghosty to Alex’s family; represent a corrected current name while retaining the former name as history; retrieve the direct answer first and stop when answered.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:9bfe7068d963037a12858059b84385f886d3a2231f69725a7d66ae34587f0ccc",
+            "label": "Alex node and family mode through a relationship",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "entity:9bcec38546cc1addeffe7d4484913fbe325c3fd008ad2762e471720d7c009b7d",
+            "label": "Ghosty",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "dog",
+                "relation_id": "memory_74cdb036-2eb7-4498-94dc-433ee04a5b7a",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "pet",
+                "relation_id": "memory_74cdb036-2eb7-4498-94dc-433ee04a5b7a",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          },
+          {
+            "id": "literal:14dc494bbd88893707bc07b0a54c1e65f11b1f4b73efc72235f90d4761bd2947",
+            "label": "Somewhere in southern Vietnam",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "entity:cbc14a52a55168a31f87016b732bda8c2738a5d0f40d7ab72fbb769710e9661e",
+            "label": "Ho Chi Minh City",
+            "kind": "entity",
+            "types": []
+          },
+          {
+            "id": "literal:96f2ecb854c21f4562edffaf67382f22f6d869fe570ccc608db2ca97fd1dbcbb",
+            "label": "A penthouse and a mountain villa",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:8b2823efbaaaad99373ecf5be6165b3b78b2173f595523446e882c7e963409a2",
+            "label": "Independence and relentless pursuit of what she wants",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:d576e3005baa7fdf6d80a7a68ec997122d3ad434b868886cf5e6d393f9d065f5",
+            "label": "he can do anything if he tries hard enough",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:975ef37e2eb68dae26e7e4be15e531ed1edfda93412d671b043845cccfa96ff1",
+            "label": "music and songwriting",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:a89628c8d9d9d694b4672e5e6f2aca22a82b000a1df7014fab25ec8fd284d720",
+            "label": "the plot of Pantheon",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:223631d21b1f24dfc20f12a3b7ded2bd20221922084049dfc40ac4ec60dbbcaf",
+            "label": "It is more likely than not that we are living in a simulation.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:53ffd68a66a4716cef09e882344a36e3ed667792275f49c2c91323a4e826110a",
+            "label": "motorcycles",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:2cc5674eadd802da361e5322c8a0f48aad937f5669e66ab5437259bc56245d16",
+            "label": "the future and whether we live in a simulation",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:6f28a1eee87132c7c1875ae14a997441dbbd316b03e74a3d25834f7c823deb51",
+            "label": "constant attention",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:c728977ee9d1907d407e965f4a7c9fa70cc6e53a903bfe09e9e107ce49c9defc",
+            "label": "famous in five years",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:6387ecaa3540838378419efcaef5eda52d3e4ed007ff72a536a2d6651da7c825",
+            "label": "very difficult to join",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:0166784c58664f254d5d3056762037cc80593ea1a7b86fc90583ef16d0eecf7e",
+            "label": "special perks",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:ec29c72f3341fb068a2f68cf116c476047d863a9a22111df37f592435207968f",
+            "label": "exclusive membership",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:540f03337e3a741b1ff0cbe7fe2c4abea2f3ac9c4da8f6c888266d113ea4617d",
+            "label": "apparel",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:da3cb5d7003793f4424b7e4e1f96329c515f680260de77c5eeefe6b5f822aea6",
+            "label": "a cult-like following",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:d12481961b05852caddf72942deaa21313250f50d98d8f9d3e7e4bb6363673ff",
+            "label": "his own brand",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:002f2284055df672d81f7ecb7ddb22a30abef57090a51d0b19ad4dc368c22bbb",
+            "label": "these kinds of celebrations meaningless and does not really celebrate them",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:26e54e91194871541e9dcb102a48dbde952bf970bda25831874f767d27e7ac32",
+            "label": "New Year, if choosing an annual celebration",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:4f33d08bd7fa219f0df60ef5460c0ccfda8482d3a668cfaa0154beddcca929af",
+            "label": "when in a city, missing the countryside, and vice versa",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:61294e818b8f4ea38da66be7e7f73f17ad861760574dfb1ce43bfd0433276361",
+            "label": "boring small European cities",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:06e5b5a5f1f283e6b90bea8b9eaede4eab10ab8f2d0f8e1e8242ff905ff9cdf8",
+            "label": "cyberpunk-style cities",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:14ab10a56f96016b03ccd1a71c2a5258c9536fe1fc06c969365531811fda1b47",
+            "label": "to stay dry when given the choice",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:622d462c2d53832af026ed4231ed50b4066251b43f8881c4a8c340d6df7714ae",
+            "label": "Dusk or dawn on a clear day",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:3abfe6487d05b8f88420c3d69d6f46d40734e9ea9a50f479dd2c227bd1c8ed7f",
+            "label": "over-planning",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:617deaddec1378b56f84db84ecf4e606d1f70ef389349faf267cb8666a8be028",
+            "label": "being spontaneous over over-planning",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:3877a47889da2d0af17414b04da992bc77efa6091a012b6a325f681b5802ed27",
+            "label": "Generally; Alex starts thinking about what they are reading and gets distracted",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:2f2b3cf2f6ae17d3d49dacd3ddef34f4a3b79f7a7c31ef69a0c998dcbbd46b30",
+            "label": "Sometimes",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:8762e7f8e467c7aa97b387eb525bbe8b8a822bb60f2d323d400bacb36cc78ba1",
+            "label": "computer repairs",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:e21dacda6fbab1798184c0faf5fd3782e41a99433db4c66771aa65cb185a2b83",
+            "label": "Business",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:2cb5f0edf8b5c61b4ee5760e86bd835c779c1ccaa36ece7ec5a8cd28558740ee",
+            "label": "Reckons he is in the global top 5% of his field.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:c7fd30ba65bfbfd7165042dc26f2c0f72b886767d4149290e2090fdbaf3a54ee",
+            "label": "Dropped out of school in grade nine and later earned a college degree.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "entity:96e3fec562b983236207472132fd3615ccbbd373d03cc32809fe508c9d7cd0d5",
+            "label": "Lia",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "person",
+                "relation_id": "memory_d8b623f9-f31a-40b8-805c-71824ec473c1",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          },
+          {
+            "id": "entity:a7538e92be18bbeea642ca576c7817ea8420738dbd675aa5f29cece58620d7bf",
+            "label": "Nona",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "person",
+                "relation_id": "memory_24a4d88b-6359-49d6-bde5-d714ccf0302c",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          },
+          {
+            "id": "literal:6d9d5ea5352fc2beec03337bfaed979de771ecf228a6cb6f59484a5de12e1de3",
+            "label": "never good enough",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:c6a3068ecc631a227d99209d6763f99884b8895391351130d7db5de769ee95cd",
+            "label": "the family life he has built with his wife, baby, and dog",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:82181924bbf16cb79e43a60a81772fbe01bca9dc04ebb74e9fa51c55abd1dcfd",
+            "label": "ask him for permission and thank him",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:d0f927f87c1c39b22d3de80958b758e3399a65b621442ee7d439026550fab7d6",
+            "label": "lead or be the point of authority",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:3521c49c9758cd7953f10e988d4ae4ce9b2d381ae696091fe9b9d715de5a5106",
+            "label": "the centre of attention",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:f5bbf89f44a7f11d5ebd6282ded443014b16bcd9b07d8177ce6ac6232cadae83",
+            "label": "more introverted these days",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "entity:db9190c874995b0a8f8b93b525ecfe62475eb53ca57b3d33be00b391f7a982ec",
+            "label": "Dawn of War IV",
+            "kind": "entity",
+            "types": []
+          },
+          {
+            "id": "entity:3029e83ce34b27c4312a080e2a0c3c3fc12d95c2a82531fa8786b87ff68e2488",
+            "label": "Space Marine 2",
+            "kind": "entity",
+            "types": []
+          },
+          {
+            "id": "entity:74b1b2cd7970a1e3dc1bebc02214a81f3e475650ab4fbd99b369d19996375da3",
+            "label": "Battlefield 6",
+            "kind": "entity",
+            "types": []
+          },
+          {
+            "id": "entity:235c1cb127e0594bfb3c1a87e9dd382b32ce746d5ff3ef3a82ac280380991fef",
+            "label": "Helldivers 2",
+            "kind": "entity",
+            "types": []
+          },
+          {
+            "id": "entity:9af7a62c9febc1298378c5b596d736084923e447094edbd31602d029806e48d8",
+            "label": "Halo",
+            "kind": "entity",
+            "types": []
+          },
+          {
+            "id": "literal:d46fd7229f05ab555771684bc6c96d4609612e4ab107caf1fa851eb2a507f28d",
+            "label": "Gaming activity is intermittent, varying by phase.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "entity:4ecfd689de51fe36ca5326cfc425186fa8eb963a5151a177702972200de5ecc6",
+            "label": "2027 Triumph 798 Speed Triple",
+            "kind": "entity",
+            "types": []
+          },
+          {
+            "id": "entity:891360d9469ca5f0aa14696c624d2514ae190c1f104cdaf051db116742106eff",
+            "label": "2016 KTM Duke 390",
+            "kind": "entity",
+            "types": []
+          },
+          {
+            "id": "entity:dfe05b7ad0c22ddf82725106374b8b54fd63dd95087545d3f573d548023b8994",
+            "label": "2026 Kawasaki ZX6R",
+            "kind": "entity",
+            "types": []
+          },
+          {
+            "id": "literal:7cf4d7d0d11a60b15efcd7ee889bda0ac14d39071251bbca4a418a0c0d73644e",
+            "label": "red, black, white, and grey, including combinations of these colors",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:7986f344a33ae5933505b03c591ed9f552018787f66a690eb6ef1a55916dc22b",
+            "label": "1994-01-20",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:6d48527944750b65d84bb8a8b8376082afd8eabf4fa9678946253c5124356cd6",
+            "label": "Millennial",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:80e898d3b5052fcfff59965fe27ccb7dae06b5bbc95889316ac8c90940e3d127",
+            "label": "Prefers texting and dislikes calls unless they are for a planned meeting.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:301b26d0f7eefcfd5b9c940a488e702602332ecbc7d2e89eecf0445c80186f1a",
+            "label": "daily or every second day",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:3fdb17ccf11fa7de92fb7b32cee6bed68e20f051f2f3bdeacc578b973c0c6b99",
+            "label": "cappuccino or Vietnamese milk coffee",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:124cfd096c584dbb9fddd6d4084f54b78d9e0ebac82cc7ec204de34fbc86ec65",
+            "label": "sugar",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:847f9c10b5766aa691ba0da0a70aaed4076b1dc9e01953c90fa2eb61e53aea5f",
+            "label": "pre-workout or G Fuel",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:4b5a3e349345d1e461b6057ad1ee1123b256b77afb072da39b8d2263d6d77114",
+            "label": "Star Wars show and movie",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:2f829cf091c725a680cd2f356727bbc69d1c8ba66ae4190293e4f7c12f3f89e2",
+            "label": "the future and possible futures, especially semi-science-fiction",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:7a0e94d94b87c31d616e942fb442ec1b756b285d9fb7b7daee275e9c76811b9b",
+            "label": "Edgerunners season 1 and Pantheon",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:b75b9ef9fb2a38f0400d956442ea9d06e04acbf92b5783d3e86119df0292e3f5",
+            "label": "Da Nang gradually",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "entity:4bfcf1a4be3094479b235f7525c3b097ebcdc3e69e3e7e48bcc6c1849e828f32",
+            "label": "Da Nang",
+            "kind": "entity",
+            "types": []
+          },
+          {
+            "id": "literal:6778d8b686b89b3fdb9be3ef96b66cbac35156373a46e29b37b4571c4470492e",
+            "label": "Not very close",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:bc8548c411a1b4504320d356fecd4817fb7b5f91ccf0652d00e040235ff16b1d",
+            "label": "One younger brother",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:cab9f9d90274dc660b18661f6e03f03a83ef281d0fd0751215326a96125fa7ef",
+            "label": "At night, especially due to work and timezone differences with San Francisco",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:a705a517273eb390787cbf5d4afdf885d5f1715494b31a10962a2499c95dbe82",
+            "label": "Mornings and waking before others, especially for the feeling and clean air",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:83c9375c1c3f49e81bab9fcae7626d2fc4b2b533ac579e2f9aaf2afbfe99b4b2",
+            "label": "Beef tartare",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:cf4f565da414c4467ed26fd43badd3ae4d7f28e0618e7c4566a6ec024621fde3",
+            "label": "Pure lemon juice daily",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:dcddfe75378a21598cddab1fb8ee046cc404af94d0b2ad1c1bd9bc21c1004142",
+            "label": "Sour, wasabi, and spicy flavors",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:ece8df9c9390682c557ecc1d8b418c0a122de70068d82100f029d294705f8065",
+            "label": "Enjoys a broad range of music depending on mood, mostly in English or Korean",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:7dcd803fccb7e5095e3aad92f24279f198ef9f599222c906f5be090ec64b68ac",
+            "label": "AI",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:83f04172731674e0f3529e5b02d2044577da5eb95c0adcb08646912cc5460a8c",
+            "label": "technology, mostly software",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:4823f5c4cf2ed2153f4b4e30853aefdb0dd0f7a19efe2238bf913d531fc63cc2",
+            "label": "a hobby separate from work",
+            "kind": "literal",
+            "types": []
+          }
+        ],
+        "edges": [
+          {
+            "id": "memory_0123a72e-d518-48a6-b5ba-860b183d2f42",
+            "predicate": "expects_remote_work_trial_with",
+            "object": "Paradev",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "entity:b6ba7cd119605d348d1d877ce6283fab1dceca91fba3f0af92e1c7a40d9e1059",
+            "sources": 2
+          },
+          {
+            "id": "memory_e9140769-b775-4859-bc60-22e000e14f1e",
+            "predicate": "expects_future_onsite_with",
+            "object": "Paradev",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "entity:b6ba7cd119605d348d1d877ce6283fab1dceca91fba3f0af92e1c7a40d9e1059",
+            "sources": 2
+          },
+          {
+            "id": "memory_cf781da5-06d8-44e3-86bb-59399710bf01",
+            "predicate": "anticipates_in_person_session_if_trial_succeeds",
+            "object": "An in-person session at some point in the future if the trial goes well.",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "literal:7cc83f3ca44811228ad55df9169b9a43e25c3931d61dd17535c59a00c8a41f0d",
+            "sources": 1
+          },
+          {
+            "id": "memory_ecbbb368-f6b9-426d-b250-9975e3d6d31c",
+            "predicate": "expects_work_trial_format",
+            "object": "Remote, because Alex doubts the company will pay to bring him there for the trial.",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "literal:8c29cb4f7b6e9529898e83db5028f0e9c1631304a625f844cec6a642d2a326e0",
+            "sources": 1
+          },
+          {
+            "id": "memory_97a13305-ba13-4905-bb15-a2e9ad3faac6",
+            "predicate": "plans_work_trial_with",
+            "object": "Paradev",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:46c29ff1564a7b2293ed32f11eac57b4b16a3e0787bb472a7fdba0835fec2bb3",
+            "sources": 1
+          },
+          {
+            "id": "memory_b98788cf-a8f9-4694-b9ff-fa5c70243f9c",
+            "predicate": "has_final_call_with",
+            "object": "Paradev",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:46c29ff1564a7b2293ed32f11eac57b4b16a3e0787bb472a7fdba0835fec2bb3",
+            "sources": 1
+          },
+          {
+            "id": "memory_f120d09e-dbef-4813-8cca-d6e7bde44372",
+            "predicate": "discussing_compensation_with",
+            "object": "Paradev",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:46c29ff1564a7b2293ed32f11eac57b4b16a3e0787bb472a7fdba0835fec2bb3",
+            "sources": 1
+          },
+          {
+            "id": "memory_280bb8f8-8836-4e81-9a23-2718455764dd",
+            "predicate": "worked_at",
+            "object": "Retell",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "entity:3d3d455c575c3ec8cb273113bc31bcd23461f80b587e525be6f8f32167258a5c",
+            "sources": 1
+          },
+          {
+            "id": "memory_99a9f66d-c858-4e73-be80-72276a9cb404",
+            "predicate": "may_travel_to",
+            "object": "San Francisco, to keep things moving",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "literal:0460175588568431baf83f4d97328d397849ee2f0d7227c92b7a96d2d4b50597",
+            "sources": 1
+          },
+          {
+            "id": "memory_1147d639-4b8a-44d0-b96c-5613415c57b2",
+            "predicate": "requested_improvements_to",
+            "object": "Atlas entity relationships, categorization/storage, and focused retrieval, with connections to Alex and family relationships",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "literal:b6ab0bb16f0e29c9bbdc635347dcab9b0b8ff184bc9368ce97ac4cdcea7b87ca",
+            "sources": 1
+          },
+          {
+            "id": "memory_e67bbe1d-9189-4709-82c4-b8da6e305e6f",
+            "predicate": "requires_memory_retrieval_flow",
+            "object": "After each user message, fetch the latest memory before responding; make retrieval a fast, native-feeling hidden layer so memory-related replies do not say “let me check.” Preserve the existing system behavior otherwise, without adding a blocker or requiring the LLM to be more aware of the retrieval mechanism.",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "literal:db1b35425369e54aa1ee9186d4967771fb80f7197aba20f28dc4a5e97f25a9dd",
+            "sources": 1
+          },
+          {
+            "id": "memory_da9f59cc-6516-4992-b488-b323db0ddfcd",
+            "predicate": "prefers_work_location",
+            "object": "Remote; Alex does not plan to move to San Francisco.",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "literal:76e038affee6fd1095b24978cc13db687894da92e3888ffec7214b4fcd3ab9a6",
+            "sources": 1
+          },
+          {
+            "id": "memory_e1a5738c-4aec-4fc8-8d87-09ee0426ba4b",
+            "predicate": "work_arrangement_at_Retell",
+            "object": "About a month in the office, followed by 3–4 months working remotely from home; Alex described this as a hybrid model on a longer time scale.",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "literal:65afad307ef773154e159767f18974b3e738d138132c790a3818fda7d4366d6a",
+            "sources": 1
+          },
+          {
+            "id": "memory_1ba4bac4-6917-445f-8392-8037690e2112",
+            "predicate": "prefers_lightweight_verification_for_small_changes",
+            "object": "For small, straightforward changes such as changing a Hermes setting, it is usually acceptable to assume the change works and let Alex report any issues.",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:0871b024b92f5867ee7051500d4587dfbb9cda4f5da02debe9f975de1e3cdffc",
+            "sources": 1
+          },
+          {
+            "id": "memory_959b777b-9689-42de-8d02-7cbbc13c9c75",
+            "predicate": "prefers_ui_work_verified_by_assistant",
+            "object": "For UI work, the assistant should test and refine it until it is good.",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:b335cbe38c0be1eebad87590f83dd0d2c062b6a65682d8cf6c0345498e1f514c",
+            "sources": 1
+          },
+          {
+            "id": "memory_21750f68-18dd-458c-af66-c95610f5092d",
+            "predicate": "prefers_testing_approach",
+            "object": "Use proportionate testing rather than many redundant tests for basic changes; hand off some tests to Alex or defer them until the end when appropriate.",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:4fe9b3ebc47d29b4cfb04bf98f9dee7d089707ee546d0f8272b21a3209e53e45",
+            "sources": 1
+          },
+          {
+            "id": "memory_2b2a811e-867d-4e3e-91bc-10f67e6316ff",
+            "predicate": "interviewing_with",
+            "object": "Paradev",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:46c29ff1564a7b2293ed32f11eac57b4b16a3e0787bb472a7fdba0835fec2bb3",
+            "sources": 1
+          },
+          {
+            "id": "memory_1d1f6b45-c221-47d6-89f2-e4682cab4045",
+            "predicate": "current_activity",
+            "object": "income-generating work",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:12fe338a8ee3ba3b16bff6ee3aa879ab7c17bffecce8b892b85f760aaf7cce2a",
+            "sources": 1
+          },
+          {
+            "id": "memory_96fb1b10-23d5-444d-911c-2a8658af75d8",
+            "predicate": "requested_model_fallback_behavior",
+            "object": "When Kimi reaches its limit, switch to GPT; add Grok as a fallback; do not change the broader setup.",
+            "status": "active",
+            "source": "entity:e4e74810f40bf0026499214f25b0f6525a4e578ceaf0526f89d357d28825a3b6",
+            "target": "literal:acd6c3deea5f1b793e01cdd07bebacd2db511f91723c088c8ead89a9a8e654a4",
+            "sources": 1
+          },
+          {
+            "id": "memory_10c86bc5-162c-4c48-8b12-caa8b37c38ad",
+            "predicate": "wants_resolved_for_future_usage_reporting",
+            "object": "the read-access problem preventing easy retrieval of usage numbers",
+            "status": "active",
+            "source": "entity:e4e74810f40bf0026499214f25b0f6525a4e578ceaf0526f89d357d28825a3b6",
+            "target": "literal:1a9f74bf21bacc301181e2a3344f97319fa3fd68072d24b523bc406ac18cc549",
+            "sources": 1
+          },
+          {
+            "id": "memory_77957a35-824a-45db-b463-68aba28c238f",
+            "predicate": "expects_contextual_memory_retrieval",
+            "object": "Memories should be actively fetched based on the conversation, including current work details when the conversation turns to work.",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:95a358a6176547810b029fa2785910116ae975cff41e21b2154e73a7bac738d6",
+            "sources": 1
+          },
+          {
+            "id": "memory_d3ae8975-5cc5-48b1-87e5-ba6f3f2c0299",
+            "predicate": "recommends_for_memory_design",
+            "object": "Use entity-centric relationships for the dog-name regression case: connect Alex to Ghosty as a pet and Ghosty to Alex’s family; represent a corrected current name while retaining the former name as history; retrieve the direct answer first and stop when answered.",
+            "status": "active",
+            "source": "entity:06232d8e0f147acecc1484a8f9f0e8bc0ed10884b30aa842a66812fc2ee22d2c",
+            "target": "literal:90ce496f3fed056b563ab3405026b9d22e4cf556d7bebd9ed132db3818bc74a6",
+            "sources": 1
+          },
+          {
+            "id": "memory_27da6692-5a2a-4344-9ba1-d9def7d8739a",
+            "predicate": "should_connect_knowledge_to",
+            "object": "Alex node and family mode through a relationship",
+            "status": "active",
+            "source": "entity:06232d8e0f147acecc1484a8f9f0e8bc0ed10884b30aa842a66812fc2ee22d2c",
+            "target": "literal:9bfe7068d963037a12858059b84385f886d3a2231f69725a7d66ae34587f0ccc",
+            "sources": 1
+          },
+          {
+            "id": "memory_74cdb036-2eb7-4498-94dc-433ee04a5b7a",
+            "predicate": "has_dog",
+            "object": "Ghosty",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:9bcec38546cc1addeffe7d4484913fbe325c3fd008ad2762e471720d7c009b7d",
+            "sources": 1
+          },
+          {
+            "id": "memory_1b2ba300-80b7-437e-9b1e-34d5be12357d",
+            "predicate": "prefers mountain villa location",
+            "object": "Somewhere in southern Vietnam",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:14dc494bbd88893707bc07b0a54c1e65f11b1f4b73efc72235f90d4761bd2947",
+            "sources": 1
+          },
+          {
+            "id": "memory_179b3d99-c9ae-49ce-925b-1096ed4933e0",
+            "predicate": "chose_city_for_penthouse",
+            "object": "Ho Chi Minh City",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:cbc14a52a55168a31f87016b732bda8c2738a5d0f40d7ab72fbb769710e9661e",
+            "sources": 1
+          },
+          {
+            "id": "memory_e8a8f42c-1093-4358-8f6c-9095e7f82fee",
+            "predicate": "dream home preference",
+            "object": "A penthouse and a mountain villa",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:96f2ecb854c21f4562edffaf67382f22f6d869fe570ccc608db2ca97fd1dbcbb",
+            "sources": 1
+          },
+          {
+            "id": "memory_e3f2efcf-6b44-4034-b687-84c6517445e6",
+            "predicate": "values he wants to pass on to Lia",
+            "object": "Independence and relentless pursuit of what she wants",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:8b2823efbaaaad99373ecf5be6165b3b78b2173f595523446e882c7e963409a2",
+            "sources": 1
+          },
+          {
+            "id": "memory_a3dae029-faea-4efa-b9f1-84c99394f7d8",
+            "predicate": "believes",
+            "object": "he can do anything if he tries hard enough",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:d576e3005baa7fdf6d80a7a68ec997122d3ad434b868886cf5e6d393f9d065f5",
+            "sources": 1
+          },
+          {
+            "id": "memory_e4ed6d8f-8660-420f-8f4e-342c4b9c2fb2",
+            "predicate": "would choose to instantly master",
+            "object": "music and songwriting",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:975ef37e2eb68dae26e7e4be15e531ed1edfda93412d671b043845cccfa96ff1",
+            "sources": 1
+          },
+          {
+            "id": "memory_81902cd6-4b13-46ff-b416-5e8516d80017",
+            "predicate": "compares_simulation_hypothesis_to",
+            "object": "the plot of Pantheon",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:a89628c8d9d9d694b4672e5e6f2aca22a82b000a1df7014fab25ec8fd284d720",
+            "sources": 1
+          },
+          {
+            "id": "memory_5ddfce9d-333b-44c6-b8f2-557a0e4c4f3a",
+            "predicate": "believes",
+            "object": "It is more likely than not that we are living in a simulation.",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:223631d21b1f24dfc20f12a3b7ded2bd20221922084049dfc40ac4ec60dbbcaf",
+            "sources": 1
+          },
+          {
+            "id": "memory_ab890ddb-1c35-4d70-a569-4ee38bf24b80",
+            "predicate": "enjoys_discussing",
+            "object": "motorcycles",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:53ffd68a66a4716cef09e882344a36e3ed667792275f49c2c91323a4e826110a",
+            "sources": 1
+          },
+          {
+            "id": "memory_16329a17-58da-4c0d-b339-3cbe03c905e2",
+            "predicate": "enjoys_discussing",
+            "object": "the future and whether we live in a simulation",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:2cc5674eadd802da361e5322c8a0f48aad937f5669e66ab5437259bc56245d16",
+            "sources": 1
+          },
+          {
+            "id": "memory_c55026a6-7fb1-4ed4-9974-31c5e9a237cc",
+            "predicate": "wants",
+            "object": "constant attention",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:6f28a1eee87132c7c1875ae14a997441dbbd316b03e74a3d25834f7c823deb51",
+            "sources": 1
+          },
+          {
+            "id": "memory_15ce033a-d33a-4c57-9fba-3c533850a0d2",
+            "predicate": "wants_to_be",
+            "object": "famous in five years",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:c728977ee9d1907d407e965f4a7c9fa70cc6e53a903bfe09e9e107ce49c9defc",
+            "sources": 1
+          },
+          {
+            "id": "memory_db9378de-4474-414e-a61d-5f8151f6a564",
+            "predicate": "wants_his_brand_membership_to_be",
+            "object": "very difficult to join",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "literal:6387ecaa3540838378419efcaef5eda52d3e4ed007ff72a536a2d6651da7c825",
+            "sources": 1
+          },
+          {
+            "id": "memory_d2516111-4878-4b45-892c-f024d53ec6f3",
+            "predicate": "wants_his_brand_membership_to_offer",
+            "object": "special perks",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "literal:0166784c58664f254d5d3056762037cc80593ea1a7b86fc90583ef16d0eecf7e",
+            "sources": 1
+          },
+          {
+            "id": "memory_d90552b0-b519-41af-bbb4-68bf22c14142",
+            "predicate": "wants_his_brand_to_require",
+            "object": "exclusive membership",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "literal:ec29c72f3341fb068a2f68cf116c476047d863a9a22111df37f592435207968f",
+            "sources": 1
+          },
+          {
+            "id": "memory_1b5c7ddf-3e9e-43e1-a4b2-b79eca485e56",
+            "predicate": "wants_his_brand_to_sell",
+            "object": "apparel",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "literal:540f03337e3a741b1ff0cbe7fe2c4abea2f3ac9c4da8f6c888266d113ea4617d",
+            "sources": 1
+          },
+          {
+            "id": "memory_e1d182e7-2d81-4f68-884b-76d282a98552",
+            "predicate": "wants_for_his_brand",
+            "object": "a cult-like following",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "literal:da3cb5d7003793f4424b7e4e1f96329c515f680260de77c5eeefe6b5f822aea6",
+            "sources": 1
+          },
+          {
+            "id": "memory_4be72690-771b-402a-bbc0-f1a6aed8e409",
+            "predicate": "aspires_to_build",
+            "object": "his own brand",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "literal:d12481961b05852caddf72942deaa21313250f50d98d8f9d3e7e4bb6363673ff",
+            "sources": 1
+          },
+          {
+            "id": "memory_7c453586-25bd-401f-84f9-4b5ea6d23f8f",
+            "predicate": "generally considers",
+            "object": "these kinds of celebrations meaningless and does not really celebrate them",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:002f2284055df672d81f7ecb7ddb22a30abef57090a51d0b19ad4dc368c22bbb",
+            "sources": 1
+          },
+          {
+            "id": "memory_516dd5a8-d6fc-45e0-aec4-d76bd615ab77",
+            "predicate": "prefers celebrating",
+            "object": "New Year, if choosing an annual celebration",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:26e54e91194871541e9dcb102a48dbde952bf970bda25831874f767d27e7ac32",
+            "sources": 1
+          },
+          {
+            "id": "memory_bb760917-0d21-4c94-8236-32430f3e72c6",
+            "predicate": "experiences",
+            "object": "when in a city, missing the countryside, and vice versa",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:4f33d08bd7fa219f0df60ef5460c0ccfda8482d3a668cfaa0154beddcca929af",
+            "sources": 1
+          },
+          {
+            "id": "memory_c4fe7eaa-de85-40be-b328-303c7f64b12a",
+            "predicate": "dislikes",
+            "object": "boring small European cities",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:61294e818b8f4ea38da66be7e7f73f17ad861760574dfb1ce43bfd0433276361",
+            "sources": 1
+          },
+          {
+            "id": "memory_c0c5aa09-1696-40be-943e-e05b38735a39",
+            "predicate": "prefers",
+            "object": "cyberpunk-style cities",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:06e5b5a5f1f283e6b90bea8b9eaede4eab10ab8f2d0f8e1e8242ff905ff9cdf8",
+            "sources": 1
+          },
+          {
+            "id": "memory_3f8a53f1-f850-4004-a0d1-3cc0169a1db9",
+            "predicate": "prefers",
+            "object": "to stay dry when given the choice",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:14ab10a56f96016b03ccd1a71c2a5258c9536fe1fc06c969365531811fda1b47",
+            "sources": 1
+          },
+          {
+            "id": "memory_b58132e6-98db-47c9-be73-2bab57cdbc8f",
+            "predicate": "prefers_weather",
+            "object": "Dusk or dawn on a clear day",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:622d462c2d53832af026ed4231ed50b4066251b43f8881c4a8c340d6df7714ae",
+            "sources": 1
+          },
+          {
+            "id": "memory_c692cd7b-6989-4b0a-a7ec-3c18a89a31f4",
+            "predicate": "is_bothered_by",
+            "object": "over-planning",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:3abfe6487d05b8f88420c3d69d6f46d40734e9ea9a50f479dd2c227bd1c8ed7f",
+            "sources": 1
+          },
+          {
+            "id": "memory_efd2ca60-feb9-4060-989e-3a7405f747f1",
+            "predicate": "prefers",
+            "object": "being spontaneous over over-planning",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:617deaddec1378b56f84db84ecf4e606d1f70ef389349faf267cb8666a8be028",
+            "sources": 1
+          },
+          {
+            "id": "memory_99cf5bee-a67f-4e32-9e7c-310adca4eca8",
+            "predicate": "finds it difficult to focus on audio or visual book reading",
+            "object": "Generally; Alex starts thinking about what they are reading and gets distracted",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:3877a47889da2d0af17414b04da992bc77efa6091a012b6a325f681b5802ed27",
+            "sources": 1
+          },
+          {
+            "id": "memory_55be6e27-3c61-4275-a26a-d9c43f7213fa",
+            "predicate": "sometimes goes through phases of reading books frequently",
+            "object": "Sometimes",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:2f2b3cf2f6ae17d3d49dacd3ddef34f4a3b79f7a7c31ef69a0c998dcbbd46b30",
+            "sources": 1
+          },
+          {
+            "id": "memory_2cbbe051-f2ad-4800-8522-aef1918bd4f3",
+            "predicate": "first_job",
+            "object": "computer repairs",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:8762e7f8e467c7aa97b387eb525bbe8b8a822bb60f2d323d400bacb36cc78ba1",
+            "sources": 1
+          },
+          {
+            "id": "memory_444e3d95-1108-479b-8f0b-7bdf2be84eb4",
+            "predicate": "studied_in_college",
+            "object": "Business",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:e21dacda6fbab1798184c0faf5fd3782e41a99433db4c66771aa65cb185a2b83",
+            "sources": 1
+          },
+          {
+            "id": "memory_5fa4b8ca-8ea8-4963-83d7-6a399f1d1c29",
+            "predicate": "self_assessed_professional_standing",
+            "object": "Reckons he is in the global top 5% of his field.",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:2cb5f0edf8b5c61b4ee5760e86bd835c779c1ccaa36ece7ec5a8cd28558740ee",
+            "sources": 1
+          },
+          {
+            "id": "memory_628c800d-746f-4faa-a007-39dc6311a919",
+            "predicate": "education_history",
+            "object": "Dropped out of school in grade nine and later earned a college degree.",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:c7fd30ba65bfbfd7165042dc26f2c0f72b886767d4149290e2090fdbaf3a54ee",
+            "sources": 1
+          },
+          {
+            "id": "memory_d8b623f9-f31a-40b8-805c-71824ec473c1",
+            "predicate": "parent_of",
+            "object": "Lia",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:96e3fec562b983236207472132fd3615ccbbd373d03cc32809fe508c9d7cd0d5",
+            "sources": 1
+          },
+          {
+            "id": "memory_24a4d88b-6359-49d6-bde5-d714ccf0302c",
+            "predicate": "is_married_to",
+            "object": "Nona",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:a7538e92be18bbeea642ca576c7817ea8420738dbd675aa5f29cece58620d7bf",
+            "sources": 1
+          },
+          {
+            "id": "memory_e5044abd-24c1-491c-83dc-be55017fdc6c",
+            "predicate": "feels",
+            "object": "never good enough",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:6d9d5ea5352fc2beec03337bfaed979de771ecf228a6cb6f59484a5de12e1de3",
+            "sources": 1
+          },
+          {
+            "id": "memory_0fe6d4f2-37b7-41d4-9cf5-d79594721e2a",
+            "predicate": "is_proud_of",
+            "object": "the family life he has built with his wife, baby, and dog",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:c6a3068ecc631a227d99209d6763f99884b8895391351130d7db5de769ee95cd",
+            "sources": 1
+          },
+          {
+            "id": "memory_bb4caf6b-08d7-41a5-b53e-a54e29e8420f",
+            "predicate": "expects others to",
+            "object": "ask him for permission and thank him",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:82181924bbf16cb79e43a60a81772fbe01bca9dc04ebb74e9fa51c55abd1dcfd",
+            "sources": 1
+          },
+          {
+            "id": "memory_26e2fc64-eae5-40bb-8fe7-695351a49644",
+            "predicate": "likes to",
+            "object": "lead or be the point of authority",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:d0f927f87c1c39b22d3de80958b758e3399a65b621442ee7d439026550fab7d6",
+            "sources": 1
+          },
+          {
+            "id": "memory_f571cbe1-b4ca-4047-989b-c7c05bc37629",
+            "predicate": "likes being",
+            "object": "the centre of attention",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:3521c49c9758cd7953f10e988d4ae4ce9b2d381ae696091fe9b9d715de5a5106",
+            "sources": 1
+          },
+          {
+            "id": "memory_fa3220ed-dc5c-4115-b039-e18f84ed7abf",
+            "predicate": "describes himself as",
+            "object": "more introverted these days",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:f5bbf89f44a7f11d5ebd6282ded443014b16bcd9b07d8177ce6ac6232cadae83",
+            "sources": 1
+          },
+          {
+            "id": "memory_67945e82-05bb-4513-b908-4ec4290505cb",
+            "predicate": "looks_forward_to_playing",
+            "object": "Dawn of War IV",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:db9190c874995b0a8f8b93b525ecfe62475eb53ca57b3d33be00b391f7a982ec",
+            "sources": 1
+          },
+          {
+            "id": "memory_be54b097-43db-4842-9f11-0204ec72c75c",
+            "predicate": "played",
+            "object": "Space Marine 2",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:3029e83ce34b27c4312a080e2a0c3c3fc12d95c2a82531fa8786b87ff68e2488",
+            "sources": 1
+          },
+          {
+            "id": "memory_f44395f4-bd96-44df-b3e8-eeb2cc745999",
+            "predicate": "played",
+            "object": "Battlefield 6",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:74b1b2cd7970a1e3dc1bebc02214a81f3e475650ab4fbd99b369d19996375da3",
+            "sources": 1
+          },
+          {
+            "id": "memory_00ef9e71-a37c-46ad-9534-14287d1bdb18",
+            "predicate": "played",
+            "object": "Helldivers 2",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:235c1cb127e0594bfb3c1a87e9dd382b32ce746d5ff3ef3a82ac280380991fef",
+            "sources": 1
+          },
+          {
+            "id": "memory_2e89951b-6fed-40d5-b4cc-85f93c336177",
+            "predicate": "played",
+            "object": "Halo",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:9af7a62c9febc1298378c5b596d736084923e447094edbd31602d029806e48d8",
+            "sources": 1
+          },
+          {
+            "id": "memory_2d784882-80d2-4b9f-8772-3e1b9848b174",
+            "predicate": "plays games in phases",
+            "object": "Gaming activity is intermittent, varying by phase.",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:d46fd7229f05ab555771684bc6c96d4609612e4ab107caf1fa851eb2a507f28d",
+            "sources": 1
+          },
+          {
+            "id": "memory_30e6bea3-d6b1-4580-96b2-f3948d421040",
+            "predicate": "is_considering_adding",
+            "object": "2027 Triumph 798 Speed Triple",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:4ecfd689de51fe36ca5326cfc425186fa8eb963a5151a177702972200de5ecc6",
+            "sources": 1
+          },
+          {
+            "id": "memory_676da1fc-253b-40be-8fd1-65900ed8f008",
+            "predicate": "owns",
+            "object": "2016 KTM Duke 390",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:891360d9469ca5f0aa14696c624d2514ae190c1f104cdaf051db116742106eff",
+            "sources": 1
+          },
+          {
+            "id": "memory_cc84ce08-b1e1-4912-b5ad-d49e4dc9213c",
+            "predicate": "owns",
+            "object": "2026 Kawasaki ZX6R",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:dfe05b7ad0c22ddf82725106374b8b54fd63dd95087545d3f573d548023b8994",
+            "sources": 1
+          },
+          {
+            "id": "memory_d4fcaa3f-f8da-4a55-a810-9bd944db914d",
+            "predicate": "prefers_color_palette",
+            "object": "red, black, white, and grey, including combinations of these colors",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:7cf4d7d0d11a60b15efcd7ee889bda0ac14d39071251bbca4a418a0c0d73644e",
+            "sources": 1
+          },
+          {
+            "id": "memory_76c84f63-23a1-47a0-a631-987ccfedd3bc",
+            "predicate": "birth_date",
+            "object": "1994-01-20",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:7986f344a33ae5933505b03c591ed9f552018787f66a690eb6ef1a55916dc22b",
+            "sources": 1
+          },
+          {
+            "id": "memory_232fb8c6-1585-44ef-b80b-46cb34c874a8",
+            "predicate": "generation_identity",
+            "object": "Millennial",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:6d48527944750b65d84bb8a8b8376082afd8eabf4fa9678946253c5124356cd6",
+            "sources": 1
+          },
+          {
+            "id": "memory_8c9e8bf5-73b3-4e89-b875-2898963f4cbb",
+            "predicate": "communication_preference",
+            "object": "Prefers texting and dislikes calls unless they are for a planned meeting.",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:80e898d3b5052fcfff59965fe27ccb7dae06b5bbc95889316ac8c90940e3d127",
+            "sources": 1
+          },
+          {
+            "id": "memory_4b8f259f-208e-4cb0-8667-7b567e43459a",
+            "predicate": "workout_frequency_when_things_are_going_well",
+            "object": "daily or every second day",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:301b26d0f7eefcfd5b9c940a488e702602332ecbc7d2e89eecf0445c80186f1a",
+            "sources": 1
+          },
+          {
+            "id": "memory_1262005f-b3e9-44c4-9ade-16484cafefcc",
+            "predicate": "likes_when_other_drinks_unavailable",
+            "object": "cappuccino or Vietnamese milk coffee",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:3fdb17ccf11fa7de92fb7b32cee6bed68e20f051f2f3bdeacc578b973c0c6b99",
+            "sources": 1
+          },
+          {
+            "id": "memory_abdb031c-32a4-442f-b0f9-18b888adca44",
+            "predicate": "tries_to_avoid",
+            "object": "sugar",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:124cfd096c584dbb9fddd6d4084f54b78d9e0ebac82cc7ec204de34fbc86ec65",
+            "sources": 1
+          },
+          {
+            "id": "memory_033b8077-9dcd-42df-b655-8bc3659ed5b9",
+            "predicate": "usually_drinks",
+            "object": "pre-workout or G Fuel",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:847f9c10b5766aa691ba0da0a70aaed4076b1dc9e01953c90fa2eb61e53aea5f",
+            "sources": 1
+          },
+          {
+            "id": "memory_71a34e17-d96c-45d1-85fe-ee14a6236195",
+            "predicate": "has watched every",
+            "object": "Star Wars show and movie",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:4b5a3e349345d1e461b6057ad1ee1123b256b77afb072da39b8d2263d6d77114",
+            "sources": 1
+          },
+          {
+            "id": "memory_f3364387-5fb9-4b4c-8936-cea3a49e3d34",
+            "predicate": "prefers television and film focused on",
+            "object": "the future and possible futures, especially semi-science-fiction",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:2f829cf091c725a680cd2f356727bbc69d1c8ba66ae4190293e4f7c12f3f89e2",
+            "sources": 1
+          },
+          {
+            "id": "memory_5283424a-3d24-4a48-b152-ab2f779b7314",
+            "predicate": "favorite television shows include",
+            "object": "Edgerunners season 1 and Pantheon",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:7a0e94d94b87c31d616e942fb442ec1b756b285d9fb7b7daee275e9c76811b9b",
+            "sources": 1
+          },
+          {
+            "id": "memory_a27fe35b-2cb8-401d-8577-438f48287f86",
+            "predicate": "feels_tourism_is_ruining",
+            "object": "Da Nang gradually",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:b75b9ef9fb2a38f0400d956442ea9d06e04acbf92b5783d3e86119df0292e3f5",
+            "sources": 1
+          },
+          {
+            "id": "memory_39cce10f-b845-49cf-a4a8-0f9f557d375e",
+            "predicate": "formerly_favorite_place",
+            "object": "Da Nang",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:4bfcf1a4be3094479b235f7525c3b097ebcdc3e69e3e7e48bcc6c1849e828f32",
+            "sources": 1
+          },
+          {
+            "id": "memory_d4608529-15af-4309-8520-9deb21237427",
+            "predicate": "is_close_to_most_of_family",
+            "object": "Not very close",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:6778d8b686b89b3fdb9be3ef96b66cbac35156373a46e29b37b4571c4470492e",
+            "sources": 1
+          },
+          {
+            "id": "memory_60c7f843-e86d-4f71-b35c-4dd203362a0d",
+            "predicate": "is_close_to_younger_brother",
+            "object": "Not very close",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:6778d8b686b89b3fdb9be3ef96b66cbac35156373a46e29b37b4571c4470492e",
+            "sources": 1
+          },
+          {
+            "id": "memory_1ead0149-d5f5-4d4d-a2aa-b8f9c5971d85",
+            "predicate": "has_sibling",
+            "object": "One younger brother",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:bc8548c411a1b4504320d356fecd4817fb7b5f91ccf0652d00e040235ff16b1d",
+            "sources": 1
+          },
+          {
+            "id": "memory_e120c712-38a0-434d-aa77-558de539b15c",
+            "predicate": "is_usually_awake",
+            "object": "At night, especially due to work and timezone differences with San Francisco",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:cab9f9d90274dc660b18661f6e03f03a83ef281d0fd0751215326a96125fa7ef",
+            "sources": 1
+          },
+          {
+            "id": "memory_913f1941-2aae-4a3a-b092-ba99f10e701b",
+            "predicate": "enjoys",
+            "object": "Mornings and waking before others, especially for the feeling and clean air",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:a705a517273eb390787cbf5d4afdf885d5f1715494b31a10962a2499c95dbe82",
+            "sources": 1
+          },
+          {
+            "id": "memory_8904f72b-e41f-4fcc-81e8-655336bc013e",
+            "predicate": "favorite_dish",
+            "object": "Beef tartare",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:83c9375c1c3f49e81bab9fcae7626d2fc4b2b533ac579e2f9aaf2afbfe99b4b2",
+            "sources": 1
+          },
+          {
+            "id": "memory_fd7872b6-6d11-4c6a-83bc-0e613bae5164",
+            "predicate": "drinks",
+            "object": "Pure lemon juice daily",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:cf4f565da414c4467ed26fd43badd3ae4d7f28e0618e7c4566a6ec024621fde3",
+            "sources": 1
+          },
+          {
+            "id": "memory_b0a08dcd-d9d7-4708-915c-154b0ac59f35",
+            "predicate": "prefers_flavors",
+            "object": "Sour, wasabi, and spicy flavors",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:dcddfe75378a21598cddab1fb8ee046cc404af94d0b2ad1c1bd9bc21c1004142",
+            "sources": 1
+          },
+          {
+            "id": "memory_9b3c3cde-4b49-4a96-a19f-0158183072d7",
+            "predicate": "music_preferences",
+            "object": "Enjoys a broad range of music depending on mood, mostly in English or Korean",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:ece8df9c9390682c557ecc1d8b418c0a122de70068d82100f029d294705f8065",
+            "sources": 1
+          },
+          {
+            "id": "memory_11c4aeb8-dca3-472d-8084-357fae9d13a4",
+            "predicate": "is_interested_in",
+            "object": "AI",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:7dcd803fccb7e5095e3aad92f24279f198ef9f599222c906f5be090ec64b68ac",
+            "sources": 1
+          },
+          {
+            "id": "memory_18f2d3c4-4419-41d0-886a-cd3bf808718b",
+            "predicate": "is_obsessed_with_building",
+            "object": "technology, mostly software",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:83f04172731674e0f3529e5b02d2044577da5eb95c0adcb08646912cc5460a8c",
+            "sources": 1
+          },
+          {
+            "id": "memory_35d32714-c531-438c-bc29-786c0884e467",
+            "predicate": "keeps_motorcycles_as",
+            "object": "a hobby separate from work",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:4823f5c4cf2ed2153f4b4e30853aefdb0dd0f7a19efe2238bf913d531fc63cc2",
+            "sources": 1
+          },
+          {
+            "id": "memory_eb1632a8-30f7-4427-b06d-480f36ada28b",
+            "predicate": "spends_most_hobby_time_on",
+            "object": "motorcycles",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:53ffd68a66a4716cef09e882344a36e3ed667792275f49c2c91323a4e826110a",
+            "sources": 1
+          }
+        ],
+        "truncated": true
+      },
+      "Paradev": {
+        "http_ms": 129.231,
+        "nodes": [
+          {
+            "id": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "label": "Alex",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "person",
+                "relation_id": "memory_0123a72e-d518-48a6-b5ba-860b183d2f42",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "person",
+                "relation_id": "memory_e9140769-b775-4859-bc60-22e000e14f1e",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          },
+          {
+            "id": "entity:b6ba7cd119605d348d1d877ce6283fab1dceca91fba3f0af92e1c7a40d9e1059",
+            "label": "Paradev",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "organization",
+                "relation_id": "memory_0123a72e-d518-48a6-b5ba-860b183d2f42",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "organization",
+                "relation_id": "memory_e9140769-b775-4859-bc60-22e000e14f1e",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          },
+          {
+            "id": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "label": "Alex",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "person",
+                "relation_id": "memory_97a13305-ba13-4905-bb15-a2e9ad3faac6",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "person",
+                "relation_id": "memory_b98788cf-a8f9-4694-b9ff-fa5c70243f9c",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "person",
+                "relation_id": "memory_f120d09e-dbef-4813-8cca-d6e7bde44372",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "person",
+                "relation_id": "memory_2b2a811e-867d-4e3e-91bc-10f67e6316ff",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          },
+          {
+            "id": "entity:46c29ff1564a7b2293ed32f11eac57b4b16a3e0787bb472a7fdba0835fec2bb3",
+            "label": "Paradev",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "organization",
+                "relation_id": "memory_97a13305-ba13-4905-bb15-a2e9ad3faac6",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "organization",
+                "relation_id": "memory_b98788cf-a8f9-4694-b9ff-fa5c70243f9c",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "organization",
+                "relation_id": "memory_f120d09e-dbef-4813-8cca-d6e7bde44372",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "organization",
+                "relation_id": "memory_2b2a811e-867d-4e3e-91bc-10f67e6316ff",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          },
+          {
+            "id": "entity:22f1ff49aab549a1c81c5f660682d699863beaacdcadeb7215a24a65e5e78c21",
+            "label": "Paradev",
+            "kind": "entity",
+            "types": []
+          },
+          {
+            "id": "literal:66d974e1114e9a27b2e3f945406f16d0485c840a20b53f937c81f5e927ad24a7",
+            "label": "Building an in-person San Francisco team; its hiring process ends with a five-day paid work trial.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:aa278d798fcc30627cf4985eb111a5f32552f13fce3deeaa5a9e6694d48ff1da",
+            "label": "$11.5 million, led by USV",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:d7e35a848926b94e5d96cf5970cc1bfa12acc02a2cf7234615f8ff014b6507d3",
+            "label": "Claude Code, Codex, OpenCode, Hermes, and others; users provide their own subscriptions or API keys.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:6c064a0e14672a46e1b76929245a16e9452db5ba85b7d29154d7d7b37fa4c1de",
+            "label": "An open-source workspace for running coding agents in parallel, with separate Git worktrees and branches per task, centralized diff review, local and cloud workspaces, automations, and CLI, SDK, and MCP access.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:5226c885d481e1bec9b9f1bbec0c8e9bd57aad193aee286980fa82b01d8119a1",
+            "label": "Superset",
+            "kind": "literal",
+            "types": []
+          }
+        ],
+        "edges": [
+          {
+            "id": "memory_0123a72e-d518-48a6-b5ba-860b183d2f42",
+            "predicate": "expects_remote_work_trial_with",
+            "object": "Paradev",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "entity:b6ba7cd119605d348d1d877ce6283fab1dceca91fba3f0af92e1c7a40d9e1059",
+            "sources": 2
+          },
+          {
+            "id": "memory_e9140769-b775-4859-bc60-22e000e14f1e",
+            "predicate": "expects_future_onsite_with",
+            "object": "Paradev",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "entity:b6ba7cd119605d348d1d877ce6283fab1dceca91fba3f0af92e1c7a40d9e1059",
+            "sources": 2
+          },
+          {
+            "id": "memory_97a13305-ba13-4905-bb15-a2e9ad3faac6",
+            "predicate": "plans_work_trial_with",
+            "object": "Paradev",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:46c29ff1564a7b2293ed32f11eac57b4b16a3e0787bb472a7fdba0835fec2bb3",
+            "sources": 1
+          },
+          {
+            "id": "memory_b98788cf-a8f9-4694-b9ff-fa5c70243f9c",
+            "predicate": "has_final_call_with",
+            "object": "Paradev",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:46c29ff1564a7b2293ed32f11eac57b4b16a3e0787bb472a7fdba0835fec2bb3",
+            "sources": 1
+          },
+          {
+            "id": "memory_f120d09e-dbef-4813-8cca-d6e7bde44372",
+            "predicate": "discussing_compensation_with",
+            "object": "Paradev",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:46c29ff1564a7b2293ed32f11eac57b4b16a3e0787bb472a7fdba0835fec2bb3",
+            "sources": 1
+          },
+          {
+            "id": "memory_2b2a811e-867d-4e3e-91bc-10f67e6316ff",
+            "predicate": "interviewing_with",
+            "object": "Paradev",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:46c29ff1564a7b2293ed32f11eac57b4b16a3e0787bb472a7fdba0835fec2bb3",
+            "sources": 1
+          },
+          {
+            "id": "memory_145e05fd-85d1-452c-8ef7-2d6d99478312",
+            "predicate": "hiring_context",
+            "object": "Building an in-person San Francisco team; its hiring process ends with a five-day paid work trial.",
+            "status": "active",
+            "source": "entity:22f1ff49aab549a1c81c5f660682d699863beaacdcadeb7215a24a65e5e78c21",
+            "target": "literal:66d974e1114e9a27b2e3f945406f16d0485c840a20b53f937c81f5e927ad24a7",
+            "sources": 1
+          },
+          {
+            "id": "memory_7ff3009e-31a3-4f51-aa73-1f01712f0681",
+            "predicate": "announced_seed_funding",
+            "object": "$11.5 million, led by USV",
+            "status": "active",
+            "source": "entity:22f1ff49aab549a1c81c5f660682d699863beaacdcadeb7215a24a65e5e78c21",
+            "target": "literal:aa278d798fcc30627cf4985eb111a5f32552f13fce3deeaa5a9e6694d48ff1da",
+            "sources": 1
+          },
+          {
+            "id": "memory_3e585eda-6bbb-42de-90b6-1351b785b808",
+            "predicate": "supports_coding_agents",
+            "object": "Claude Code, Codex, OpenCode, Hermes, and others; users provide their own subscriptions or API keys.",
+            "status": "active",
+            "source": "entity:22f1ff49aab549a1c81c5f660682d699863beaacdcadeb7215a24a65e5e78c21",
+            "target": "literal:d7e35a848926b94e5d96cf5970cc1bfa12acc02a2cf7234615f8ff014b6507d3",
+            "sources": 1
+          },
+          {
+            "id": "memory_d628276b-1924-4cdc-891d-f5916fe04aa7",
+            "predicate": "provides",
+            "object": "An open-source workspace for running coding agents in parallel, with separate Git worktrees and branches per task, centralized diff review, local and cloud workspaces, automations, and CLI, SDK, and MCP access.",
+            "status": "active",
+            "source": "entity:22f1ff49aab549a1c81c5f660682d699863beaacdcadeb7215a24a65e5e78c21",
+            "target": "literal:6c064a0e14672a46e1b76929245a16e9452db5ba85b7d29154d7d7b37fa4c1de",
+            "sources": 1
+          },
+          {
+            "id": "memory_5b99147a-37e3-439a-b861-0cee078542ac",
+            "predicate": "formerly_known_as",
+            "object": "Superset",
+            "status": "active",
+            "source": "entity:22f1ff49aab549a1c81c5f660682d699863beaacdcadeb7215a24a65e5e78c21",
+            "target": "literal:5226c885d481e1bec9b9f1bbec0c8e9bd57aad193aee286980fa82b01d8119a1",
+            "sources": 1
+          }
+        ],
+        "truncated": false
+      },
+      "Retell": {
+        "http_ms": 104.148,
+        "nodes": [
+          {
+            "id": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "label": "Alex",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "person",
+                "relation_id": "memory_280bb8f8-8836-4e81-9a23-2718455764dd",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "person",
+                "relation_id": "memory_e1a5738c-4aec-4fc8-8d87-09ee0426ba4b",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          },
+          {
+            "id": "entity:3d3d455c575c3ec8cb273113bc31bcd23461f80b587e525be6f8f32167258a5c",
+            "label": "Retell",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "organization",
+                "relation_id": "memory_280bb8f8-8836-4e81-9a23-2718455764dd",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          },
+          {
+            "id": "literal:65afad307ef773154e159767f18974b3e738d138132c790a3818fda7d4366d6a",
+            "label": "About a month in the office, followed by 3–4 months working remotely from home; Alex described this as a hybrid model on a longer time scale.",
+            "kind": "literal",
+            "types": []
+          }
+        ],
+        "edges": [
+          {
+            "id": "memory_280bb8f8-8836-4e81-9a23-2718455764dd",
+            "predicate": "worked_at",
+            "object": "Retell",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "entity:3d3d455c575c3ec8cb273113bc31bcd23461f80b587e525be6f8f32167258a5c",
+            "sources": 1
+          },
+          {
+            "id": "memory_e1a5738c-4aec-4fc8-8d87-09ee0426ba4b",
+            "predicate": "work_arrangement_at_Retell",
+            "object": "About a month in the office, followed by 3–4 months working remotely from home; Alex described this as a hybrid model on a longer time scale.",
+            "status": "active",
+            "source": "entity:affbeb39a090262a908b210c6c7f42aecefc5c66d77fa368b4dbbd98dc1716a7",
+            "target": "literal:65afad307ef773154e159767f18974b3e738d138132c790a3818fda7d4366d6a",
+            "sources": 1
+          }
+        ],
+        "truncated": false
+      },
+      "Ghosty": {
+        "http_ms": 37.349,
+        "nodes": [
+          {
+            "id": "entity:06232d8e0f147acecc1484a8f9f0e8bc0ed10884b30aa842a66812fc2ee22d2c",
+            "label": "agent:default",
+            "kind": "entity",
+            "types": []
+          },
+          {
+            "id": "literal:90ce496f3fed056b563ab3405026b9d22e4cf556d7bebd9ed132db3818bc74a6",
+            "label": "Use entity-centric relationships for the dog-name regression case: connect Alex to Ghosty as a pet and Ghosty to Alex’s family; represent a corrected current name while retaining the former name as history; retrieve the direct answer first and stop when answered.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "label": "Alex",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "person",
+                "relation_id": "memory_74cdb036-2eb7-4498-94dc-433ee04a5b7a",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          },
+          {
+            "id": "entity:9bcec38546cc1addeffe7d4484913fbe325c3fd008ad2762e471720d7c009b7d",
+            "label": "Ghosty",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "dog",
+                "relation_id": "memory_74cdb036-2eb7-4498-94dc-433ee04a5b7a",
+                "status": "active",
+                "basis": "source_relation"
+              },
+              {
+                "label": "pet",
+                "relation_id": "memory_74cdb036-2eb7-4498-94dc-433ee04a5b7a",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          }
+        ],
+        "edges": [
+          {
+            "id": "memory_d3ae8975-5cc5-48b1-87e5-ba6f3f2c0299",
+            "predicate": "recommends_for_memory_design",
+            "object": "Use entity-centric relationships for the dog-name regression case: connect Alex to Ghosty as a pet and Ghosty to Alex’s family; represent a corrected current name while retaining the former name as history; retrieve the direct answer first and stop when answered.",
+            "status": "active",
+            "source": "entity:06232d8e0f147acecc1484a8f9f0e8bc0ed10884b30aa842a66812fc2ee22d2c",
+            "target": "literal:90ce496f3fed056b563ab3405026b9d22e4cf556d7bebd9ed132db3818bc74a6",
+            "sources": 1
+          },
+          {
+            "id": "memory_74cdb036-2eb7-4498-94dc-433ee04a5b7a",
+            "predicate": "has_dog",
+            "object": "Ghosty",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:9bcec38546cc1addeffe7d4484913fbe325c3fd008ad2762e471720d7c009b7d",
+            "sources": 1
+          }
+        ],
+        "truncated": false
+      },
+      "Nona": {
+        "http_ms": 31.446,
+        "nodes": [
+          {
+            "id": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "label": "Alex",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "person",
+                "relation_id": "memory_24a4d88b-6359-49d6-bde5-d714ccf0302c",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          },
+          {
+            "id": "entity:a7538e92be18bbeea642ca576c7817ea8420738dbd675aa5f29cece58620d7bf",
+            "label": "Nona",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "person",
+                "relation_id": "memory_24a4d88b-6359-49d6-bde5-d714ccf0302c",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          }
+        ],
+        "edges": [
+          {
+            "id": "memory_24a4d88b-6359-49d6-bde5-d714ccf0302c",
+            "predicate": "is_married_to",
+            "object": "Nona",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:a7538e92be18bbeea642ca576c7817ea8420738dbd675aa5f29cece58620d7bf",
+            "sources": 1
+          }
+        ],
+        "truncated": false
+      },
+      "Lia": {
+        "http_ms": 41.947,
+        "nodes": [
+          {
+            "id": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "label": "Alex",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "person",
+                "relation_id": "memory_d8b623f9-f31a-40b8-805c-71824ec473c1",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          },
+          {
+            "id": "literal:8b2823efbaaaad99373ecf5be6165b3b78b2173f595523446e882c7e963409a2",
+            "label": "Independence and relentless pursuit of what she wants",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "entity:96e3fec562b983236207472132fd3615ccbbd373d03cc32809fe508c9d7cd0d5",
+            "label": "Lia",
+            "kind": "entity",
+            "types": [
+              {
+                "label": "person",
+                "relation_id": "memory_d8b623f9-f31a-40b8-805c-71824ec473c1",
+                "status": "active",
+                "basis": "source_relation"
+              }
+            ]
+          },
+          {
+            "id": "literal:c31cf0a8d9803311464c08a8bc6649aa19bdd336d5c4c2d0bd7b6b6385804c83",
+            "label": "Inspired by Princess Leia from Star Wars, adapted to sound more Vietnamese, and chosen as a cross between Leia and Mia.",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:deaa0d3e4338cd05ccb99d6b6cc3e83e9668c8258ee3bee76035ca2e6f762b83",
+            "label": "2 years old",
+            "kind": "literal",
+            "types": []
+          },
+          {
+            "id": "literal:2490d19b47e914d63e41d31f8507a859dd3078f267a631e21b3cd6c765ad35c5",
+            "label": "Australia",
+            "kind": "literal",
+            "types": []
+          }
+        ],
+        "edges": [
+          {
+            "id": "memory_e3f2efcf-6b44-4034-b687-84c6517445e6",
+            "predicate": "values he wants to pass on to Lia",
+            "object": "Independence and relentless pursuit of what she wants",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:8b2823efbaaaad99373ecf5be6165b3b78b2173f595523446e882c7e963409a2",
+            "sources": 1
+          },
+          {
+            "id": "memory_43ca1025-7d17-48dd-82eb-3ba32c46d816",
+            "predicate": "name_origin",
+            "object": "Inspired by Princess Leia from Star Wars, adapted to sound more Vietnamese, and chosen as a cross between Leia and Mia.",
+            "status": "active",
+            "source": "entity:96e3fec562b983236207472132fd3615ccbbd373d03cc32809fe508c9d7cd0d5",
+            "target": "literal:c31cf0a8d9803311464c08a8bc6649aa19bdd336d5c4c2d0bd7b6b6385804c83",
+            "sources": 1
+          },
+          {
+            "id": "memory_6d98dafa-a530-42ad-91d2-2bfb5e21de8c",
+            "predicate": "age",
+            "object": "2 years old",
+            "status": "active",
+            "source": "entity:96e3fec562b983236207472132fd3615ccbbd373d03cc32809fe508c9d7cd0d5",
+            "target": "literal:deaa0d3e4338cd05ccb99d6b6cc3e83e9668c8258ee3bee76035ca2e6f762b83",
+            "sources": 1
+          },
+          {
+            "id": "memory_d8b623f9-f31a-40b8-805c-71824ec473c1",
+            "predicate": "parent_of",
+            "object": "Lia",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "entity:96e3fec562b983236207472132fd3615ccbbd373d03cc32809fe508c9d7cd0d5",
+            "sources": 1
+          },
+          {
+            "id": "memory_f16926bb-ac3e-4716-975b-66c95a058b3c",
+            "predicate": "born_in",
+            "object": "Australia",
+            "status": "active",
+            "source": "entity:2b435f678dc85ea8d58c0185c6bcb40680423dfa22625c60be0f8152570f1fe3",
+            "target": "literal:2490d19b47e914d63e41d31f8507a859dd3078f267a631e21b3cd6c765ad35c5",
+            "sources": 1
+          }
+        ],
+        "truncated": false
+      }
+    },
+    "affected": {
+      "source_event": [
+        {
+          "event_id": "native:default:48ec91b40bde4396970d03a36a260f72:part:0",
+          "job_id": "mjob_811b3150-0eca-4f0b-912c-0c4e00b91232",
+          "status": "processed",
+          "revision": 1
+        }
+      ],
+      "event_memories": [
+        {
+          "id": "memory_0123a72e-d518-48a6-b5ba-860b183d2f42",
+          "scope": "business:alex",
+          "kind": "hypothesis",
+          "subject": "Alex",
+          "predicate": "expects_remote_work_trial_with",
+          "object": "Paradev",
+          "valid_from": "2026-11-09T16:57:07.532Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-09T22:27:49.689Z",
+          "object_entity": "Paradev"
+        },
+        {
+          "id": "memory_cf781da5-06d8-44e3-86bb-59399710bf01",
+          "scope": "business:alex",
+          "kind": "hypothesis",
+          "subject": "Alex",
+          "predicate": "anticipates_in_person_session_if_trial_succeeds",
+          "object": "An in-person session at some point in the future if the trial goes well.",
+          "valid_from": "2026-11-09T16:57:07.532Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-09T21:44:38.778Z",
+          "object_entity": null
+        },
+        {
+          "id": "memory_e9140769-b775-4859-bc60-22e000e14f1e",
+          "scope": "business:alex",
+          "kind": "hypothesis",
+          "subject": "Alex",
+          "predicate": "expects_future_onsite_with",
+          "object": "Paradev",
+          "valid_from": "2026-11-09T16:57:07.532Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-09T22:27:49.626Z",
+          "object_entity": "Paradev"
+        },
+        {
+          "id": "memory_ecbbb368-f6b9-426d-b250-9975e3d6d31c",
+          "scope": "business:alex",
+          "kind": "hypothesis",
+          "subject": "Alex",
+          "predicate": "expects_work_trial_format",
+          "object": "Remote, because Alex doubts the company will pay to bring him there for the trial.",
+          "valid_from": "2026-11-09T16:57:07.532Z",
+          "valid_to": null,
+          "recorded_from": "2026-11-09T21:44:38.687Z",
+          "object_entity": null
+        }
+      ],
+      "four_owner_repairs": [
+        {
+          "old_memory_id": "memory_5142ea16-6549-4f80-a28f-01c9292e8c71",
+          "old_subject": "Alex1568360644204298412",
+          "type": "superseded",
+          "replacement_id": "memory_e1a5738c-4aec-4fc8-8d87-09ee0426ba4b",
+          "new_subject": "Alex",
+          "predicate": "work_arrangement_at_Retell",
+          "object": "About a month in the office, followed by 3–4 months working remotely from home; Alex described this as a hybrid model on a longer time scale."
+        },
+        {
+          "old_memory_id": "memory_5142ea16-6549-4f80-a28f-01c9292e8c71",
+          "old_subject": "Alex1568360644204298412",
+          "type": "start_unknown",
+          "replacement_id": null,
+          "new_subject": null,
+          "predicate": null,
+          "object": null
+        },
+        {
+          "old_memory_id": "memory_6a2370ed-7b78-4592-95d8-7c3560017e25",
+          "old_subject": "Alex1568360644204298412",
+          "type": "superseded",
+          "replacement_id": "memory_da9f59cc-6516-4992-b488-b323db0ddfcd",
+          "new_subject": "Alex",
+          "predicate": "prefers_work_location",
+          "object": "Remote; Alex does not plan to move to San Francisco."
+        },
+        {
+          "old_memory_id": "memory_cc3f1afb-d6f3-4ea7-ae18-5734d9d5b8da",
+          "old_subject": "Alex1568360644204298412",
+          "type": "superseded",
+          "replacement_id": "memory_99a9f66d-c858-4e73-be80-72276a9cb404",
+          "new_subject": "Alex",
+          "predicate": "may_travel_to",
+          "object": "San Francisco, to keep things moving"
+        },
+        {
+          "old_memory_id": "memory_e0ffec92-44bb-4152-9cbb-830b9d1efadb",
+          "old_subject": "Alex1568360644204298412",
+          "type": "superseded",
+          "replacement_id": "memory_280bb8f8-8836-4e81-9a23-2718455764dd",
+          "new_subject": "Alex",
+          "predicate": "worked_at",
+          "object": "Retell"
+        },
+        {
+          "old_memory_id": "memory_e0ffec92-44bb-4152-9cbb-830b9d1efadb",
+          "old_subject": "Alex1568360644204298412",
+          "type": "start_unknown",
+          "replacement_id": null,
+          "new_subject": null,
+          "predicate": null,
+          "object": null
+        }
+      ]
+    }
+  },
+  "protected_sha256": {
+    "service.env": "444d7b4aea318581c7feb4fb9080430372c4a1002b0e84b075d3118c1dbb1f74",
+    "adapter": "1dac9ec256834462d8ca504c888ef95d9d9e73dec9aba33187759e5edff40f64",
+    "unit": "0902e8e1271a90a5d4ad4858421b594d5643a0abe36f08baaeb4890a141dd07e"
+  },
+  "raw_history_preserved": true
+}

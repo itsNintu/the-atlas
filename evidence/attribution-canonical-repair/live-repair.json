@@ -1,0 +1,408 @@
+{
+  "operation": "canonical_graph_repair_v1",
+  "proof_sha256": "26be0d4cbe3dd972bf79b5e6150e4213ad35fd676381d994b4697b7ab84ad6e4",
+  "repair_recorded_at": "2026-11-09T21:42:31.504Z",
+  "before": {
+    "active_total": 322,
+    "malformed_owner_active": 11,
+    "blog_exclusion_active": 5,
+    "operational_status_active": 63,
+    "empty_object_active": 0,
+    "wrong_owner_equivalences_active": 2
+  },
+  "after": {
+    "active_total": 257,
+    "malformed_owner_active": 0,
+    "blog_exclusion_active": 1,
+    "operational_status_active": 0,
+    "empty_object_active": 0,
+    "wrong_owner_equivalences_active": 0
+  },
+  "operations": [
+    {
+      "category": "owner_subject",
+      "source_memory_id": "memory_21194930-ca25-433b-abd7-fcfec6c88d29",
+      "canonical_memory_id": "memory_3acf2204-f2db-4059-be27-84509bce3355"
+    },
+    {
+      "category": "owner_subject",
+      "source_memory_id": "memory_5142ea16-6549-4f80-a28f-01c9292e8c71",
+      "canonical_memory_id": "memory_e1a5738c-4aec-4fc8-8d87-09ee0426ba4b"
+    },
+    {
+      "category": "owner_subject",
+      "source_memory_id": "memory_6a2370ed-7b78-4592-95d8-7c3560017e25",
+      "canonical_memory_id": "memory_da9f59cc-6516-4992-b488-b323db0ddfcd"
+    },
+    {
+      "category": "owner_subject",
+      "source_memory_id": "memory_89e96608-f09b-4589-87da-f76c6977619b",
+      "canonical_memory_id": "memory_e67bbe1d-9189-4709-82c4-b8da6e305e6f"
+    },
+    {
+      "category": "owner_subject",
+      "source_memory_id": "memory_9938b931-8cae-4a90-bd13-62b6473c8609",
+      "canonical_memory_id": "memory_1147d639-4b8a-44d0-b96c-5613415c57b2"
+    },
+    {
+      "category": "owner_subject",
+      "source_memory_id": "memory_cc3f1afb-d6f3-4ea7-ae18-5734d9d5b8da",
+      "canonical_memory_id": "memory_99a9f66d-c858-4e73-be80-72276a9cb404"
+    },
+    {
+      "category": "owner_subject",
+      "source_memory_id": "memory_e0ffec92-44bb-4152-9cbb-830b9d1efadb",
+      "canonical_memory_id": "memory_280bb8f8-8836-4e81-9a23-2718455764dd"
+    },
+    {
+      "category": "owner_subject",
+      "source_memory_id": "memory_ebeff154-067b-4d0d-a124-0040e0bba085",
+      "canonical_memory_id": "memory_36d17836-a8f9-4fe7-9a7d-7904ace35e3c"
+    },
+    {
+      "category": "atomic_work_relationships",
+      "source_memory_id": "memory_154bc2f0-a3db-43af-87f7-e23414b947bd",
+      "canonical_memory_ids": [
+        "memory_f120d09e-dbef-4813-8cca-d6e7bde44372",
+        "memory_b98788cf-a8f9-4694-b9ff-fa5c70243f9c",
+        "memory_97a13305-ba13-4905-bb15-a2e9ad3faac6"
+      ]
+    },
+    {
+      "category": "blog_exclusion",
+      "canonical_memory_id": "memory_709d5c51-3c41-479b-8e51-6cbd4a6d7c15",
+      "duplicate_memory_ids": [
+        "memory_1db9d4fb-2a89-4b14-b668-9bd01ba10a58",
+        "memory_3afa156b-8aea-4584-b211-cc79ac9e4c28",
+        "memory_8f9c591a-ce59-4d39-89e1-20f15e29bd54",
+        "memory_90737570-be16-4a71-b24d-e7a7da45b731"
+      ]
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_0598bdbb-27cd-4a72-893c-9e6bb6f825c7",
+      "review_id": "admissionreview_060889cf-8cfa-4a78-afed-a2a944fb673d"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_060f656f-110d-4c9b-b325-1c6cc46e0160",
+      "review_id": "admissionreview_5f0b2245-6fd5-49af-bb42-9d4169059701"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_0859c78b-107d-4c19-9194-c105e4ba98c3",
+      "review_id": "admissionreview_74ba78f0-d1da-4cab-9353-53f0e1de3ec5"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_106c0d53-83dd-429d-a0af-d69993354864",
+      "review_id": "admissionreview_b7ba4701-996c-4996-bcaa-bd702ae790fe"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_1082e619-fc8c-4a25-814f-259dc333c65e",
+      "review_id": "admissionreview_070d3dd2-f984-4d64-a5ec-76fa86fd8bd6"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_1d7328ec-4c7e-4e31-80ff-e4e33fda26ac",
+      "review_id": "admissionreview_4fe17d0a-f26b-493b-9447-b1ac94e636c1"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_2a541178-0220-4b48-b0f7-0f50a86e1a60",
+      "review_id": "admissionreview_77d73d52-503b-4fd7-88d3-a439372655b0"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_2b757d38-27e6-4c23-b243-9d54a5020ac3",
+      "review_id": "admissionreview_64cbe52a-4b71-4204-a081-5c67efd945ab"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_2b80d7af-02cf-4823-b725-7a5c897ab083",
+      "review_id": "admissionreview_16633349-6a9d-47b6-99cf-5d8fc13e96ba"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_2cabd0f6-6514-4904-8df0-ffbbccfa5a83",
+      "review_id": "admissionreview_70bada80-5c61-4bc0-bc69-33370b998107"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_30c1e447-3ed9-4b1e-a83d-330a710432e6",
+      "review_id": "admissionreview_16068bf5-b722-42a7-ae4b-2f210a0563b7"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_30fffc8d-8ab5-4954-967f-67783d107125",
+      "review_id": "admissionreview_282cb79e-2f76-4eca-82c7-167c55847dae"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_33d5331d-53be-4516-8cf5-51df317272dc",
+      "review_id": "admissionreview_d51f533e-54cc-44af-88cd-8fb5602b9456"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_3caf2107-805c-429e-8084-1a6f127ac9f2",
+      "review_id": "admissionreview_0db38f8c-f9f6-4b1b-8548-1272252d05c7"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_3f158b62-b978-45f8-a4e7-0bf3d5f2b22d",
+      "review_id": "admissionreview_fa44fee2-9444-4fee-93a9-a87f678182ff"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_3f59eac2-d94a-4240-9250-f4b7fc4ea66f",
+      "review_id": "admissionreview_9947228e-0a08-4c87-abbc-cf8e7b6be579"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_41dd14d3-337d-476c-ab45-010cd3e6f15c",
+      "review_id": "admissionreview_dad7d2af-1e08-481b-bcae-0dc81b8e9c23"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_42dd86d0-2334-4ffa-bbdb-3a3abbc78148",
+      "review_id": "admissionreview_ee760d47-25b8-4710-899b-878df2ed5cc9"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_4314ffb7-57c6-416b-aa2d-06a682ec17b1",
+      "review_id": "admissionreview_3fdf7a7b-5fa2-4ab4-bfa0-203bbb72315a"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_47929ac1-a02b-43f5-88f2-d3044c426c62",
+      "review_id": "admissionreview_9d47669b-0b95-4a22-b7d4-3c34be545ad8"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_4aafea19-38e4-4277-9abe-473bf63fb127",
+      "review_id": "admissionreview_8b95ed2f-581d-4fa9-aced-fdb59bf01599"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_4accbd3d-260c-46ab-93d9-8f2f4e6c2da3",
+      "review_id": "admissionreview_122d694b-1449-4f8b-9fe2-e4ed5cfc3fff"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_57e35bcc-1c4a-4995-8a6f-972fbda03e10",
+      "review_id": "admissionreview_294168bb-f3e2-4eb8-b64b-9dc728a3f7a8"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_59397562-5c31-4eb8-a929-4e2d15475d5b",
+      "review_id": "admissionreview_58e345f3-926d-4fc4-b92c-429fa041490c"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_68336336-559b-4f4e-8e5a-3809fa69f9d5",
+      "review_id": "admissionreview_c6b52a7d-d4f5-4b0c-a2de-97b6f546ecdf"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_710eb585-fc00-496e-85b0-722616fda28b",
+      "review_id": "admissionreview_1824dd84-64c5-4c64-a0b8-8c1f708fbd21"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_735d8485-99d2-44bf-8e1c-7bc0434f7ac7",
+      "review_id": "admissionreview_46758215-7ab5-45bb-8a24-4866cbec2ef9"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_7432c58a-ab61-4b0e-bbec-71b14c526ffe",
+      "review_id": "admissionreview_c9e52aeb-57e4-47f6-b5c1-381b3df26ad0"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_759f2150-3ca5-484a-911b-7d0061f749ef",
+      "review_id": "admissionreview_187ce066-c0ee-49f9-b71d-b23a9f300fcc"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_7982883b-180c-47aa-b8a6-fcc4f4e2d879",
+      "review_id": "admissionreview_b682ce79-9ea7-4a5c-a227-101293ccbbf8"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_7a20b081-cbe5-45b4-9960-063b91dde1cf",
+      "review_id": "admissionreview_59b2c571-6675-4fb6-a80c-1ea66c561445"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_7df6ce28-c220-4648-b48f-8246b655fd11",
+      "review_id": "admissionreview_be4b27d4-04c9-4f5f-8bbd-931c80f76820"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_7e10b220-50e7-4f35-83e8-ba071ebd4e39",
+      "review_id": "admissionreview_466d9532-a2dc-408b-8eb9-49c88e96e3f1"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_7fc3c87a-59d3-4f8f-a488-7c0665b66c45",
+      "review_id": "admissionreview_8d02efca-653d-4d6b-ba4b-220fed0bf3ea"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_80786bd2-f35a-4382-9f2c-54f6e421f5e8",
+      "review_id": "admissionreview_823003a5-1820-4b15-a0b0-e95312c98981"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_8c3b1afc-36cd-4f0c-b2ae-415402c3b760",
+      "review_id": "admissionreview_02bec90f-6357-447b-abc1-7318dc22a9ce"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_8d4aca36-b660-4e6d-84ff-351169aa07d3",
+      "review_id": "admissionreview_7ec1ec5e-7dc1-4f2c-9e39-5c8dc46a46e2"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_99376fa5-541d-4875-94d9-6a5efa4b65eb",
+      "review_id": "admissionreview_13fe757f-9668-469d-8c0f-0d4b63466f70"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_9d84eda3-690f-4451-b987-5d77d80db555",
+      "review_id": "admissionreview_7e8467f6-1a7e-4988-bb93-43574a199669"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_a0afec11-c6fa-47b7-8051-da628b7c5c29",
+      "review_id": "admissionreview_332241e1-b6d3-4b31-84b5-061aeb75be55"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_a63ebc0b-ecce-49de-be7b-a99e638d4437",
+      "review_id": "admissionreview_10db829b-6949-4458-bf8d-679de926dc37"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_a679998d-a468-4f93-8172-b05208cbc587",
+      "review_id": "admissionreview_bdde63a7-b186-42fa-b743-0c45a76058bd"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_a73ead3c-7633-4f70-b531-5f0aa9b29c40",
+      "review_id": "admissionreview_047faf2e-a98d-4b02-ab80-3bb5aa18ace2"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_a962b5a6-76ad-43d1-b37a-41d3e4323dcc",
+      "review_id": "admissionreview_74fb89c2-aa73-4ed4-918d-3250edf05e5b"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_b31adadf-d96f-4aa9-b75b-d251e7242242",
+      "review_id": "admissionreview_27be89fd-63fb-48c1-aa64-d27aadb12ef1"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_c2c7e184-d2ef-4e06-8d5f-789988bd9989",
+      "review_id": "admissionreview_da3db979-6f0c-4552-b2e6-3cb476732b91"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_c37c3803-3648-4b0f-b0ad-29f58ea6e045",
+      "review_id": "admissionreview_8902f893-6080-41f0-8ee4-4f6e0bce6bfa"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_c7217b77-e253-42ed-9fad-773295adf708",
+      "review_id": "admissionreview_e13fa4bc-c2ce-449f-abe7-6d8e27fc9778"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_c8f85b01-465e-4654-b157-41c65ba5bb80",
+      "review_id": "admissionreview_ba418d12-5552-4fe6-93a9-47e9f93e8c97"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_cec6596b-1521-498e-9d5f-181940f6ce54",
+      "review_id": "admissionreview_06429894-15cc-4d09-b59f-5ce525b8820a"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_d4cfc756-61dd-4256-b382-921a15f24a83",
+      "review_id": "admissionreview_33198711-b1b1-4a10-924e-6ab2cddc494e"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_d5744d59-e788-4cdf-8587-b0fd590a8ce3",
+      "review_id": "admissionreview_4ce53f98-d88f-463e-ab79-a6944d71fca4"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_dcbe1df3-0b1b-4775-8c70-7852d79428ca",
+      "review_id": "admissionreview_c27df359-bac2-490a-b7d9-22f2b31f3541"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_de11c8a1-b40c-4d36-9046-37f5207a65df",
+      "review_id": "admissionreview_54b5f668-108d-4b20-a583-44088023f39d"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_e088bc16-3ccf-4a6d-b939-2c9e83cc4062",
+      "review_id": "admissionreview_3e74eba3-20c7-4489-8118-cf10506c5ae3"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_e6986973-74d8-4014-b699-92a794f22bed",
+      "review_id": "admissionreview_b28a4754-d65d-4380-8a02-0dc3b8e1f78e"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_e6ad916c-d194-4e1b-9273-48d8a9d53f6e",
+      "review_id": "admissionreview_d796ffd9-ecb9-4c89-9733-6ec4f8cadba6"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_ea120cb6-86ee-42d5-b2ac-0c052794dc8f",
+      "review_id": "admissionreview_1a722f45-83d6-41e4-82e6-e20c208d2d32"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_eda4863f-ccfa-4d59-8924-43af6f43130a",
+      "review_id": "admissionreview_eacef3a3-8f33-4f03-8ac1-7c4afa9cc569"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_f3437ef3-61db-427d-8375-13750850e53f",
+      "review_id": "admissionreview_845e0756-c64b-45be-90fd-97eb47311f3c"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_f4a14c2c-dfb8-4748-9010-203619724173",
+      "review_id": "admissionreview_d257586f-4e5e-402f-91b9-3c29b877873e"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_f9f0087c-b119-4677-b7bb-996148ef5cb4",
+      "review_id": "admissionreview_60a4a3df-4006-4fd4-8f2f-1624425404ae"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_fea8abd3-7839-4c5c-abeb-551b996c3f0b",
+      "review_id": "admissionreview_0387d8cb-15b3-4180-bdfc-5b5976bc7150"
+    }
+  ],
+  "raw_history_preserved": true,
+  "provider_calls": 0,
+  "foreign_key_check": "ok",
+  "quick_check": "ok",
+  "idempotent_replay": false,
+  "checkpoint": {
+    "busy": 0,
+    "log": 0,
+    "checkpointed": 0
+  },
+  "configuration_preserved": true
+}

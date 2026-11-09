@@ -1,0 +1,46 @@
+{
+  "operation": "canonical_graph_repair_v1",
+  "proof_sha256": "dad73846c99ab013c9dcabe4806f41f416a785ab7f55b12c8bfe3e0023312109",
+  "repair_recorded_at": "2026-11-09T22:42:34.487Z",
+  "before": {
+    "active_total": 298,
+    "malformed_owner_active": 0,
+    "blog_exclusion_active": 7,
+    "operational_status_active": 0,
+    "empty_object_active": 0,
+    "wrong_owner_equivalences_active": 0
+  },
+  "after": {
+    "active_total": 292,
+    "malformed_owner_active": 0,
+    "blog_exclusion_active": 1,
+    "operational_status_active": 0,
+    "empty_object_active": 0,
+    "wrong_owner_equivalences_active": 0
+  },
+  "operations": [
+    {
+      "category": "blog_exclusion",
+      "canonical_memory_id": "memory_709d5c51-3c41-479b-8e51-6cbd4a6d7c15",
+      "duplicate_memory_ids": [
+        "memory_16799797-e41b-409d-bbe9-4db4d07cbe43",
+        "memory_248030d3-cf30-480a-8765-3254a1116fed",
+        "memory_36d17836-a8f9-4fe7-9a7d-7904ace35e3c",
+        "memory_38d0d552-9994-44ac-b530-f05a0bd0aab3",
+        "memory_3acf2204-f2db-4059-be27-84509bce3355",
+        "memory_763dbca2-4237-44f7-9b45-7538bb501303"
+      ]
+    }
+  ],
+  "raw_history_preserved": true,
+  "provider_calls": 0,
+  "foreign_key_check": "ok",
+  "quick_check": "ok",
+  "idempotent_replay": false,
+  "checkpoint": {
+    "busy": 0,
+    "log": 0,
+    "checkpointed": 0
+  },
+  "configuration_preserved": true
+}

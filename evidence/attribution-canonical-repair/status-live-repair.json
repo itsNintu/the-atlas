@@ -1,0 +1,49 @@
+{
+  "operation": "canonical_graph_repair_v1",
+  "proof_sha256": "5ab5da27a3bb2447b018f46fef993aa4a5a51390a7f749079a567ba66e72e4af",
+  "repair_recorded_at": "2026-11-09T22:54:09.131Z",
+  "before": {
+    "active_total": 301,
+    "malformed_owner_active": 0,
+    "blog_exclusion_active": 1,
+    "operational_status_active": 3,
+    "empty_object_active": 0,
+    "wrong_owner_equivalences_active": 0
+  },
+  "after": {
+    "active_total": 298,
+    "malformed_owner_active": 0,
+    "blog_exclusion_active": 1,
+    "operational_status_active": 0,
+    "empty_object_active": 0,
+    "wrong_owner_equivalences_active": 0
+  },
+  "operations": [
+    {
+      "category": "operational_status",
+      "memory_id": "memory_48738892-ebc5-4aa2-8b87-ad156d2be2fb",
+      "review_id": "admissionreview_053b8bf4-fde5-44e3-81c1-172c4ca2e3e4"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_d491db3c-05f3-402e-9867-a8ff626a6860",
+      "review_id": "admissionreview_3a652506-e2f4-429f-8057-05bba6d994c0"
+    },
+    {
+      "category": "operational_status",
+      "memory_id": "memory_d4d89752-880b-4afb-bfbb-53dd12f24dc4",
+      "review_id": "admissionreview_ba7ca52a-ef49-46dc-ad65-0beccb6f6859"
+    }
+  ],
+  "raw_history_preserved": true,
+  "provider_calls": 0,
+  "foreign_key_check": "ok",
+  "quick_check": "ok",
+  "idempotent_replay": false,
+  "checkpoint": {
+    "busy": 0,
+    "log": 0,
+    "checkpointed": 0
+  },
+  "configuration_preserved": true
+}

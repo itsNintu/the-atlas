@@ -1,0 +1,70 @@
+{
+  "operation": "canonical_graph_repair_v1",
+  "schema_version": 1,
+  "reset_epoch": 3,
+  "generated_at": "2026-11-09T22:54:03.160Z",
+  "before": {
+    "active_total": 301,
+    "malformed_owner_active": 0,
+    "blog_exclusion_active": 1,
+    "operational_status_active": 3,
+    "empty_object_active": 0,
+    "wrong_owner_equivalences_active": 0
+  },
+  "owner_repairs": [],
+  "work_relationships": [],
+  "context_work_relationships": [],
+  "equivalence_invalidations": [],
+  "canonical_equivalences": [],
+  "duplicate_groups": [],
+  "operational_demotions": [
+    {
+      "memory_id": "memory_48738892-ebc5-4aa2-8b87-ad156d2be2fb",
+      "scope": "agent:default",
+      "source_event_pk": "event_16464c99-e806-4b0d-9f5b-f48d6c35d7f0",
+      "source_event_id": "native:default:120a1c884ee7403fbcb5656fe73862d0:part:0",
+      "source_revision": 1,
+      "job_id": "mjob_33567b8f-a3ca-4d2b-9926-d9aa7a2814c9",
+      "memory_proof_sha256": "50ab927cf0b03e751db4fd5a303709a16c53e7c612f06be84570fd80e68b7ed1",
+      "category": "operational_status",
+      "operational_categories": [
+        "assistant_status"
+      ]
+    },
+    {
+      "memory_id": "memory_d491db3c-05f3-402e-9867-a8ff626a6860",
+      "scope": "agent:default",
+      "source_event_pk": "event_1abbd245-a721-4ddb-9b58-b9a36e67bc90",
+      "source_event_id": "native:default:6bce6d66bf344569a615356c229b6322:part:0",
+      "source_revision": 1,
+      "job_id": "mjob_0940418d-f94c-44ab-af4d-83f8e93fff47",
+      "memory_proof_sha256": "8f820f6f1d740fe777c0f9c797b459a55002cc566529a4e29a1940d68185e7d4",
+      "category": "operational_status",
+      "operational_categories": [
+        "task_management"
+      ]
+    },
+    {
+      "memory_id": "memory_d4d89752-880b-4afb-bfbb-53dd12f24dc4",
+      "scope": "agent:default",
+      "source_event_pk": "event_16464c99-e806-4b0d-9f5b-f48d6c35d7f0",
+      "source_event_id": "native:default:120a1c884ee7403fbcb5656fe73862d0:part:0",
+      "source_revision": 1,
+      "job_id": "mjob_33567b8f-a3ca-4d2b-9926-d9aa7a2814c9",
+      "memory_proof_sha256": "3e6d5b420500800392dd068c396765716b9801b109a70584bc4a8c878f2bca18",
+      "category": "operational_status",
+      "operational_categories": [
+        "assistant_status"
+      ]
+    }
+  ],
+  "empty_object_demotions": [],
+  "affected_memory_ids": [
+    "memory_48738892-ebc5-4aa2-8b87-ad156d2be2fb",
+    "memory_d491db3c-05f3-402e-9867-a8ff626a6860",
+    "memory_d4d89752-880b-4afb-bfbb-53dd12f24dc4"
+  ],
+  "proof_sha256": "5ab5da27a3bb2447b018f46fef993aa4a5a51390a7f749079a567ba66e72e4af",
+  "mode": "preview",
+  "stopped_custody_required_for_apply": true
+}

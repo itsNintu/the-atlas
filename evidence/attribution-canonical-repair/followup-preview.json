@@ -1,0 +1,60 @@
+{
+  "operation": "canonical_graph_repair_v1",
+  "schema_version": 1,
+  "reset_epoch": 3,
+  "generated_at": "2026-11-09T22:27:45.140Z",
+  "before": {
+    "active_total": 281,
+    "malformed_owner_active": 0,
+    "blog_exclusion_active": 1,
+    "operational_status_active": 0,
+    "empty_object_active": 0,
+    "wrong_owner_equivalences_active": 0
+  },
+  "owner_repairs": [],
+  "work_relationships": [],
+  "context_work_relationships": [
+    {
+      "memory_id": "memory_cf781da5-06d8-44e3-86bb-59399710bf01",
+      "scope": "business:alex",
+      "source_event_pk": "event_2daddbfa-7525-46e5-af1c-d2c1945ce390",
+      "source_event_id": "native:default:48ec91b40bde4396970d03a36a260f72:part:0",
+      "source_revision": 1,
+      "job_id": "mjob_811b3150-0eca-4f0b-912c-0c4e00b91232",
+      "memory_proof_sha256": "9bf67cb497eef221b8ecd7705d25468c1ab89cec74fc7cbe6b7d1297d1622c8c",
+      "category": "context_work_entity_link",
+      "relation": "expects_future_onsite_with",
+      "company": "Paradev",
+      "company_memory_id": "memory_2b2a811e-867d-4e3e-91bc-10f67e6316ff",
+      "company_event_pk": "event_9cd3f510-a8cc-4d44-82a7-91c404240ec6",
+      "company_proof_sha256": "403b769546ff42b0697330fe636fffdbd0edbd60fc1ffc60fa07fd8a5effb3c5"
+    },
+    {
+      "memory_id": "memory_ecbbb368-f6b9-426d-b250-9975e3d6d31c",
+      "scope": "business:alex",
+      "source_event_pk": "event_2daddbfa-7525-46e5-af1c-d2c1945ce390",
+      "source_event_id": "native:default:48ec91b40bde4396970d03a36a260f72:part:0",
+      "source_revision": 1,
+      "job_id": "mjob_811b3150-0eca-4f0b-912c-0c4e00b91232",
+      "memory_proof_sha256": "d47f4db0ef0951fe83319e5b5a669b3aa5e39a4a112e439665be9fd01f2f935d",
+      "category": "context_work_entity_link",
+      "relation": "expects_remote_work_trial_with",
+      "company": "Paradev",
+      "company_memory_id": "memory_2b2a811e-867d-4e3e-91bc-10f67e6316ff",
+      "company_event_pk": "event_9cd3f510-a8cc-4d44-82a7-91c404240ec6",
+      "company_proof_sha256": "403b769546ff42b0697330fe636fffdbd0edbd60fc1ffc60fa07fd8a5effb3c5"
+    }
+  ],
+  "equivalence_invalidations": [],
+  "canonical_equivalences": [],
+  "duplicate_groups": [],
+  "operational_demotions": [],
+  "empty_object_demotions": [],
+  "affected_memory_ids": [
+    "memory_cf781da5-06d8-44e3-86bb-59399710bf01",
+    "memory_ecbbb368-f6b9-426d-b250-9975e3d6d31c"
+  ],
+  "proof_sha256": "2abcaec3ecc1229edc6a317d5ed093b40d4c0f40d7207c9acf052b3c127b68be",
+  "mode": "preview",
+  "stopped_custody_required_for_apply": true
+}
