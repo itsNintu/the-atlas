@@ -75,6 +75,15 @@ test('automatic dog-to-work shift uses current work graph, suppresses family and
  const restored=await f.recall("Back to my dog—what's his name?",{recent_context:[{role:'user',content:workQuestion},{role:'assistant',content:'We were discussing Atlas and your current role.'}]});
  expect(restored.memories.map((m:any)=>m.id)).toEqual([f.s.one("SELECT id FROM memories WHERE predicate='has_dog'").id]);
  expect(restored.memories.some((m:any)=>m.id===role)).toBe(false);
+ const missingFacet=fixture();
+ try{
+   missingFacet.seed('Robin','job_title','Editor',{scope:'business:alex'});
+   missingFacet.seed('Robin','has_cat','Pepper',{object_entity:true});
+   const follow=await missingFacet.recall('What are my main responsibilities on it?',{recent_context:[{role:'user',content:"Let's talk about work. What am I currently working on?"},{role:'assistant',content:'You are in your current role and active projects.'}]});
+   expect(follow.memories.map((m:any)=>m.predicate)).toContain('job_title');
+   expect(follow.memories.every((m:any)=>m.predicate!=='has_cat')).toBe(true);
+   expect(follow.memories.length).toBeGreaterThan(0);expect(follow.memories.length).toBeLessThanOrEqual(3);
+ }finally{missingFacet.s.close()}
  }finally{f.s.close()}
 });
 test('unrelated and unsupported narrow lookups stay empty or compact',async()=>{

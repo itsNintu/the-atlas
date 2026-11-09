@@ -990,6 +990,18 @@ export class Memory {
     const focused=['profile','domain'].includes(plan.mode)||plan.topics.length>0;
     let eligible=focused?[...ranked,...expanded].filter(m=>focusedMatch(m)): [...ranked,...expanded];
     if(plan.mode==='narrow'&&contextAnchors.size&&eligible.some(contextGrounded))eligible=eligible.filter(contextGrounded);
+    // A pronoun follow-up can name a facet the graph does not store. Stay on the
+    // established topic instead of returning nothing or the previous topic.
+    if(plan.mode==='narrow'&&!eligible.length&&plan.context.length&&plan.topics.length){
+      const topical=rows.flatMap(row=>{
+        const i=info(row);
+        if(!topicCompatible(plan,i)||metaNarrative(row))return [];
+        if(plan.topics.includes('work')&&!plan.includeHistory&&historicalPredicate(row.predicate))return [];
+        const state=recallState(row);
+        return state?[{...state,lexical:0,semantic:0,direct:0,association:0,score:row.importance??0}]:[];
+      });
+      eligible=contextAnchors.size&&topical.some(contextGrounded)?topical.filter(contextGrounded):topical;
+    }
     const allocation=plan.mode==='narrow'?3:plan.mode==='domain'?8:plan.mode==='profile'?12:plan.topics.length?6:100;
     const packet=focused?diverseSelection(eligible,allocation,plan,info):eligible;
     const selected: any[] = [], snapshots = new Map<string, any>();
