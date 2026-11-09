@@ -66,7 +66,7 @@ function blogExclusion(row: any) {
   if (!['excludes', 'excludes_from_platform_features', 'prefers_excluding', 'blog_functionality_policy'].includes(norm(row.predicate).replaceAll('-', '_'))) return false;
   if (!['alex', 'creator platform'].includes(norm(row.subject)) && !gluedOwnerDisplayLabel(row.subject)) return false;
   const object = String(row.object ?? '').toLowerCase();
-  return /blog/.test(object) && /(?:platform|creator)/.test(object) && !/\bmay[ _]include\b|\ballow(?:s|ed)?\b/.test(object);
+  return /blog/.test(object) && /(?:platform|creator)/.test(`${row.subject} ${row.predicate} ${object}`.toLowerCase()) && !/\bmay[ _]include\b|\ballow(?:s|ed)?\b/.test(object);
 }
 
 function canonicalBlog(rows: any[], store: Store) {
