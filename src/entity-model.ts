@@ -173,7 +173,7 @@ export function continuityTopic(m:{kind?:string;scope?:string;predicate?:string;
  if(statusReport(m)||m.historical)return false;
  const p=norm(String(m.predicate??''));
  if(['aspires_to_build','wants','wants_to_be'].includes(p))return false;
- if(/\b(?:do not|don't|never mention|switch to|as a fallback)\b/i.test(`${m.subject??''} ${m.object??''}`))return false;
+ if(/\b(?:do not|don't|never mention|switch to|as a fallback|regression case|implementation card|test case)\b/i.test(`${m.subject??''} ${m.object??''}`))return false;
  if(info.signature.facet==='project'||info.signature.facet==='decision')return true;
  if(String(m.scope??'').startsWith('business:')&&!/exclud/.test(p))return m.kind==='episode';
  if(String(m.scope??'').startsWith('business:'))return false;

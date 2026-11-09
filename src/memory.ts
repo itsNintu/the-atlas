@@ -1022,7 +1022,7 @@ export class Memory {
     let packet=focused?diverseSelection(eligible,allocation,plan,info):eligible;
     const topicIds=new Set<string>();
     if(sessionStart){
-      const current=scopes.flatMap(scope=>this.store.all('SELECT * FROM memories WHERE workspace_id=? AND scope=? ORDER BY recorded_from DESC,id LIMIT 80',a.workspace_id,scope)).flatMap(row=>{const state=recallState(row);return state&&!state.historical?[state]:[];});
+      const current=[...scopes.flatMap(scope=>this.store.all('SELECT * FROM memories WHERE workspace_id=? AND scope=? AND kind!=\'episode\' ORDER BY recorded_from DESC,id LIMIT 80',a.workspace_id,scope)),...scopes.flatMap(scope=>this.store.all('SELECT * FROM memories WHERE workspace_id=? AND scope=? AND kind=\'episode\' ORDER BY recorded_from DESC,id LIMIT 24',a.workspace_id,scope))].flatMap(row=>{const state=recallState(row);return state&&!state.historical?[state]:[];});
       const ranked=(pred:(m:any)=>boolean,limit:number)=>current.filter(pred).sort((a,b)=>continuityProfileRank(b,info(b))-continuityProfileRank(a,info(a))||String(a.object??'').length-String(b.object??'').length||String(b.recorded_from).localeCompare(String(a.recorded_from))||a.id.localeCompare(b.id)).slice(0,limit);
       const profile=[...ranked(m=>continuityProfile(m,info(m))&&continuityProfileRank(m,info(m))>=80,2),...ranked(m=>continuityProfile(m,info(m))&&continuityProfileRank(m,info(m))===70,2)];
       const seenLabel=new Set<string>();
