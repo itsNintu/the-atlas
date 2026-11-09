@@ -78,6 +78,14 @@ test('routine assistant status is not stored, while substantive agent knowledge 
       kind: 'episode', scope: 'agent:default', subject: 'Atlas memory integration',
       predicate: 'assistant_stated_added_test_case', object: 'Add the exact bad packet as a regression case.',
     }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'episode', scope: 'agent:default', subject: 'Atlas repair',
+      predicate: 'assistant_sent_focused_repair_directive_to_builder', object: 'The assistant sent a directive.',
+    }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'episode', scope: 'agent:default', subject: 'Atlas repair',
+      predicate: 'assistant_reported_scope_error', object: 'The assistant reported that the work was over-scoped.',
+    }),
   ], 'assistant', 'I added the regression case and am checking activation status.');
   try {
     expect(await status.worker.runOnce()).toBe(true);
