@@ -19,6 +19,7 @@ export const DERIVED_PURGE_TABLES = [
   "memory_entity_targets",
   "memory_supports",
   "memory_changes",
+  "memory_entity_equivalence_invalidations",
   "memory_entity_equivalences",
   "memory_alias_sources",
   "memory_versions",

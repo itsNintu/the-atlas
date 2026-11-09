@@ -16,6 +16,7 @@ import {
 import { dirname, resolve } from "node:path";
 import { ApiError } from "./errors.ts";
 import { resetDerivedBrain } from "./derived-reset.ts";
+import { applyCanonicalGraphRepair, canonicalGraphRepairPlan } from "./memory-canonical-repair.ts";
 
 const args = process.argv.slice(2),
   command = args.shift();
@@ -129,6 +130,22 @@ try {
     } finally {
       store.close();
     }
+  } else if (command === "repair-canonical-graph") {
+    const preview = args.includes("--preview"), proof = option("expected-proof");
+    if (!db || !existsSync(resolve(db)))
+      throw Error("repair-canonical-graph requires an existing explicit --db FILE; a missing path is never created");
+    const store = new Store(resolve(db));
+    try {
+      if (preview) {
+        output({ ...canonicalGraphRepairPlan(store), mode: "preview", stopped_custody_required_for_apply: true });
+      } else {
+        const result = applyCanonicalGraphRepair(store, proof ?? "");
+        const checkpoint = store.checkpoint();
+        output({ ...result, checkpoint, raw_history_preserved: true, configuration_preserved: true });
+      }
+    } finally {
+      store.close();
+    }
   } else if (command === "api") {
     const method = args.shift()?.toUpperCase(),
       path = args.shift();
@@ -201,6 +218,7 @@ try {
         "bootstrap --name NAME --credential-file FILE [--db FILE]",
         "issue-key --principal-id ID --credential-file NEW_FILE [--db FILE] (local OS operator)",
         "reset-derived-brain --db EXISTING_FILE --confirm RESET_DERIVED_BRAIN (offline; stopped full DB/config backup first)",
+        "repair-canonical-graph --db EXISTING_FILE --preview | --expected-proof SHA256 (offline targeted repair; stopped backup first)",
         "api METHOD /v1/PATH [--file JSON]",
         "ingest|context|graph --file JSON",
         "inspect SOURCE_ID",

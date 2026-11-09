@@ -66,6 +66,7 @@ test("clean slate physically purges all derived projections, preserves custody, 
     f.store.run("INSERT INTO memory_lineage VALUES (?,?,?)", second, first, 1);
     f.store.run("INSERT INTO memory_entity_targets VALUES (?,?)", first, f.store.one("SELECT subject_id FROM memories WHERE id=?", second).subject_id);
     f.store.run("INSERT INTO memory_entity_equivalences VALUES (?,?,?,?,?,?)", actor.workspace_id, "business:alex", f.store.one("SELECT subject_id FROM memories WHERE id=?", first).subject_id, f.store.one("SELECT subject_id FROM memories WHERE id=?", second).subject_id, old2.source.id, now());
+    f.store.run("INSERT INTO memory_entity_equivalence_invalidations VALUES (?,?,?,?,?,?,?,?,?)", actor.workspace_id, "business:alex", f.store.one("SELECT subject_id FROM memories WHERE id=?", first).subject_id, f.store.one("SELECT subject_id FROM memories WHERE id=?", second).subject_id, old2.source.id, old1.source.id, "old_repair", "old-proof", now());
     f.store.run("INSERT INTO memory_event_admissions VALUES (?,?,?,?,?,?,?,?)", old1.receipt.job_id, old1.source.id, "durable_candidate", "old-jev", .9, "old-proof", 1, now());
     f.store.run("INSERT INTO memory_jev_routes VALUES (?,?,?,?,?,?,?,?,?,?,?)", id("jevroute"), old1.receipt.job_id, old1.source.id, "graph_area", "area_0", "area_0", "old-jev", .9, "old-proof", 1, now());
     f.store.run("INSERT INTO memory_reconciliations VALUES (?,?,?,?,?)", old1.receipt.job_id, old1.source.id, first, "{}", now());

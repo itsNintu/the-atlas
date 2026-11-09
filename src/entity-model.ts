@@ -14,6 +14,7 @@ export function canonicalEntityType(value:string){const n=norm(value);return TYP
 function withParents(types:Iterable<string>){const out=new Set<string>();for(const type of types){if(!type)continue;out.add(type);for(const parent of TYPE_PARENTS[type]??[])out.add(parent);}return [...out];}
 const FAMILY=new Set(['is_married_to','married_to','spouse_of','partner_of','parent_of','has_child','child_of','son_of','daughter_of','has_sibling','sibling_of','brother_of','sister_of','family_member','member_of_family']);
 const WORK_ROLE=new Set(['job_title','role','current_role','occupation','works_at','works_for','works_in','typically_works_with','is_interviewing_for','employed_by','employer','company','current_company']);
+const WORK_COMPANY=new Set(['works_at','works_for','employed_by','employer','company','current_company','interviewing_with','interviewed_with','worked_at','has_final_call_with','plans_work_trial_with','discussing_compensation_with','expects_work_trial_with','expects_remote_work_trial_with','expects_future_onsite_with']);
 const WORK_PROJECT=new Set(['maintains','builds','building','develops','developing','working_on','leads','leading','contributes_to','active_project','has_project','current_project','project','aspires_to_build']);
 const WORK_RESPONSIBILITY=new Set(['responsibility','responsibilities','responsible_for','duties','duty','scope_of_work']);
 const WORK_DECISION=new Set(['decision','has_decision','active_decision','decided','goal','has_goal','active_goal','objective','priority','priorities','plan']);
@@ -24,20 +25,20 @@ const NAME=new Set(['name','named','called','has_name','pet_name']);
 export type PredicateSignature={topics:string[];facet?:string;subjectTypes:string[];objectTypes:string[];ownership:boolean;typeRelation:boolean};
 export function predicateSignature(predicate:string):PredicateSignature{
  const p=norm(predicate),dynamic=/^has_(dog|cat|pet)$/.exec(p)?.[1];
- const family=FAMILY.has(p),workRole=WORK_ROLE.has(p),workProject=WORK_PROJECT.has(p),workResponsibility=WORK_RESPONSIBILITY.has(p),workDecision=WORK_DECISION.has(p);
+ const family=FAMILY.has(p),workRole=WORK_ROLE.has(p)||WORK_COMPANY.has(p)||/^(?:work_arrangement_at_|has_final_call_to_discuss$|expects_(?:remote_)?work_trial|expects_future_onsite|prefers_work_location|may_travel_to)/.test(p),workProject=WORK_PROJECT.has(p),workResponsibility=WORK_RESPONSIBILITY.has(p),workDecision=WORK_DECISION.has(p);
  const work=workRole||workProject||workResponsibility||workDecision;
  const topics=[...new Set([dynamic||p==='pet_of'?'pet':'',family?'family':'',work?'work':'',LANGUAGES.has(p)?'language':'',VEHICLES.has(p)?'vehicle':''].filter(Boolean))];
  const facet=NAME.has(p)?'name':workRole?'role':workProject?'project':workResponsibility?'responsibility':workDecision?'decision':family?'family':dynamic?'pet':undefined;
  return {topics,facet,
   subjectTypes:dynamic||family||workRole?['person']:[],
-  objectTypes:dynamic?[canonicalEntityType(dynamic)]:family?['person']:['works_at','works_for','employed_by','employer','company','current_company'].includes(p)?['organization']:workProject?['project']:[],
+  objectTypes:dynamic?[canonicalEntityType(dynamic)]:family?['person']:WORK_COMPANY.has(p)?['organization']:workProject?['project']:[],
   ownership:OWNERSHIP.has(p)||Boolean(dynamic),typeRelation:ENTITY_TYPE_PREDICATES.has(p)};
 }
 function textTopics(value:string){
  const t=tokens(value),has=(words:string[])=>words.some(w=>t.has(w)),topics:string[]=[];
  if(has(['pet','pets','dog','dogs','doggo','doggos','puppy','puppies','cat','cats','kitty','kitten','kittens']))topics.push('pet');
  if(has(['family','spouse','wife','husband','married','child','children','son','daughter','sibling','siblings','brother','sister','parent','parents']))topics.push('family');
- if(has(['work','working','building','developing','job','jobs','employment','employer','company','companies','business','role','roles','responsibility','responsibilities','decision','decisions','goal','goals','objective','objectives']))topics.push('work');
+ if(has(['work','working','building','developing','job','jobs','employment','employer','company','companies','business','role','roles','responsibility','responsibilities','decision','decisions','goal','goals','objective','objectives','interview','interviewing','trial','remote','onsite','compensation','relocation','travel']))topics.push('work');
  if(has(['language','languages','speak','speaks','fluent']))topics.push('language');
  if(has(['car','cars','vehicle','vehicles','motorcycle','motorcycles','bike','bikes']))topics.push('vehicle');
  return topics;

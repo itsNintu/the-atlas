@@ -26,6 +26,14 @@ CREATE TABLE IF NOT EXISTS memory_scoped_aliases (workspace_id TEXT NOT NULL,sco
 CREATE TABLE IF NOT EXISTS memory_alias_sources (workspace_id TEXT NOT NULL,scope TEXT NOT NULL,alias TEXT NOT NULL,entity_id TEXT NOT NULL REFERENCES memory_entities(id) ON DELETE CASCADE,event_pk TEXT NOT NULL REFERENCES memory_events(id),PRIMARY KEY(scope,alias,entity_id,event_pk));
 CREATE TABLE IF NOT EXISTS memory_entity_targets (memory_id TEXT PRIMARY KEY REFERENCES memories(id) ON DELETE CASCADE,entity_id TEXT REFERENCES memory_entities(id));
 CREATE TABLE IF NOT EXISTS memory_entity_equivalences (workspace_id TEXT NOT NULL,scope TEXT NOT NULL,entity_id TEXT NOT NULL REFERENCES memory_entities(id) ON DELETE CASCADE,canonical_id TEXT NOT NULL REFERENCES memory_entities(id) ON DELETE CASCADE,event_pk TEXT NOT NULL REFERENCES memory_events(id),recorded_at TEXT NOT NULL,PRIMARY KEY(scope,entity_id,canonical_id,event_pk));
+CREATE TABLE IF NOT EXISTS memory_entity_equivalence_invalidations (
+ workspace_id TEXT NOT NULL,scope TEXT NOT NULL,
+ entity_id TEXT NOT NULL REFERENCES memory_entities(id) ON DELETE CASCADE,
+ canonical_id TEXT NOT NULL REFERENCES memory_entities(id) ON DELETE CASCADE,
+ event_pk TEXT NOT NULL REFERENCES memory_events(id),repair_event_pk TEXT NOT NULL REFERENCES memory_events(id),
+ reason_code TEXT NOT NULL,proof_sha256 TEXT NOT NULL,recorded_at TEXT NOT NULL,
+ PRIMARY KEY(scope,entity_id,canonical_id,event_pk,repair_event_pk)
+);
 CREATE TABLE IF NOT EXISTS memory_reconciliations (job_id TEXT NOT NULL REFERENCES memory_jobs(id),event_pk TEXT NOT NULL REFERENCES memory_events(id),memory_id TEXT NOT NULL REFERENCES memories(id) ON DELETE CASCADE,disposition_json TEXT NOT NULL,created_at TEXT NOT NULL);
 INSERT OR IGNORE INTO memory_scoped_aliases SELECT a.workspace_id,m.scope,a.alias,a.entity_id FROM memory_aliases a JOIN memories m ON m.subject_id=a.entity_id WHERE EXISTS(SELECT 1 FROM memory_supports s WHERE s.memory_id=m.id);
 INSERT OR IGNORE INTO memory_alias_sources SELECT a.workspace_id,m.scope,a.alias,a.entity_id,s.event_pk FROM memory_aliases a JOIN memories m ON m.subject_id=a.entity_id JOIN memory_supports s ON s.memory_id=m.id;

@@ -35,6 +35,8 @@ import { beginJevRequest, isJevPayment, isLunaCapacity, providerRequestSucceeded
 import { admissionProof, auditorState, routeRecord, communicationRole, automaticStatusNotification } from "./memory-admission.ts";
 import { EXTRACT_PROMPT, RECONCILE_PROMPT, validateReconciliations, normalizeReconciliation, mergeReconciliations, type Reconciliation } from './memory-reconciliation.ts';
 import { IDENTITY_PROMPT, identityResponseContract, resolvedIdentity, candidateIdentities } from './memory-identity.ts';
+import { canonicalOwnerDecision } from './memory-attribution.ts';
+import { isOperationalStatusDecision, operationalStatusCategory } from './memory-operational.ts';
 import { correctionReplacements } from "./memory-correction-lookup.ts";
 import { correctionEvidence, modelFacingCorrections } from "./memory-corrections.ts";
 import { activeChanges, consistentReconciliation } from "./memory-truth.ts";
@@ -448,6 +450,7 @@ export class Memory {
       ))
         this.invalidateChildren(c.target_id, "change_repaired");
       this.store.run("DELETE FROM memory_changes WHERE event_pk=?", source);
+      this.store.run('DELETE FROM memory_entity_equivalence_invalidations WHERE event_pk=? OR repair_event_pk=?',source,source);
       this.store.run('DELETE FROM memory_entity_equivalences WHERE event_pk=?',source);
       this.store.run('DELETE FROM memory_alias_sources WHERE event_pk=?',source);
       for (const x of this.store.all(
@@ -603,17 +606,19 @@ export class Memory {
     const revision=integer(expected_revision,'expected_revision',1,Number.MAX_SAFE_INTEGER);
     const reason=text(reason_code,'reason_code',80);
     if(!/^[a-z0-9_-]+$/.test(reason))fail(400,'invalid_request','reason_code must be a non-content diagnostic identifier');
-    if(!['session_local_owner_correction','execution_content_owner_exclusion','automatic_notification_owner_exclusion'].includes(reason))fail(400,'invalid_request','Unsupported owner-directed admission review reason');
+    if(!['session_local_owner_correction','execution_content_owner_exclusion','automatic_notification_owner_exclusion','operational_status_owner_exclusion','invalid_placeholder_owner_exclusion'].includes(reason))fail(400,'invalid_request','Unsupported owner-directed admission review reason');
     const executionExclusion=reason==='execution_content_owner_exclusion';
     const notificationExclusion=reason==='automatic_notification_owner_exclusion';
+    const operationalExclusion=reason==='operational_status_owner_exclusion';
+    const placeholderExclusion=reason==='invalid_placeholder_owner_exclusion';
     const contentExclusion=executionExclusion||notificationExclusion;
-    const reviewScopes=contentExclusion?['user:alex','business:alex',own(agent)]:['user:alex','business:alex'];
+    const reviewScopes=(contentExclusion||operationalExclusion||placeholderExclusion)?['user:alex','business:alex',own(agent)]:['user:alex','business:alex'];
     const e=this.store.one(`SELECT e.*,j.status AS job_status,j.reset_epoch AS job_reset_epoch FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id JOIN memory_jobs j ON j.id=e.job_id AND j.event_pk=e.id WHERE j.id=? AND e.workspace_id=? AND e.agent_id=? AND e.operation='upsert'`,previous_job_id,a.workspace_id,agent);
     if(!e)fail(404,'not_found','Current source job not found');
     assertCurrentJobEpoch(this.store,e.reset_epoch,e.job_reset_epoch);
     if(e.revision!==revision)fail(409,'revision_conflict','Memory event revision changed');
     const completed=e.job_status==='succeeded'&&e.status==='processed';
-    const failedContentExclusion=contentExclusion&&e.job_status==='failed'&&e.status==='pending';
+    const failedContentExclusion=(contentExclusion||operationalExclusion||placeholderExclusion)&&e.job_status==='failed'&&e.status==='pending';
     if(!completed&&!failedContentExclusion)fail(409,'job_not_reviewable','Only a completed source job or a failed/pending content exclusion can be admission-reviewed');
     if(!this.eventCurrent(e))fail(409,'source_unavailable','Original memory source revision is no longer current');
     if(notificationExclusion&&!automaticStatusNotification(e))fail(409,'not_automatic_notification','Source is not an automatic status/delivery notification');
@@ -623,6 +628,11 @@ export class Memory {
       const supports=this.store.all('SELECT e.* FROM memory_supports s JOIN memory_events e ON e.id=s.event_pk WHERE s.memory_id=?',memory_id);
       if(!supports.length||supports.some(source=>!automaticStatusNotification(source)))fail(409,'notification_only_support_required','automatic_notification_owner_exclusion requires notification-only direct support');
     }
+    if(operationalExclusion){
+      const supports=this.store.all('SELECT e.* FROM memory_supports s JOIN memory_events e ON e.id=s.event_pk WHERE s.memory_id=?',memory_id);
+      if(!supports.length||supports.some(source=>!operationalStatusCategory(m,source)))fail(409,'operational_only_support_required','Operational-status exclusion requires operational-only direct support');
+    }
+    if(placeholderExclusion&&m.object.trim())fail(409,'not_empty_placeholder','Placeholder exclusion requires an empty/whitespace object');
     const readable=this.authorize(a,agent,'read'),writable=this.authorize(a,agent,'write');
     if(!readable.includes(m.scope)||!writable.includes(m.scope))fail(403,'memory_grant_required','Memory read/write grant required');
     const previous=this.auditPrevious(e,readable,5);
@@ -650,7 +660,7 @@ export class Memory {
   }
   canonicalEntity(workspace:string,scope:string,entity:string,recorded_at=now(),path:string[]=[]):string {
     if(path.includes(entity)||path.length>=16)return entity;
-    const rows=this.store.all(`SELECT DISTINCT q.canonical_id FROM memory_entity_equivalences q JOIN memory_events e ON e.id=q.event_pk JOIN memory_heads h ON h.event_pk=e.id WHERE q.workspace_id=? AND q.scope=? AND q.entity_id=? AND q.recorded_at<=? AND e.status NOT IN ('forgotten','deleted','superseded')`,workspace,scope,entity,recorded_at);
+    const rows=this.store.all(`SELECT DISTINCT q.canonical_id FROM memory_entity_equivalences q JOIN memory_events e ON e.id=q.event_pk JOIN memory_heads h ON h.event_pk=e.id WHERE q.workspace_id=? AND q.scope=? AND q.entity_id=? AND q.recorded_at<=? AND e.status NOT IN ('forgotten','deleted','superseded') AND NOT EXISTS(SELECT 1 FROM memory_entity_equivalence_invalidations i JOIN memory_events re ON re.id=i.repair_event_pk JOIN memory_heads rh ON rh.event_pk=re.id WHERE i.workspace_id=q.workspace_id AND i.scope=q.scope AND i.entity_id=q.entity_id AND i.canonical_id=q.canonical_id AND i.event_pk=q.event_pk AND i.recorded_at<=? AND re.status NOT IN ('forgotten','deleted','superseded'))`,workspace,scope,entity,recorded_at,recorded_at);
     const roots=[...new Set<string>(rows.map(r=>this.canonicalEntity(workspace,scope,r.canonical_id,recorded_at,[...path,entity])))];
     return roots.length===1&&!path.includes(roots[0]) ? roots[0] : entity;
   }
@@ -737,8 +747,16 @@ export class Memory {
       )
         return null;
     }
+    const subject_id = this.canonicalEntity(m.workspace_id, m.scope, m.subject_id, recorded_at);
+    const subject = subject_id === m.subject_id ? m.subject : this.store.one('SELECT canonical FROM memory_entities WHERE id=?', subject_id)?.canonical ?? m.subject;
+    const target = this.store.one('SELECT entity_id FROM memory_entity_targets WHERE memory_id=?', m.id);
+    const target_id = target?.entity_id ? this.canonicalEntity(m.workspace_id, m.scope, target.entity_id, recorded_at) : null;
+    const object = target_id && target_id !== target.entity_id ? this.store.one('SELECT canonical FROM memory_entities WHERE id=?', target_id)?.canonical ?? m.object : m.object;
     return {
       ...m,
+      subject_id,
+      subject,
+      object,
       valid_to: end,
       ...(changes.some(c=>c.type==='start_unknown')?{historical_start_unknown:true}:{}),
       changes: changes.map((c) => ({
@@ -1420,7 +1438,7 @@ export class MemoryWorker {
           "Read grants changed during inference",
           true,
         );
-      const nonempty = result.decisions.filter((d) => d.kind !== "nothing");
+      const nonempty = result.decisions.filter((d) => d.kind !== "nothing" && !isOperationalStatusDecision(d, e));
       this.validate(nonempty, e, scopes, included);
       for(const d of nonempty)if(stillReadable.includes(d.scope!))reconciliationScopes.add(d.scope!);
       const reconciled = this.inference.reconcile && nonempty.length
@@ -1715,11 +1733,11 @@ export class MemoryWorker {
           "Agent/tool claims cannot become Alex preference assertions",
           true,
         );
-      if (d.kind === "hypothesis" && d.scope !== own(e.agent_id))
+      if (e.role !== "user" && d.kind === "hypothesis" && d.scope !== own(e.agent_id))
         fail(
           503,
           "curator_attribution_violation",
-          "Hypotheses stay in originating agent graph",
+          "Agent hypotheses stay in the originating agent graph; genuine owner uncertainty may use authorized owner scopes",
           true,
         );
       if ((d.derived_from?.length ?? 0) > 0) {
@@ -1773,6 +1791,7 @@ export class MemoryWorker {
     model: string,
     readable: string[],
   ) {
+    d = canonicalOwnerDecision(d, e);
     const entity = this.memory.entity(
       e.workspace_id,
       d.subject!,
