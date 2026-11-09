@@ -179,6 +179,28 @@ export function canonicalGraphRepairPlan(store: Store) {
   }
   workRelationships.sort((a, b) => a.memory_id.localeCompare(b.memory_id));
 
+  const contextWorkRelationships: any[] = [];
+  for (const row of rows) {
+    const relation = norm(row.predicate) === 'expects_work_trial_format' && /^remote\b/i.test(String(row.object)) ? 'expects_remote_work_trial_with' :
+      norm(row.predicate) === 'anticipates_in_person_session_if_trial_succeeds' ? 'expects_future_onsite_with' : null;
+    if (!relation || row.derived) continue;
+    const source = reviewable(supports(store, row.id))[0];
+    if (!source || source.role !== 'user') continue;
+    const companies = rows.filter((candidate) => ['interviewing_with', 'plans_work_trial_with'].includes(norm(candidate.predicate)) &&
+      store.one('SELECT entity_id FROM memory_entity_targets WHERE memory_id=? AND entity_id IS NOT NULL', candidate.id) &&
+      supports(store, candidate.id).some((support) => support.thread_id === source.thread_id && support.accepted_at <= source.accepted_at));
+    const companyIds = [...new Set(companies.map((candidate) => candidate.object))];
+    if (companyIds.length !== 1) continue;
+    const company = [...companies].sort((a, b) => (norm(a.predicate) === 'interviewing_with' ? -1 : 0) - (norm(b.predicate) === 'interviewing_with' ? -1 : 0))[0], companySource = reviewable(supports(store, company.id))[0];
+    if (!companySource || rows.some((candidate) => candidate.scope === row.scope && norm(candidate.predicate) === relation && norm(candidate.object) === norm(company.object) && store.one('SELECT entity_id FROM memory_entity_targets WHERE memory_id=? AND entity_id IS NOT NULL', candidate.id))) continue;
+    contextWorkRelationships.push(operationProof(store, row, source, {
+      category: 'context_work_entity_link', relation, company: company.object,
+      company_memory_id: company.id, company_event_pk: companySource.id,
+      company_proof_sha256: memoryProof(store, company),
+    }));
+  }
+  contextWorkRelationships.sort((a, b) => a.memory_id.localeCompare(b.memory_id));
+
   const duplicateGroups: any[] = [];
   const blog = duplicateGroup(store, blogRows, 'blog_exclusion');
   if (blog) duplicateGroups.push(blog);
@@ -225,6 +247,7 @@ export function canonicalGraphRepairPlan(store: Store) {
     },
     owner_repairs: ownerRepairs,
     work_relationships: workRelationships,
+    context_work_relationships: contextWorkRelationships,
     equivalence_invalidations: equivalenceInvalidations,
     canonical_equivalences: canonicalEquivalences,
     duplicate_groups: duplicateGroups,
@@ -232,6 +255,7 @@ export function canonicalGraphRepairPlan(store: Store) {
     empty_object_demotions: placeholders,
     affected_memory_ids: [...new Set([
       ...ownerRepairs.map((row) => row.memory_id), ...workRelationships.map((row) => row.memory_id),
+      ...contextWorkRelationships.map((row) => row.memory_id),
       ...duplicateGroups.flatMap((row) => [row.canonical_memory_id, ...row.duplicate_memory_ids]),
       ...operationalDemotions.map((row) => row.memory_id), ...placeholders.map((row) => row.memory_id),
     ])].sort(),
@@ -341,6 +365,17 @@ export function applyCanonicalGraphRepair(store: Store, expectedProof: string) {
       }
       supersede(store, source, row.id, replacements[0], at);
       summaries.push({ category: 'atomic_work_relationships', source_memory_id: row.id, canonical_memory_ids: replacements });
+    }
+
+    for (const operation of plan.context_work_relationships) {
+      const row = store.one('SELECT * FROM memories WHERE id=?', operation.memory_id), source = sourceEvent(store, operation.source_event_pk);
+      const replacement = repairExisting(store, worker, row, source, 'Alex', operation.relation, operation.company, true);
+      const companySupport = store.one('SELECT event_pk,roots_json,excerpt FROM memory_supports WHERE memory_id=? AND event_pk=?', operation.company_memory_id, operation.company_event_pk);
+      if (!companySupport) fail(409, 'repair_source_changed', 'Company context support changed');
+      store.run('INSERT OR IGNORE INTO memory_supports (memory_id,event_pk,roots_json,excerpt) VALUES (?,?,?,?)', replacement, companySupport.event_pk, companySupport.roots_json, companySupport.excerpt);
+      audit(store, source, replacement, { operation: OPERATION, proof_sha256: plan.proof_sha256, repair: 'context_work_entity_link', source_memory_id: row.id, company_memory_id: operation.company_memory_id, predicate: operation.relation, duplicate_ids: [] }, at);
+      summaries.push({ category: 'context_work_entity_link', source_memory_id: row.id, canonical_memory_id: replacement, company_memory_id: operation.company_memory_id });
+      summarySource ??= source; summaryMemory ??= replacement;
     }
 
     for (const group of plan.duplicate_groups) {
