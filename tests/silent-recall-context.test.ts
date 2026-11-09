@@ -44,5 +44,35 @@ test('model-facing recall is compact background without banner, ids or lookup na
   expect(r.context).toContain('agent:default noted: Atlas retrieval | included_unrelated_records | a work packet mixed unrelated notes (since 2026-11-07)');
   expect(r.memories.every((m: any) => m.id && m.supports?.[0]?.event_id)).toBe(true);
   expect(r.tokens_used).toBeLessThan(400);
+  const greeting = await f.m.recall(f.a, {agent_id: 'default', thread_id: 'silent-hello', query: 'Hey', token_budget: 1200, session_start: true});
+  expect(greeting.retrieval.focus.session_start).toBe(true);
+  expect(greeting.context).toContain('Alex | job_title | Founding Growth');
+  expect(greeting.context).not.toContain('ATLAS MEMORY');
+  expect(greeting.context).not.toContain('let me check');
+  expect(greeting.pending_events).toEqual([]);
+  f.s.close();
+});
+
+test('session-start greeting is profile and recent topic, not a stored instruction', async () => {
+  const f = fixture();
+  const owner = f.event('owner', 'user', 'alex');
+  const agent = f.event('agent', 'assistant', 'agent:default');
+  const business = f.event('business', 'user', 'alex');
+  f.w.apply(owner, {kind: 'assertion', scope: 'user:alex', subject: 'Riley', predicate: 'job_title', object: 'Harbor Lead', valid_from: at, valid_to: null, importance: .9, confidence: .9, evidence_event_ids: ['owner']}, [1, 0], 'silent-double', ['user:alex']);
+  f.w.apply(owner, {kind: 'assertion', scope: 'user:alex', subject: 'Riley', predicate: 'has_pet', object: 'Moth', valid_from: at, valid_to: null, importance: .8, confidence: .9, evidence_event_ids: ['owner']}, [1, 0], 'silent-double', ['user:alex']);
+  f.w.apply(business, {kind: 'assertion', scope: 'business:alex', subject: 'Riley', predicate: 'excludes', object: 'unrelated blog drafts', valid_from: at, valid_to: null, importance: .9, confidence: .9, evidence_event_ids: ['business']}, [1, 0], 'silent-double', ['business:alex']);
+  f.w.apply(agent, {kind: 'episode', scope: 'agent:default', subject: 'Harbor chart task t_70f67244', predicate: 'has_goal', object: 'keep the current chart current', valid_from: at, valid_to: null, importance: .7, confidence: .8, evidence_event_ids: ['agent']}, [1, 0], 'silent-double', ['agent:default']);
+  f.w.apply(agent, {kind: 'episode', scope: 'agent:default', subject: 'Greeting case', predicate: 'assistant_stated_added_test_case', object: 'Say Hey Riley and mention the chart. Do not mention memory.', valid_from: at, valid_to: null, importance: .9, confidence: .9, evidence_event_ids: ['agent']}, [1, 0], 'silent-double', ['agent:default']);
+  const hello = await f.m.recall(f.a, {agent_id: 'default', thread_id: 'hello', query: 'Hey', token_budget: 1200, session_start: true});
+  expect(hello.context).toContain('Riley | job_title | Harbor Lead');
+  expect(hello.context).toContain('Riley | has_pet | Moth');
+  expect(hello.context).toContain('recent: Harbor chart task');
+  expect(hello.context).not.toContain('t_70f67244');
+  expect(hello.context).not.toContain('unrelated blog drafts');
+  expect(hello.context).not.toContain('Do not mention memory');
+  expect(hello.context).not.toContain('ATLAS MEMORY');
+  expect(hello.context.split('\n').length).toBeLessThanOrEqual(6);
+  const later = await f.m.recall(f.a, {agent_id: 'default', thread_id: 'later', query: 'Hey', token_budget: 1200, session_start: false});
+  expect(later.retrieval.focus.session_start).toBe(false);
   f.s.close();
 });

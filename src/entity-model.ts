@@ -153,3 +153,35 @@ export function diverseSelection(rows:any[],limit:number,plan:RecallPlan,info:(m
 }
 export function historicalPredicate(predicate:string){return /^(?:first_|formerly_|previous_|past_|used_to_)/.test(norm(predicate));}
 export function normalizedPredicate(predicate:string){return norm(predicate);}
+export function statusReport(m:{predicate?:string}){
+ const p=norm(String(m.predicate??''));
+ return metaNarrative({predicate:p})||/(?:^|_)(?:assistant|reported|observed|stated|assessed|included|activation|content|status)(?:_|$)|_status$|^status$/.test(p);
+}
+export function continuityProfile(m:{scope?:string;predicate?:string},info:MemoryEntityInfo){
+ if(!String(m.scope??'').startsWith('user:')||statusReport(m))return false;
+ const facet=info.signature.facet;
+ return facet==='name'||facet==='pet'||facet==='family'||facet==='role'||info.topics.includes('pet')||info.topics.includes('family');
+}
+export function continuityProfileRank(m:{predicate?:string},info:MemoryEntityInfo){
+ const p=norm(String(m.predicate??'')),facet=info.signature.facet;
+ if(facet==='name')return 100;
+ if(facet==='pet'||facet==='family'||info.topics.includes('pet')||info.topics.includes('family'))return 80;
+ if(p==='job_title'||p==='works_in'||p==='current_role'||p==='occupation')return 70;
+ return facet==='role'?40:0;
+}
+export function continuityTopic(m:{kind?:string;scope?:string;predicate?:string;historical?:boolean},info:MemoryEntityInfo){
+ if(statusReport(m)||m.historical)return false;
+ if(info.signature.facet==='project'||info.signature.facet==='decision')return true;
+ if(String(m.scope??'').startsWith('business:'))return false;
+ return m.kind==='episode';
+}
+export function continuityTopicRank(m:{predicate?:string},info:MemoryEntityInfo){
+ return info.signature.facet==='project'||info.signature.facet==='decision'||['has_goal','working_on','maintains','builds','current_project'].includes(norm(String(m.predicate??'')))?100:10;
+}
+export function topicLabel(m:{subject?:string;object?:string}){
+ const clean=(value:unknown)=>String(value??'').replace(/\bt_[0-9a-f]{6,}\b/gi,'').replace(/\b\d{17,}\b/g,'').replace(/\s{2,}/g,' ').trim();
+ const subject=clean(m.subject),object=clean(m.object);
+ const generic=/^(?:alex|builder|agent|assistant|user)$/i.test(subject)||subject.length<8;
+ const label=generic&&object.length>=8?object:subject;
+ return label.slice(0,120);
+}

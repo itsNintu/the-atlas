@@ -250,7 +250,9 @@ same-scope entity-object-to-subject relationships, plus bounded same-entity sibl
 is requested (e.g. maintains AND reports_to). The model-facing context is compact useful content
 with minimal time and non-owner attribution. It omits banners, warning prose, memory IDs and
 source-event IDs. Full support/root provenance remains in typed memories, receipts and the graph.
-Empty/unrelated queries can return an empty context and no memory.
+Empty/unrelated queries can return an empty context and no memory. A first-turn `session_start`
+recall adds a bounded current profile and recent topics before the normal query selection. It does
+not replay transcripts, status events, or tell the agent what to say.
 
 Named coded topics (after fictional/project/exercise/task/ticket/fixture) are ranking hints only,
 not an additional admission prerequisite. Matching a claim or visible support excerpt adds0.12;

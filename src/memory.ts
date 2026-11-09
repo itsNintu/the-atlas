@@ -24,7 +24,8 @@ function modelFacingLine(m: any) {
     : m.conflict
       ? (m.historical_start_unknown ? "conflicts with another record" : `conflicts with another record, since ${day(m.valid_from)}`)
       : (m.historical_start_unknown || !m.valid_from ? "" : `since ${day(m.valid_from)}`);
-  return `${speaker}${m.subject} | ${m.predicate} | ${m.object}${time ? ` (${time})` : ""}${modelFacingCorrections(m.corrections ?? [])}`;
+  const compact = (value: unknown) => String(value ?? "").replace(/\bt_[0-9a-f]{6,}\b/gi, "").replace(/\b\d{17,}\b/g, "").replace(/\s{2,}/g, " ").trim();
+  return `${speaker}${compact(m.subject)} | ${m.predicate} | ${compact(m.object)}${time ? ` (${time})` : ""}${modelFacingCorrections(m.corrections ?? [])}`;
 }
 export const memoryPromptHash = (focused=true) => hash(focused ? canonical({extract:EXTRACT_PROMPT,identity:IDENTITY_PROMPT,reconcile:RECONCILE_PROMPT,task_schema:'atlas-reconciliation-v2'}) : CURATE_PROMPT);
 import { cosine } from "./provider.ts";
@@ -39,7 +40,7 @@ import { correctionEvidence, modelFacingCorrections } from "./memory-corrections
 import { activeChanges, consistentReconciliation } from "./memory-truth.ts";
 import { assertCurrentJobEpoch, currentResetEpoch } from "./reset-state.ts";
 import { recallFocus, needsRecallContext, asksAboutRecallProcess, isContextAvailabilityNote } from "./recall-query.ts";
-import { analyzeRecallQuery, recallQueryExpansion, memoryEntityInfo, directNameAnswer, matchesRequestedFacet, topicCompatible, diverseSelection, metaNarrative, historicalPredicate, ENTITY_TYPE_PREDICATES, normalizedPredicate, type MemoryEntityInfo } from "./entity-model.ts";
+import { analyzeRecallQuery, recallQueryExpansion, memoryEntityInfo, directNameAnswer, matchesRequestedFacet, topicCompatible, diverseSelection, metaNarrative, historicalPredicate, continuityProfile, continuityProfileRank, continuityTopic, continuityTopicRank, topicLabel, ENTITY_TYPE_PREDICATES, normalizedPredicate, type MemoryEntityInfo } from "./entity-model.ts";
 
 // Share a turn budget across recalls and workers. Promise/microtask yields alone
 // do not let Bun service sockets or lease heartbeats during long packing loops.
@@ -801,6 +802,9 @@ export class Memory {
     const recorded_at = timestamp(b.recorded_at ?? now(), "recorded_at");
     if (!Array.isArray(b.recent_context ?? []) || (b.recent_context ?? []).length > 32)
       fail(400, "invalid_request", "recent_context must have at most 32 messages");
+    if (b.session_start != null && typeof b.session_start !== "boolean")
+      fail(400, "invalid_request", "session_start must be boolean");
+    const sessionStart = b.session_start === true;
     // Only ambiguous followups use bounded caller context for query resolution;
     // this is not evidence and never pulls a pending transcript into recall.
     for (const x of b.recent_context ?? []) {
@@ -1015,7 +1019,19 @@ export class Memory {
       eligible=contextAnchors.size&&topical.some(contextGrounded)?topical.filter(contextGrounded):topical;
     }
     const allocation=plan.mode==='narrow'?3:plan.mode==='domain'?8:plan.mode==='profile'?12:plan.topics.length?6:100;
-    const packet=focused?diverseSelection(eligible,allocation,plan,info):eligible;
+    let packet=focused?diverseSelection(eligible,allocation,plan,info):eligible;
+    const topicIds=new Set<string>();
+    if(sessionStart){
+      const current=scopes.flatMap(scope=>this.store.all('SELECT * FROM memories WHERE workspace_id=? AND scope=? ORDER BY recorded_from DESC,id LIMIT 80',a.workspace_id,scope)).flatMap(row=>{const state=recallState(row);return state&&!state.historical?[state]:[];});
+      const profile=current.filter(m=>continuityProfile(m,info(m))).sort((a,b)=>continuityProfileRank(b,info(b))-continuityProfileRank(a,info(a))||String(b.recorded_from).localeCompare(String(a.recorded_from))||a.id.localeCompare(b.id)).slice(0,4);
+      const seenLabel=new Set<string>();
+      const topics=current.filter(m=>continuityTopic(m,info(m))).sort((a,b)=>continuityTopicRank(b,info(b))-continuityTopicRank(a,info(a))||String(b.recorded_from).localeCompare(String(a.recorded_from))||a.id.localeCompare(b.id)).filter(m=>{const label=topicLabel(m).toLowerCase();if(!label||seenLabel.has(label))return false;seenLabel.add(label);return true;}).slice(0,2);
+      for(const m of topics)topicIds.add(m.id);
+      const seen=new Set<string>();
+      const continuity=[...profile,...topics].filter(m=>seen.has(m.id)?false:(seen.add(m.id),true));
+      const thin=!plan.topics.length&&!plan.facets.length&&focus.trim().split(/\s+/).filter(Boolean).length<=8;
+      packet=thin?continuity:[...continuity,...packet.filter(m=>!seen.has(m.id))];
+    }
     const selected: any[] = [], snapshots = new Map<string, any>();
     for (const m of packet) {
       const { lexical, semantic, direct, association, score, ...snapshot } = m;
@@ -1025,7 +1041,7 @@ export class Memory {
     for (const m of packet) {
       // Compact background fact. Provenance, IDs and supports stay in the typed
       // recall payload and receipts, not in this model-facing line.
-      const line = modelFacingLine(m);
+      const line = topicIds.has(m.id) ? `recent: ${topicLabel(m)}` : modelFacingLine(m);
       const next = context ? context + "\n" + line : line;
       if (await budgetTokens(next) > budget) continue;
       context = next;
@@ -1056,7 +1072,7 @@ export class Memory {
       valid_at, recorded_at,
       freshness: { ...freshness, pending_count: freshness.pending_count as number, pending_included: 0, pending_omitted: freshness.pending_count as number,
         consistency: "Durable intake precedes asynchronous selective graph curation; pending transcripts are not recalled. Queue diagnostics are separate." },
-      retrieval: { focus: {mode:plan.mode,topics:plan.topics,facets:plan.facets,topic_shift:plan.topicShift,allocation}, semantic_status, embedding_model: qmodel ?? null,
+      retrieval: { focus: {mode:plan.mode,topics:plan.topics,facets:plan.facets,topic_shift:plan.topicShift,allocation,session_start:sessionStart}, semantic_status, embedding_model: qmodel ?? null,
         index: "fts5+random-hyperplane-lsh-v1", candidates_examined: rows.length, candidate_limit_per_index: 96,
         embedding_ms, service_ms: performance.now() - started, context_messages_used: snippets.length,
         semantic_min: semanticMin, weights, fading: "salience only; dormant truth remains eligible",

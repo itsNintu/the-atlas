@@ -408,8 +408,13 @@ versions retain their persisted meanings and column identities.
 
 Recall request: `agent_id`, `thread_id`, `query` (up to16,000 characters), optional `token_budget`
 (0–100,000; default1,200), `valid_at`, `recorded_at`, `recent_context` (compatible validation up to32
-messages). Only ambiguous followups use recent context: at most two user/assistant messages x600
-characters, as query resolution, not evidence. No conversational inference call is made by default.
+messages), and optional `session_start`. `session_start` is only the first turn of a new session.
+That one recall still stays inside the caller's grants. It leads with a bounded current profile
+(identity, relationships, current role) and at most two recent non-status topics, then the normal
+query selection when the turn has a real subject. A thin greeting does not become a lexical dump
+or a stored instruction. No transcript or raw tool/status event is replayed. Only ambiguous
+followups use recent context: at most two user/assistant messages x600 characters, as query
+resolution, not evidence. No conversational inference call is made by default.
 Response retains `recall_id`, `context`, `memories`, `pending_events`, token accounting, times,
 `freshness` and `retrieval`. `context` is compact background for the calling agent: useful
 subject | predicate | object content, a short non-owner speaker when the support author is not Alex,
