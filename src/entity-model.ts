@@ -175,9 +175,8 @@ export function continuityTopic(m:{kind?:string;scope?:string;predicate?:string;
  if(['aspires_to_build','wants','wants_to_be'].includes(p))return false;
  if(/\b(?:do not|don't|never mention|switch to|as a fallback|regression case|implementation card|test case)\b/i.test(`${m.subject??''} ${m.object??''}`))return false;
  if(info.signature.facet==='project'||info.signature.facet==='decision')return true;
- if(String(m.scope??'').startsWith('business:')&&!/exclud/.test(p))return m.kind==='episode';
- if(String(m.scope??'').startsWith('business:'))return false;
- return m.kind==='episode';
+ if(/^(?:requested_|wants_resolved|working_on|has_goal)/.test(p))return true;
+ return false;
 }
 export function continuityTopicRank(m:{predicate?:string},info:MemoryEntityInfo){
  return info.signature.facet==='project'||info.signature.facet==='decision'||['has_goal','working_on','maintains','builds','current_project'].includes(norm(String(m.predicate??'')))?100:10;
