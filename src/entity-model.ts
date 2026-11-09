@@ -182,7 +182,7 @@ export function continuityTopicRank(m:{predicate?:string},info:MemoryEntityInfo)
  return info.signature.facet==='project'||info.signature.facet==='decision'||['has_goal','working_on','maintains','builds','current_project'].includes(norm(String(m.predicate??'')))?100:10;
 }
 export function topicLabel(m:{subject?:string;object?:string}){
- const clean=(value:unknown)=>String(value??'').replace(/\bt_[0-9a-f]{6,}\b/gi,'').replace(/\b\d{17,}\b/g,'').replace(/\s{2,}/g,' ').trim();
+ const clean=(value:unknown)=>String(value??'').replace(/\bt_[0-9a-f]{6,}\b/gi,'').replace(/\d{17,}/g,'').replace(/\s{2,}/g,' ').trim();
  const subject=clean(m.subject),object=clean(m.object);
  const generic=/^(?:alex|builder|agent|assistant|user)$/i.test(subject)||subject.length<8;
  const label=generic&&object.length>=8?object:subject;

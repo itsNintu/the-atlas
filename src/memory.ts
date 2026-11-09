@@ -24,7 +24,7 @@ function modelFacingLine(m: any) {
     : m.conflict
       ? (m.historical_start_unknown ? "conflicts with another record" : `conflicts with another record, since ${day(m.valid_from)}`)
       : (m.historical_start_unknown || !m.valid_from ? "" : `since ${day(m.valid_from)}`);
-  const compact = (value: unknown) => String(value ?? "").replace(/\bt_[0-9a-f]{6,}\b/gi, "").replace(/\b\d{17,}\b/g, "").replace(/\s{2,}/g, " ").trim();
+  const compact = (value: unknown) => String(value ?? "").replace(/\bt_[0-9a-f]{6,}\b/gi, "").replace(/\d{17,}/g, "").replace(/\s{2,}/g, " ").trim();
   return `${speaker}${compact(m.subject)} | ${m.predicate} | ${compact(m.object)}${time ? ` (${time})` : ""}${modelFacingCorrections(m.corrections ?? [])}`;
 }
 export const memoryPromptHash = (focused=true) => hash(focused ? canonical({extract:EXTRACT_PROMPT,identity:IDENTITY_PROMPT,reconcile:RECONCILE_PROMPT,task_schema:'atlas-reconciliation-v2'}) : CURATE_PROMPT);
