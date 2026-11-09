@@ -1023,7 +1023,8 @@ export class Memory {
     const topicIds=new Set<string>();
     if(sessionStart){
       const current=scopes.flatMap(scope=>this.store.all('SELECT * FROM memories WHERE workspace_id=? AND scope=? ORDER BY recorded_from DESC,id LIMIT 80',a.workspace_id,scope)).flatMap(row=>{const state=recallState(row);return state&&!state.historical?[state]:[];});
-      const profile=current.filter(m=>continuityProfile(m,info(m))).sort((a,b)=>continuityProfileRank(b,info(b))-continuityProfileRank(a,info(a))||String(b.recorded_from).localeCompare(String(a.recorded_from))||a.id.localeCompare(b.id)).slice(0,4);
+      const ranked=(pred:(m:any)=>boolean,limit:number)=>current.filter(pred).sort((a,b)=>continuityProfileRank(b,info(b))-continuityProfileRank(a,info(a))||String(a.object??'').length-String(b.object??'').length||String(b.recorded_from).localeCompare(String(a.recorded_from))||a.id.localeCompare(b.id)).slice(0,limit);
+      const profile=[...ranked(m=>continuityProfile(m,info(m))&&continuityProfileRank(m,info(m))>=80,2),...ranked(m=>continuityProfile(m,info(m))&&continuityProfileRank(m,info(m))===70,2)];
       const seenLabel=new Set<string>();
       const topics=current.filter(m=>continuityTopic(m,info(m))).sort((a,b)=>continuityTopicRank(b,info(b))-continuityTopicRank(a,info(a))||String(b.recorded_from).localeCompare(String(a.recorded_from))||a.id.localeCompare(b.id)).filter(m=>{const label=topicLabel(m).toLowerCase();if(!label||seenLabel.has(label))return false;seenLabel.add(label);return true;}).slice(0,2);
       for(const m of topics)topicIds.add(m.id);
