@@ -61,7 +61,7 @@ export function memoryGraph(memory: Memory, actor: Actor, body: any) {
   const node = (m: any, label: string, entity?: string) => {
     if(entity){entity=memory.canonicalEntity(actor.workspace_id,m.scope,entity,recorded_at);label=store.one('SELECT canonical FROM memory_entities WHERE id=?',entity).canonical;}
     const id = (entity ? "entity:" : "literal:") + hash(JSON.stringify([actor.workspace_id, m.scope, entity ?? label]));
-    if (!nodes.has(id)) nodes.set(id, { id, label, kind: entity ? "entity" : "literal", scope: m.scope });
+    if (!nodes.has(id)) nodes.set(id, { id, label, kind: entity ? "entity" : "literal", scope: m.scope, types:[] });
     return id;
   };
   const edges = selected.map((m) => {
@@ -79,9 +79,14 @@ export function memoryGraph(memory: Memory, actor: Actor, body: any) {
     const explicit = store.one('SELECT entity_id FROM memory_entity_targets WHERE memory_id=?',m.id);
     const target = node(m, m.object, explicit ? explicit.entity_id ?? undefined : targetEntity?.subject_id);
     const supports = m.supports ?? memory.support(m, recorded_at);
+    const info=memory.entityInfo(m,valid_at,recorded_at);
+    for(const [nodeId,labels] of [[source,info.subjectTypes],[target,info.objectTypes]] as [string,string[]][]) {
+      const n=nodes.get(nodeId);
+      if(n.kind==='entity')for(const label of labels)if(!n.types.some((t:any)=>t.label===label&&t.relation_id===m.id))n.types.push({label,relation_id:m.id,status:m.status,basis:'source_relation'});
+    }
     const versions = store.all("SELECT version,reason,recorded_at FROM memory_versions WHERE memory_id=? AND scope=? AND recorded_at<=? AND snapshot_json IS NOT NULL ORDER BY version DESC LIMIT 21", m.id, m.scope, recorded_at);
     return {
-      id: m.id, source, target, predicate: m.predicate, scope: m.scope, kind: m.kind,
+      id: m.id, source, target, predicate: m.predicate, object: m.object, scope: m.scope, kind: m.kind,
       valid_from: m.valid_from, valid_to: m.valid_to, recorded_from: m.recorded_from,
       status: m.status, confidence: m.confidence, importance: m.importance,
       ...(m.historical_start_unknown ? {historical_start_unknown:true} : {}),

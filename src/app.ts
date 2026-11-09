@@ -1,6 +1,7 @@
 import { setting } from "./config.ts";
 import { Memory } from "./memory.ts";
 import { repairPlan, repairReconciliation } from "./memory-repair.ts";
+import { entityRepairPlan, repairMemoryEntity, authorizeEntityRepair } from './memory-entity-repair.ts';
 import { memoryGraph } from "./memory-graph.ts";
 import { inferenceStatus } from "./inference.ts";
 import { providerDiagnostics } from "./provider-availability.ts";
@@ -185,6 +186,10 @@ export class App {
         result = { data: await this.memory.recall(a, b) };
       else if (method === "POST" && path === "/v1/memory/graph")
         result = { data: memoryGraph(this.memory, a, b) };
+      else if (method === "POST" && path === '/v1/memory/entities/repair-preview')
+        result={data:entityRepairPlan(this.memory,a,b)};
+      else if (method === "POST" && path === '/v1/memory/entities/repair')
+        result={data:write(()=>authorizeEntityRepair(this.memory,a,b),()=>repairMemoryEntity(this.memory,a,b))};
       else if (method === "POST" && match(/^\/v1\/memory\/reconciliations\/([^/]+)\/repair-preview$/))
         result = {data:repairPlan(this.memory,a,b.agent_id,match(/^\/v1\/memory\/reconciliations\/([^/]+)\/repair-preview$/)!,b.expected_revision)};
       else if (method === "POST" && match(/^\/v1\/memory\/reconciliations\/([^/]+)\/repair$/))

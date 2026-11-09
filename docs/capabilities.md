@@ -386,3 +386,18 @@ justifies them; absence is not an invented mandatory platform obligation.
    credential lifecycle management and a deliberate backup-retention policy.
 4. Add a small SDK/MCP or harness adapter only against a real client workflow; the CLI is the complete
    working agent surface today, not a claim that adapters already work.
+
+## Focused entity relationships and conversational recall (source)
+
+Recall classifies the latest query plus the two recent compatible messages already supplied by adapter
+1.2.4. Narrow entity/name questions follow typed relationships and synonyms and stop at a compact
+packet. Domain questions, including a dog-to-work topic shift, drop exclusive unrelated topics and
+closed or historically prefixed work predicates. A broad self-profile question still returns a varied
+non-agent packet. Unknown predicates remain valid; this is not a closed ontology.
+
+`POST /v1/memory/entities/repair` is the provenance-CAS amendment for one generic ownership claim and
+its existing typed pet claim. It can record name history as an entity equivalence, invalidate an exact
+mistaken retraction, and close only that retraction's overgeneralized sibling. It does not replay
+sources, call a provider, or rewrite valid time. Graph reads expose predicate-sourced entity types and
+the original object text, including a superseded name. Activation uses this same endpoint against the
+existing correction source; it does not replay the imported thread or require another approval gate.

@@ -264,6 +264,16 @@ newly invented historical model response. An absent current source is404, revisi
 `revision_conflict`, stale proof/set409`repair_conflict`, and no proven eligible changes409
 `repair_not_supported`. No automatic corpus repair, new job, inference or original action executes.
 
+`POST /v1/memory/entities/repair-preview` and `POST /v1/memory/entities/repair` are a separate
+narrow identity amendment, not extraction or replay. Preview is read-only. Apply requires
+authentication, an Idempotency-Key, current read/write grants on both same-scope memories, and
+`expected_proof_sha256`. It may supersede one generic ownership claim with an existing typed pet
+claim, record a source-backed entity equivalence, and invalidate only exact earlier retractions of
+that pet claim. `close_retraction_replacements` additionally appends a retraction to the same-scope
+replacement of those invalidated retractions, withdrawing an overgeneralized sibling while retaining
+its row, supports and source. It does not copy supports, rewrite valid time, create a job, or call a
+provider. Forgetting the amendment event withdraws the equivalence and both appended changes.
+
 Additive schema-2 table `memory_change_invalidations(change_id,job_id,principal_id,reason_code,
 proof_sha256,recorded_at)` references retained changes/jobs; deletion of an original change
 cascades its annotation. Original sources/IDs/jobs/changes/versions and raw dates remain unchanged.

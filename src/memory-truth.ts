@@ -6,7 +6,7 @@ import type { Store } from './store.ts';
 export function activeChanges(store:Store,target:string,at='9999-12-31T23:59:59.999Z') {
   return store.all(`SELECT c.*,c.rowid AS change_order FROM memory_changes c
     WHERE c.target_id=? AND c.recorded_at<=? AND NOT EXISTS
-    (SELECT 1 FROM memory_change_invalidations i WHERE i.change_id=c.id AND i.recorded_at<=?)
+    (SELECT 1 FROM memory_change_invalidations i JOIN memory_jobs j ON j.id=i.job_id JOIN memory_events e ON e.id=j.event_pk JOIN memory_heads h ON h.event_pk=e.id WHERE i.change_id=c.id AND i.recorded_at<=? AND e.status NOT IN ('forgotten','deleted','superseded'))
     ORDER BY c.recorded_at,c.rowid`,target,at,at);
 }
 export function consistentReconciliation(r:Reconciliation,expand:(ids:string[])=>string[]=ids=>ids):Reconciliation {
