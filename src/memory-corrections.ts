@@ -40,3 +40,9 @@ export function correctionLines(corrections:ReturnType<typeof correctionEvidence
   const seen=new Set<string>();
   return corrections.filter(c=>{const key=JSON.stringify([c.meaning,c.source,c.excerpt??[c.subject,c.predicate,c.object]]);if(seen.has(key))return false;seen.add(key);return true;}).map(c=>` CORRECTION [${c.change_id}]: ${c.meaning==='interval_correction'?'corrected validity interval, not a never-true claim':'never-true belief, NOT a formerly true state'}: ${c.subject} | ${c.predicate} | ${c.object}; source ${c.source.client_id}:${c.source.event_id}@${c.source.revision} ${c.source.role}/${c.source.author_id}${c.excerpt?`; source scope: ${c.excerpt}`:''}`).join('');
 }
+// Model-facing correction note: meaning and the mistaken claim only.
+// Change IDs and source-event IDs stay in typed corrections/receipts.
+export function modelFacingCorrections(corrections:ReturnType<typeof correctionEvidence>) {
+  const seen=new Set<string>();
+  return corrections.filter(c=>{const key=JSON.stringify([c.meaning,c.subject,c.predicate,c.object,c.excerpt]);if(seen.has(key))return false;seen.add(key);return true;}).map(c=>c.meaning==='interval_correction'?' (corrected interval, not a never-true claim)':` (never-true, not a former state: ${c.subject} | ${c.predicate} | ${c.object}${c.excerpt?`; ${c.excerpt}`:''})`).join('');
+}

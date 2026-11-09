@@ -66,7 +66,9 @@ test("busy pending intake cannot enter or starve relevant own/shared processed r
         expect(m.supports[0].event_id).toBe(source);
       }
       expect(r.context).toContain("synthetic=true actual_deployment=false");
-      expect(r.context).toContain("untrusted attributed data");
+      expect(r.context).not.toContain("untrusted attributed data");
+      expect(r.context).not.toContain("ATLAS MEMORY");
+      expect(r.context).not.toMatch(/source [A-Za-z0-9:_-]+@\d+/);
       expect(r.tokens_used).toBe(memoryTokens(r.context));
       expect(r.tokens_used).toBeLessThanOrEqual(budget);
       expect(r.freshness.pending_count).toBe(943);

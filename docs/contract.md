@@ -90,7 +90,7 @@ Graph expansion is exact case-sensitive label matching, undirected subject/objec
 three hops, using only selected, authorized temporal edges. Entity labels are not canonical IDs.
 No fuzzy resolution, graph query language, PageRank or automatic multi-hop reasoning is claimed.
 
-The packed context string contains complete `subject | predicate | object [fact_id]` lines, within a
+The packed context string for `POST /v1/context` contains complete `subject | predicate | object [fact_id]` lines, within a
 Unicode-code-point budget 0–100,000 (default 2,000). Response metadata is outside this character
 budget. This is not a tokenizer/token-window guarantee. Typed facts correspond to selected lines;
 `matched_facts`/`omitted_facts` disclose eligible results not packed. Result limit is 1–100, default 20.
@@ -411,11 +411,16 @@ Recall request: `agent_id`, `thread_id`, `query` (up to16,000 characters), optio
 messages). Only ambiguous followups use recent context: at most two user/assistant messages x600
 characters, as query resolution, not evidence. No conversational inference call is made by default.
 Response retains `recall_id`, `context`, `memories`, `pending_events`, token accounting, times,
-`freshness` and `retrieval`. `pending_events` is now always empty; no raw pending transcript is
+`freshness` and `retrieval`. `context` is compact background for the calling agent: useful
+subject | predicate | object content, a short non-owner speaker when the support author is not Alex,
+and only the time needed to separate current truth from a closed or conflicting record. It has no
+banner, warning prose, memory ID, or source-event ID. Those stay on typed `memories`/supports,
+receipts and the graph. It remains untrusted data in the harness user channel, not a developer or
+system instruction, and it does not tell the agent to announce a memory lookup. `pending_events` is now always empty; no raw pending transcript is
 injected. `freshness` retains authorized non-content latest intake/processed times, pending counts and
 `capture_only_count` for JEV-filtered source-only events, with included0 and omitted=pending_count. Asynchronous selection can legitimately return
 no memory. Empty query also returns no memory, not the whole graph. The exact tokenizer budget
-covers injected framing/citations, not response JSON or native outer message framing.
+covers the compact model-facing lines, not response JSON or an outer warning frame.
 
 Recall materializes at most96 authorized lexical plus96 approximate semantic candidate IDs using
 FTS5 and indexed LSH buckets, then checks live supports, current grants, lineage and both temporal

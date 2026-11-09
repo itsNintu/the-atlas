@@ -86,7 +86,7 @@ test('relevant atomic recall carries never-true scope through representation nor
  await f.seed('owner',{subject:'Demo Leda',predicate:'owns',object:'Demo Lantern',valid_from:feb});
  await f.seed('reporting');
  const r=await f.m.recall(f.a,{agent_id:'builder',thread_id:'fresh',query:'Demo Lantern: what color has it always used; was cobalt ever true; who owns it; who does Demo Mira report to?',valid_at:mar,token_budget:1200});
- expect(r.context).toContain('never-true belief, NOT a formerly true state');expect(r.context).toContain('always used amber, never cobalt');expect(r.memories.some(m=>m.id===falseClaim.id)).toBe(false);expect(r.memories.find(m=>m.id===atom.id)?.corrections[0].source.event_id).toBe('correction');expect(r.memories.some(m=>m.id===atom.id)).toBe(true);expect(r.pending_events).toEqual([]);
+ expect(r.context).toContain('never-true, not a former state: Demo Lantern | uses | cobalt');expect(r.context).not.toContain('change_');expect(r.context).toContain('always used amber, never cobalt');expect(r.memories.some(m=>m.id===falseClaim.id)).toBe(false);expect(r.memories.find(m=>m.id===atom.id)?.corrections[0].source.event_id).toBe('correction');expect(r.memories.some(m=>m.id===atom.id)).toBe(true);expect(r.pending_events).toEqual([]);
  expect((await f.m.recall(f.a,{agent_id:'builder',thread_id:'negative-only',query:'cobalt',valid_at:mar})).context).toContain('never-true');
  f.s.run('UPDATE memory_events SET content=NULL WHERE id=?',narrative.e.id);
  expect((await f.m.recall(f.a,{agent_id:'builder',thread_id:'retained',query:'Demo Lantern color',valid_at:mar})).context).toContain('always used amber, never cobalt');expect(memoryTokens(r.context)).toBeLessThanOrEqual(1200);

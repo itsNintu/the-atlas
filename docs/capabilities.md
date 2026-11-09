@@ -247,8 +247,10 @@ strong lexical matches >=0.6, already-admitted requested predicates and relation
 same-scope entities survive so one facet cannot erase another. Salience/utility rank only
 eligible evidence; they cannot admit unrelated truth. Up to three direct seeds may add bounded
 same-scope entity-object-to-subject relationships, plus bounded same-entity siblings whose predicate
-is requested (e.g. maintains AND reports_to). Source citations are compact; full support/root
-metadata remains typed. Empty/unrelated queries can return an empty context and no memory.
+is requested (e.g. maintains AND reports_to). The model-facing context is compact useful content
+with minimal time and non-owner attribution. It omits banners, warning prose, memory IDs and
+source-event IDs. Full support/root provenance remains in typed memories, receipts and the graph.
+Empty/unrelated queries can return an empty context and no memory.
 
 Named coded topics (after fictional/project/exercise/task/ticket/fixture) are ranking hints only,
 not an additional admission prerequisite. Matching a claim or visible support excerpt adds0.12;
