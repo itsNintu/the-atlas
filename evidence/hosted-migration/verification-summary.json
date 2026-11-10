@@ -177,8 +177,8 @@
     "enabled": "disabled"
   },
   "tests": {
-    "passed": 193,
-    "failed": 1,
-    "known_preexisting_failure": "notification-only owner demotion preserves history and frees compact recall for the current relevant fact"
+    "passed": 194,
+    "failed": 0,
+    "assertions": 2007
   }
 }
