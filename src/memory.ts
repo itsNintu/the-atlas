@@ -697,7 +697,7 @@ export class Memory {
   support(m: any, recorded_at = now()) {
     return this.store
       .all(
-        "SELECT s.roots_json,s.excerpt,e.event_id,e.job_id,e.client_id,e.revision,e.agent_id,e.role,e.author_id,e.occurred_at,e.accepted_at FROM memory_supports s JOIN memory_events e ON e.id=s.event_pk WHERE s.memory_id=? AND e.accepted_at<=?",
+        "SELECT s.roots_json,s.excerpt,e.event_id,j.id AS job_id,e.client_id,e.revision,e.agent_id,e.role,e.author_id,e.occurred_at,e.accepted_at FROM memory_supports s JOIN memory_events e ON e.id=s.event_pk JOIN memory_jobs j ON j.event_pk=e.id WHERE s.memory_id=? AND e.accepted_at<=?",
         m.id,
         recorded_at,
       )
