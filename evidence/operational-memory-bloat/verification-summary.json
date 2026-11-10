@@ -1,0 +1,89 @@
+{
+  "task_id": "t_bbadabad",
+  "scope": "operational-memory bloat only; cold latency and graph pagination were not changed",
+  "source": {
+    "commit": "c255cc79a6b6b8125d33d89ffaa4fb18675e7cfe",
+    "tests": 196,
+    "assertions": 2018,
+    "test_files": 35,
+    "failures": 0,
+    "typecheck": "pass",
+    "public_check": "pass",
+    "cloudflare_dry_run": "pass"
+  },
+  "deployment": {
+    "url": "https://atlas.creator.gg",
+    "worker_version": "f63dbb39-3a85-4fe1-ae2f-45a14596173e",
+    "worker_startup_ms": 534,
+    "deploy_command": "bun node_modules/wrangler/bin/wrangler.js deploy --keep-vars --minify",
+    "durable_object_activation_restart": true,
+    "architecture": "existing Atlas-only Cloudflare Worker and SQLite Durable Object"
+  },
+  "cleanup": {
+    "initial_matched_active_claims": 281,
+    "operational_memories_demoted": 213,
+    "protected_directive_memories_retained": [
+      "memory_019ce3bc-093a-4822-bd33-cf06c33e12a2",
+      "memory_dd8f5a17-2039-4a0d-838d-27e8c40f6705"
+    ],
+    "preclean_rows": {
+      "memory_events": 20715,
+      "memory_jobs": 20728,
+      "memories": 665,
+      "memory_supports": 691,
+      "memory_admission_reviews": 66,
+      "memory_admission_demotions": 66
+    },
+    "final_rows": {
+      "memory_events": 20788,
+      "memory_jobs": 20801,
+      "memories": 670,
+      "memory_supports": 696,
+      "memory_admission_reviews": 279,
+      "memory_admission_demotions": 279
+    },
+    "review_and_demotion_increase": 213,
+    "raw_rows_deleted": 0,
+    "mechanism": "authenticated idempotent operational_status_owner_exclusion with exact current job, source revision, direct support, owner-attribution and grant fences"
+  },
+  "fresh_live_verification": {
+    "operational_v1": {
+      "job_id": "mjob_d4a8d943-b75c-4aec-ba14-d6f7a4a8083b",
+      "status": "succeeded",
+      "active_memories_created": 0
+    },
+    "operational_v2_reports_implemented_and_quoted_owner_status": {
+      "job_id": "mjob_11a85beb-52a2-4321-86e9-59ed22a9aba0",
+      "status": "succeeded",
+      "active_memories_created": 0
+    },
+    "genuine_owner_correction": {
+      "job_id": "mjob_07e4283b-e709-4a86-b675-4920dc528e97",
+      "status": "succeeded",
+      "active_memory_id": "memory_dd6fb357-5395-457a-90a6-c113b3f0f18a",
+      "still_active": true
+    },
+    "exact_named_operational_predicates_remaining": {},
+    "focused_graph_preserved": {
+      "Paradev": true,
+      "Retell": true,
+      "Ghosty": true,
+      "Lia": true,
+      "Nona": true,
+      "blog_exclusion": true
+    },
+    "focused_recall_preserved": {
+      "Paradev_Retell_work": true,
+      "Ghosty": true,
+      "Lia_Nona_family": true,
+      "blog_exclusion": true
+    },
+    "malformed_owner_nodes_returned": 0
+  },
+  "notes": [
+    "Operational wrappers are filtered even when their objects quote an owner directive; direct owner messages, owner-attributed task requirements, and substantive requirement/design claims remain eligible.",
+    "Two server-protected directive claims remain active by design and are not counted as operational pollution.",
+    "Final event/job/memory/support totals include fresh verification and concurrent production writes; no raw source, job, memory, or support rows were deleted during cleanup.",
+    "Private message bodies, credentials, full claim snapshots and operations tokens remain outside Git evidence."
+  ]
+}

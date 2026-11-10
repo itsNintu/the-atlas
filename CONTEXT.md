@@ -1,5 +1,31 @@
 # Current project context
 
+## Hosted operational-memory cleanup — 2026-11-10
+
+Task t_bbadabad was narrowed by Alex to operational-memory bloat only; cold latency and graph
+pagination were not changed. `src/memory-operational.ts` now filters routine assistant/inter-agent
+routing, progress, implementation, test, audit and task narration before storage. Operational wrappers
+are not protected merely by a `requirement` predicate or an object quoting an owner directive. Direct
+owner messages, owner-attributed task requirements, and substantive requirement/design knowledge stay
+eligible; status-only fields in owner-attributed cards are filtered without dropping card directives.
+
+The hosted cleanup used the existing authenticated/idempotent `operational_status_owner_exclusion`
+review with exact current-job provenance, revision, direct-support, owner-attribution and grant fences.
+It demoted 213 operational memories across five agent-private scopes. Raw events/jobs/memories/supports
+were not deleted. Admission reviews and demotion proofs each increased from 66 to 279 (+213). Two
+Kanban directive memories—publication/no-republish and explicit operational constraints—remain active
+under the server fence. The current graph source provenance resolves `memory_jobs.event_pk` so those
+exact reviews work beyond the 100-row diagnostics window.
+
+Final source is `c255cc79a6b6b8125d33d89ffaa4fb18675e7cfe`: 196 tests/2,018 assertions across
+35 files, typecheck, public checks and Cloudflare dry-run pass. Production Worker version
+`f63dbb39-3a85-4fe1-ae2f-45a14596173e` is live at https://atlas.creator.gg with the existing Atlas-only
+Worker/SQLite Durable Object architecture. Two fresh operational-narration jobs succeeded with zero
+active memories; a genuine owner correction succeeded and remains active. Exact named operational
+predicates are absent. Paradev/Retell, Ghosty, Lia/Nona and genuine blog-exclusion graph/recall checks
+pass with no malformed owner nodes. See `evidence/operational-memory-bloat/verification-summary.json`;
+private content, credentials and full claim snapshots are not committed.
+
 ## Automatic status-notification exclusion — 2026-11-08
 
 Source task t_cb043bca adds a communication-only automatic-notification boundary. Explicit native

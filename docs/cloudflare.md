@@ -102,6 +102,12 @@ curl -sS -X POST https://atlas.creator.gg/internal/operations/v1/restart \
 The migration token is not the operations token. Production migration routes must remain absent;
 setting a migration token would fence normal background work and re-enable migration endpoints.
 
+If the normal unminified upload hits Cloudflare startup-validation error 10021, the verified narrow
+fallback is `bun node_modules/wrangler/bin/wrangler.js deploy --keep-vars --minify`. Invoke the local
+entrypoint directly with Bun (not `bunx`, which exited before the API response during the 2026-11-10
+activation). Use the supported operations restart above when an existing Durable Object must activate
+the newly deployed classifier; this is code activation, not a latency warm-up probe.
+
 For rollback before new hosted writes, stop/disable the hosted Worker, restore the protected
 stopped-state database and environment, and start the local unit only if explicitly choosing to
 abandon the hosted cutover. After hosted writes, rollback requires a new forward migration of

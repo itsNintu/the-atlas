@@ -1,0 +1,6898 @@
+{
+  "endpoint": "https://atlas.creator.gg",
+  "mode": "read_only_active_graph_inventory",
+  "raw_content_included": false,
+  "credentials_included": false,
+  "queries": [
+    "reports_builder_task_running",
+    "plans_to_route_deployment",
+    "plans_to_check_and_route",
+    "reported_adding_requirement_to_builder_task",
+    "reported_builder_status",
+    "assistant_reported_repair_status",
+    "assistant_reported_graph_result_limit",
+    "task",
+    "routing",
+    "route",
+    "progress",
+    "implementation",
+    "test",
+    "audit",
+    "deployment",
+    "repair",
+    "status",
+    "reported",
+    "plans_to",
+    "reports_",
+    "checking"
+  ],
+  "scans": [
+    {
+      "agent_id": "default",
+      "query": "reports_builder_task_running",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "plans_to_route_deployment",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "plans_to_check_and_route",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "reported_adding_requirement_to_builder_task",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "reported_builder_status",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "assistant_reported_repair_status",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "assistant_reported_graph_result_limit",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "task",
+      "edges": 11,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "routing",
+      "edges": 5,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "route",
+      "edges": 5,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "progress",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "implementation",
+      "edges": 3,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "test",
+      "edges": 13,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "audit",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "deployment",
+      "edges": 2,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "repair",
+      "edges": 6,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "status",
+      "edges": 7,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "reported",
+      "edges": 41,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "plans_to",
+      "edges": 4,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "reports_",
+      "edges": 2,
+      "truncated": false
+    },
+    {
+      "agent_id": "default",
+      "query": "checking",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "reports_builder_task_running",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "plans_to_route_deployment",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "plans_to_check_and_route",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "reported_adding_requirement_to_builder_task",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "reported_builder_status",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "assistant_reported_repair_status",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "assistant_reported_graph_result_limit",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "task",
+      "edges": 38,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "routing",
+      "edges": 6,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "route",
+      "edges": 7,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "progress",
+      "edges": 3,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "implementation",
+      "edges": 4,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "test",
+      "edges": 41,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "audit",
+      "edges": 10,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "deployment",
+      "edges": 20,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "repair",
+      "edges": 37,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "status",
+      "edges": 30,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "reported",
+      "edges": 81,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "plans_to",
+      "edges": 2,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "reports_",
+      "edges": 38,
+      "truncated": false
+    },
+    {
+      "agent_id": "builder",
+      "query": "checking",
+      "edges": 12,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "reports_builder_task_running",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "plans_to_route_deployment",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "plans_to_check_and_route",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "reported_adding_requirement_to_builder_task",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "reported_builder_status",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "assistant_reported_repair_status",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "assistant_reported_graph_result_limit",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "task",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "routing",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "route",
+      "edges": 2,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "progress",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "implementation",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "test",
+      "edges": 11,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "audit",
+      "edges": 3,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "deployment",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "repair",
+      "edges": 2,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "status",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "reported",
+      "edges": 9,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "plans_to",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "reports_",
+      "edges": 2,
+      "truncated": false
+    },
+    {
+      "agent_id": "overwatch",
+      "query": "checking",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "reports_builder_task_running",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "plans_to_route_deployment",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "plans_to_check_and_route",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "reported_adding_requirement_to_builder_task",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "reported_builder_status",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "assistant_reported_repair_status",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "assistant_reported_graph_result_limit",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "task",
+      "edges": 10,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "routing",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "route",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "progress",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "implementation",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "test",
+      "edges": 5,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "audit",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "deployment",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "repair",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "status",
+      "edges": 4,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "reported",
+      "edges": 4,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "plans_to",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "reports_",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "wordsmith",
+      "query": "checking",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "reports_builder_task_running",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "plans_to_route_deployment",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "plans_to_check_and_route",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "reported_adding_requirement_to_builder_task",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "reported_builder_status",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "assistant_reported_repair_status",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "assistant_reported_graph_result_limit",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "task",
+      "edges": 2,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "routing",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "route",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "progress",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "implementation",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "test",
+      "edges": 5,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "audit",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "deployment",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "repair",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "status",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "reported",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "plans_to",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "reports_",
+      "edges": 3,
+      "truncated": false
+    },
+    {
+      "agent_id": "orchestrator",
+      "query": "checking",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "reports_builder_task_running",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "plans_to_route_deployment",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "plans_to_check_and_route",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "reported_adding_requirement_to_builder_task",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "reported_builder_status",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "assistant_reported_repair_status",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "assistant_reported_graph_result_limit",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "task",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "routing",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "route",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "progress",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "implementation",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "test",
+      "edges": 5,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "audit",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "deployment",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "repair",
+      "edges": 1,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "status",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "reported",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "plans_to",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "reports_",
+      "edges": 0,
+      "truncated": false
+    },
+    {
+      "agent_id": "reaver",
+      "query": "checking",
+      "edges": 0,
+      "truncated": false
+    }
+  ],
+  "unique_edges": 266,
+  "edges": [
+    {
+      "id": "memory_629a4b7b-6723-4839-a5a7-3345f3b605de",
+      "predicate": "assigned_work",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:263428980aeb46d6a705dafa215537ad:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "audit",
+        "task",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_ba7464be-abba-4c47-882a-79dba5747062",
+      "predicate": "attempted_one_shot_activation",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:e1f17c4efa304a8f9b22996fb78464f0:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "progress"
+      ]
+    },
+    {
+      "id": "memory_7ef1065c-82fd-48c0-aca4-457c8a2708ef",
+      "predicate": "attempted_supported_job_retry_to_curate",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:644105050a5a4afdb038a37506db66b9:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_91698431-12f7-4bc8-8aae-10f642e20a57",
+      "predicate": "attempted_to_start",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:bd517707926f44dca6b9b45af28292f2:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "deployment"
+      ]
+    },
+    {
+      "id": "memory_2dec809a-b45a-46cb-a55c-c016a6e7eda4",
+      "predicate": "browser_acceptance_attempt_blocked_by_harness_schema_mismatch",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:99b729113d4b43ba9e0f8c1995f86778:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "deployment",
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_deacb075-d8eb-47d1-83d7-7ab103b29803",
+      "predicate": "builder reported",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:3ffc99c0e0d848cca2420d43be18d993:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "deployment",
+        "reported",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_ee9ca3d7-7b8e-432c-b31d-2d3da359a809",
+      "predicate": "claimed_completion_of",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:47a217c817b540efb8fbe701d5c59ed7:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "audit",
+        "checking"
+      ]
+    },
+    {
+      "id": "memory_76e73c83-5b18-44f2-b79a-6ae4325406e5",
+      "predicate": "claimed_post_CAS_verification_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:7108d7119ccc4c748f7c2db828eea7c4:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "audit",
+        "deployment",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_4c333cfa-31a9-4ab9-a8e9-bd3e4c5034f2",
+      "predicate": "diagnosed_as",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:b50aaa7fa261478a92e576818b5241a9:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "test"
+      ]
+    },
+    {
+      "id": "memory_c78343da-9218-4a8e-915d-9596e6057605",
+      "predicate": "distinguishes_rewards_tab_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:e20ebdbfd97641158a2a1fc6a874e3f2:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "status"
+      ]
+    },
+    {
+      "id": "memory_eaae338c-18ad-4a0c-be96-a92aab439787",
+      "predicate": "editorial_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:e20ebdbfd97641158a2a1fc6a874e3f2:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "status"
+      ]
+    },
+    {
+      "id": "memory_bd40593f-d3d2-477e-a488-4fe18cdc2544",
+      "predicate": "encountered_activation_check_failure",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:e4df725342394f7d93de376bf2f1b7f2:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "reported",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_fdb2e33d-cf2b-4eba-98dd-13d6ee18bb8f",
+      "predicate": "exact_recall_result",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:088ed10f9b834916b2839760c9987927:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "test"
+      ]
+    },
+    {
+      "id": "memory_a8d1697c-465a-4e07-8a93-f091dd0f5dc5",
+      "predicate": "failed_with",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:bc75c90da4b744519a4a4ce3059c3507:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_1a2491c5-2114-48b6-b56c-592d6bac9533",
+      "predicate": "had_correct_direct_recall",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:320cf960ea484a4b9271e0b30089eff4:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "test"
+      ]
+    },
+    {
+      "id": "memory_8da2fc78-626e-4367-b21d-f2654574ad60",
+      "predicate": "had_verification_file_path_issue",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:541a1cf702fa497fa5395e652c996a8e:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "reported",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_6e4c6f2f-134e-47f9-80e4-1ace596e727f",
+      "predicate": "has_classifier_design_boundary",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:ac496c784f50499fb811fecf89519ed2:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "progress",
+        "repair",
+        "task",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_85caec05-6e91-47e4-9996-9bd28fa5b31d",
+      "predicate": "has_current_repair_focus",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:289c43710289485aa9bd783e353ed238:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_c8d7182c-30c2-480f-b310-5ddb222ea0db",
+      "predicate": "has_goal",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:c4c49d3e82eb4b208f876c3f6d49ed61:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "task"
+      ]
+    },
+    {
+      "id": "memory_19e5746f-bf6a-4b1f-8e48-7a00fb485b91",
+      "predicate": "has_identified_gaps",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:0e161a0a6da140bea0ee1224b2b1ab19:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "checking",
+        "deployment",
+        "plans_to",
+        "reports_",
+        "routing",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_92ff4aad-f664-4153-ba08-9efc9365abbb",
+      "predicate": "has_observed_recall_latency",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:59b5ddbee9454cfc96dd255161180942:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_b518e33c-b874-44e5-8646-bb1b23fe84e4",
+      "predicate": "has_repair_command_plan",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:5c383c3859df4f5383cb4596cfb5d294:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_e180604f-5613-4211-b6ed-2ff494d3c763",
+      "predicate": "has_reported_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:e6ac15585a0e440e8e5c5ca886c908d6:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "reported",
+        "status",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_be8f39b7-fb29-424c-809e-2a9afe499fcd",
+      "predicate": "has_session_requirements",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:374140c89a6c4f6db12764bde8127037:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "test"
+      ]
+    },
+    {
+      "id": "memory_5f49b325-5955-4c9a-98e2-cd1f3352d423",
+      "predicate": "has_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:c5b034bbce0047f9b3123a9566ba53a7:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "status",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_89ad456e-0b9b-4713-bd89-2d3f300bef2f",
+      "predicate": "has_task_constraints",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:e938bd52fe17491f886da11c6e19633f:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "task"
+      ]
+    },
+    {
+      "id": "memory_947d5f62-5fea-4f14-81a9-cc8443eb703d",
+      "predicate": "hosted_request_returned_http_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:e59903893a7b41e192eb885f27501801:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "checking",
+        "repair",
+        "status",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_d390a838-85bd-4536-be44-b47e96dc9f96",
+      "predicate": "identified_cleanup_selector_mismatch",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:02b5801ff93741e383d0560d888efc7d:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "reported",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_780e0226-6719-4a79-b534-67e72d688268",
+      "predicate": "identified_edit_target_error_and_intended_limited_repair",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:801a97cf1ff04a52b72f2ddd7ac04fe6:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair"
+      ]
+    },
+    {
+      "id": "memory_3ad4a356-c2bf-45ec-8a67-ba9459ba1e89",
+      "predicate": "identified_incorrect_equivalence_edges",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:27442c1cbc3f47a7828b0a6ef4ca5f3a:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_f16cc91b-d61c-49eb-8d53-64a04e84e5ca",
+      "predicate": "identified_owner_label_source",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:00aab6cd6c5d431ab9157634c5907ada:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_ec0328f6-53f7-4fe6-a115-6f27e3c5fed7",
+      "predicate": "includes_guidance_to",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:bc75c90da4b744519a4a4ce3059c3507:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "implementation",
+        "routing",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_7e09667f-d1cf-42e5-9daf-df6bf9c6277b",
+      "predicate": "injected_packet_consumed_by_session_context",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:872592ec902240fd8083d485d4e5920d:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "test"
+      ]
+    },
+    {
+      "id": "memory_9e3e37dc-d598-4945-86bd-89a7edab4295",
+      "predicate": "injected_packet_omitted_relation",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:872592ec902240fd8083d485d4e5920d:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "test"
+      ]
+    },
+    {
+      "id": "memory_5f226eec-78d0-4b5f-9f85-03ad3f0a03fa",
+      "predicate": "is_checking_listing_filter_behavior",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:ed2999c991204c71911e4086f080639d:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "checking"
+      ]
+    },
+    {
+      "id": "memory_ae241754-fc09-4fb5-8792-61d44dcc1042",
+      "predicate": "is_correcting_test_expectation",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:34102db0136c4882aea79c691b7433b3:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "test"
+      ]
+    },
+    {
+      "id": "memory_0fbbcd1c-007a-47c7-8b36-700d6a8d9754",
+      "predicate": "observed_harness_issue",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:cffea8f6f91e44bb8f7c379882984925:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "deployment"
+      ]
+    },
+    {
+      "id": "memory_076a9615-dc38-432f-bf13-409ded762bfd",
+      "predicate": "observed_launcher_incompatibility",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:8f77eee9f9064752bc8de7dd2eb152c7:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "test"
+      ]
+    },
+    {
+      "id": "memory_a17182ba-7631-4782-b4d2-ce33878e6463",
+      "predicate": "observed_query_classification_gap",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:8ba4371ce5e34bdbb547c4056af9f955:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_e13c0651-077f-4aaa-9abf-431ee4aa289f",
+      "predicate": "observed_repository_ci_blocker",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:8fac1a1a16254313805540b4b59de156:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "test"
+      ]
+    },
+    {
+      "id": "memory_378584a1-6065-4fa3-9eb2-f55b41de9788",
+      "predicate": "observed_run_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:cefaaac213d2450a99258338b8ae3574:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "status"
+      ]
+    },
+    {
+      "id": "memory_2a56cbeb-2655-4b28-8c05-7fd3861e89cf",
+      "predicate": "observed_source_ambiguity",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:5270c976fb6c48cb862e0221f865fd3f:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "checking",
+        "repair",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_87038c42-2577-4bd4-8992-e0342c37f6e4",
+      "predicate": "observed_subscription_dialog_implementation",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:9a86c125149e40159e37ff506f5d734b:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "implementation",
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_6a3e9c56-ce01-408a-9305-8d57cd573302",
+      "predicate": "operator_reported_execution_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:e37b527dec404f7584f52676e1b6463d:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_1ab88813-3be9-4451-8106-278fa0ee278f",
+      "predicate": "owns_next_steps_for",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:e938bd52fe17491f886da11c6e19633f:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_e7e8febf-65a5-4671-8e74-6b6c03b63f73",
+      "predicate": "packet_contains_unrelated_history",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:088ed10f9b834916b2839760c9987927:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "test"
+      ]
+    },
+    {
+      "id": "memory_fa84bc66-a668-4dcf-af32-e6c421af7007",
+      "predicate": "performed",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "delegation:builder:20261110_191052_073b3a:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "subagent:20261110_191052_073b3a",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "deployment"
+      ]
+    },
+    {
+      "id": "memory_fc9b455a-14f0-425e-a22f-cc5ba4db0258",
+      "predicate": "performed",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:3e8073acdb014cc48b11c0e866b4844f:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "deployment",
+        "reported",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_5f609f85-a576-41a3-be00-486ed40d2bfa",
+      "predicate": "planned_exclusion",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:72f81cd815d443d095acbf6f846e5186:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "deployment"
+      ]
+    },
+    {
+      "id": "memory_15e9f1b2-fc52-4ed3-95a8-5d7519a7f30f",
+      "predicate": "planned_hostname",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:72f81cd815d443d095acbf6f846e5186:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "deployment"
+      ]
+    },
+    {
+      "id": "memory_c97b4828-c8eb-4bfe-9608-3ce96000d36a",
+      "predicate": "planned_label_normalization",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:00aab6cd6c5d431ab9157634c5907ada:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_5521dddb-f1ab-4305-a28c-94da70f8fe2c",
+      "predicate": "planned_provider",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:72f81cd815d443d095acbf6f846e5186:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "deployment"
+      ]
+    },
+    {
+      "id": "memory_2bae23bb-9c55-4c17-8c40-8a1fc29dd54d",
+      "predicate": "planned_repair",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:421b6370ea8940aaa09f16d99f152015:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_72313006-a335-49f8-a750-5b32e6b55553",
+      "predicate": "planned_repair",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:27442c1cbc3f47a7828b0a6ef4ca5f3a:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_b709e26c-bc4f-4b2b-ac84-98ba95702927",
+      "predicate": "planned_test",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:723b897329994e6195e8ae3386957d8f:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "deployment",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_82e32d23-1ae5-48de-a097-6ab86d165b34",
+      "predicate": "plans_to_run_browser_acceptance_checks",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:2e0e5b5aa68c4e799fe0bd1a04a3f82f:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "plans_to",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_b8270312-b2a0-43a3-85af-ff1894b6ad04",
+      "predicate": "prepared",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:5f8496b44e9a42ea9cbecbece7c19818:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_1029c171-2230-4db0-a4b4-d372485644d1",
+      "predicate": "produced_incorrect_leading_answer",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:320cf960ea484a4b9271e0b30089eff4:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "test"
+      ]
+    },
+    {
+      "id": "memory_019ce3bc-093a-4822-bd33-cf06c33e12a2",
+      "predicate": "publication_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:cff1998539524d8b80c3f354ebb12a06:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "status"
+      ]
+    },
+    {
+      "id": "memory_c0afa6af-3193-4327-ac62-fcd576829ae2",
+      "predicate": "received_handoff_reporting",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:e938bd52fe17491f886da11c6e19633f:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_dd8f5a17-2039-4a0d-838d-27e8c40f6705",
+      "predicate": "received_operational_constraints_for_task_t_051148b3",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:cff1998539524d8b80c3f354ebb12a06:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "audit",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_94b0d971-0bfd-4f1d-88b0-79f31648f7d1",
+      "predicate": "received_operator_correction_for_task_run",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:dbe80ceac8784c279b70bfeea75e2dbc:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "task"
+      ]
+    },
+    {
+      "id": "memory_5e56abd0-859e-4e48-b4a7-6738a54b1a51",
+      "predicate": "received_scoped_release_constraints",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:e20ebdbfd97641158a2a1fc6a874e3f2:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "deployment"
+      ]
+    },
+    {
+      "id": "memory_aebcccc7-4c06-4c26-bcef-ca924331e843",
+      "predicate": "received_session_directive",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:75f92ac9c12a4f1dbb6ced57c0980cdd:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "audit",
+        "repair",
+        "task",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_56c51ffc-a211-485d-8eaf-5da4fa775c75",
+      "predicate": "recommends",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:0e161a0a6da140bea0ee1224b2b1ab19:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "status",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_b8bc9665-04df-482f-9d59-eeceb72d5b74",
+      "predicate": "reported_adapter_and_profile_retrieval_failures",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:94d870da62234956bb8f9bca066b5b9a:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_5521a9b4-c439-424e-84d2-9315fda8ab73",
+      "predicate": "reported_applying",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:f6a6861574c844d39be62635456de832:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_8c21d2af-b9eb-4cb8-80aa-45e1787a51ce",
+      "predicate": "reported_attempting",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:c5223dadfd0543fba206f80fba084e3a:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_503f4f75-4d8b-4c19-9c08-62cc08ed5a2a",
+      "predicate": "reported_behavior",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:122a74b6d7b6465597477062ea81d07e:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "checking",
+        "reported",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_fd06f03a-9ea1-4d55-b4a3-e6cc0feff3b0",
+      "predicate": "reported_blog_recall_read_model_mismatch",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:faa975a4ecdf42dfbc4b13d7e164b506:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "reported",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_8d57003c-86c1-461c-976f-22cd68c4a411",
+      "predicate": "reported_bounded_hourly_maintenance_and_handoff",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:42d390994ac84194a13866c52d0c6ae0:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "deployment",
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_b00c1375-159c-4254-9e58-effceaf5ea1c",
+      "predicate": "reported_build_validation",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:85c2450367524902a1dcb920771f9b60:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported",
+        "route",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_875f979e-081b-447b-8eea-897514d67c85",
+      "predicate": "reported_card_requirement",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:23266df456594abf96058a18c2af4951:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_052223d3-4926-4f1e-8e33-01171d1cbd5f",
+      "predicate": "reported_checks_passed",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:dae4178362c249d19b2762c12bbc8331:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_297c0c52-9b75-4d90-8d28-2048bac6ae0f",
+      "predicate": "reported_cutover_script_stopped_safely",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:926dc3dbd6a34dc9aa29bf02ca9be85f:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_92133b29-f91d-4aaf-884d-44395b4ee4db",
+      "predicate": "reported_decision",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:861b4fad9a6847aa85e5cc49f4556e63:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_52b700c9-3088-4e1a-b434-bbe5375d4285",
+      "predicate": "reported_deployment_readiness",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:ef225912e8db4eef864350e4b1221030:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "deployment",
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_446b8c82-f793-426e-bcc9-47532a422805",
+      "predicate": "reported_dialog_control_boundary_requirement",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:f7802d4d062941fa82952fc1ef9bd56d:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_51abbc4c-640b-4be7-8f99-ce5188d4a3d9",
+      "predicate": "reported_dialog_keyboard_behavior",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:cfc62d0e8a0248a5952bdb23f50936e2:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "checking",
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_821ef3ce-5c13-4e34-9a24-7e2433ef7946",
+      "predicate": "reported_dialog_tab_order_observation",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:f7802d4d062941fa82952fc1ef9bd56d:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_1fad1d50-9816-4f5a-a1d1-71743085ee7e",
+      "predicate": "reported_dispatch_distinction",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:40c6d51385764863af5e1d63de8e8c36:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_e2933632-24a0-4c13-9f06-be729a352533",
+      "predicate": "reported_dry_run_findings",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:723b897329994e6195e8ae3386957d8f:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_80a532e5-5994-4e99-a29b-df50dddc5f57",
+      "predicate": "reported_effects",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:d20ef5e7bdaf427ab114d52a2a818d21:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "audit",
+        "deployment",
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_23338fe8-97e5-40f4-a259-9d0377224c8a",
+      "predicate": "reported_finalization_change",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:c09cd04a945848008f633897ff796c34:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_204840b6-37d7-4834-8a28-5c89c819430e",
+      "predicate": "reported_finding",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:861b4fad9a6847aa85e5cc49f4556e63:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_ed1e3112-7c29-4e27-a498-3d136d16b532",
+      "predicate": "reported_frozen_migration_completed_successfully",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:5dca3a530a404362809e457eac4dde12:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_092f3ecc-515a-4bf1-86bd-1a79883a3f55",
+      "predicate": "reported_gateway_activation_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:6a9a480ad34e4a1d9b3d0312cd62a657:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "checking",
+        "reported",
+        "routing",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_629f9ceb-bf20-49c9-95a7-82653fe774de",
+      "predicate": "reported_hosted_reembedding_reconciliation_mismatch",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:6b87e04384d64723af0750f6de0dcbed:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_0f7ac9be-045d-4907-b2d6-0d1ea0136f1e",
+      "predicate": "reported_implementation_boundary",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:528cd6289b564073a380813c7b4e2eb9:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "implementation",
+        "repair",
+        "reported",
+        "route"
+      ]
+    },
+    {
+      "id": "memory_7505baf2-6d9d-4ae1-b4ea-c97f4c54eaf1",
+      "predicate": "reported_implemented_entity_repair",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "delegation:builder:20261109_125403_176dbf:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "subagent:20261109_125403_176dbf",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "audit",
+        "repair",
+        "reported",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_06382ff6-78ad-4592-bda1-8b7a202ef6ed",
+      "predicate": "reported_intending_to_change_release_path",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:4acc2614917942eb8333890cf7aa1cdf:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_73014526-5796-44ba-b958-56195c3b60f4",
+      "predicate": "reported_interrupted_not_retried",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:1a108a4495314761967f18fda6beb807:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_ef69664c-09ce-4769-b3ef-15b7d00aa8ee",
+      "predicate": "reported_latency_comparison",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:13fc58d4d8d24481b019429929cb3737:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_09f6c169-7a87-4ae7-a014-eda39d76558f",
+      "predicate": "reported_location",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:63dcc796d2dd4673abc2afb0b39615a9:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_3bb15f7b-6881-4b06-953c-63509116ed8d",
+      "predicate": "reported_lock_scope_change",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:c09cd04a945848008f633897ff796c34:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported",
+        "routing"
+      ]
+    },
+    {
+      "id": "memory_6bb22132-73ce-4db7-8ac2-143bb958831e",
+      "predicate": "reported_manifest_difference_cause",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:14154a6099f94a92a26a236cb9d03d69:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_58c180e9-1b39-43ed-aac8-2ff0f6a75d88",
+      "predicate": "reported_memory_inconsistency",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:1f890734244341d3a5569e0620eb98af:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_2a7694a7-3ca3-46ff-b1e9-e698bbc7869a",
+      "predicate": "reported_observation",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:e916175375cc4bb698f143f62615b0c7:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_959d7c4a-b592-47a3-ab03-7526b8c846a5",
+      "predicate": "reported_observation",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:e916175375cc4bb698f143f62615b0c7:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_49b4d950-5a3a-4bda-b002-b6ea2c77ad9a",
+      "predicate": "reported_orchestrator_unable_to_unpark_release_and_intended_native_unblock",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:d0509bacb97d452cabc4798a4dbf16b5:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_ee58bc08-a015-4c82-88a4-18199c50b962",
+      "predicate": "reported_owner_confirmation",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:64df51d8d5e7423d8b2b6b085f16b129:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "reported",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_aece5ead-f19e-4972-9b2f-e78f41c182e6",
+      "predicate": "reported_planned_entity_reconciliation",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:7c66f15ca5764440bcb5ab5d0ee08938:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "reported",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_59eeb327-d4d4-4adf-97ae-88550b3917b0",
+      "predicate": "reported_planning",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:817486801f0340e69ae22252cb0a85da:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_61ed3fbf-bdb5-4c64-8bbd-562d52c99043",
+      "predicate": "reported_reconciliation",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:e938bd52fe17491f886da11c6e19633f:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_e266a3a4-1d67-4659-8ee3-e1b2efa08a4e",
+      "predicate": "reported_reconciliation_fix_in_progress",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:086dcac272534f539503cfefd858d8b0:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "progress",
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_5375247b-dd69-4f0a-8f88-b5b5c901f916",
+      "predicate": "reported_reconciliation_step",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:afcdd85036254ab4beac9ca5a2cb326b:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_d463d4e7-66ef-4934-9d99-ab45dafa5bfa",
+      "predicate": "reported_release_blocked_by_unsatisfiable_wait",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:af28d5139ce243efa3191010f8a7d12a:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_b62733d2-4cd9-4753-a74c-136d993ec0e7",
+      "predicate": "reported_release_blocker_and_intended_dependency_change",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:2f02263857914eaa8a19dd09f33a3e86:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_94344e98-db17-4f8a-a84f-8da3702c6afb",
+      "predicate": "reported_release_blocker_and_intended_resume",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:1886109b39ec462f9f17138ca0162540:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_4f605f44-8f2c-4881-86aa-9e8578a41c23",
+      "predicate": "reported_release_check_repair_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:51de72aadc30468289920ec4047736cb:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "reported",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_f6972538-1683-4850-ae9d-1b50bb2c37d6",
+      "predicate": "reported_release_parent_update",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:22a7349e038f40c7b3ce9b10ebfe97ff:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_1c1e034e-666f-4829-9ec6-6ad67278ee23",
+      "predicate": "reported_renewing_exact_hash_reviews",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:a9d0e87c58f640659f064e91119965cb:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_7980fc5d-a5cd-431b-a446-8b5f2cc333e7",
+      "predicate": "reported_result",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:5d4f029ad714439f876f390cbe3bc38e:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_db1d139c-3b3b-454d-95e9-241be262fd2b",
+      "predicate": "reported_result",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:9b11382e8b5546ddab47dc73df1ec35a:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_126dedc2-07f1-47e5-9388-1674e9ede508",
+      "predicate": "reported_routing_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:2e72893c728342c492f30b95872e1475:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported",
+        "route",
+        "routing",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_8c1b6c0a-24eb-4de1-b922-a2e82385d96b",
+      "predicate": "reported_routing_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:1e9210763d5d4ed5aa96931308f878e4:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported",
+        "route",
+        "routing",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_688daf29-cc8a-4c92-89cb-e458c563a4fb",
+      "predicate": "reported_source_commit",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:f6a6861574c844d39be62635456de832:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_5759bbdf-3550-4e28-89ee-3d8b9bcb413a",
+      "predicate": "reported_testing",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:07bffc8ea57148398705c58e1440afc2:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_1ed02fd5-62da-4fc5-84e7-5822a813e0b6",
+      "predicate": "reported_validation",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:f6a6861574c844d39be62635456de832:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_095676e6-7836-487c-af96-78dc744f93ad",
+      "predicate": "reported_verification",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:c09cd04a945848008f633897ff796c34:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_dd2625aa-bf51-4cf5-bde7-1f7e850d15d5",
+      "predicate": "reports_backend_migration_plan",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:551b84e5233240a39a29f91306613008:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_8a541723-0d4c-42c5-bfa9-a8d480bb7bcb",
+      "predicate": "reports_candidate_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:f6b9e7cceec24c9ab8a5120ee5f87b76:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "checking",
+        "reports_",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_1b07182d-f116-4565-809e-445e01742f8e",
+      "predicate": "reports_changing_provider_redirect_mode_to",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:0afa72b700354060a24f8fed83a66ba3:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_b66dfc98-dfc4-4bbb-a35f-8b82739ac11c",
+      "predicate": "reports_ci_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:5e7bc12f82794b9196add2179e406979:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_",
+        "status",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_d6541334-090a-44a1-850a-a7c0ebee845f",
+      "predicate": "reports_cutover_plan",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:c86606cdfe964d51b5abc2c9e08cdaf0:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported",
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_d0903877-00e6-4cb8-8013-a368488d44e7",
+      "predicate": "reports_cutover_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:5e7bc12f82794b9196add2179e406979:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_0abea9af-faaa-4649-abca-23f9f9b913f5",
+      "predicate": "reports_documentation_discrepancy",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:0e161a0a6da140bea0ee1224b2b1ab19:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "implementation",
+        "repair",
+        "reported",
+        "reports_",
+        "status",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_ba95510d-103a-4bfd-8319-1b02487b2db9",
+      "predicate": "reports_execution_time_baseline",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:57edc2a3b25e4d78931b825b4ac3a16c:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_3cbb1d40-8153-443f-b730-fbcd213b8f2c",
+      "predicate": "reports_graph_cleanup_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:359719ee03dc4012a149fe3752d3dc3e:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "reports_",
+        "status",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_d91bbbf2-8bf0-4935-ba50-f2aff700950c",
+      "predicate": "reports_identifiers_stale",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:917555e19c26468583768b2c326df269:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_dce355b1-7728-47cd-a62f-8f1c15c1d6f5",
+      "predicate": "reports_live_readback",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:917555e19c26468583768b2c326df269:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_3530d81a-e4ed-4653-815c-2d93d6c6489d",
+      "predicate": "reports_local_durable_object_health_request_hanging",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:94d9924a02c640ef83d195dff61633b2:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_d3248d88-a62b-496a-9d4f-1aa78b10026f",
+      "predicate": "reports_local_migration_validation_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:8bed8fb8c1f54fd3b24a0de81423462f:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported",
+        "reports_",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_a10587d1-b64e-4f2a-808c-cb35116e637c",
+      "predicate": "reports_local_validation_results",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:78ea32e5eb694932a14a977caeeb1d7a:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_363f6d9f-c121-47eb-bcb8-12f8ae07e7a4",
+      "predicate": "reports_native_sink_suite_test_count",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:ed2999c991204c71911e4086f080639d:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_00b5076a-5b02-4cd7-b76e-ba32f6231b80",
+      "predicate": "reports_outbox_cutover_filtering",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:4312164afc134424911bb6161c932711:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "checking",
+        "reported",
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_173875ca-4a59-40ac-aa1d-37f1848a0dae",
+      "predicate": "reports_planning",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:0b0589cc39d94bf6939737ee22c76f78:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported",
+        "reports_",
+        "route"
+      ]
+    },
+    {
+      "id": "memory_04f66cf4-6ae9-4cb6-a623-b19a9ae4f725",
+      "predicate": "reports_prepublication_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:9b38a6e72e0f4bbcaf8bcea9f5e8189a:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "deployment",
+        "reported",
+        "reports_",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_fe1bd50e-cf4e-4ac1-bd1c-105610ec1ddb",
+      "predicate": "reports_production_deployment_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:c86606cdfe964d51b5abc2c9e08cdaf0:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "deployment",
+        "reported",
+        "reports_",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_e9d52862-7356-4841-b12e-3640eba180ee",
+      "predicate": "reports_pushed_commit",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:f9b9889c667d4b20b6e8b470e0d50fac:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_27c16684-e2ba-4092-b9d9-442dd18d66ec",
+      "predicate": "reports_pushed_on_branch",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:f9b9889c667d4b20b6e8b470e0d50fac:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_0bc223b6-db0f-49aa-84d9-f6f6139c34eb",
+      "predicate": "reports_pushed_to",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:f9b9889c667d4b20b6e8b470e0d50fac:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_6ff89668-e434-40ff-b43c-318b9edfca3b",
+      "predicate": "reports_recall_query_workerd_update",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:51b8300bf52d43919cc87b6ef19db2df:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_d07a1f2b-3642-4ed5-95f4-69661e207cc6",
+      "predicate": "reports_release_scope_and_source_consumption_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:b3de56744a4e4543ab9b690e33bfc22b:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_7ddc789a-fe6b-4f3c-bd92-b1d88303e208",
+      "predicate": "reports_rendered_listing_diagnostic",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:1aa7f7f2e9ad4573a81c2885b4c6bf67:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported",
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_5b65f434-cb6d-4633-aacd-e89693c838b1",
+      "predicate": "reports_residual",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:359719ee03dc4012a149fe3752d3dc3e:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "reports_",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_ffac8d2f-006d-4a86-809f-c1317003d89c",
+      "predicate": "reports_runtime_constraint",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:326611bf8b8c403d9dadec518aa3eae6:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_d0b342ac-194a-47e3-94bf-facd1c30690d",
+      "predicate": "reports_runtime_migration_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:c6455e01fe0344e8b85d662e11763d3f:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_",
+        "status",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_7b3dc31c-df18-4d66-be1b-5451d368d863",
+      "predicate": "reports_site_candidate_excluded_concurrent_documentation_work",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:57edc2a3b25e4d78931b825b4ac3a16c:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_eccaf3bb-b2f3-4a71-b71d-2d53fc0080b9",
+      "predicate": "reports_starting_local_runtime_validation",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:42835401a3254d2695fe30d1b6592b16:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "checking",
+        "deployment",
+        "reports_",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_30165748-c53d-4551-bc1c-a1d5ba076f00",
+      "predicate": "reports_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:422026773a584816940879d0862c2bc6:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported",
+        "reports_",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_ebf2a15f-bc75-4120-a4c6-d3359e6bd7a0",
+      "predicate": "reports_tokenizer_test_result",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:94d9924a02c640ef83d195dff61633b2:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_7b93e55b-ca95-4eaa-b0fa-d85c9a51521e",
+      "predicate": "reports_transport_error_cause",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:0afa72b700354060a24f8fed83a66ba3:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_e7297199-88a9-452f-91ea-b436675354b1",
+      "predicate": "reports_unresolved_due_to_missing_information_and_lookup_failure",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:41c1d2b5587a4e638eced6df57a98fca:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_2feca22a-c162-421f-b3c8-51a0c6ee0b48",
+      "predicate": "reports_validation_status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:9cb0ffe912814442a4d266b337a2d10e:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reports_",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_3967c61d-d7ac-427b-8499-d2c33bf482ef",
+      "predicate": "reports_verification",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:0e161a0a6da140bea0ee1224b2b1ab19:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "deployment",
+        "repair",
+        "reported",
+        "reports_",
+        "task",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_f696538f-dbc5-4bbd-93cc-97388adcc12d",
+      "predicate": "reports_visible_cover_image_check",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:e735f939c70d45da93c59a31cbac91db:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported",
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_8a0665ae-8f9a-4596-a0cc-ad808047b83f",
+      "predicate": "requires",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:5b5ed121714243cbb5050059ae0a920e:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "audit",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_ca5f481e-0656-4561-b27f-855f5c836e2d",
+      "predicate": "should_be_limited_to",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:0e161a0a6da140bea0ee1224b2b1ab19:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "status"
+      ]
+    },
+    {
+      "id": "memory_057d4222-933b-4205-b73f-77527f2ce517",
+      "predicate": "snapshot_apply_rolled_back",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:77ffffee4b444358b6aaff4c468e73f9:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_7b33c29c-c9b2-4152-8683-9c56f10701c0",
+      "predicate": "stated_current_wake_setup_plan",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:fd4566286ad142fd82f29c923a22f57c:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "audit"
+      ]
+    },
+    {
+      "id": "memory_21f743cd-bfe2-4ace-aa83-f2d730545ca2",
+      "predicate": "stated_repair_plan",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:488541e57d424d4aa438baee4211c036:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair"
+      ]
+    },
+    {
+      "id": "memory_5836f6ec-e20d-49bf-a476-37f741c51e00",
+      "predicate": "stated_runbook_boundary",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:60e6ea8b2adb4f8388fdf0901182ebe9:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "checking"
+      ]
+    },
+    {
+      "id": "memory_4b383d98-b982-4ac5-acc9-b3033335e236",
+      "predicate": "status",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:cff1998539524d8b80c3f354ebb12a06:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "status"
+      ]
+    },
+    {
+      "id": "memory_7b619bac-6dd2-402b-a38d-d03902ca9bd9",
+      "predicate": "uses_hosted_review_path",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:0e161a0a6da140bea0ee1224b2b1ab19:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_7e394da8-998f-4d0d-9026-16f4dcd6a07b",
+      "predicate": "uses_shared_function_for",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:0e161a0a6da140bea0ee1224b2b1ab19:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_19d3b58f-f48b-4360-b996-42cabba15f04",
+      "predicate": "warns_against",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:0e161a0a6da140bea0ee1224b2b1ab19:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "repair",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_2b13ac1a-a1eb-48f7-833c-e16349105611",
+      "predicate": "was_assigned",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:43789050e1294ddea8092e1c218313c3:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "task"
+      ]
+    },
+    {
+      "id": "memory_2b618daa-6a9c-425b-b235-01f0ce14c310",
+      "predicate": "was_instructed_to_route_native_default_owned_notifications_to",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:e938bd52fe17491f886da11c6e19633f:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "route"
+      ]
+    },
+    {
+      "id": "memory_b81a13ed-49ea-4fa8-bdb8-e483f68f9a81",
+      "predicate": "was_reported_to_produce_correct_responses",
+      "scope": "agent:builder",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:a9dd110574324a80b01f4e472e82813c:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:builder",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder"
+      ],
+      "matched_queries": [
+        "reported",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_311ad9e8-3e6b-4782-b9cb-14c73133c0cc",
+      "predicate": "agent_reported_model_configuration",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:d203861b6cd743c9ac0f0ec9ad6343e1:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_0c82b2af-531f-4313-a11f-7af15e5dfd1e",
+      "predicate": "agent_reported_native_description",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:d203861b6cd743c9ac0f0ec9ad6343e1:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_8faf0384-7a0c-4a76-8706-be47c13cf2ab",
+      "predicate": "agent_reported_native_description_includes_routing_to",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:d203861b6cd743c9ac0f0ec9ad6343e1:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported",
+        "routing"
+      ]
+    },
+    {
+      "id": "memory_17e42d58-8794-4a8b-aff4-316376c496c5",
+      "predicate": "assistant_claimed_update",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:acf86d25b64140ae8fc434f6788c3c6d:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "implementation",
+        "repair"
+      ]
+    },
+    {
+      "id": "memory_29957573-bcd9-4623-b6de-a47d1e6f9cfe",
+      "predicate": "assistant_claimed_update",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:d2462415cd074770bb68602071cb5d1d:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "test"
+      ]
+    },
+    {
+      "id": "memory_9a4880f5-7331-4589-a317-dacba9c8f1b4",
+      "predicate": "assistant_observed_not_fixed",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:dab19c5ba485439d8c8e64337482f883:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "task"
+      ]
+    },
+    {
+      "id": "memory_5d5692b5-3340-4bf6-904c-329c5cdfb9a0",
+      "predicate": "assistant_reported_activation_status",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:5f3caa6cb24f4946be2299cbe8adb436:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_530274e3-8729-422b-b436-991384060dbb",
+      "predicate": "assistant_reported_active_task",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:998421abef444987a03e153e27412546:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "progress",
+        "repair",
+        "reported",
+        "routing",
+        "status",
+        "task",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_31a35906-ebb6-411f-8228-e5cd481b976a",
+      "predicate": "assistant_reported_builder_run_id",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:04a61ceef9494d5da53865e0fb71e613:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_d2636186-b61d-4c10-a373-e31fb5b4a3ce",
+      "predicate": "assistant_reported_graph_result_limit",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:64d306c288a645488364813557aab875:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "assistant_reported_graph_result_limit",
+        "repair",
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_887e89c0-18ff-4ae8-a317-b6cfd7732059",
+      "predicate": "assistant_reported_intent",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:47e7b754bb5b478abe2c31ea4dc8be9e:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported",
+        "routing"
+      ]
+    },
+    {
+      "id": "memory_bffb2b54-4ac3-4e03-b102-1e808f5c3809",
+      "predicate": "assistant_reported_intent",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:f60ff1ff8de0488b9fc63a4b79b7d6c6:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_256c9466-0987-4a2a-832c-8f51c4f2f80d",
+      "predicate": "assistant_reported_limitation",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:84cbb3bf71634b758279d28abc5028c3:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_2171a304-5bca-4581-8f3d-8f6cc8166245",
+      "predicate": "assistant_reported_memory_prompt_instruction",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:04a61ceef9494d5da53865e0fb71e613:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_7f05d921-48c8-4fbb-88df-065f7b22814f",
+      "predicate": "assistant_reported_paused_work",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:998421abef444987a03e153e27412546:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "repair",
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_7e15a96f-6dd7-42a6-9adb-32e69c8d1a24",
+      "predicate": "assistant_reported_prompt_changes",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:5f3caa6cb24f4946be2299cbe8adb436:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_de73678f-a65a-4ff6-9a9d-d1ea673411f7",
+      "predicate": "assistant_reported_recall_timing",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:04a61ceef9494d5da53865e0fb71e613:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_cd41224d-07d3-4995-839a-7ddf2458908d",
+      "predicate": "assistant_reported_repair_status",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:76325f3eb01349409e55bdeb25c6cb99:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "assistant_reported_repair_status",
+        "repair",
+        "reported",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_95b60874-3813-475e-bb56-567d9f7aaf50",
+      "predicate": "assistant_reported_test_added",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:5f3caa6cb24f4946be2299cbe8adb436:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_56ae29ba-fa09-4da9-ac1f-ff40b1e0e6ee",
+      "predicate": "assistant_stated_follow_up_goal",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:c6a49bfa3eec4d9ba60aa4fe2492ca33:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "route"
+      ]
+    },
+    {
+      "id": "memory_4554f152-9464-4b0c-859c-d8d05bdaf6dd",
+      "predicate": "content_status",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:2f985546921747f69e96924835d200f4:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_060f9080-e688-4978-9d17-e511b13fc6b2",
+      "predicate": "deployment_default",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:bc58e70402e0495eb6d70d5670074b4f:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        },
+        {
+          "event_id": "native:default:9f52a3a141e74a67a2e841318ac4bb73:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "user",
+          "author_id": "alex",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "deployment"
+      ]
+    },
+    {
+      "id": "memory_12a6b343-4e38-4c98-a8a4-e90dcccd94f5",
+      "predicate": "has_observed_display_limit",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:508c81d7c79e417ebf2ceceb5f22df3a:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_38af8a84-86c9-4f01-ae28-aea946bbf879",
+      "predicate": "plans_to_check_and_route",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:206f536705204249aebc58b73e8e4a7d:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "plans_to",
+        "plans_to_check_and_route",
+        "route"
+      ]
+    },
+    {
+      "id": "memory_36f40931-d6fe-4dd8-925c-ce60c2b9470d",
+      "predicate": "plans_to_create_profile",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:6550cb5e8e564df9abeea539e2d25801:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "plans_to"
+      ]
+    },
+    {
+      "id": "memory_df4a1bb3-d367-415d-9d4c-190a77b99ba3",
+      "predicate": "plans_to_route_deployment",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:9d190ab17abc49c59be64570fffd43cc:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "deployment",
+        "plans_to",
+        "plans_to_route_deployment",
+        "route"
+      ]
+    },
+    {
+      "id": "memory_5feade84-9424-434d-893d-e7cdd377919a",
+      "predicate": "plans_to_update_profile_descriptions_and_roster",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:d1f59cd29d9c42f78b812bbb383f1ee5:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "plans_to"
+      ]
+    },
+    {
+      "id": "memory_0a5013f7-e457-41a3-b564-fa54f7e9f7fe",
+      "predicate": "proposed_design",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:a30c786bd643446e81f042c13b910332:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "route",
+        "routing",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_d628276b-1924-4cdc-891d-f5916fe04aa7",
+      "predicate": "provides",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:6c1547156ba145bcb5db57a1db369d39:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "task"
+      ]
+    },
+    {
+      "id": "memory_cd3a0442-a1c0-448a-90c1-ec89ce66ab3f",
+      "predicate": "recommended_setup",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:e064b2cb89164a37be0461aba3d349fc:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "task"
+      ]
+    },
+    {
+      "id": "memory_cad18728-e2ae-48ad-8418-1854a27f4277",
+      "predicate": "recommends",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:1cf08f600c10464781f85854e8b82dbd:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "task"
+      ]
+    },
+    {
+      "id": "memory_f787bf94-341e-4fd4-9051-95ffa402847f",
+      "predicate": "reported_GPT_fallback_effort",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:b4fcc8f1e8df4ca288695921760b9641:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_009e89df-93da-4b8d-8b48-6215ce5742d2",
+      "predicate": "reported_adding_requirement_to_builder_task",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:0b55aee6ba74497cb55ef1f6baff298b:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported",
+        "reported_adding_requirement_to_builder_task",
+        "task",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_bf701f80-c289-4095-b3f4-1f443ccb2b95",
+      "predicate": "reported_adopting_rule",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:0d07f22e339141e8aa02821e5fddc1f9:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_eaf417a7-38a4-4465-a222-bf328d71127c",
+      "predicate": "reported_atlas_conversation_filter_design",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:ea3de392fea24cc782714bd1be676e45:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported",
+        "status",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_90023337-6d25-4c39-abd6-0df2c921e261",
+      "predicate": "reported_builder_amendment",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:453e4dc73aa8481fa699c01d09f3a790:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "implementation",
+        "reported",
+        "task",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_a15cb80b-9eab-4648-b5f3-7faeade26e9e",
+      "predicate": "reported_builder_task_requirements",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:d2d620a8061f4c219e61d4a533688451:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_beff2d37-ec5b-43d5-b704-1064bf64beed",
+      "predicate": "reported_effort_change",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:6c8191b0da164b1297a0e8e13dd9b7aa:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_e0049f2a-2e9c-4328-ae08-fb639853031e",
+      "predicate": "reported_fallback_order",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:61d68ad90202440cbdd712dca6f892d0:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_ac980389-c2ed-403a-8371-04f7d74a5606",
+      "predicate": "reported_hosting_architecture",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:90df1b5110684c20a7d78a426524eca3:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_e86a6632-a623-4da6-8955-e6337777c111",
+      "predicate": "reported_latency",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:90df1b5110684c20a7d78a426524eca3:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_e8f43c96-ae68-4c51-bd4c-f77a331b3e4c",
+      "predicate": "reported_local_storage_and_retrieval_cost",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:03e12e913cfe4ada9ed25d7b2c7b0634:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_d4591450-f2b6-444b-af76-a715c1ad17b1",
+      "predicate": "reported_main_Kimi_effort",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:b4fcc8f1e8df4ca288695921760b9641:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_feb18bea-9622-4046-9adb-a7b0f44f2d0c",
+      "predicate": "reported_recall_architecture",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:e83a5c924e4c48dc843a28aeaa47233d:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_deaa863a-7c18-4c9c-8f73-954cbf617eda",
+      "predicate": "reported_recall_measurements",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:e83a5c924e4c48dc843a28aeaa47233d:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_fca95fc0-0300-4851-94f2-2502cfdb3b4d",
+      "predicate": "reported_reconciliation_totals",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:90df1b5110684c20a7d78a426524eca3:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_d0146d32-ff99-4d74-89a4-3c525caad525",
+      "predicate": "reported_reset_intervals",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:91999152ebcd4ee581e99affb9be4111:part:0",
+          "job_id": null,
+          "revision": 2,
+          "role": "user",
+          "author_id": "alex",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_0f54eb56-ef3a-462c-81cb-9a19a147b9b0",
+      "predicate": "reported_restoring",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:718dfa8fe5a342d68aeb2c0b8f79bf97:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_1fec753c-8642-478e-86e8-c7234c429422",
+      "predicate": "reported_target_effort",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:6c8191b0da164b1297a0e8e13dd9b7aa:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_f739fefb-0a8d-42f5-919a-25f4b590aa5c",
+      "predicate": "reported_target_effort",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:6c8191b0da164b1297a0e8e13dd9b7aa:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_4c06a96c-ca3f-4fdc-b9c9-81cd0daa3e73",
+      "predicate": "reported_total_fixed_prompt_size",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:931b0baccc8a4bc195562ee9f886ff3c:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_31e45c4c-68c1-4abb-8b21-c595baef28f0",
+      "predicate": "reported_use_of",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:90df1b5110684c20a7d78a426524eca3:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_36f67c95-6e7e-4bf1-a549-a906125973a6",
+      "predicate": "reports_failed_due_to",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:ddf2f3c841a448b594d61264921d175f:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_64308075-89aa-4002-b5c3-8996e7246a70",
+      "predicate": "reports_kanban_decomposer_reads",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:d1f59cd29d9c42f78b812bbb383f1ee5:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_437556f8-f7f3-4720-b2db-e56e1a82a359",
+      "predicate": "requires_device_testing_for",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:a56314f2034543ec838db48a04413ba8:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "routing",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_a5f941ef-767b-4260-ada2-557c41353663",
+      "predicate": "said_would_prepare",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:a07ab3fae3e14290814cac9c73d7a8db:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "implementation"
+      ]
+    },
+    {
+      "id": "memory_c72cd602-926c-404d-8ff4-29f40e9982be",
+      "predicate": "stated_requirement_status",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:9bceb33a706f4d4694c44188685e80c7:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "status"
+      ]
+    },
+    {
+      "id": "memory_3a672e29-420c-4f2f-8f9d-5dc8fa9b3b57",
+      "predicate": "status",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:2f985546921747f69e96924835d200f4:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_746a0080-4d13-4be0-a375-e7ffb62ba1e6",
+      "predicate": "was_reported_by_agent_as_completed",
+      "scope": "agent:default",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:d8db18582697426ea6cdf64338b5e093:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:default",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "default"
+      ],
+      "matched_queries": [
+        "reported",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_3afc282e-79a9-45de-b2e5-faca280dbda5",
+      "predicate": "intends",
+      "scope": "agent:orchestrator",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:orchestrator:c2c8af44b14345269fa4c8d66d247602:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:orchestrator",
+          "agent_id": "orchestrator"
+        }
+      ],
+      "visible_to": [
+        "orchestrator"
+      ],
+      "matched_queries": [
+        "implementation"
+      ]
+    },
+    {
+      "id": "memory_1e9ce44a-93e4-40b0-81d5-9425d51a76fd",
+      "predicate": "reports_automated_delivery_interrupted",
+      "scope": "agent:orchestrator",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:orchestrator:73aad7c5abb14657bbdf9ef2b22f4ad8:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:orchestrator",
+          "agent_id": "orchestrator"
+        }
+      ],
+      "visible_to": [
+        "orchestrator"
+      ],
+      "matched_queries": [
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_5910f160-133b-4857-b05d-d7c74a455e37",
+      "predicate": "reports_kanban_mutation_blocked",
+      "scope": "agent:orchestrator",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:orchestrator:a90ff9283c384c2d9e36ce33f5f40c31:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:orchestrator",
+          "agent_id": "orchestrator"
+        }
+      ],
+      "visible_to": [
+        "orchestrator"
+      ],
+      "matched_queries": [
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_42f18724-c6bb-44d8-9cf4-8d921994bc2c",
+      "predicate": "reports_tool_unavailable",
+      "scope": "agent:orchestrator",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:orchestrator:c2c8af44b14345269fa4c8d66d247602:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:orchestrator",
+          "agent_id": "orchestrator"
+        }
+      ],
+      "visible_to": [
+        "orchestrator"
+      ],
+      "matched_queries": [
+        "reports_"
+      ]
+    },
+    {
+      "id": "memory_343674bb-9708-45d5-9ecd-b834176b0642",
+      "predicate": "requests",
+      "scope": "agent:orchestrator",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:orchestrator:e33b11900d5749688057e6caa9df2380:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "orchestrator"
+        }
+      ],
+      "visible_to": [
+        "orchestrator"
+      ],
+      "matched_queries": [
+        "task"
+      ]
+    },
+    {
+      "id": "memory_2a987c4b-0c08-4335-b779-3db6b7470b6a",
+      "predicate": "has_observed_issue",
+      "scope": "agent:overwatch",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:overwatch:4e71f41038e3433abc7ce6484e6268f9:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:overwatch",
+          "agent_id": "overwatch"
+        }
+      ],
+      "visible_to": [
+        "overwatch"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_1d8f5cb3-a322-4036-be5c-18cae48ba1e2",
+      "predicate": "recommends_implementation_workflow",
+      "scope": "agent:overwatch",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:overwatch:aa937bb29a064a73984cf8eafee36d4b:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "overwatch"
+        }
+      ],
+      "visible_to": [
+        "overwatch"
+      ],
+      "matched_queries": [
+        "implementation",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_d364ef74-4b18-4fd1-943d-dbd2a8e593bf",
+      "predicate": "recommends_verification_effort",
+      "scope": "agent:overwatch",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:overwatch:aa937bb29a064a73984cf8eafee36d4b:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "overwatch"
+        }
+      ],
+      "visible_to": [
+        "overwatch"
+      ],
+      "matched_queries": [
+        "test"
+      ]
+    },
+    {
+      "id": "memory_36ba9b71-9f7a-4dea-b4f9-dcf1b5b351ab",
+      "predicate": "reported_handoff_boundary",
+      "scope": "agent:overwatch",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:overwatch:1d7d0df16642400dbccba05f722ec874:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:overwatch",
+          "agent_id": "overwatch"
+        }
+      ],
+      "visible_to": [
+        "overwatch"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_1a88f086-a4fa-48b6-a0ad-a18b8637dc38",
+      "predicate": "reported_historical_dispatch_failures",
+      "scope": "agent:overwatch",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:overwatch:aa937bb29a064a73984cf8eafee36d4b:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "overwatch"
+        }
+      ],
+      "visible_to": [
+        "overwatch"
+      ],
+      "matched_queries": [
+        "repair",
+        "reported",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_f51af1f9-0e63-429e-829e-43be48dcda7f",
+      "predicate": "reported_receipt_status",
+      "scope": "agent:overwatch",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:overwatch:e684358bf0014147af9aba3fd102e913:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:overwatch",
+          "agent_id": "overwatch"
+        }
+      ],
+      "visible_to": [
+        "overwatch"
+      ],
+      "matched_queries": [
+        "reported",
+        "status"
+      ]
+    },
+    {
+      "id": "memory_034a233a-368e-4dab-b09e-9c869d39a782",
+      "predicate": "reported_settled_effects_for_creator_updates_editorial_publisher",
+      "scope": "agent:overwatch",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:overwatch:aa937bb29a064a73984cf8eafee36d4b:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "overwatch"
+        }
+      ],
+      "visible_to": [
+        "overwatch"
+      ],
+      "matched_queries": [
+        "reported",
+        "route"
+      ]
+    },
+    {
+      "id": "memory_fb238e4b-7a88-4412-acba-3bda25c122ea",
+      "predicate": "reported_uncertain_effects_on_resources",
+      "scope": "agent:overwatch",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:overwatch:aa937bb29a064a73984cf8eafee36d4b:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "overwatch"
+        }
+      ],
+      "visible_to": [
+        "overwatch"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_511328ec-7b8e-4649-9827-70de988c1f2d",
+      "predicate": "reports_historical_observation",
+      "scope": "agent:overwatch",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:overwatch:aa937bb29a064a73984cf8eafee36d4b:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "overwatch"
+        }
+      ],
+      "visible_to": [
+        "overwatch"
+      ],
+      "matched_queries": [
+        "reported",
+        "reports_",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_17c10e0a-3617-477d-a696-5049d0a87add",
+      "predicate": "reports_result",
+      "scope": "agent:overwatch",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:overwatch:aa937bb29a064a73984cf8eafee36d4b:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "overwatch"
+        }
+      ],
+      "visible_to": [
+        "overwatch"
+      ],
+      "matched_queries": [
+        "reported",
+        "reports_",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_53f5a60a-ac59-442b-8f5a-1cf686a21d4e",
+      "predicate": "reviewed system maintenance evidence",
+      "scope": "agent:overwatch",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:overwatch:aa937bb29a064a73984cf8eafee36d4b:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "overwatch"
+        }
+      ],
+      "visible_to": [
+        "overwatch"
+      ],
+      "matched_queries": [
+        "audit"
+      ]
+    },
+    {
+      "id": "memory_89354273-76bc-4d5a-b0d0-40f4967c22ed",
+      "predicate": "was_reported_modified_to_include",
+      "scope": "agent:overwatch",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:overwatch:aa937bb29a064a73984cf8eafee36d4b:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "overwatch"
+        }
+      ],
+      "visible_to": [
+        "overwatch"
+      ],
+      "matched_queries": [
+        "audit",
+        "reported",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_2b19bd3c-d697-49b2-80fd-7cabc5fae23e",
+      "predicate": "assigned",
+      "scope": "agent:wordsmith",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:wordsmith:d0b04bc6f6084e96b586d78e329fe094:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "wordsmith"
+        }
+      ],
+      "visible_to": [
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "task"
+      ]
+    },
+    {
+      "id": "memory_1000e472-f87e-41a5-b21c-bec37d80b54e",
+      "predicate": "assigned_task",
+      "scope": "agent:wordsmith",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:wordsmith:a5ee67885f3b4eefae85f49fefc2fbfc:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "wordsmith"
+        }
+      ],
+      "visible_to": [
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "task"
+      ]
+    },
+    {
+      "id": "memory_96d4e169-5fe6-4d5c-85f0-fdf11dbd56b4",
+      "predicate": "authored",
+      "scope": "agent:wordsmith",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:wordsmith:8ce7c9d328d540e38c66ad984ae12596:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:wordsmith",
+          "agent_id": "wordsmith"
+        }
+      ],
+      "visible_to": [
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_d95b5bb2-d27d-4c24-8f46-aae308368c92",
+      "predicate": "closure_requires",
+      "scope": "agent:wordsmith",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:wordsmith:baaea5d7b23a44de8ca6261839df65c4:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:wordsmith",
+          "agent_id": "wordsmith"
+        }
+      ],
+      "visible_to": [
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "status",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_5ae379c3-697f-482d-9905-ab028f88fc4c",
+      "predicate": "needs_input_status_withdrawn",
+      "scope": "agent:wordsmith",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:wordsmith:baaea5d7b23a44de8ca6261839df65c4:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:wordsmith",
+          "agent_id": "wordsmith"
+        }
+      ],
+      "visible_to": [
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "status",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_acd595f8-9787-4f6c-81d3-7211e4fdc32c",
+      "predicate": "package_work_status_reported",
+      "scope": "agent:wordsmith",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:wordsmith:baaea5d7b23a44de8ca6261839df65c4:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:wordsmith",
+          "agent_id": "wordsmith"
+        }
+      ],
+      "visible_to": [
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "reported",
+        "status",
+        "task"
+      ]
+    },
+    {
+      "id": "memory_b1d0d66e-c7e5-4b26-b471-ce47582b6425",
+      "predicate": "planned_update",
+      "scope": "agent:wordsmith",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:wordsmith:ac037c502fc54f86ac9297d4ae248b5a:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:wordsmith",
+          "agent_id": "wordsmith"
+        }
+      ],
+      "visible_to": [
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "task"
+      ]
+    },
+    {
+      "id": "memory_b1b96e9f-506c-40bb-81e7-81cee507404e",
+      "predicate": "public_prose_correction_boundary",
+      "scope": "agent:wordsmith",
+      "status": "conflict",
+      "sources": [
+        {
+          "event_id": "native:wordsmith:b63d3b53b06544b8bad5aa19f8ba232f:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "wordsmith"
+        }
+      ],
+      "visible_to": [
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "task"
+      ]
+    },
+    {
+      "id": "memory_e0833481-9f99-4c3b-a55d-b338abc29572",
+      "predicate": "reported_package_correction",
+      "scope": "agent:wordsmith",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:wordsmith:03a667b719e44ce6a7e8ddfc7eabb628:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:wordsmith",
+          "agent_id": "wordsmith"
+        }
+      ],
+      "visible_to": [
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_b90ecc7e-e60e-4c44-9091-c450c106bfc2",
+      "predicate": "reported_release_block",
+      "scope": "agent:wordsmith",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:wordsmith:03a667b719e44ce6a7e8ddfc7eabb628:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:wordsmith",
+          "agent_id": "wordsmith"
+        }
+      ],
+      "visible_to": [
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "reported"
+      ]
+    },
+    {
+      "id": "memory_a2ff5eb1-8f45-426a-a47d-2df14f7bdf0d",
+      "predicate": "stated_assignment_and_plan",
+      "scope": "agent:wordsmith",
+      "status": "conflict",
+      "sources": [
+        {
+          "event_id": "native:wordsmith:5408cfefcaf748ab952803ab0d212703:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:wordsmith",
+          "agent_id": "wordsmith"
+        }
+      ],
+      "visible_to": [
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "task"
+      ]
+    },
+    {
+      "id": "memory_49b8beb3-bccd-4ac9-bf81-16e59ba80c1a",
+      "predicate": "stated_run_status",
+      "scope": "agent:wordsmith",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:wordsmith:776dfb71e27747c184236bb553c6507b:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:wordsmith",
+          "agent_id": "wordsmith"
+        }
+      ],
+      "visible_to": [
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "status"
+      ]
+    },
+    {
+      "id": "memory_cb46507e-5d32-45e8-a3b0-0388aec3cf37",
+      "predicate": "stated_stop_after_builder_note",
+      "scope": "agent:wordsmith",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:wordsmith:b3d3aed89f274741b2c2c3e930ed4c5b:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "assistant",
+          "author_id": "agent:wordsmith",
+          "agent_id": "wordsmith"
+        }
+      ],
+      "visible_to": [
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "task"
+      ]
+    },
+    {
+      "id": "memory_8937b3db-7a53-45d1-9763-01c05b253a67",
+      "predicate": "requires",
+      "scope": "business:alex",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:bbcce602d00b4e9cbce458aa3e51a1e2:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder",
+        "default",
+        "orchestrator",
+        "overwatch",
+        "reaver",
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "test"
+      ]
+    },
+    {
+      "id": "memory_e67bbe1d-9189-4709-82c4-b8da6e305e6f",
+      "predicate": "requires_memory_retrieval_flow",
+      "scope": "business:alex",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:94e7e87768f74895b6b08e8c29f8d8b2:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "user",
+          "author_id": "alex",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "builder",
+        "default",
+        "orchestrator",
+        "overwatch",
+        "reaver",
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "test"
+      ]
+    },
+    {
+      "id": "memory_b5274e78-d532-4bbf-85ea-e3577f3f7374",
+      "predicate": "revision_audit_requirement",
+      "scope": "business:alex",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:644e86d5e4584e4587f454eebfe078ca:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        },
+        {
+          "event_id": "native:builder:ec292d7263854b3b9f90fd4cb1aed8e9:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder",
+        "default",
+        "orchestrator",
+        "overwatch",
+        "reaver",
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "audit",
+        "route",
+        "test"
+      ]
+    },
+    {
+      "id": "memory_ba9d102b-180f-4320-b652-97222bc9eac0",
+      "predicate": "schedule_policy",
+      "scope": "business:alex",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:builder:ec292d7263854b3b9f90fd4cb1aed8e9:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "inter_agent",
+          "author_id": "native:kanban:sid:S-1-5-21-3071506602-465792619-1111155877-1001",
+          "agent_id": "builder"
+        }
+      ],
+      "visible_to": [
+        "builder",
+        "default",
+        "orchestrator",
+        "overwatch",
+        "reaver",
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "task"
+      ]
+    },
+    {
+      "id": "memory_2cbbe051-f2ad-4800-8522-aef1918bd4f3",
+      "predicate": "first_job",
+      "scope": "user:alex",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "owner-seed:default:a487a151d19b4c02b2b257f949eb7dcb:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "user",
+          "author_id": "alex",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "builder",
+        "default",
+        "orchestrator",
+        "overwatch",
+        "reaver",
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "repair"
+      ]
+    },
+    {
+      "id": "memory_21750f68-18dd-458c-af66-c95610f5092d",
+      "predicate": "prefers_testing_approach",
+      "scope": "user:alex",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:f1f275fb102742dd81f2a5d723757c8f:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "user",
+          "author_id": "alex",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "builder",
+        "default",
+        "orchestrator",
+        "overwatch",
+        "reaver",
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "test"
+      ]
+    },
+    {
+      "id": "memory_959b777b-9689-42de-8d02-7cbbc13c9c75",
+      "predicate": "prefers_ui_work_verified_by_assistant",
+      "scope": "user:alex",
+      "status": "active",
+      "sources": [
+        {
+          "event_id": "native:default:f1f275fb102742dd81f2a5d723757c8f:part:0",
+          "job_id": null,
+          "revision": 1,
+          "role": "user",
+          "author_id": "alex",
+          "agent_id": "default"
+        }
+      ],
+      "visible_to": [
+        "builder",
+        "default",
+        "orchestrator",
+        "overwatch",
+        "reaver",
+        "wordsmith"
+      ],
+      "matched_queries": [
+        "test"
+      ]
+    }
+  ]
+}
