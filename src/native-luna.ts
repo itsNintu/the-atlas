@@ -1,4 +1,4 @@
-import { setting } from './config.ts';
+import { setting, sleep } from './config.ts';
 import { ApiError, fail } from './errors.ts';
 import { chmod, mkdir, open, readFile, rename, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
@@ -121,7 +121,7 @@ export class NativeLunaWorker {
         // token; wait briefly for its persisted result, then re-read identity.
         const deadline = this.now() + 20_000;
         while (this.now() < deadline) {
-          await Bun.sleep(100);
+          await sleep(100);
           try { const latest = await this.read(); if (latest.access !== old.access && latest.expiresAt > this.now() + 60_000) return latest; } catch {}
           if (this.now() + 100 < deadline && await this.reclaimRefreshLock(lockPath)) {
             try { lock = await open(lockPath, 'wx', 0o600); break; } catch {}
@@ -140,7 +140,7 @@ export class NativeLunaWorker {
         response = await this.fetcher()(OAUTH_TOKEN_URL, {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ grant_type: 'refresh_token', client_id: ATLAS_OAUTH_CLIENT_ID, refresh_token: current.refresh }),
-          redirect: 'error', signal: AbortSignal.timeout(20_000),
+          redirect: 'manual', signal: AbortSignal.timeout(20_000),
         });
       } catch {
         await this.write(current, true);
@@ -188,7 +188,7 @@ export class NativeLunaWorker {
       try {
         response = await this.fetcher()(ATLAS_RESPONSES_URL, {
           method: 'POST', headers: { Authorization: `Bearer ${auth.access}`, 'ChatGPT-Account-ID': auth.accountId, 'Content-Type': 'application/json', Accept: 'text/event-stream', 'User-Agent': 'The-Atlas/0.1' },
-          body, redirect: 'error', signal: AbortSignal.timeout(Number(setting('INFERENCE_TIMEOUT_MS') ?? 180_000)),
+          body, redirect: 'manual', signal: AbortSignal.timeout(Number(setting('INFERENCE_TIMEOUT_MS') ?? 180_000)),
         });
       } catch { throw new ApiError(503, 'native_unavailable', 'Atlas-native Luna request failed or timed out', true); }
       if (response.status !== 401 || attempt === 1) break;

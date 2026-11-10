@@ -384,7 +384,7 @@ export class Inference implements MemoryInference {
     try {
       r = await fetch(base.replace(/\/$/, "") + path, {
         method: "POST",
-        redirect: "error",
+        redirect: "manual",
         headers: {
           Authorization: `Bearer ${key}`,
           "Content-Type": "application/json",
@@ -498,7 +498,7 @@ export class Inference implements MemoryInference {
       const request_id = id("inference");
       try {
         const response = await fetch(url, {
-          method: "POST", redirect: "error", headers: { "Content-Type": "application/json" },
+          method: "POST", redirect: "manual", headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ protocol: "atlas-inference-v1", operation: "embed", request_id, input }),
           signal: AbortSignal.timeout(3000),
         });

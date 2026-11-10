@@ -1,0 +1,62 @@
+[
+  {
+    "profile": "default",
+    "configured_url": "https://atlas.creator.gg",
+    "query_kind": "paradev_offer",
+    "expected_fact_present": true,
+    "recall_ms": 1263.926,
+    "within_1500ms": true,
+    "pending_outbox": 0,
+    "plugin_reloaded": true
+  },
+  {
+    "profile": "builder",
+    "configured_url": "https://atlas.creator.gg",
+    "query_kind": "family_link",
+    "expected_fact_present": true,
+    "recall_ms": 1473.268,
+    "within_1500ms": true,
+    "pending_outbox": 0,
+    "plugin_reloaded": true
+  },
+  {
+    "profile": "reaver",
+    "configured_url": "https://atlas.creator.gg",
+    "query_kind": "family_link",
+    "expected_fact_present": true,
+    "recall_ms": 1392.406,
+    "within_1500ms": true,
+    "pending_outbox": 0,
+    "plugin_reloaded": true
+  },
+  {
+    "profile": "overwatch",
+    "configured_url": "https://atlas.creator.gg",
+    "query_kind": "family_link",
+    "expected_fact_present": true,
+    "recall_ms": 1293.497,
+    "within_1500ms": true,
+    "pending_outbox": 0,
+    "plugin_reloaded": true
+  },
+  {
+    "profile": "wordsmith",
+    "configured_url": "https://atlas.creator.gg",
+    "query_kind": "family_link",
+    "expected_fact_present": true,
+    "recall_ms": 1193.579,
+    "within_1500ms": true,
+    "pending_outbox": 0,
+    "plugin_reloaded": true
+  },
+  {
+    "profile": "orchestrator",
+    "configured_url": "https://atlas.creator.gg",
+    "query_kind": "family_link",
+    "expected_fact_present": true,
+    "recall_ms": 1131.88,
+    "within_1500ms": true,
+    "pending_outbox": 0,
+    "plugin_reloaded": true
+  }
+]

@@ -66,7 +66,7 @@ async function api(method: string, path: string, value?: unknown) {
     throw Error("Use HTTPS for non-loopback servers");
   const response = await fetch(url, {
     method,
-    redirect: "error",
+    redirect: "manual",
     headers: {
       Authorization: `Bearer ${c.token}`,
       "Content-Type": "application/json",

@@ -2,10 +2,15 @@
 
 **Source-linked graph memory for agents, with durable jobs and a bounded context response.**
 
-The Atlas is a standalone, self-hosted **0.1 alpha**. An agent can ingest text, JSON or timestamped
+The Atlas is a standalone **0.1 alpha** with a Bun/SQLite self-hosted runtime and an Atlas-owned
+Cloudflare Worker/Durable Object runtime. An agent can ingest text, JSON or timestamped
 messages, supply explicit relationship assertions, retrieve evidence under a character budget, inspect
 provenance, correct a source, and forget it without leaving unsupported facts behind. It needs Bun and
-a local filesystem, not Hermes, Docker, a hosted graph database, or a private account.
+a local filesystem for the self-hosted runtime, not Hermes, Docker, a hosted graph database, or a private account.
+
+The production deployment for Alex's agents is `https://atlas.creator.gg`, backed by a single SQLite
+Durable Object and Cloudflare alarms/cron. It is separate from Creators and does not use Convex.
+See [Cloudflare deployment and recovery](docs/cloudflare.md) for the protected release/cutover workflow.
 
 A small browser inspector uses the same real REST APIs as the JSON CLI. Workspace-bound credentials
 and explicit space/action grants keep separate callers and personal/shared spaces isolated.

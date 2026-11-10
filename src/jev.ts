@@ -75,7 +75,7 @@ export class JevClient {
       let response: Response;
       try {
         response = await fetch(url, {
-          method: 'POST', redirect: 'error',
+          method: 'POST', redirect: 'manual',
           headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify({ model: setting('JEV_MODEL') ?? 'jev-1.14.0', state, questions: { decision: question } }),
           signal: AbortSignal.timeout(positive('JEV_TIMEOUT_MS', 8000, 30000)),

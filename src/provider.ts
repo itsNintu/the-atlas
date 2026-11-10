@@ -45,7 +45,7 @@ export class OpenAICompatible implements ExtractionProvider {
     try {
       response = await fetch(base.replace(/\/$/, "") + path, {
         method: "POST",
-        redirect: "error",
+        redirect: "manual",
         headers: {
           Authorization: `Bearer ${key}`,
           "Content-Type": "application/json",

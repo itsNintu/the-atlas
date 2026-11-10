@@ -1,10 +1,11 @@
-import { Database } from "bun:sqlite";
 import { mkdirSync, chmodSync } from "node:fs";
 import { dirname } from "node:path";
+import { createRequire } from "node:module";
 import { createHash, randomBytes, randomUUID } from "node:crypto";
 import { schema, SCHEMA_VERSION } from "./schema.ts";
 import { memorySchema } from "./memory-schema.ts";
-import { installMemoryIndex } from "./memory-index.ts";
+import { installMemoryIndex, syncMemoryVectorBuckets } from "./memory-index.ts";
+import type { SQLiteDatabase } from "./sqlite.ts";
 import { currentResetEpoch } from "./reset-state.ts";
 import { fail, object, text, timestamp } from "./errors.ts";
 
@@ -76,22 +77,32 @@ export function patchedSQLite(version: string): boolean {
   );
 }
 export class Store {
-  db: Database;
+  db: SQLiteDatabase;
   sqlite_version: string;
+  storage_kind: "sqlite_wal_single_node" | "cloudflare_durable_object_sqlite";
   sqlite_wal_reset_fix:
     | "known_patched"
     | "upgrade_recommended"
     | "not_applicable";
-  constructor(public path: string) {
-    if (path !== ":memory:") {
+  constructor(public path: string, database?: SQLiteDatabase) {
+    if (!database && path !== ":memory:") {
       mkdirSync(dirname(path), { recursive: true, mode: 0o700 });
     }
-    this.db = new Database(path, { create: true });
-    this.sqlite_version = this.one(
-      "SELECT sqlite_version() AS version",
-    ).version;
+    if (database) this.db = database;
+    else {
+      // Keep bun:sqlite out of the Cloudflare bundle. This branch is the normal
+      // Bun path; Workers always inject DurableObjectSQLite explicitly.
+      const { Database } = createRequire(import.meta.url)("bun:sqlite") as typeof import("bun:sqlite");
+      this.db = new Database(path, { create: true });
+    }
+    this.storage_kind = database
+      ? "cloudflare_durable_object_sqlite"
+      : "sqlite_wal_single_node";
+    this.sqlite_version = database
+      ? "cloudflare_durable_object"
+      : this.one("SELECT sqlite_version() AS version").version;
     this.sqlite_wal_reset_fix =
-      path === ":memory:"
+      path === ":memory:" || database
         ? "not_applicable"
         : patchedSQLite(this.sqlite_version)
           ? "known_patched"
@@ -106,11 +117,15 @@ export class Store {
         }),
       );
     }
-    if (path !== ":memory:") chmodSync(path, 0o600);
+    if (!database && path !== ":memory:") chmodSync(path, 0o600);
     this.db.exec(
-      "PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA foreign_keys=ON; PRAGMA busy_timeout=5000; PRAGMA secure_delete=ON;",
+      database
+        ? "PRAGMA foreign_keys=ON;"
+        : "PRAGMA journal_mode=WAL; PRAGMA synchronous=FULL; PRAGMA foreign_keys=ON; PRAGMA busy_timeout=5000; PRAGMA secure_delete=ON;",
     );
-    const version = (this.one("PRAGMA user_version") as any).user_version;
+    const version = database
+      ? SCHEMA_VERSION
+      : (this.one("PRAGMA user_version") as any).user_version;
     if (version > SCHEMA_VERSION) {
       this.db.close();
       fail(
@@ -119,7 +134,12 @@ export class Store {
         "Upgrade The Atlas before opening this database",
       );
     }
-    this.transaction(() => {
+    let initialized = false;
+    if (database && this.one("SELECT 1 AS present FROM sqlite_master WHERE type='table' AND name='atlas_runtime_meta'")) {
+      const runtime = this.one("SELECT schema_version,serving_index_version FROM atlas_runtime_meta WHERE singleton=1");
+      initialized = runtime?.schema_version === SCHEMA_VERSION && runtime?.serving_index_version === 1;
+    }
+    if (!initialized) this.transaction(() => {
       this.db.exec(schema);
       this.db.exec(memorySchema);
       for (const [table, column] of [["jobs", "reset_epoch"], ["memory_events", "reset_epoch"], ["memory_jobs", "reset_epoch"]] as const) {
@@ -128,12 +148,19 @@ export class Store {
           this.db.exec(`ALTER TABLE ${table} ADD COLUMN ${column} INTEGER NOT NULL DEFAULT 0`);
       }
       installMemoryIndex(this);
-      // Backfill source-root ownership for pre-release schema2 deployments without changing source payloads.
-      this.db.exec(
+      // This one-time backfill is redundant on every warm Durable Object
+      // restart once the serving index marker exists; skipping it keeps the
+      // first hosted pre-answer recall within the native latency budget.
+      const rootsBackfillRequired = !database || !this.one("SELECT 1 FROM memory_index_meta WHERE version=1");
+      if (rootsBackfillRequired) this.db.exec(
         "INSERT OR IGNORE INTO memory_roots SELECT e.workspace_id,r.value,e.id,CASE WHEN e.operation='delete' THEN e.accepted_at ELSE NULL END FROM memory_events e,json_each(e.roots_json) r ORDER BY e.accepted_at,e.rowid",
       );
-      this.db.exec(`PRAGMA user_version=${SCHEMA_VERSION}`);
+      if (!database) this.db.exec(`PRAGMA user_version=${SCHEMA_VERSION}`);
     });
+    if (database) {
+      this.db.exec("CREATE TABLE IF NOT EXISTS atlas_runtime_meta(singleton INTEGER PRIMARY KEY CHECK(singleton=1),schema_version INTEGER NOT NULL,serving_index_version INTEGER NOT NULL)");
+      this.run("INSERT INTO atlas_runtime_meta VALUES(1,?,?) ON CONFLICT(singleton) DO UPDATE SET schema_version=excluded.schema_version,serving_index_version=excluded.serving_index_version", SCHEMA_VERSION, 1);
+    }
   }
   all(sql: string, ...params: any[]): any[] {
     return this.db.query(sql).all(...params);
@@ -142,12 +169,28 @@ export class Store {
     return this.db.query(sql).get(...params);
   }
   run(sql: string, ...params: any[]) {
-    return this.db.query(sql).run(...params);
+    const result = this.db.query(sql).run(...params);
+    // Durable Object SQLite has no application-defined SQL functions. Its FTS
+    // triggers remain native; maintain the small LSH projection at the one
+    // memory-insert boundary instead. Bun retains the original SQL triggers.
+    if (
+      this.storage_kind === "cloudflare_durable_object_sqlite" &&
+      /^\s*INSERT(?:\s+OR\s+\w+)?\s+INTO\s+memories\b/i.test(sql)
+    )
+      syncMemoryVectorBuckets(this, params[0]);
+    else if (
+      this.storage_kind === "cloudflare_durable_object_sqlite" &&
+      /^\s*UPDATE\s+memories\s+SET\s+embedding_json\s*=\s*\?\s*,\s*embedding_model\s*=\s*\?\s+WHERE\s+id\s*=\s*\?/i.test(sql)
+    )
+      syncMemoryVectorBuckets(this, params.at(-1));
+    return result;
   }
   transaction<T>(fn: () => T): T {
     return this.db.transaction(fn).immediate();
   }
   checkpoint() {
+    if (this.storage_kind === "cloudflare_durable_object_sqlite")
+      return { busy: 0, log: 0, checkpointed: 0 };
     // Long-lived readers must not block the synchronous request path for five seconds.
     this.db.exec("PRAGMA busy_timeout=0");
     try {

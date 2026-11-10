@@ -1,0 +1,34 @@
+[
+  {
+    "session_id": "local-e878cdca71226eebcd0da277faec3186c052dfc43a3b204abfb7c038e7fe5a3f",
+    "recall_count": 1,
+    "silent_injection_count": 1,
+    "recall_ms": 1065.139,
+    "within_1500ms": true,
+    "response_checks": {
+      "natural_answer": true,
+      "contains_paradev": true,
+      "links_paradev_work_trial": true,
+      "contains_family_context": false,
+      "contains_greeting": false,
+      "contains_memory_metadata": false
+    }
+  },
+  {
+    "case": "hey",
+    "profile": "default",
+    "session_id": "local-35bfe0084f6237453589ca73ea07747b70b5387927699360391d241e1850d797",
+    "atlas_recall_count": 1,
+    "silent_injection_count": 1,
+    "recall_ms": 800.303,
+    "tool_message_count": 1,
+    "response_checks": {
+      "natural_answer": true,
+      "contains_paradev": false,
+      "links_paradev_work_trial": false,
+      "contains_family_context": true,
+      "contains_greeting": true,
+      "contains_memory_metadata": false
+    }
+  }
+]

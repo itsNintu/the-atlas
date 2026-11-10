@@ -8,11 +8,11 @@ import {
   type MemoryInference,
   type Decision,
 } from "./inference.ts";
-import { setting } from "./config.ts";
-import { get_encoding } from "tiktoken";
+import { setting, sleep } from "./config.ts";
+import { getEncoding } from "js-tiktoken";
 const tokenEncoding =
   setting("TOKEN_ENCODING") === "cl100k_base" ? "cl100k_base" : "o200k_base";
-const tokenizer = get_encoding(tokenEncoding);
+const tokenizer = getEncoding(tokenEncoding);
 export const memoryTokens = (s: string) => tokenizer.encode(s, [], []).length;
 function modelFacingLine(m: any) {
   const author = String(m.supports?.[0]?.author_id ?? "");
@@ -49,7 +49,7 @@ import { analyzeRecallQuery, recallQueryExpansion, memoryEntityInfo, directNameA
 let memoryTurnUntil = 0;
 async function budgetTokens(s: string) {
   if (performance.now() >= memoryTurnUntil) {
-    await Bun.sleep(1);
+    await sleep(1);
     memoryTurnUntil = performance.now() + 8;
   }
   return memoryTokens(s);
@@ -839,7 +839,8 @@ export class Memory {
     const processQuery = asksAboutRecallProcess(focus);
     let qvector: number[] | undefined, qmodel: string | undefined;
     let semantic_status = "not_requested", embedding_ms = 0;
-    if (query.trim() && budget) {
+    const greetingOnlySessionStart = sessionStart && /^(?:hey|hi|hello|yo)[!.\s]*$/i.test(query.trim());
+    if (query.trim() && budget && !greetingOnlySessionStart) {
       const t = performance.now();
       try {
         const result = await this.inference.embed([searchQuery]);

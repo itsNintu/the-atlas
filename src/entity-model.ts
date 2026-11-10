@@ -14,7 +14,7 @@ export function canonicalEntityType(value:string){const n=norm(value);return TYP
 function withParents(types:Iterable<string>){const out=new Set<string>();for(const type of types){if(!type)continue;out.add(type);for(const parent of TYPE_PARENTS[type]??[])out.add(parent);}return [...out];}
 const FAMILY=new Set(['is_married_to','married_to','spouse_of','partner_of','parent_of','has_child','child_of','son_of','daughter_of','has_sibling','sibling_of','brother_of','sister_of','family_member','member_of_family']);
 const WORK_ROLE=new Set(['job_title','role','current_role','occupation','works_at','works_for','works_in','typically_works_with','is_interviewing_for','employed_by','employer','company','current_company']);
-const WORK_COMPANY=new Set(['works_at','works_for','employed_by','employer','company','current_company','interviewing_with','interviewed_with','worked_at','has_final_call_with','plans_work_trial_with','discussing_compensation_with','expects_work_trial_with','expects_remote_work_trial_with','expects_future_onsite_with']);
+const WORK_COMPANY=new Set(['works_at','works_for','employed_by','employer','company','current_company','interviewing_with','interviewed_with','completed_interviews_with','received_offer_from','offer_from','worked_at','has_final_call_with','plans_work_trial_with','planned_work_trial_with','discussing_compensation_with','expects_work_trial_with','expects_remote_work_trial_with','expects_future_onsite_with']);
 const WORK_PROJECT=new Set(['maintains','builds','building','develops','developing','working_on','leads','leading','contributes_to','active_project','has_project','current_project','project','aspires_to_build']);
 const WORK_RESPONSIBILITY=new Set(['responsibility','responsibilities','responsible_for','duties','duty','scope_of_work']);
 const WORK_DECISION=new Set(['decision','has_decision','active_decision','decided','goal','has_goal','active_goal','objective','priority','priorities','plan']);
@@ -28,7 +28,7 @@ export function predicateSignature(predicate:string):PredicateSignature{
  const family=FAMILY.has(p),workRole=WORK_ROLE.has(p)||WORK_COMPANY.has(p)||/^(?:work_arrangement_at_|has_final_call_to_discuss$|expects_(?:remote_)?work_trial|expects_future_onsite|prefers_work_location|may_travel_to)/.test(p),workProject=WORK_PROJECT.has(p),workResponsibility=WORK_RESPONSIBILITY.has(p),workDecision=WORK_DECISION.has(p);
  const work=workRole||workProject||workResponsibility||workDecision;
  const topics=[...new Set([dynamic||p==='pet_of'?'pet':'',family?'family':'',work?'work':'',LANGUAGES.has(p)?'language':'',VEHICLES.has(p)?'vehicle':''].filter(Boolean))];
- const facet=NAME.has(p)?'name':workRole?'role':workProject?'project':workResponsibility?'responsibility':workDecision?'decision':family?'family':dynamic?'pet':undefined;
+ const facet=NAME.has(p)?'name':WORK_COMPANY.has(p)?'company':workRole?'role':workProject?'project':workResponsibility?'responsibility':workDecision?'decision':family?'family':dynamic?'pet':undefined;
  return {topics,facet,
   subjectTypes:dynamic||family||workRole?['person']:[],
   objectTypes:dynamic?[canonicalEntityType(dynamic)]:family?['person']:WORK_COMPANY.has(p)?['organization']:workProject?['project']:[],
@@ -38,7 +38,7 @@ function textTopics(value:string){
  const t=tokens(value),has=(words:string[])=>words.some(w=>t.has(w)),topics:string[]=[];
  if(has(['pet','pets','dog','dogs','doggo','doggos','puppy','puppies','cat','cats','kitty','kitten','kittens']))topics.push('pet');
  if(has(['family','spouse','wife','husband','married','child','children','son','daughter','sibling','siblings','brother','sister','parent','parents']))topics.push('family');
- if(has(['work','working','building','developing','job','jobs','employment','employer','company','companies','business','role','roles','responsibility','responsibilities','decision','decisions','goal','goals','objective','objectives','interview','interviewing','trial','remote','onsite','compensation','relocation','travel']))topics.push('work');
+ if(has(['work','working','building','developing','job','jobs','employment','employer','company','companies','business','role','roles','responsibility','responsibilities','decision','decisions','goal','goals','objective','objectives','interview','interviews','interviewing','offer','offers','trial','remote','onsite','compensation','relocation','travel']))topics.push('work');
  if(has(['language','languages','speak','speaks','fluent']))topics.push('language');
  if(has(['car','cars','vehicle','vehicles','motorcycle','motorcycles','bike','bikes']))topics.push('vehicle');
  return topics;
@@ -64,7 +64,8 @@ function queryFacets(query:string){
  if(/\b(?:owner|owns|belongs_to)\b/.test(q))facets.push('owner');
  if(/\b(?:responsibility|responsibilities|duties|responsible_for)\b/.test(q))facets.push('responsibility');
  if(/\b(?:decision|decisions|goal|goals|objective|objectives|priority|priorities)\b/.test(q))facets.push('decision');
- if(/\b(?:job_title|role|company|employer|occupation)\b/.test(q))facets.push('role');
+ if(/\b(?:company|employer)\b/.test(q))facets.push('company');
+ if(/\b(?:job_title|role|occupation)\b/.test(q))facets.push('role');
  if(/\b(?:project|projects|working_on|building|developing|maintains)\b/.test(q))facets.push('project');
  return [...new Set(facets)];
 }
@@ -96,6 +97,7 @@ export function recallQueryExpansion(plan:RecallPlan){
  if(plan.topics.includes('work'))for(const term of ['work','job','job_title','role','employment','employed_by','employer','company','business','project','projects','maintains','builds','develops','working_on','responsibility','responsibilities','responsible_for','decision','active_decision','goal','objective','priority'])terms.add(term);
  if(plan.topics.includes('language'))for(const term of ['language','languages','speaks','knows_basic','fluent_in'])terms.add(term);
  if(plan.topics.includes('vehicle'))for(const term of ['vehicle','car','motorcycle','bike','drives','owns_vehicle'])terms.add(term);
+ if(plan.facets.includes('company'))for(const term of ['company','employer','interviewing_with','completed_interviews_with','received_offer_from','offer','interviews'])terms.add(term);
  if(plan.facets.includes('name'))for(const term of ['name','named','called','has_name'])terms.add(term);
  for(const facet of plan.facets)terms.add(facet);
  if(plan.owner)terms.add(plan.owner);
@@ -116,7 +118,7 @@ export function matchesRequestedFacet(m:any,plan:RecallPlan,info:MemoryEntityInf
  if(!plan.facets.length)return false;
  return plan.facets.some(facet=>{
   if(facet==='name')return directNameAnswer(m,plan,info);
-  if(facet==='responsibility'||facet==='project'||facet==='role'||facet==='decision')return info.signature.facet===facet;
+  if(facet==='responsibility'||facet==='project'||facet==='role'||facet==='company'||facet==='decision')return info.signature.facet===facet;
   const p=norm(m.predicate);
   if(facet==='breed')return /breed|species/.test(p);
   if(facet==='color')return /color|colour/.test(p);

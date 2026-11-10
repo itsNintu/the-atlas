@@ -38,7 +38,7 @@ export class NativeOpenAIWorker {
     let response: Response;
     try {
       response = await this.fetcher()(`${this.baseUrl()}/responses`, {
-        method: 'POST', redirect: 'error',
+        method: 'POST', redirect: 'manual',
         headers: {
           Authorization: `Bearer ${this.key()}`, 'Content-Type': 'application/json', Accept: 'application/json',
           ...(project ? { 'OpenAI-Project': project } : {}), 'User-Agent': 'The-Atlas/0.1',

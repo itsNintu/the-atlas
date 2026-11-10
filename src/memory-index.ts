@@ -37,10 +37,36 @@ export function queryTerms(query: string) {
   return [...new Set(query.normalize("NFKC").toLowerCase().match(/[\p{L}\p{N}_]+/gu) ?? [])]
     .filter(t => t.length > 1 && !STOP.has(t)).slice(0, 32);
 }
+export function syncMemoryVectorBuckets(s: Store, memoryId: string) {
+  s.run("DELETE FROM memory_vector_buckets WHERE memory_id=?", memoryId);
+  const memory = s.one(
+    "SELECT id,workspace_id,scope,embedding_json,embedding_model FROM memories WHERE id=?",
+    memoryId,
+  );
+  if (!memory?.embedding_json || !memory.embedding_model) return;
+  let vector: number[];
+  try { vector = JSON.parse(memory.embedding_json); } catch { return; }
+  for (const bucket of vectorBuckets(vector))
+    s.run(
+      "INSERT OR IGNORE INTO memory_vector_buckets VALUES(?,?,?,?,?,?)",
+      memory.id,
+      memory.workspace_id,
+      memory.scope,
+      memory.embedding_model,
+      vector.length,
+      bucket,
+    );
+}
+
 export function installMemoryIndex(s: Store) {
-  s.db.function("atlas_memory_buckets", { deterministic: true }, (raw: any) => {
-    try { return JSON.stringify(vectorBuckets(JSON.parse(raw))); } catch { return "[]"; }
-  });
+  const nativeBuckets = typeof s.db.function === "function";
+  if (nativeBuckets)
+    s.db.function!("atlas_memory_buckets", { deterministic: true }, (raw: any) => {
+      try { return JSON.stringify(vectorBuckets(JSON.parse(raw))); } catch { return "[]"; }
+    });
+  const vectorInsert = nativeBuckets
+    ? `INSERT INTO memory_vector_buckets SELECT new.id,new.workspace_id,new.scope,new.embedding_model,json_array_length(new.embedding_json),value FROM json_each(atlas_memory_buckets(new.embedding_json));`
+    : "";
   s.db.exec(`
     CREATE VIRTUAL TABLE IF NOT EXISTS memory_search USING fts5(subject,predicate,object,content='memories',content_rowid='rowid',tokenize='porter unicode61');
     CREATE TABLE IF NOT EXISTS memory_vector_buckets(memory_id TEXT NOT NULL REFERENCES memories(id) ON DELETE CASCADE,workspace_id TEXT NOT NULL,scope TEXT NOT NULL,model TEXT NOT NULL,dimensions INTEGER NOT NULL,bucket INTEGER NOT NULL,PRIMARY KEY(memory_id,bucket));
@@ -48,7 +74,7 @@ export function installMemoryIndex(s: Store) {
     CREATE TABLE IF NOT EXISTS memory_index_meta(version INTEGER PRIMARY KEY);
     CREATE TRIGGER IF NOT EXISTS memory_search_insert AFTER INSERT ON memories BEGIN
       INSERT INTO memory_search(rowid,subject,predicate,object) VALUES(new.rowid,new.subject,new.predicate,new.object);
-      INSERT INTO memory_vector_buckets SELECT new.id,new.workspace_id,new.scope,new.embedding_model,json_array_length(new.embedding_json),value FROM json_each(atlas_memory_buckets(new.embedding_json));
+      ${vectorInsert}
     END;
     CREATE TRIGGER IF NOT EXISTS memory_search_delete AFTER DELETE ON memories BEGIN
       INSERT INTO memory_search(memory_search,rowid,subject,predicate,object) VALUES('delete',old.rowid,old.subject,old.predicate,old.object);
@@ -58,7 +84,7 @@ export function installMemoryIndex(s: Store) {
       INSERT INTO memory_search(memory_search,rowid,subject,predicate,object) VALUES('delete',old.rowid,old.subject,old.predicate,old.object);
       INSERT INTO memory_search(rowid,subject,predicate,object) VALUES(new.rowid,new.subject,new.predicate,new.object);
       DELETE FROM memory_vector_buckets WHERE memory_id=old.id;
-      INSERT INTO memory_vector_buckets SELECT new.id,new.workspace_id,new.scope,new.embedding_model,json_array_length(new.embedding_json),value FROM json_each(atlas_memory_buckets(new.embedding_json));
+      ${vectorInsert}
     END;
     CREATE INDEX IF NOT EXISTS memory_subject_lookup ON memories(workspace_id,scope,subject_id,recorded_from);
     CREATE INDEX IF NOT EXISTS memory_label_lookup ON memories(workspace_id,scope,subject,importance);
@@ -85,9 +111,12 @@ export function installMemoryIndex(s: Store) {
     CREATE TABLE IF NOT EXISTS derived_brain_reset_receipts(epoch INTEGER PRIMARY KEY,reset_id TEXT NOT NULL UNIQUE,reset_at TEXT NOT NULL,before_json TEXT NOT NULL,after_json TEXT NOT NULL);
   `);
   if (!s.one("SELECT 1 FROM memory_index_meta WHERE version=1")) {
-    s.db.exec(`INSERT INTO memory_search(memory_search) VALUES('rebuild');
-      INSERT OR IGNORE INTO memory_vector_buckets SELECT m.id,m.workspace_id,m.scope,m.embedding_model,json_array_length(m.embedding_json),b.value FROM memories m,json_each(atlas_memory_buckets(m.embedding_json)) b;
-      INSERT INTO memory_index_meta VALUES(1);`);
+    s.db.exec("INSERT INTO memory_search(memory_search) VALUES('rebuild');");
+    if (nativeBuckets)
+      s.db.exec(`INSERT OR IGNORE INTO memory_vector_buckets SELECT m.id,m.workspace_id,m.scope,m.embedding_model,json_array_length(m.embedding_json),b.value FROM memories m,json_each(atlas_memory_buckets(m.embedding_json)) b;`);
+    else
+      for (const row of s.all("SELECT id FROM memories")) syncMemoryVectorBuckets(s, row.id);
+    s.run("INSERT INTO memory_index_meta VALUES(1)");
   }
 }
 export function indexedCandidates(s: Store, workspace: string, scopes: string[], query: string, vector?: number[], model?: string, limit = 96) {
@@ -101,8 +130,27 @@ export function indexedCandidates(s: Store, workspace: string, scopes: string[],
     // Indexed multi-probe lookup. Only bounded IDs are materialized; neither
     // embeddings nor source payloads are read for the full authorized corpus.
     const buckets = vectorBuckets(vector, true);
-    for (const r of s.all(`SELECT b.memory_id,COUNT(*) AS hits FROM memory_vector_buckets b JOIN memories m ON m.id=b.memory_id WHERE b.workspace_id=? AND b.scope IN (${slots}) AND b.model=? AND b.dimensions=? AND b.bucket IN (${buckets.map(() => "?").join(",")}) GROUP BY b.memory_id ORDER BY hits DESC,MAX(m.importance) DESC,b.memory_id LIMIT ?`, workspace, ...scopes, model, vector.length, ...buckets, limit)) ids.add(r.memory_id);
+    const semantic = new Map<string, { hits: number; importance: number }>();
+    for (let offset = 0; offset < buckets.length; offset += 40) {
+      const chunk = buckets.slice(offset, offset + 40);
+      const rows = s.all(`SELECT b.memory_id,COUNT(*) AS hits,MAX(m.importance) AS importance FROM memory_vector_buckets b JOIN memories m ON m.id=b.memory_id WHERE b.workspace_id=? AND b.scope IN (${slots}) AND b.model=? AND b.dimensions=? AND b.bucket IN (${chunk.map(() => "?").join(",")}) GROUP BY b.memory_id`, workspace, ...scopes, model, vector.length, ...chunk);
+      for (const row of rows) {
+        const prior = semantic.get(row.memory_id);
+        semantic.set(row.memory_id, { hits: (prior?.hits ?? 0) + row.hits, importance: Math.max(prior?.importance ?? 0, row.importance) });
+      }
+    }
+    for (const [id] of [...semantic].sort((a, b) => b[1].hits - a[1].hits || b[1].importance - a[1].importance || a[0].localeCompare(b[0])).slice(0, limit)) ids.add(id);
   }
   if (!ids.size) return [];
-  return s.all(`SELECT * FROM memories WHERE workspace_id=? AND scope IN (${slots}) AND id IN (${[...ids].map(() => "?").join(",")})`, workspace, ...scopes, ...ids);
+  // workerd SQLite accepts substantially fewer bound variables than bun:sqlite.
+  // Chunk only retrieval; ranking/authorization remain identical to the Bun path.
+  const selected: any[] = [], ordered = [...ids];
+  for (let offset = 0; offset < ordered.length; offset += 48) {
+    const chunk = ordered.slice(offset, offset + 48);
+    selected.push(...s.all(
+      `SELECT * FROM memories WHERE workspace_id=? AND scope IN (${slots}) AND id IN (${chunk.map(() => "?").join(",")})`,
+      workspace, ...scopes, ...chunk,
+    ));
+  }
+  return selected;
 }

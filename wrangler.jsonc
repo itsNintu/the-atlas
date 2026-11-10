@@ -1,0 +1,47 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "the-atlas",
+  "main": "src/cloudflare.ts",
+  "compatibility_date": "2026-08-27",
+  "compatibility_flags": ["nodejs_compat"],
+  "account_id": "faaff1b7b096ceb1bb58aa3aa31b4a49",
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [
+    { "pattern": "atlas.creator.gg", "custom_domain": true }
+  ],
+  "observability": { "enabled": false },
+  "vars": {
+    "THE_ATLAS_WORKER": "true",
+    "THE_ATLAS_NATIVE_WORKER": "true",
+    "THE_ATLAS_MEMORY_WORKERS": "1",
+    "THE_ATLAS_INFERENCE_TIMEOUT_MS": "180000",
+    "THE_ATLAS_CURATION_INPUT_TOKENS": "4096",
+    "THE_ATLAS_EXTRACTION_MODEL": "gpt-6-luna",
+    "THE_ATLAS_CODEX_REASONING_EFFORT": "low",
+    "THE_ATLAS_JEV_MODEL": "jev-1.14.0",
+    "THE_ATLAS_JEV_CONCURRENCY": "4",
+    "THE_ATLAS_EMBEDDING_MODEL": "text-embedding-3-small"
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "ATLAS_DURABLE_OBJECT",
+        "class_name": "AtlasDurableObject"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["AtlasDurableObject"]
+    }
+  ],
+  "triggers": {
+    "crons": ["* * * * *"]
+  },
+  "rules": [
+    { "type": "Text", "globs": ["**/*.html", "**/*.css", "**/*.svg", "**/ui/*.js"], "fallthrough": false },
+    { "type": "Data", "globs": ["**/*.ttf"], "fallthrough": false }
+  ]
+}

@@ -59,6 +59,7 @@ export class App {
   constructor(
     public store: Store,
     public provider: ExtractionProvider = new OpenAICompatible(),
+    public assets?: Record<string, string | ArrayBuffer | Uint8Array>,
   ) {
     this.memory = new Memory(store);
   }
@@ -73,8 +74,9 @@ export class App {
       // Deliberately exact: no arbitrary file/directory serving for brand assets.
       if (method === "GET" && ["/", "/ui.js", "/style.css", "/brain", "/brain.js", "/brain.css", "/brand.css", "/brand/creator-labs-white.svg", "/brand/SpaceGrotesk-variable.ttf", "/brand/IBMPlexMono-Regular.ttf", "/brand/IBMPlexMono-Medium.ttf"].includes(path)) {
         const name = path === "/" ? "index.html" : path === "/brain" ? "brain.html" : path.slice(1);
+        const asset = this.assets?.[name] ?? readFileSync(new URL(`../ui/${name}`, import.meta.url));
         return new Response(
-          readFileSync(new URL(`../ui/${name}`, import.meta.url)),
+          typeof asset === "string" ? asset : new Blob([asset as any]),
           {
             headers: {
               "Content-Type": name.endsWith("html")
@@ -256,7 +258,7 @@ export class App {
           schema_version: SCHEMA_VERSION,
           provider: providerStatus(),
           memory_inference: { ...inferenceStatus(), availability: providerDiagnostics(this.store) },
-          storage: "sqlite_wal_single_node",
+          storage: this.store.storage_kind,
           sqlite_version: this.store.sqlite_version,
           sqlite_wal_reset_fix: this.store.sqlite_wal_reset_fix,
           extraction_modes: ["assertions", "natural_language"],
@@ -673,6 +675,8 @@ export class App {
       } else fail(404, "not_found", "Route not found");
       return this.json({ api_version: "v1", request_id, ...result });
     } catch (e) {
+      if (!(e instanceof ApiError))
+        console.error(JSON.stringify({ event: "atlas_request_error", request_id, error: String(e) }));
       const error =
         e instanceof ApiError
           ? e

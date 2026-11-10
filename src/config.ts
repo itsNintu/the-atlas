@@ -6,6 +6,9 @@ type Environment = Record<string, string | undefined>;
 
 // Keep existing deployments and protected provider credentials usable after the rename.
 // An explicitly set current variable (even an empty string) wins over its legacy alias.
+export const sleep = (ms: number) =>
+  new Promise<void>((resolve) => setTimeout(resolve, ms));
+
 export function setting(name: string, env: Environment = process.env) {
   return env[`THE_ATLAS_${name}`] ?? env[`THREADATLAS_${name}`];
 }

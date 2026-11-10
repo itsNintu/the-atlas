@@ -1,0 +1,59 @@
+[
+  {
+    "query": "Paradev",
+    "node_count": 15,
+    "edge_count": 16,
+    "predicates": [
+      "announced_seed_funding",
+      "assistant_reported_graph_result_limit",
+      "assistant_reported_repair_status",
+      "completed_interviews_with",
+      "discussing_compensation_with",
+      "expects_future_onsite_with",
+      "expects_remote_work_trial_with",
+      "formerly_known_as",
+      "has_final_call_with",
+      "hiring_context",
+      "planned_work_trial_with",
+      "plans_work_trial_with",
+      "provides",
+      "received_offer_from",
+      "reports_failed_due_to",
+      "supports_coding_agents"
+    ],
+    "has_received_offer": true,
+    "has_completed_interviews": true,
+    "malformed_owner_labels": [],
+    "truncated": false
+  },
+  {
+    "query": "Ghosty",
+    "node_count": 7,
+    "edge_count": 4,
+    "predicates": [
+      "assistant_reported_graph_result_limit",
+      "assistant_reported_repair_status",
+      "has_dog",
+      "recommends_for_memory_design"
+    ],
+    "has_received_offer": false,
+    "has_completed_interviews": false,
+    "malformed_owner_labels": [],
+    "truncated": false
+  },
+  {
+    "query": "blog",
+    "node_count": 8,
+    "edge_count": 4,
+    "predicates": [
+      "assistant_reported_repair_status",
+      "excludes",
+      "included_unrelated_records_in_retrieved_packet",
+      "may_include"
+    ],
+    "has_received_offer": false,
+    "has_completed_interviews": false,
+    "malformed_owner_labels": [],
+    "truncated": false
+  }
+]

@@ -26,14 +26,19 @@
     "test:e2e": "bun scripts/e2e.ts",
     "bench": "bun scripts/bench.ts",
     "provider:probe": "bun scripts/provider-probe.ts",
-    "test:ui": "bun scripts/ui-test.ts"
+    "test:ui": "bun scripts/ui-test.ts",
+    "build:cloudflare": "wrangler deploy --dry-run --outdir .private/cloudflare-dry-run",
+    "deploy:cloudflare": "wrangler deploy --keep-vars"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261110.1",
+    "@playwright/test": "1.55.1",
     "@types/bun": "1.4.4",
+    "tiktoken": "1.0.22",
     "typescript": "5.9.2",
-    "@playwright/test": "1.55.1"
+    "wrangler": "4.125.0"
   },
   "dependencies": {
-    "tiktoken": "1.0.22"
+    "js-tiktoken": "^1.0.21"
   }
 }
