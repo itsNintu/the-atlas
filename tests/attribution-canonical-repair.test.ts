@@ -201,6 +201,31 @@ test('direct owner corrections and explicitly attributed owner requirements bypa
   } finally { attributed.store.close(); }
 });
 
+test('owner-attributed task cards retain directives but not status-only claims', async () => {
+  const f = fixture([
+    decision('native:default:synthetic-message:part:0', {
+      scope: 'agent:default', subject: 'Atlas task', predicate: 'has_status', object: 'running; assigned to builder',
+    }),
+    decision('native:default:synthetic-message:part:0', {
+      scope: 'agent:default', subject: 'Codex publish-creator-updates', predicate: 'status', object: 'paused',
+    }),
+    decision('native:default:synthetic-message:part:0', {
+      scope: 'agent:default', subject: 'Creator Updates item', predicate: 'publication_status',
+      object: 'already published; do not queue, duplicate, or republish',
+    }),
+    decision('native:default:synthetic-message:part:0', {
+      scope: 'agent:default', subject: 'builder agent', predicate: 'received_operational_constraints_for_task_t_051148b3',
+      object: 'Preserve the original publication hook and exact recovery mode; never redeploy or reannounce.',
+    }),
+  ], 'inter_agent', 'Owner request: Alex supplied this task. Preserve the publication directives; routine status fields are not durable knowledge.');
+  try {
+    expect(await f.worker.runOnce()).toBe(true);
+    expect(f.store.all('SELECT predicate FROM memories ORDER BY predicate').map((row) => row.predicate)).toEqual([
+      'publication_status', 'received_operational_constraints_for_task_t_051148b3',
+    ]);
+  } finally { f.store.close(); }
+});
+
 test('an assistant hypothesis still cannot become shared owner truth', async () => {
   const f = fixture([decision('native:default:synthetic-message:part:0', { kind: 'hypothesis' })], 'assistant', 'Perhaps Alex wants a remote trial.');
   try {

@@ -11,6 +11,8 @@ const DURABLE_OPERATIONAL_INTENT = /(?:^|_)(?:status|progress|task|route|routing
 const OPERATIONAL_PREDICATE = /^(?:curation_failure_observed|entity_attribution_defect_observed|recall_issue_observed|has_reported_performance_observation|included_(?:unrelated_records|observation)|was_assessed_as_.+)$/;
 const DURABLE_REQUIREMENT = /(?:^|_)(?:requirement|requires|requested|wants|excludes|policy|prefers|goal)(?:_|$)/;
 const EXPLICIT_OWNER_REQUIREMENT = /\b(?:alex\s+(?:explicitly\s+)?(?:requires?|requested|wants|prefers|directed)|owner\s+(?:requirement|directive|correction|instruction)\s*[:-])/i;
+const OWNER_ROUTINE_STATUS = /^(?:has_status|status|publication_status|has_reported_status|reported_builder_status|reports_builder_task_running)$/;
+const OWNER_DIRECTIVE_CONTENT = /\b(?:must|do\s+not|never|preserve|requires?|required|exclude|keep|remain|only|exact)\b/i;
 
 /**
  * A narrow attribution-aware classifier for routine agent narration. Direct
@@ -20,9 +22,9 @@ const EXPLICIT_OWNER_REQUIREMENT = /\b(?:alex\s+(?:explicitly\s+)?(?:requires?|r
  */
 export function operationalStatusCategory(claim: Pick<Decision, 'subject' | 'predicate' | 'object'>, event: { role?: string | null }) {
   if (!event || !['assistant', 'inter_agent'].includes(String(event.role))) return null;
-  if (ownerAttributedEvent(event)) return null;
   const predicate = predicateName(claim.predicate);
   if (!predicate) return null;
+  if (ownerAttributedEvent(event) && !(OWNER_ROUTINE_STATUS.test(predicate) && !OWNER_DIRECTIVE_CONTENT.test(String(claim.object ?? '')))) return null;
   const durableIntent = DURABLE_REQUIREMENT.test(predicate) && !DURABLE_OPERATIONAL_INTENT.test(predicate);
   if (TASK_MANAGEMENT_PREDICATE.test(predicate) && !EXPLICIT_OWNER_REQUIREMENT.test(String(claim.object ?? ''))) return 'task_management';
   if (ROUTINE_STATUS_PREDICATE.test(predicate) && !EXPLICIT_OWNER_REQUIREMENT.test(String(claim.object ?? ''))) return 'assistant_status';
