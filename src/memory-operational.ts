@@ -12,6 +12,22 @@ const OPERATIONAL_PREDICATE = /^(?:curation_failure_observed|entity_attribution_
 const DURABLE_REQUIREMENT = /(?:^|_)(?:requirement|requires|requested|wants|excludes|policy|prefers|goal)(?:_|$)/;
 const OWNER_ROUTINE_STATUS = /^(?:has_status|status|publication_status|has_reported_status|reported_builder_status|reports_builder_task_running)$/;
 const OWNER_DIRECTIVE_CONTENT = /\b(?:must|do\s+not|never|preserve|requires?|required|exclude|keep|remain|only|exact)\b/i;
+const EXPLICIT_OWNER_DIRECTIVE = /\bAlex\s+(?:explicitly\s+)?(?:requires?|requested|wants|prefers|directed)\s+(.+)$/is;
+const OPERATIONAL_DIRECTIVE_TRAILER = /\s*(?:[.;]\s*|\s*,?\s*but\s+)(?:this|that|it)\b[\s\S]*\b(?:reported plan|status report|implementation progress|routing narration|not verified|not completed)\b[\s\S]*$/i;
+
+function ownerRequirementDecision<T extends Pick<Decision, 'subject' | 'predicate' | 'object'>>(claim: T): (T & { kind: 'assertion'; predicate: string; object: string; object_entity: false }) | null {
+  const text = String(claim.object ?? '').trim();
+  const match = EXPLICIT_OWNER_DIRECTIVE.exec(text);
+  if (!match || /\b(?:not|denies)\s*$/i.test(text.slice(0, match.index))) return null;
+  const directive = match[1]
+    .replace(OPERATIONAL_DIRECTIVE_TRAILER, '')
+    .trim()
+    .replace(/^["'“”]+|["'“”]+$/g, '')
+    .replace(/[.;!?]+$/g, '')
+    .trim();
+  if (!directive) return null;
+  return { ...claim, kind: 'assertion', predicate: 'has_owner_requirement', object: directive, object_entity: false };
+}
 
 /**
  * A narrow attribution-aware classifier for routine agent narration. Direct
@@ -19,7 +35,7 @@ const OWNER_DIRECTIVE_CONTENT = /\b(?:must|do\s+not|never|preserve|requires?|req
  * operationalized. Task-routing reports remain operational even when their
  * predicates contain words such as "requirement" or "directive".
  */
-export function operationalStatusCategory(claim: Pick<Decision, 'subject' | 'predicate' | 'object'>, event: { role?: string | null }) {
+function routineOperationalStatusCategory(claim: Pick<Decision, 'subject' | 'predicate' | 'object'>, event: { role?: string | null }) {
   if (!event || !['assistant', 'inter_agent'].includes(String(event.role))) return null;
   const predicate = predicateName(claim.predicate);
   if (!predicate) return null;
@@ -39,6 +55,17 @@ export function operationalStatusCategory(claim: Pick<Decision, 'subject' | 'pre
     }
   }
   return null;
+}
+
+export function operationalStatusCategory(claim: Pick<Decision, 'subject' | 'predicate' | 'object'>, event: { role?: string | null }) {
+  const category = routineOperationalStatusCategory(claim, event);
+  return category && !ownerRequirementDecision(claim) ? category : null;
+}
+
+/** Remove routine narration without discarding an explicit owner requirement it carries. */
+export function decisionAfterOperationalFilter(decision: Decision, event: { role?: string | null }): Decision | null {
+  if (!routineOperationalStatusCategory(decision, event)) return decision;
+  return ownerRequirementDecision(decision);
 }
 
 export function isOperationalStatusDecision(decision: Decision, event: { role?: string | null }) {

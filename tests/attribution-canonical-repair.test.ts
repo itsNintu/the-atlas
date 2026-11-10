@@ -132,7 +132,10 @@ test('routine assistant status is not stored, while substantive agent knowledge 
   try {
     expect(await status.worker.runOnce()).toBe(true);
     expect(status.store.one('SELECT status FROM memory_jobs WHERE id=?', status.receipt.job_id).status).toBe('succeeded');
-    expect(status.store.all('SELECT * FROM memories')).toEqual([]);
+    expect(status.store.all('SELECT predicate,object,kind FROM memories')).toEqual([
+      { predicate: 'has_owner_requirement', object: 'genuine memory', kind: 'assertion' },
+    ]);
+    expect(status.store.one("SELECT COUNT(*) AS n FROM memories WHERE predicate<>'has_owner_requirement'").n).toBe(0);
   } finally { status.store.close(); }
 
   const substantive = fixture([
@@ -156,15 +159,34 @@ test('routine assistant status is not stored, while substantive agent knowledge 
       kind: 'hypothesis', scope: 'agent:default', subject: 'Assistant', predicate: 'reported_atlas_conversation_filter_design',
       object: 'Atlas admits genuine conversation while rejecting tool output and automatic status notifications before curation.',
     }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'episode', scope: 'agent:default', subject: 'Atlas recall',
+      predicate: 'assistant_sent_focused_repair_directive_to_builder',
+      object: 'Alex requires automatic topic-sensitive recall with relevant current work details and unrelated dog or family memories excluded.',
+    }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'episode', scope: 'agent:default', subject: 'Atlas recall', predicate: 'reported',
+      object: 'The task report summarizes that Alex requires automatic topic-sensitive recall with relevant current work details and unrelated dog or family memories excluded.',
+    }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'episode', scope: 'agent:default', subject: 'Atlas recall', predicate: 'recall_issue_observed',
+      object: 'The issue report preserves that Alex requires automatic topic-sensitive recall with relevant current work details and unrelated dog or family memories excluded.',
+    }),
   ], 'assistant', 'Durable design knowledge and the owner goal: keep pre-answer recall silent with session-start continuity.');
   try {
     expect(await substantive.worker.runOnce()).toBe(true);
     expect(substantive.store.all('SELECT predicate FROM memories ORDER BY predicate').map((row) => row.predicate)).toEqual([
-      'assistant_stated_follow_up_goal', 'recommends_for_memory_design',
+      'assistant_stated_follow_up_goal', 'has_owner_requirement', 'recommends_for_memory_design',
       'reported_atlas_conversation_filter_design', 'reported_card_requirement', 'reported_location',
     ]);
+    const requirement = substantive.store.one("SELECT id,object,kind FROM memories WHERE predicate='has_owner_requirement'");
+    expect(requirement).toMatchObject({
+      kind: 'assertion',
+      object: 'automatic topic-sensitive recall with relevant current work details and unrelated dog or family memories excluded',
+    });
+    expect(substantive.store.one('SELECT COUNT(*) AS n FROM memory_supports WHERE memory_id=?', requirement.id).n).toBe(1);
     for (const predicate of [
-      'assistant_stated_follow_up_goal', 'recommends_for_memory_design',
+      'assistant_stated_follow_up_goal', 'has_owner_requirement', 'recommends_for_memory_design',
       'reported_atlas_conversation_filter_design', 'reported_card_requirement', 'reported_location',
     ]) {
       const memory = substantive.store.one('SELECT id FROM memories WHERE predicate=?', predicate);

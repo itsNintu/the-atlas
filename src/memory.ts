@@ -36,7 +36,7 @@ import { admissionProof, auditorState, routeRecord, communicationRole, automatic
 import { EXTRACT_PROMPT, RECONCILE_PROMPT, validateReconciliations, normalizeReconciliation, mergeReconciliations, type Reconciliation } from './memory-reconciliation.ts';
 import { IDENTITY_PROMPT, identityResponseContract, resolvedIdentity, candidateIdentities } from './memory-identity.ts';
 import { canonicalOwnerDecision } from './memory-attribution.ts';
-import { isOperationalStatusDecision, operationalStatusCategory } from './memory-operational.ts';
+import { decisionAfterOperationalFilter, operationalStatusCategory } from './memory-operational.ts';
 import { correctionReplacements } from "./memory-correction-lookup.ts";
 import { correctionEvidence, modelFacingCorrections } from "./memory-corrections.ts";
 import { activeChanges, consistentReconciliation } from "./memory-truth.ts";
@@ -1439,7 +1439,10 @@ export class MemoryWorker {
           "Read grants changed during inference",
           true,
         );
-      const nonempty = result.decisions.filter((d) => d.kind !== "nothing" && !isOperationalStatusDecision(d, e));
+      const nonempty = result.decisions
+        .filter((d) => d.kind !== 'nothing')
+        .map((d) => decisionAfterOperationalFilter(d, e))
+        .filter((d): d is Decision => d !== null);
       this.validate(nonempty, e, scopes, included);
       for(const d of nonempty)if(stillReadable.includes(d.scope!))reconciliationScopes.add(d.scope!);
       const reconciled = this.inference.reconcile && nonempty.length
