@@ -4,7 +4,7 @@ import {Store,hash} from '../src/store.ts';import {Memory} from '../src/memory.t
 const base=process.argv[2]??'.private/original-truth-repair/current.sqlite',label=process.argv[3]??'recall';assert(base.startsWith('.private/original-truth-repair/'));assert(/^[a-z0-9-]+$/.test(label));
 const dir=`.private/original-truth-repair/${label}`;assert(!existsSync(dir));mkdirSync(dir,{mode:0o700});copyFileSync(base,`${dir}/copy.sqlite`);
 const original=execFileSync('git',['show','e0d2789f6715ead59276b1d391a4894b6d57e2d9:src/memory.ts'],{encoding:'utf8'});await Bun.write('.private/original-truth-repair/baseline-memory.ts',original.replace(/from (["'])\.\//g,'from $1../../src/'));
-const {Memory:Baseline}=await import('../.private/original-truth-repair/baseline-memory.ts');
+const baselinePath='../.private/original-truth-repair/baseline-memory.ts';const {Memory:Baseline}=await import(baselinePath);
 const s=new Store(`${dir}/copy.sqlite`),snapshot=await Bun.file('evidence/original-truth-repair/READONLY-CURRENT.json').json();const e=s.one('SELECT * FROM memory_events WHERE id=?',snapshot.originals[0].event_pk),a={...s.one('SELECT * FROM principals WHERE id=?',e.principal_id),credential_id:e.credential_id};
 const native=s.one("SELECT content FROM memory_events WHERE event_id='native:reaver:36f5d578cea447d39d61d118a87bee1d:part:0'");assert(native?.content);const queries=[native.content,'Who does LDN7 Mira report to? Who owns LDN7 Lantern now, and what is its true color?'];
 const real=new Inference(),results:any[]=[];const ids=new Set(snapshot.originals.map((r:any)=>r.event_id));

@@ -15,7 +15,7 @@ function withEnv(url: string, fn: () => Promise<void>) {
 test('every JEV request carries exactly one typed question and one validated answer', async () => {
   const bodies: any[] = [];
   const server = Bun.serve({ hostname: '127.0.0.1', port: 0, async fetch(request) {
-    const body = await request.json(); bodies.push(body);
+    const body = await request.json() as any; bodies.push(body);
     const question = Object.values(body.questions)[0] as any;
     const probabilities = Object.fromEntries(Object.keys(question.criteria).map((key, index) => [key, index === 0 ? .9 : .1 / Math.max(1, Object.keys(question.criteria).length - 1)]));
     const choice = Object.keys(question.criteria)[0];
