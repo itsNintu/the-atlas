@@ -169,16 +169,15 @@ The forms include optional native Discord `[Alex]` display attribution; there is
 task, result or completion words inside genuine communication. Existing captured notices terminate
 as capture-only `skipped` jobs without JEV/Luna, receive a deterministic `automatic_status_boundary`
 admission only when no earlier admission exists, and are excluded from auditor/recent context and
-provider candidate supports. They cannot be retried or reprocessed. Genuine Alex-authored durable
-Genuine Alex-authored durable requirements and genuine inter-agent reasoning remain eligible, and source history is not deleted.
+provider candidate supports. They cannot be retried or reprocessed. Genuine Alex-authored durable requirements and genuine inter-agent reasoning remain eligible, and source history is not deleted.
 
 Routine assistant/inter-agent execution narration is separately filtered at the decision boundary.
 Routing plans, task progress, implementation/test/audit reports and operational observations do not
-become durable merely because their predicate contains `requirement` or their object mentions a
-directive. Direct owner messages, explicitly attributed owner requirements, clear propagated `Alex
-requires ...` content and substantive architecture/design knowledge remain eligible. The bounded
-`operational_status_owner_exclusion` review applies the same classifier to existing memories and
-requires operational-only direct support, preserving raw events, jobs, memories and provenance.
+become durable merely because their predicate contains `requirement` or their object quotes an owner
+directive. Direct owner messages, owner-attributed task requirements and substantive requirement,
+architecture or design claims remain eligible. The bounded `operational_status_owner_exclusion`
+review applies the same classifier to existing memories and requires operational-only direct support,
+preserving raw events, jobs, memories and provenance.
 
 JEV is used only in asynchronous digestion. `THE_ATLAS_JEV_API_KEY`, `JEV_MODEL` (default
 `jev-1.14.0`), `JEV_URL` (default TypeSafe System One) and `JEV_CONCURRENCY` (default4, maximum16)
@@ -236,11 +235,10 @@ under current grants. Automatic-notification exclusion further requires the exac
 match the native provenance/structural notification classifier and every retained direct support to
 be notification-only. A memory with any genuine or execution support is not eligible for that reason.
 Operational-status exclusion likewise requires every retained direct support to be assistant/inter-agent
-communication classified as routine operational narration. Direct owner messages, explicitly attributed
-owner requirements and substantive design/knowledge claims are not eligible. Task-routing and status
-reports remain operational when they merely mention a directive; a clear propagated requirement such as
-`Alex requires ...` remains durable independently of that wrapper. The same decision boundary filters
-operational model decisions before memory creation.
+communication classified as routine operational narration. Direct owner messages, owner-attributed task
+requirements and substantive design/knowledge claims are not eligible. Task-routing and status reports
+remain operational even when they quote a directive; source-level owner attribution and substantive
+requirement/design predicates preserve genuine durable knowledge independently of those wrappers.
 The operation appends an `owner_directive` review and demotion proof; it does not call a new model,
 execute the original action, alter the source/job/memory/support rows or synthesize a replacement
 memory. Post-demotion graph/recall excludes that derived claim while pre-demotion recorded history
