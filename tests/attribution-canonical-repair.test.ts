@@ -112,6 +112,11 @@ test('routine assistant status is not stored, while substantive agent knowledge 
       object: 'Atlas said it was adding automatic recall that follows live conversation topic shifts, including a dog-to-work test requiring relevant current work details and excluding irrelevant dog or family memories.',
     }),
     decision('native:default:synthetic-message:part:0', {
+      kind: 'episode', scope: 'agent:default', subject: 'Atlas recall',
+      predicate: 'stated_requirement_status',
+      object: 'The assistant stated that an approximately 1.5-second pre-answer recall budget was established as an Alex requirement before later latency changes were stopped; this records that stated requirement, not a current verified latency result.',
+    }),
+    decision('native:default:synthetic-message:part:0', {
       kind: 'episode', scope: 'agent:default', subject: 'Builder',
       predicate: 'reported_builder_status', object: 'Builder reported implementation progress.',
     }),
@@ -119,6 +124,10 @@ test('routine assistant status is not stored, while substantive agent knowledge 
       kind: 'episode', scope: 'agent:default', subject: 'Atlas memory graph repair task',
       predicate: 'reported_regression_test_and_fix_scope',
       object: 'Builder reported test scope and said that Alex requires genuine memory; this was a reported plan, not verified completion.',
+    }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'episode', scope: 'agent:default', subject: 'Atlas memory graph repair task',
+      predicate: 'reported', object: 'The task report says Alex requires … when summarized in a task report; completion was not verified.',
     }),
     decision('native:default:synthetic-message:part:0', {
       kind: 'episode', scope: 'agent:default', subject: 'builder agent',
@@ -132,10 +141,20 @@ test('routine assistant status is not stored, while substantive agent knowledge 
   try {
     expect(await status.worker.runOnce()).toBe(true);
     expect(status.store.one('SELECT status FROM memory_jobs WHERE id=?', status.receipt.job_id).status).toBe('succeeded');
-    expect(status.store.all('SELECT predicate,object,kind FROM memories')).toEqual([
+    expect(status.store.all('SELECT predicate,object,kind FROM memories ORDER BY object')).toEqual([
+      {
+        predicate: 'had_owner_requirement',
+        object: 'an approximately 1.5-second pre-answer recall budget was established as an Alex requirement before later latency changes were stopped',
+        kind: 'assertion',
+      },
+      {
+        predicate: 'has_owner_requirement',
+        object: 'automatic recall that follows live conversation topic shifts, including a dog-to-work test requiring relevant current work details and excluding irrelevant dog or family memories',
+        kind: 'assertion',
+      },
       { predicate: 'has_owner_requirement', object: 'genuine memory', kind: 'assertion' },
     ]);
-    expect(status.store.one("SELECT COUNT(*) AS n FROM memories WHERE predicate<>'has_owner_requirement'").n).toBe(0);
+    expect(status.store.one("SELECT COUNT(*) AS n FROM memories WHERE predicate NOT IN ('has_owner_requirement','had_owner_requirement')").n).toBe(0);
   } finally { status.store.close(); }
 
   const substantive = fixture([
@@ -172,24 +191,26 @@ test('routine assistant status is not stored, while substantive agent knowledge 
       kind: 'episode', scope: 'agent:default', subject: 'Atlas recall', predicate: 'recall_issue_observed',
       object: 'The issue report preserves that Alex requires automatic topic-sensitive recall with relevant current work details and unrelated dog or family memories excluded.',
     }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'episode', scope: 'agent:default', subject: 'Atlas pre-answer recall',
+      predicate: 'assistant_sent_focused_repair_directive_to_builder',
+      object: '"Preserve one silent pre-answer recall"',
+    }),
   ], 'assistant', 'Durable design knowledge and the owner goal: keep pre-answer recall silent with session-start continuity.');
   try {
     expect(await substantive.worker.runOnce()).toBe(true);
     expect(substantive.store.all('SELECT predicate FROM memories ORDER BY predicate').map((row) => row.predicate)).toEqual([
-      'assistant_stated_follow_up_goal', 'has_owner_requirement', 'recommends_for_memory_design',
+      'assistant_stated_follow_up_goal', 'has_owner_requirement', 'has_owner_requirement', 'recommends_for_memory_design',
       'reported_atlas_conversation_filter_design', 'reported_card_requirement', 'reported_location',
     ]);
-    const requirement = substantive.store.one("SELECT id,object,kind FROM memories WHERE predicate='has_owner_requirement'");
+    const requirement = substantive.store.one("SELECT id,object,kind FROM memories WHERE predicate='has_owner_requirement' AND subject='Atlas recall'");
     expect(requirement).toMatchObject({
       kind: 'assertion',
       object: 'automatic topic-sensitive recall with relevant current work details and unrelated dog or family memories excluded',
     });
     expect(substantive.store.one('SELECT COUNT(*) AS n FROM memory_supports WHERE memory_id=?', requirement.id).n).toBe(1);
-    for (const predicate of [
-      'assistant_stated_follow_up_goal', 'has_owner_requirement', 'recommends_for_memory_design',
-      'reported_atlas_conversation_filter_design', 'reported_card_requirement', 'reported_location',
-    ]) {
-      const memory = substantive.store.one('SELECT id FROM memories WHERE predicate=?', predicate);
+    expect(substantive.store.one("SELECT object FROM memories WHERE subject='Atlas pre-answer recall'").object).toBe('Preserve one silent pre-answer recall');
+    for (const memory of substantive.store.all('SELECT id FROM memories')) {
       expect(() => substantive.memory.reviewAdmission(
         substantive.actor, 'default', substantive.receipt.job_id, memory.id, 1, 'operational_status_owner_exclusion',
       )).toThrow('Operational-status exclusion requires operational-only direct support');
@@ -239,6 +260,25 @@ test('owner-attributed task cards retain directives but not status-only claims',
     expect(f.store.all('SELECT predicate FROM memories ORDER BY predicate').map((row) => row.predicate)).toEqual([
       'publication_status', 'received_operational_constraints_for_task_t_051148b3',
     ]);
+  } finally { f.store.close(); }
+});
+
+test('invalid placeholder owner requirements are demoted without deleting source history', async () => {
+  const f = fixture([
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'assertion', scope: 'agent:default', subject: 'Atlas recall',
+      predicate: 'has_owner_requirement', object: 'genuine memory',
+    }),
+  ], 'assistant');
+  try {
+    await f.worker.runOnce();
+    const memory = f.store.one('SELECT * FROM memories');
+    f.store.run('UPDATE memories SET object=? WHERE id=?', '… when summarized in a task report; completion was not verified', memory.id);
+    const result = f.memory.reviewAdmission(f.actor, 'default', f.receipt.job_id, memory.id, 1, 'invalid_placeholder_owner_exclusion');
+    expect(result.demoted).toBe(true);
+    expect(f.memory.effective(f.store.one('SELECT * FROM memories WHERE id=?', memory.id), new Date().toISOString(), new Date().toISOString())).toBeNull();
+    expect(f.store.one('SELECT COUNT(*) AS n FROM memory_events').n).toBe(1);
+    expect(f.store.one('SELECT COUNT(*) AS n FROM memory_admission_demotions WHERE memory_id=?', memory.id).n).toBe(1);
   } finally { f.store.close(); }
 });
 

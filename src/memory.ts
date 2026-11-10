@@ -36,7 +36,7 @@ import { admissionProof, auditorState, routeRecord, communicationRole, automatic
 import { EXTRACT_PROMPT, RECONCILE_PROMPT, validateReconciliations, normalizeReconciliation, mergeReconciliations, type Reconciliation } from './memory-reconciliation.ts';
 import { IDENTITY_PROMPT, identityResponseContract, resolvedIdentity, candidateIdentities } from './memory-identity.ts';
 import { canonicalOwnerDecision } from './memory-attribution.ts';
-import { decisionAfterOperationalFilter, operationalStatusCategory } from './memory-operational.ts';
+import { decisionAfterOperationalFilter, isPlaceholderOwnerRequirement, operationalStatusCategory } from './memory-operational.ts';
 import { correctionReplacements } from "./memory-correction-lookup.ts";
 import { correctionEvidence, modelFacingCorrections } from "./memory-corrections.ts";
 import { activeChanges, consistentReconciliation } from "./memory-truth.ts";
@@ -632,7 +632,7 @@ export class Memory {
       const supports=this.store.all('SELECT e.* FROM memory_supports s JOIN memory_events e ON e.id=s.event_pk WHERE s.memory_id=?',memory_id);
       if(!supports.length||supports.some(source=>!operationalStatusCategory(m,source)))fail(409,'operational_only_support_required','Operational-status exclusion requires operational-only direct support');
     }
-    if(placeholderExclusion&&m.object.trim())fail(409,'not_empty_placeholder','Placeholder exclusion requires an empty/whitespace object');
+    if(placeholderExclusion&&m.object.trim()&&!isPlaceholderOwnerRequirement(m))fail(409,'not_empty_placeholder','Placeholder exclusion requires an empty/whitespace object or a placeholder owner requirement');
     const readable=this.authorize(a,agent,'read'),writable=this.authorize(a,agent,'write');
     if(!readable.includes(m.scope)||!writable.includes(m.scope))fail(403,'memory_grant_required','Memory read/write grant required');
     const previous=this.auditPrevious(e,readable,5);

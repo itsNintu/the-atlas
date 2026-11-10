@@ -13,20 +13,39 @@ const DURABLE_REQUIREMENT = /(?:^|_)(?:requirement|requires|requested|wants|excl
 const OWNER_ROUTINE_STATUS = /^(?:has_status|status|publication_status|has_reported_status|reported_builder_status|reports_builder_task_running)$/;
 const OWNER_DIRECTIVE_CONTENT = /\b(?:must|do\s+not|never|preserve|requires?|required|exclude|keep|remain|only|exact)\b/i;
 const EXPLICIT_OWNER_DIRECTIVE = /\bAlex\s+(?:explicitly\s+)?(?:requires?|requested|wants|prefers|directed)\s+(.+)$/is;
-const OPERATIONAL_DIRECTIVE_TRAILER = /\s*(?:[.;]\s*|\s*,?\s*but\s+)(?:this|that|it)\b[\s\S]*\b(?:reported plan|status report|implementation progress|routing narration|not verified|not completed)\b[\s\S]*$/i;
+const EXPLICIT_OWNER_STATEMENT = /\bAlex\s+(?:said|says)\s*(?::|\bto\b|\bthat\b)\s*["'“]?(.+)$/is;
+const PROPAGATED_REQUIREMENT = /\b(?:adding|summarizes|preserves|stated\s+that)\s+(.+)$/is;
+const SUBSTANTIVE_REQUIREMENT = /\b(?:automatic|recall|must|never|exclude|preserve|keep|only|approximately|budget|without|do\s+not|requiring)\b/i;
+const HISTORICAL_REQUIREMENT = /\b(?:before later|not a current|no longer|formerly|previously)\b/i;
+const OPERATIONAL_DIRECTIVE_TRAILER = /\s*(?:[.;]\s*|\s*,?\s*but\s+)(?:this|that|it|completion|verification)\b[\s\S]*\b(?:reported plan|status report|implementation progress|routing narration|not verified|not completed)\b[\s\S]*$/i;
+const REQUIREMENT_RECORD_TRAILER = /\s*;\s*(?:this|that|it)\s+(?:records?|states|reports?)\b[\s\S]*$/i;
+const QUOTED_TEXT = /["'“]([^"'”]+)["'”]/;
+const CLEAR_DIRECTIVE = /^(?:preserve|keep|exclude|never|do\s+not|use|maintain|retain)\b/i;
+
+export function isPlaceholderOwnerRequirement(claim: Pick<Decision, 'predicate' | 'object'>) {
+  return /^(?:has|had)_owner_requirement$/.test(predicateName(claim.predicate)) && /(?:…|\.\.\.)/.test(String(claim.object ?? ''));
+}
 
 function ownerRequirementDecision<T extends Pick<Decision, 'subject' | 'predicate' | 'object'>>(claim: T): (T & { kind: 'assertion'; predicate: string; object: string; object_entity: false }) | null {
   const text = String(claim.object ?? '').trim();
-  const match = EXPLICIT_OWNER_DIRECTIVE.exec(text);
-  if (!match || /\b(?:not|denies)\s*$/i.test(text.slice(0, match.index))) return null;
-  const directive = match[1]
+  const explicit = EXPLICIT_OWNER_DIRECTIVE.exec(text) ?? EXPLICIT_OWNER_STATEMENT.exec(text);
+  const propagated = !explicit && DURABLE_REQUIREMENT.test(predicateName(claim.predicate)) ? PROPAGATED_REQUIREMENT.exec(text) : null;
+  const quoted = !explicit && !propagated ? QUOTED_TEXT.exec(text) : null;
+  const quotedDirective = quoted && CLEAR_DIRECTIVE.test(quoted[1]?.trim() ?? '') ? quoted[1] : null;
+  const bareDirective = !explicit && !propagated && !quotedDirective && CLEAR_DIRECTIVE.test(text) ? text : null;
+  if ((!explicit && !propagated && !quotedDirective && !bareDirective) || (explicit && /\b(?:not|denies)\s*$/i.test(text.slice(0, explicit.index)))) return null;
+  const source = explicit?.[1] ?? propagated?.[1] ?? quotedDirective ?? bareDirective ?? '';
+  const directive = source
     .replace(OPERATIONAL_DIRECTIVE_TRAILER, '')
+    .replace(REQUIREMENT_RECORD_TRAILER, '')
     .trim()
     .replace(/^["'“”]+|["'“”]+$/g, '')
     .replace(/[.;!?]+$/g, '')
     .trim();
-  if (!directive) return null;
-  return { ...claim, kind: 'assertion', predicate: 'has_owner_requirement', object: directive, object_entity: false };
+  if (!directive || /(?:…|\.\.\.)/.test(directive)) return null;
+  if (propagated && (directive.length < 16 || !SUBSTANTIVE_REQUIREMENT.test(directive))) return null;
+  const predicate = propagated && HISTORICAL_REQUIREMENT.test(source) ? 'had_owner_requirement' : 'has_owner_requirement';
+  return { ...claim, kind: 'assertion', predicate, object: directive, object_entity: false };
 }
 
 /**
@@ -64,6 +83,7 @@ export function operationalStatusCategory(claim: Pick<Decision, 'subject' | 'pre
 
 /** Remove routine narration without discarding an explicit owner requirement it carries. */
 export function decisionAfterOperationalFilter(decision: Decision, event: { role?: string | null }): Decision | null {
+  if (isPlaceholderOwnerRequirement(decision)) return null;
   if (!routineOperationalStatusCategory(decision, event)) return decision;
   return ownerRequirementDecision(decision);
 }

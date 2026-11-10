@@ -174,9 +174,12 @@ provider candidate supports. They cannot be retried or reprocessed. Genuine Alex
 Routine assistant/inter-agent execution narration is separately filtered at the decision boundary.
 Routing plans, task progress, implementation/test/audit reports and operational observations do not
 become durable merely because their predicate contains `requirement` or their object quotes an owner
-directive. When such an operational claim explicitly says `Alex requires`, `requested`, `wants`,
-`prefers` or `directed`, Atlas discards the operational wrapper but retains the substantive directive
-as a source-linked `has_owner_requirement` assertion, without the reporting prefix or status trailer.
+directive. When such an operational claim carries a clear owner directive—through explicit Alex
+attribution, a substantive propagated requirement summary, or a quoted/bare imperative—Atlas discards
+the operational wrapper but retains the directive independently as a source-linked
+`has_owner_requirement` assertion, without the reporting prefix or status trailer. A requirement
+explicitly qualified by a later stop is retained as `had_owner_requirement`, preserving chronology
+without renewing the stopped work. Placeholder/ellipsis fragments are not requirements.
 Direct owner messages, owner-attributed task requirements and substantive requirement, architecture
 or design claims remain eligible. The bounded `operational_status_owner_exclusion` review requires
 operational-only direct support and refuses claims with a preservable explicit owner directive,
