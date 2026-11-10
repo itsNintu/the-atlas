@@ -96,7 +96,8 @@ content follows RAW_RETENTION_DAYS; original owner and assistant message content
 retained for reconsideration.
 
 `POST /v1/memory/jobs/:job_id/admission-review` is the bounded owner-directed correction for
-session/global admission errors, execution-derived content and automatic-notification-only memories.
+session/global admission errors, execution-derived content, automatic-notification-only memories,
+operational-status-only memories and empty-object placeholders.
 It requires the exact current job and source-head revision, direct retained `memory_supports`
 provenance and affected read/write grants. `session_local_owner_correction` handles completed shared
 claims and keeps its succeeded+processed requirement. `execution_content_owner_exclusion` handles

@@ -38,7 +38,7 @@ test("valid/recorded snapshot, state changes, never-true corrections, provenance
  expect(graph(f).edges.map(e=>e.id)).toEqual([truth.id]);
  const known=graph(f,{recorded_at:"2026-02-15T00:00:00Z"});expect(known.edges.map(e=>e.id)).toEqual([next.id]);
  const h=graph(f,{include_history:true});expect(h.edges.find(e=>e.id===next.id)?.status).toBe("corrected");expect(h.changes.map(c=>c.type)).toContain("correction");
- const e=h.edges.find(e=>e.id===truth.id)!;expect(e.versions[0]?.reason).toBe("created");expect(e.sources[0]).toMatchObject({event_id:truth.event.event_id,revision:1,role:"user",author_id:"fictional-tester",excerpt:"Coimbra"});f.store.close();
+ const e=h.edges.find(e=>e.id===truth.id)!;expect(e.versions[0]?.reason).toBe("created");expect(e.sources[0]).toMatchObject({event_id:truth.event.event_id,job_id:truth.event.job_id,revision:1,role:"user",author_id:"fictional-tester",excerpt:"Coimbra"});f.store.close();
 });
 
 test("forget/edit removes graph and historical evidence, keeps independent supported claims, repairs changes",()=>{

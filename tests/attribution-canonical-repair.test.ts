@@ -80,11 +80,44 @@ test('routine assistant status is not stored, while substantive agent knowledge 
     }),
     decision('native:default:synthetic-message:part:0', {
       kind: 'episode', scope: 'agent:default', subject: 'Atlas repair',
-      predicate: 'assistant_sent_focused_repair_directive_to_builder', object: 'The assistant sent a directive.',
+      predicate: 'assistant_sent_focused_repair_directive_to_builder', object: 'The assistant sent a task update.',
     }),
     decision('native:default:synthetic-message:part:0', {
       kind: 'episode', scope: 'agent:default', subject: 'Atlas repair',
       predicate: 'assistant_reported_scope_error', object: 'The assistant reported that the work was over-scoped.',
+    }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'episode', scope: 'agent:default', subject: 'Atlas repair',
+      predicate: 'reported', object: 'The assistant reported the task implementation status.',
+    }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'episode', scope: 'agent:default', subject: 'Atlas recall',
+      predicate: 'recall_issue_observed', object: 'The recall query returned unrelated records.',
+    }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'episode', scope: 'agent:default', subject: 'Atlas hosting migration',
+      predicate: 'plans_to_route_deployment', object: 'Route Builder to deploy Atlas and verify the hosted service.',
+    }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'episode', scope: 'agent:default', subject: 'Atlas hosting migration',
+      predicate: 'plans_to_check_and_route', object: 'Check the project and route the migration to Builder.',
+    }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'episode', scope: 'agent:default', subject: 'Builder task',
+      predicate: 'reports_builder_task_running', object: 'Builder is running the assigned task.',
+    }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'episode', scope: 'agent:default', subject: 'Atlas',
+      predicate: 'reported_adding_requirement_to_builder_task',
+      object: 'Atlas said it was adding automatic recall that follows live conversation topic shifts, including a dog-to-work test requiring relevant current work details and excluding irrelevant dog or family memories.',
+    }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'episode', scope: 'agent:default', subject: 'Builder',
+      predicate: 'reported_builder_status', object: 'Builder reported implementation progress.',
+    }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'episode', scope: 'agent:default', subject: 'Atlas repair',
+      predicate: 'assistant_reported_repair_status', object: 'The assistant reported that repair verification passed.',
     }),
   ], 'assistant', 'I added the regression case and am checking activation status.');
   try {
@@ -106,13 +139,66 @@ test('routine assistant status is not stored, while substantive agent knowledge 
       kind: 'hypothesis', scope: 'agent:default', subject: 'Atlas recall', predicate: 'reported_location',
       object: 'The supported recall injection lives in the native plugin boundary.',
     }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'hypothesis', scope: 'agent:default', subject: 'Atlas', predicate: 'reported_card_requirement',
+      object: 'A new session needs compact profile and recent-topic context before the model starts; recall should remain silent.',
+    }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'hypothesis', scope: 'agent:default', subject: 'Assistant', predicate: 'reported_atlas_conversation_filter_design',
+      object: 'Atlas admits genuine conversation while rejecting tool output and automatic status notifications before curation.',
+    }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'episode', scope: 'agent:default', subject: 'Atlas recall',
+      predicate: 'assistant_sent_focused_repair_directive_to_builder',
+      object: 'Alex requires automatic topic-sensitive recall with relevant current work details and unrelated dog or family memories excluded.',
+    }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'episode', scope: 'agent:default', subject: 'Atlas recall', predicate: 'reported',
+      object: 'The task report summarizes that Alex requires automatic topic-sensitive recall with relevant current work details.',
+    }),
+    decision('native:default:synthetic-message:part:0', {
+      kind: 'episode', scope: 'agent:default', subject: 'Atlas recall', predicate: 'recall_issue_observed',
+      object: 'The issue report preserves that Alex requires automatic topic-sensitive recall with relevant current work details.',
+    }),
   ], 'assistant', 'Durable design knowledge and the owner goal: keep pre-answer recall silent with session-start continuity.');
   try {
     expect(await substantive.worker.runOnce()).toBe(true);
     expect(substantive.store.all('SELECT predicate FROM memories ORDER BY predicate').map((row) => row.predicate)).toEqual([
-      'assistant_stated_follow_up_goal', 'recommends_for_memory_design', 'reported_location',
+      'assistant_sent_focused_repair_directive_to_builder', 'assistant_stated_follow_up_goal',
+      'recall_issue_observed', 'recommends_for_memory_design', 'reported',
+      'reported_atlas_conversation_filter_design', 'reported_card_requirement', 'reported_location',
     ]);
+    for (const predicate of [
+      'assistant_sent_focused_repair_directive_to_builder', 'assistant_stated_follow_up_goal',
+      'recall_issue_observed', 'recommends_for_memory_design', 'reported',
+      'reported_atlas_conversation_filter_design', 'reported_card_requirement', 'reported_location',
+    ]) {
+      const memory = substantive.store.one('SELECT id FROM memories WHERE predicate=?', predicate);
+      expect(() => substantive.memory.reviewAdmission(
+        substantive.actor, 'default', substantive.receipt.job_id, memory.id, 1, 'operational_status_owner_exclusion',
+      )).toThrow('Operational-status exclusion requires operational-only direct support');
+    }
   } finally { substantive.store.close(); }
+});
+
+test('direct owner corrections and explicitly attributed owner requirements bypass operational filtering', async () => {
+  const owner = fixture([decision('native:default:synthetic-message:part:0', {
+    subject: 'Alex', predicate: 'reported_builder_status',
+    object: 'Alex corrected the durable requirement: deployment must remain on the existing Cloudflare service.',
+  })], 'user', 'Correction: deployment must remain on the existing Cloudflare service.');
+  try {
+    expect(await owner.worker.runOnce()).toBe(true);
+    expect(owner.store.all('SELECT predicate FROM memories').map((row) => row.predicate)).toEqual(['reported_builder_status']);
+  } finally { owner.store.close(); }
+
+  const attributed = fixture([decision('native:default:synthetic-message:part:0', {
+    scope: 'business:alex', subject: 'Alex', predicate: 'reported_adding_requirement_to_builder_task',
+    object: 'Alex requires silent pre-answer recall and preservation of genuine family knowledge.',
+  })], 'inter_agent', 'Owner requirement: Alex requires silent pre-answer recall and preservation of genuine family knowledge.');
+  try {
+    expect(await attributed.worker.runOnce()).toBe(true);
+    expect(attributed.store.all('SELECT predicate FROM memories').map((row) => row.predicate)).toEqual(['reported_adding_requirement_to_builder_task']);
+  } finally { attributed.store.close(); }
 });
 
 test('an assistant hypothesis still cannot become shared owner truth', async () => {
