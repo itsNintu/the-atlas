@@ -55,14 +55,10 @@ async function budgetTokens(s: string) {
   return memoryTokens(s);
 }
 
-export const AGENTS = [
-  "default",
-  "builder",
-  "reaver",
-  "overwatch",
-  "wordsmith",
-  "orchestrator",
-];
+// Deployment names are data, not a source-code allowlist. Only an authenticated
+// administrator can bind them; authorization still requires the exact binding.
+const validAgent = (value: unknown): value is string =>
+  typeof value === "string" && /^[a-z0-9][a-z0-9_-]{0,63}$/.test(value);
 const own = (agent: string) => `agent:${agent}`;
 const positiveSetting = (name: string, fallback: number) => {
   const value = Number(setting(name) ?? fallback);
@@ -90,8 +86,8 @@ export class Memory {
   bind(admin: Actor, principal_id: string, agent_id: string) {
     this.store.active(admin);
     this.store.admin(admin);
-    if (!AGENTS.includes(agent_id))
-      fail(400, "invalid_agent", "Unknown deployment profile");
+    if (!validAgent(agent_id))
+      fail(400, "invalid_agent", "Agent must be a lowercase deployment slug of 1-64 characters");
     const p = this.store.one(
       "SELECT * FROM principals WHERE id=? AND workspace_id=?",
       principal_id,
@@ -129,6 +125,31 @@ export class Memory {
         agent_id,
         scopes: [own(agent_id), "user:alex", "business:alex"],
       };
+    });
+  }
+  // The caller generates and privately retains the token. Only its SHA-256 hash
+  // crosses this admin API; neither the receipt nor idempotency stores a secret.
+  provision(admin: Actor, body: any) {
+    this.store.active(admin);
+    this.store.admin(admin);
+    const b = object(body);
+    if (Object.keys(b).some(key => !["agent_id", "name", "token_hash"].includes(key)))
+      fail(400, "invalid_request", "Only agent_id, name and token_hash are accepted");
+    if (!validAgent(b.agent_id))
+      fail(400, "invalid_agent", "Agent must be a lowercase deployment slug of 1-64 characters");
+    const name = text(b.name, "name");
+    if (typeof b.token_hash !== "string" || !/^[0-9a-f]{64}$/.test(b.token_hash))
+      fail(400, "invalid_request", "token_hash must be a lowercase SHA-256 hex digest");
+    return this.store.transaction(() => {
+      if (this.store.one("SELECT principal_id FROM memory_bindings WHERE workspace_id=? AND agent_id=?", admin.workspace_id, b.agent_id))
+        fail(409, "binding_conflict", "Agent already has a principal; existing bindings are never replaced");
+      if (this.store.one("SELECT id FROM credentials WHERE token_hash=?", b.token_hash))
+        fail(409, "credential_conflict", "Credential hash already exists");
+      const principal_id = id("prn"), credential_id = id("key"), at = now();
+      this.store.run("INSERT INTO principals VALUES (?,?,?,?,0,?)", principal_id, admin.workspace_id, name, "agent", at);
+      const binding = this.bind(admin, principal_id, b.agent_id);
+      this.store.run("INSERT INTO credentials VALUES (?,?,?,?,NULL)", credential_id, principal_id, b.token_hash, at);
+      return { ...binding, credential_id, workspace_id: admin.workspace_id };
     });
   }
   authorize(a: Actor, agent_id: unknown, action = "read") {

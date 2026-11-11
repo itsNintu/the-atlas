@@ -31,6 +31,17 @@ spaces. Knowledge operations require explicit space grants (`read`, `write`, `de
 administrators. Scope/credential administration requires a workspace administrator. Principals are
 human, agent or service; remotely created principals are non-admin. No credential API returns tokens;
 local CLI key issuance writes only a private file. Local DB/filesystem access is privileged.
+`POST /v1/memory/agents` supports hosted provisioning without local database access: an
+administrator submits `{agent_id,name,token_hash}` with an idempotency key. The client generates
+and privately retains a high-entropy token; `token_hash` is its lowercase SHA-256 hex digest.
+The atomic operation creates one non-admin agent principal, one credential, and the same
+read/write/delete grants as existing agents: its own `agent:ID`, `user:alex`, and `business:alex`.
+It returns only principal/credential/workspace IDs, agent ID and scopes. No token is sent or returned.
+The exact lowercase deployment slug (1–64 letters/digits/underscores/hyphens, starting with a
+letter or digit) is administrator-bound, not a code allowlist. Existing bindings are immutable;
+provisioning an already bound agent or reusing a credential hash conflicts. Ordinary agents cannot
+provision, impersonate another agent or read another agent's private scope. No legacy space grants
+or other agents' memories are copied. Normal credential revocation remains available.
 
 Denied cross-scope resources return generic 404. Granted resources may still conflict or be gone.
 Mixed authorized/unauthorized context selection fails as a whole. Filtering precedes ranking,

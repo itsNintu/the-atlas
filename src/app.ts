@@ -205,6 +205,8 @@ export class App {
             () => this.memory.feedback(a, b),
           ),
         };
+      else if (method === "POST" && path === "/v1/memory/agents")
+        result = { data: write(admin, () => this.memory.provision(a, b)) };
       else if (method === "POST" && path === "/v1/memory/bind")
         result = {
           data: write(admin, () =>

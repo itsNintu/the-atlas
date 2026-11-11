@@ -18,6 +18,7 @@ jobs:
       - run: bun run build:cloudflare
       - run: bun run check:public
       - run: bun test tests
+      - run: python3 tests/hosted-provision-agent.test.py
       - run: bun run test:e2e
       # Hosted runner already has Chromium shared libraries; avoid redundant font-package apt downloads.
       - run: bunx playwright install chromium

@@ -34,8 +34,30 @@ Cloudflare rejects `redirect: "error"`. Provider fetches use `redirect: "manual"
 the existing response-status validation, so HTTP redirects are still not followed.
 
 A new Worker version does not necessarily evict a live Durable Object. After changing its class,
-use the migration-only restart operation below or an equivalent supported Durable Object reset.
+use the protected operations restart below or an equivalent supported Durable Object reset.
 `DurableObjectState.abort()` discards in-memory state while retaining SQLite storage.
+
+## Provision an additional hosted agent
+
+Use the ordinary workspace administrator credential, not a migration/operations token or a
+stopped local SQLite database. `scripts/hosted-provision-agent.py` uses Python 3's standard library:
+
+```sh
+python3 scripts/hosted-provision-agent.py --url https://atlas.creator.gg \
+  --admin-credential /protected/admin.credentials.json \
+  --agent example-company --name 'Example company' \
+  --credential-file /protected/example-company/credential.json
+```
+
+The helper exclusively reserves a mode-0600 file (private current-user ACL on Windows) before
+generating the token. Only its SHA-256 digest crosses `POST /v1/memory/agents`; stdout is a
+nonsecret receipt. Keep the reserved file after an error and retry the **identical command**:
+the same token and idempotency key recover a lost response without creating another principal.
+Do not delete the file or issue another key on an uncertain result. Install that exact path in
+the new profile's native adapter configuration and reload only that adapter if already loaded.
+Verify authenticated neutral recall, wrong-agent denial and existing pending outbox delivery.
+The helper never changes adapter configuration or copies another agent's memory/space grants.
+It does not need a migration fence, provider secrets, a local writer, or a database migration.
 
 ## One-time stopped-snapshot migration
 
