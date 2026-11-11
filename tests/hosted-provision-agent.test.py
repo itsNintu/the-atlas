@@ -19,8 +19,10 @@ spec.loader.exec_module(module)
 
 class ProvisionTests(unittest.TestCase):
     def test_private_reservation_retry_and_nonsecret_receipt(self):
-        (ROOT / ".private").mkdir(exist_ok=True)
-        with tempfile.TemporaryDirectory(dir=ROOT / ".private") as directory:
+        # NTFS ACL behavior must be exercised on Windows storage, not WSL's UNC filesystem.
+        temporary_root = Path(os.environ["TMPDIR"]) if os.name == "nt" else ROOT / ".private"
+        temporary_root.mkdir(exist_ok=True)
+        with tempfile.TemporaryDirectory(dir=temporary_root) as directory:
             root = Path(directory)
             admin = root / "admin.json"
             admin.write_text(json.dumps({"token": "synthetic-admin"}))
