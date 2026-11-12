@@ -37,6 +37,7 @@ export function recallTemporalQualifier(m:any){
  const dates=(m.supports??[]).map((s:any)=>s.occurred_at).filter((s:any)=>typeof s==='string').sort();
  const date=String(dates.at(-1)??m.valid_from??'unknown').slice(0,10);
  if(prospectivePredicate(m.predicate)&&(predicateSignature(m.predicate).facet==='company'||normalizedPredicate(m.predicate)==='hopes_to_transition_to'))return `PLAN/EXPECTATION as of ${date}; fulfillment unverified`;
+ if(/^(?:interviewing_with|discussing_compensation_with)$/.test(normalizedPredicate(m.predicate)))return `REPORTED STAGE as of ${date}; current status unverified`;
  if(/^(?:worked_at|interviewed_with|completed_interviews_with|received_offer_from)$/.test(normalizedPredicate(m.predicate)))return `PAST EVENT reported ${date}; not current status`;
  return null;
 }

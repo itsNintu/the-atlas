@@ -499,6 +499,8 @@ states over plans and unrelated account/task details.
 Open career plans/expectations are labelled `PLAN/EXPECTATION as of DATE; fulfillment unverified`,
 using source observation time, not processing time. Completed interview/offer/past-employer records
 are labelled `PAST EVENT reported DATE; not current status`. These are presentation qualifiers, not
+truth updates; intermediate interviewing/compensation records use `REPORTED STAGE as of DATE;
+current status unverified`. The qualifiers are not
 new `historical:true` flags, inferred end dates or truth changes. An older planned trial may have
 been valid; a later trial does not by itself establish when every old expectation ended or whether
 a separate onsite plan was fulfilled. Existing closed-state/conflict/correction labels take

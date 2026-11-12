@@ -39,6 +39,7 @@ test('plan qualifiers use source observation, not processing time, and do not re
  const base={predicate:'expects_remote_work_trial_with',valid_from:'2026-06-01T00:00:00.000Z',supports:[{occurred_at:'2026-01-01T00:00:00.000Z'}]};
  expect(recallTemporalQualifier(base)).toBe('PLAN/EXPECTATION as of 2026-01-01; fulfillment unverified');
  expect(recallTemporalQualifier({...base,predicate:'expects_contextual_memory_retrieval'})).toBeNull();
+ expect(recallTemporalQualifier({...base,predicate:'discussing_compensation_with'})).toBe('REPORTED STAGE as of 2026-01-01; current status unverified');
  expect(recallTemporalQualifier({...base,historical:true})).toBeNull();
  expect(recallTemporalQualifier({...base,conflict:true})).toBeNull();
 });
