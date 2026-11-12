@@ -487,6 +487,23 @@ Explicit before/previous/history/ever queries can include supported closed state
 still cannot include corrected/retracted never-true beliefs. Current queries remain current-only.
 The explicit query time is only a source-time ranking hint, not a changed valid_at/recorded_at.
 
+Focused health/inspection questions distinguish functional "working as expected" from the owner's
+work domain. When such a question (or a relationship-with question) names an entity grounded in
+authorized effective candidates, selection stays on that entity rather than filling spare budget
+with other owner/domain facts. This is separate from synthetic topic-code ranking hints above;
+ordinary lexical/semantic alias retrieval and broad self-profile/session-start continuity remain.
+Spouse/child/sibling slots use relationship predicates and an explicit possessive owner when given,
+not task prose containing family words. Company relationship packets prioritize supported current
+states over plans and unrelated account/task details.
+
+Open career plans/expectations are labelled `PLAN/EXPECTATION as of DATE; fulfillment unverified`,
+using source observation time, not processing time. Completed interview/offer/past-employer records
+are labelled `PAST EVENT reported DATE; not current status`. These are presentation qualifiers, not
+new `historical:true` flags, inferred end dates or truth changes. An older planned trial may have
+been valid; a later trial does not by itself establish when every old expectation ended or whether
+a separate onsite plan was fulfilled. Existing closed-state/conflict/correction labels take
+precedence. Source supports, graph history, scopes and requested token budgets are unchanged.
+
 Fragment cursor plus selected
 facts commit atomically; incomplete source stays pending and same job requeues for its next
 fragment. Only final completion sets processed time. Noise may create no memory. Correction or

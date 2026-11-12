@@ -14,7 +14,7 @@ export function canonicalEntityType(value:string){const n=norm(value);return TYP
 function withParents(types:Iterable<string>){const out=new Set<string>();for(const type of types){if(!type)continue;out.add(type);for(const parent of TYPE_PARENTS[type]??[])out.add(parent);}return [...out];}
 const FAMILY=new Set(['is_married_to','married_to','spouse_of','partner_of','parent_of','has_child','child_of','son_of','daughter_of','has_sibling','sibling_of','brother_of','sister_of','family_member','member_of_family']);
 const WORK_ROLE=new Set(['job_title','role','current_role','occupation','works_at','works_for','works_in','typically_works_with','is_interviewing_for','employed_by','employer','company','current_company']);
-const WORK_COMPANY=new Set(['works_at','works_for','employed_by','employer','company','current_company','interviewing_with','interviewed_with','completed_interviews_with','received_offer_from','offer_from','worked_at','has_final_call_with','plans_work_trial_with','planned_work_trial_with','discussing_compensation_with','expects_work_trial_with','expects_remote_work_trial_with','expects_future_onsite_with']);
+const WORK_COMPANY=new Set(['on_trial_with','on_work_trial_with','trial_with','works_at','works_for','employed_by','employer','company','current_company','interviewing_with','interviewed_with','completed_interviews_with','received_offer_from','offer_from','worked_at','has_final_call_with','plans_work_trial_with','planned_work_trial_with','discussing_compensation_with','expects_work_trial_with','expects_remote_work_trial_with','expects_future_onsite_with']);
 const WORK_PROJECT=new Set(['maintains','builds','building','develops','developing','working_on','leads','leading','contributes_to','active_project','has_project','current_project','project','aspires_to_build']);
 const WORK_RESPONSIBILITY=new Set(['responsibility','responsibilities','responsible_for','duties','duty','scope_of_work']);
 const WORK_DECISION=new Set(['decision','has_decision','active_decision','decided','goal','has_goal','active_goal','objective','priority','priorities','plan']);
@@ -35,7 +35,8 @@ export function predicateSignature(predicate:string):PredicateSignature{
   ownership:OWNERSHIP.has(p)||Boolean(dynamic),typeRelation:ENTITY_TYPE_PREDICATES.has(p)};
 }
 function textTopics(value:string){
- const t=tokens(value),has=(words:string[])=>words.some(w=>t.has(w)),topics:string[]=[];
+ // Functional health wording is not a request for the person's work domain.
+ const t=tokens(value.replace(/\bworking\s+(?:as expected|properly|correctly|well|fine|at all)\b/gi,'')),has=(words:string[])=>words.some(w=>t.has(w)),topics:string[]=[];
  if(has(['pet','pets','dog','dogs','doggo','doggos','puppy','puppies','cat','cats','kitty','kitten','kittens']))topics.push('pet');
  if(has(['family','spouse','wife','husband','married','child','children','son','daughter','sibling','siblings','brother','sister','parent','parents']))topics.push('family');
  if(has(['work','working','building','developing','job','jobs','employment','employer','company','companies','business','role','roles','responsibility','responsibilities','decision','decisions','goal','goals','objective','objectives','interview','interviews','interviewing','offer','offers','trial','remote','onsite','compensation','relocation','travel']))topics.push('work');
@@ -57,6 +58,10 @@ export type RecallPlan={mode:RecallMode;topics:string[];recentTopics:string[];en
 const CONTEXT_REFERENCE=/\b(?:it|its|she|he|her|his|they|them|their|that|this|those|these|same|former|latter|back to)\b/i;
 function queryFacets(query:string){
  const q=query.normalize('NFKC').toLowerCase().replaceAll('_',' '),facets:string[]=[];
+ if(/\b(?:spouse|wife|husband|married)\b/.test(q))facets.push('spouse');
+ if(/\b(?:child|children|son|daughter)\b/.test(q))facets.push('child');
+ if(/\b(?:sibling|siblings|brother|sister)\b/.test(q))facets.push('sibling');
+ if(/\brelationship\s+with\b/.test(q))facets.push('relationship');
  if(/\b(?:name|named|called)\b/.test(q))facets.push('name');
  if(/\b(?:breed|species)\b/.test(q))facets.push('breed');
  if(/\b(?:color|colour)\b/.test(q))facets.push('color');
@@ -85,7 +90,7 @@ export function analyzeRecallQuery(query:string,recent:string[]=[]):RecallPlan{
   if(!topics.length)return true;const mt=textTopics(message);return !mt.length||mt.some(t=>topics.includes(t))||index===recent.length-1&&facets.length>0;
  }):[];
  const contextTopics=recent.map(textTopics).reverse().find(t=>t.length)??[];
- const mode:RecallMode=profile?'profile':workOverview||topics.includes('work')&&!facets.length?'domain':facets.length&&topics.length?'narrow':facets.some(f=>['name','breed','color','birth','owner'].includes(f))?'narrow':facets.length&&contextTopics.length?'narrow':'general';
+ const mode:RecallMode=profile?'profile':workOverview||topics.includes('work')&&!facets.length?'domain':facets.length&&topics.length?'narrow':facets.some(f=>['name','breed','color','birth','owner','relationship'].includes(f))?'narrow':facets.length&&contextTopics.length?'narrow':'general';
  const contextTypes=types.length?types:context.length?[...new Set([...tokens(context.join(' '))].map(canonicalEntityType))]:[];
  const inheritedType=requiredType??contextTypes.find(t=>['dog','cat','vehicle','pet'].includes(t));
  return {mode,topics:topics.length?topics:context.length?contextTopics:[],recentTopics,entityTypes:types,requiredType:inheritedType,facets,owner,topicShift,includeHistory,context};
@@ -120,6 +125,11 @@ export function matchesRequestedFacet(m:any,plan:RecallPlan,info:MemoryEntityInf
   if(facet==='name')return directNameAnswer(m,plan,info);
   if(facet==='responsibility'||facet==='project'||facet==='role'||facet==='company'||facet==='decision')return info.signature.facet===facet;
   const p=norm(m.predicate);
+  if(plan.owner&&['spouse','child','sibling','relationship'].includes(facet)&&norm(m.subject)!==norm(plan.owner))return false;
+  if(facet==='spouse')return ['is_married_to','married_to','spouse_of','partner_of'].includes(p);
+  if(facet==='child')return ['parent_of','has_child'].includes(p);
+  if(facet==='sibling')return ['has_sibling','sibling_of','brother_of','sister_of'].includes(p);
+  if(facet==='relationship')return FAMILY.has(p)||WORK_COMPANY.has(p)||p==='hopes_to_transition_to'||/^trial_duration_(?:at|with)_/.test(p);
   if(facet==='breed')return /breed|species/.test(p);
   if(facet==='color')return /color|colour/.test(p);
   if(facet==='birth')return /birth|birthday|age/.test(p);
@@ -129,6 +139,9 @@ export function matchesRequestedFacet(m:any,plan:RecallPlan,info:MemoryEntityInf
 }
 export function topicCompatible(plan:RecallPlan,info:MemoryEntityInfo){
  if(!plan.topics.length)return true;
+ // Task prose mentioning a family/parent is not a family relation. Unknown
+ // predicates stay valid and searchable; they just cannot fill this domain slot.
+ if(plan.topics.length===1&&plan.topics[0]==='family'&&!info.signature.topics.includes('family'))return false;
  for(const exclusive of ['pet','family'])if(info.topics.includes(exclusive)&&!plan.topics.includes(exclusive))return false;
  if(plan.requiredType){
   const actual=[...info.subjectTypes,...info.objectTypes],known=actual.filter(t=>['dog','cat','vehicle'].includes(t));
@@ -143,7 +156,8 @@ export function diverseSelection(rows:any[],limit:number,plan:RecallPlan,info:(m
   if(plan.mode==='profile')return (m.scope.startsWith('user:')?4:0)+(i.signature.facet?3:0)+(/^(?:lives_in|birth_date|grew_up_in|born_in)$/.test(p)?2:0);
   return plan.topics.includes('work')&&i.signature.topics.includes('work')?4:0;
  };
- const sorted=[...rows].sort((a,b)=>(Number(matchesRequestedFacet(b,plan,info(b)))-Number(matchesRequestedFacet(a,plan,info(a))))||priority(b)-priority(a)||Number(!metaNarrative(b))-Number(!metaNarrative(a))||(b.score??0)-(a.score??0)||a.id.localeCompare(b.id));
+ const relationshipRank=(m:any)=>!plan.facets.includes('relationship')?0:/^(?:on_(?:work_)?trial_with|trial_with|works_at|works_for|employed_by|current_company)$/.test(norm(m.predicate))?3:prospectivePredicate(m.predicate)?0:1;
+ const sorted=[...rows].sort((a,b)=>(Number(matchesRequestedFacet(b,plan,info(b)))-Number(matchesRequestedFacet(a,plan,info(a))))||relationshipRank(b)-relationshipRank(a)||priority(b)-priority(a)||Number(!metaNarrative(b))-Number(!metaNarrative(a))||(b.score??0)-(a.score??0)||a.id.localeCompare(b.id));
  const selected:any[]=[],seen=new Set<string>(),facets=new Set<string>();
  // First preserve requested facets and distinct predicates/topics; later passes may
  // use remaining allocation, but cannot turn a narrow query into a broad packet.
@@ -155,6 +169,7 @@ export function diverseSelection(rows:any[],limit:number,plan:RecallPlan,info:(m
  return selected;
 }
 export function historicalPredicate(predicate:string){return /^(?:first_|formerly_|previous_|past_|used_to_)/.test(norm(predicate));}
+export function prospectivePredicate(predicate:string){return /^(?:plans?_|planned_|expects?_|expected_|hopes?_|intends?_|has_final_call_)/.test(norm(predicate));}
 export function normalizedPredicate(predicate:string){return norm(predicate);}
 export function statusReport(m:{predicate?:string}){
  const p=norm(String(m.predicate??''));

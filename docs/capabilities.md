@@ -400,6 +400,15 @@ packet. Domain questions, including a dog-to-work topic shift, drop exclusive un
 closed or historically prefixed work predicates. A broad self-profile question still returns a varied
 non-agent packet. Unknown predicates remain valid; this is not a closed ontology.
 
+Focused health checks no longer treat functional "working as expected" as an owner's work overview.
+Health/inspection and relationship-with requests grounded in a named effective entity stay on that
+entity. Spouse/child/sibling slots require actual relationship predicates instead of admitting task
+prose mentioning family or a parent task. Current company relationships prioritize state predicates;
+source-dated plan/expectation and past-event labels prevent open old plans from looking like current
+status. These bounded heuristics do not resolve contradictions, close source intervals or delete
+history. Broad self-profile and first-turn continuity remain intentional, budgets remain caller
+controlled, and ordinary semantic aliases/lexical fallback remain covered by existing regressions.
+
 `POST /v1/memory/entities/repair` is the provenance-CAS amendment for one generic ownership claim and
 its existing typed pet claim. It can record name history as an entity equivalence, invalidate an exact
 mistaken retraction, and close only that retraction's overgeneralized sibling. It does not replay

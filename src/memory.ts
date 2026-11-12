@@ -19,11 +19,11 @@ function modelFacingLine(m: any) {
   const owner = !author || author === "alex" || author.endsWith("/alex");
   const speaker = owner ? "" : `${author} noted: `;
   const day = (value: unknown) => String(value ?? "").slice(0, 10);
-  const time = m.historical
+  const time = recallTemporalQualifier(m) ?? (m.historical
     ? `HISTORICAL ${m.historical_start_unknown ? "unknown start, " : ""}until ${m.valid_to ?? "closed"}`
     : m.conflict
       ? (m.historical_start_unknown ? "conflicts with another record" : `conflicts with another record, since ${day(m.valid_from)}`)
-      : (m.historical_start_unknown || !m.valid_from ? "" : `since ${day(m.valid_from)}`);
+      : (m.historical_start_unknown || !m.valid_from ? "" : `since ${day(m.valid_from)}`));
   const compact = (value: unknown) => String(value ?? "").replace(/\bt_[0-9a-f]{6,}\b/gi, "").replace(/\d{17,}/g, "").replace(/\s{2,}/g, " ").trim();
   return `${speaker}${compact(m.subject)} | ${m.predicate} | ${compact(m.object)}${time ? ` (${time})` : ""}${modelFacingCorrections(m.corrections ?? [])}`;
 }
@@ -42,6 +42,7 @@ import { correctionEvidence, modelFacingCorrections } from "./memory-corrections
 import { activeChanges, consistentReconciliation } from "./memory-truth.ts";
 import { assertCurrentJobEpoch, currentResetEpoch } from "./reset-state.ts";
 import { recallFocus, needsRecallContext, asksAboutRecallProcess, isContextAvailabilityNote } from "./recall-query.ts";
+import { usesNamedRecallFocus, namedRecallFocus, matchesNamedRecallFocus, recallTemporalQualifier } from './recall-presentation.ts';
 import { analyzeRecallQuery, recallQueryExpansion, memoryEntityInfo, directNameAnswer, matchesRequestedFacet, topicCompatible, diverseSelection, metaNarrative, historicalPredicate, continuityProfile, continuityProfileRank, continuityTopic, continuityTopicRank, topicLabel, ENTITY_TYPE_PREDICATES, normalizedPredicate, type MemoryEntityInfo } from "./entity-model.ts";
 
 // Share a turn budget across recalls and workers. Promise/microtask yields alone
@@ -900,6 +901,7 @@ export class Memory {
     const focusedMatch=(m:any)=> {
       const i=info(m);
       if(plan.mode==='profile')return !m.scope.startsWith('agent:')&&!metaNarrative(m);
+      if(plan.facets.includes('relationship'))return !metaNarrative(m)&&matchesRequestedFacet(m,plan,i);
       if(!plan.topics.length||!topicCompatible(plan,i)||metaNarrative(m))return false;
       if(!plan.includeHistory&&plan.topics.includes('work')&&historicalPredicate(m.predicate))return false;
       if(plan.mode==='narrow')return matchesRequestedFacet(m,plan,i);
@@ -954,6 +956,11 @@ export class Memory {
       return null;
     };
     const recallState=(m:any)=>{const state=recallStateOnly(m);return state?{...state,corrections:correctionEvidence(this,state,recorded_at)}:null;};
+    const namedFocus=plan.mode==='profile'||!usesNamedRecallFocus(focus)?[]:namedRecallFocus(focus,rows.flatMap(row=>{
+      const state=recallStateOnly(row);
+      return state?[{...state,objectEntity:info(state).objectEntity}]:[];
+    }),plan.owner);
+    const namedMatch=(m:any)=>matchesNamedRecallFocus(m,namedFocus);
     const semanticMin = Math.min(1, positiveSetting("RECALL_SEMANTIC_MIN_MILLI", 420) / 1000);
     const words = new Map(rows.map(m => [m.id, queryTerms(`${m.subject} ${m.predicate} ${m.object}`)]));
     // Ordinary partial keyword coverage remains an independent admission path,
@@ -979,7 +986,7 @@ export class Memory {
         const corrected=effective?[effective]:correctionReplacements(this,m,valid_at,recorded_at).map(recallState).filter(Boolean);
         return corrected.map(effective=>({...effective,lexical:m.lexical,semantic:m.semantic,direct:m.direct,association:0}));
       })
-      .filter(m => processQuery || !isContextAvailabilityNote(m));
+      .filter(m => namedMatch(m)&&(processQuery || !isContextAvailabilityNote(m)));
     // Multiple old representations may resolve to one positive correction.
     // Keep strongest independently admitted evidence, never repeat its packet.
     ranked.sort((a,b)=>b.direct-a.direct);
@@ -1043,7 +1050,7 @@ export class Memory {
     }
     // Domain slots and topic shifts suppress unrelated generic subject matches;
     // ordinary non-slot questions keep their existing relevance contract.
-    const focused=['profile','domain'].includes(plan.mode)||plan.topics.length>0;
+    const focused=['profile','domain'].includes(plan.mode)||plan.topics.length>0||plan.facets.includes('relationship');
     let eligible=focused?[...ranked,...expanded].filter(m=>focusedMatch(m)): [...ranked,...expanded];
     if(plan.mode==='narrow'&&contextAnchors.size&&eligible.some(contextGrounded))eligible=eligible.filter(contextGrounded);
     // A pronoun follow-up can name a facet the graph does not store. Stay on the
@@ -1051,14 +1058,15 @@ export class Memory {
     if(plan.mode==='narrow'&&!eligible.length&&plan.context.length&&plan.topics.length){
       const topical=rows.flatMap(row=>{
         const i=info(row);
-        if(!topicCompatible(plan,i)||metaNarrative(row))return [];
+        if(!topicCompatible(plan,i)||metaNarrative(row)||!namedMatch(row))return [];
         if(plan.topics.includes('work')&&!plan.includeHistory&&historicalPredicate(row.predicate))return [];
         const state=recallState(row);
         return state?[{...state,lexical:0,semantic:0,direct:0,association:0,score:row.importance??0}]:[];
       });
       eligible=contextAnchors.size&&topical.some(contextGrounded)?topical.filter(contextGrounded):topical;
     }
-    const allocation=plan.mode==='narrow'?3:plan.mode==='domain'?8:plan.mode==='profile'?12:plan.topics.length?6:100;
+    eligible=eligible.filter(namedMatch);
+    const allocation=plan.facets.includes('relationship')?8:plan.mode==='narrow'?3:plan.mode==='domain'?8:plan.mode==='profile'?12:plan.topics.length?6:100;
     let packet=focused?diverseSelection(eligible,allocation,plan,info):eligible;
     const topicIds=new Set<string>();
     if(sessionStart){
