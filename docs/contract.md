@@ -439,9 +439,18 @@ versions retain their persisted meanings and column identities.
 Recall request: `agent_id`, `thread_id`, `query` (up to16,000 characters), optional `token_budget`
 (0–100,000; default1,200), `valid_at`, `recorded_at`, `recent_context` (compatible validation up to32
 messages), and optional `session_start`. `session_start` is only the first turn of a new session.
-That one recall still stays inside the caller's grants. It leads with a bounded current profile
-(identity, relationships, current role) and at most two recent non-status topics, then the normal
-query selection when the turn has a real subject. A thin greeting does not become a lexical dump
+That one recall still stays inside the caller's grants. It leads with bounded identity/family,
+current work basics and at most one supported owner residence/location, then at most two recent
+non-status topic labels and normal query selection when the turn has a real subject. Startup lines
+include support observation dates (`source YYYY-MM-DD`), not ingestion dates or invented validity
+starts. Recent topics rank by source time within their bounded candidate window. Residence/location
+is always LAST REPORTED, with current whereabouts unverified; an open interval does not prove current
+physical presence. Travel intentions, work preferences, birthplace and timezone do not fill that slot.
+`retrieval.session_start_location` reports `included_source_qualified`, `omitted_token_budget`, or
+`omitted_no_supported_location_in_bounded_selection`; omission is not proof that no source exists
+globally. Startup reads at most80 non-episode and80 episode candidates per authorized scope, plus
+16 location and16 current-work candidates per authorized user scope; all ordinary support/time/grant
+fences and the exact token budget still apply. Later focused recall is unchanged. A thin greeting does not become a lexical dump
 or a stored instruction. No transcript or raw tool/status event is replayed. Only ambiguous
 followups use recent context: at most two user/assistant messages x600 characters, as query
 resolution, not evidence. No conversational inference call is made by default.

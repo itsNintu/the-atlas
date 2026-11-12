@@ -178,13 +178,13 @@ export function statusReport(m:{predicate?:string}){
 export function continuityProfile(m:{scope?:string;predicate?:string},info:MemoryEntityInfo){
  if(!String(m.scope??'').startsWith('user:')||statusReport(m))return false;
  const facet=info.signature.facet;
- return facet==='name'||facet==='pet'||facet==='family'||facet==='role'||info.topics.includes('pet')||info.topics.includes('family');
+ return facet==='name'||facet==='pet'||facet==='family'||facet==='role'||facet==='company'||info.topics.includes('pet')||info.topics.includes('family');
 }
 export function continuityProfileRank(m:{predicate?:string},info:MemoryEntityInfo){
  const p=norm(String(m.predicate??'')),facet=info.signature.facet;
  if(facet==='name')return 100;
  if(facet==='pet'||facet==='family'||info.topics.includes('pet')||info.topics.includes('family'))return 80;
- if(p==='job_title'||p==='works_in'||p==='current_role'||p==='occupation')return 70;
+ if(['job_title','works_in','current_role','occupation','works_at','works_for','employed_by','employer','current_company','on_trial_with','on_work_trial_with','trial_with'].includes(p))return 70;
  return facet==='role'?40:0;
 }
 export function continuityTopic(m:{kind?:string;scope?:string;predicate?:string;subject?:string;object?:string;historical?:boolean},info:MemoryEntityInfo){

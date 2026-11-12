@@ -14,12 +14,12 @@ const tokenEncoding =
   setting("TOKEN_ENCODING") === "cl100k_base" ? "cl100k_base" : "o200k_base";
 const tokenizer = getEncoding(tokenEncoding);
 export const memoryTokens = (s: string) => tokenizer.encode(s, [], []).length;
-function modelFacingLine(m: any) {
+function modelFacingLine(m: any, timeOverride?: string) {
   const author = String(m.supports?.[0]?.author_id ?? "");
   const owner = !author || author === "alex" || author.endsWith("/alex");
   const speaker = owner ? "" : `${author} noted: `;
   const day = (value: unknown) => String(value ?? "").slice(0, 10);
-  const time = recallTemporalQualifier(m) ?? (m.historical
+  const time = timeOverride ?? recallTemporalQualifier(m) ?? (m.historical
     ? `HISTORICAL ${m.historical_start_unknown ? "unknown start, " : ""}until ${m.valid_to ?? "closed"}`
     : m.conflict
       ? (m.historical_start_unknown ? "conflicts with another record" : `conflicts with another record, since ${day(m.valid_from)}`)
@@ -42,6 +42,7 @@ import { correctionEvidence, modelFacingCorrections } from "./memory-corrections
 import { activeChanges, consistentReconciliation } from "./memory-truth.ts";
 import { assertCurrentJobEpoch, currentResetEpoch } from "./reset-state.ts";
 import { recallFocus, needsRecallContext, asksAboutRecallProcess, isContextAvailabilityNote } from "./recall-query.ts";
+import { LOCATION_PREDICATES, CURRENT_WORK_PREDICATES, continuityLocation, sourceTime, sessionPacketLine } from './session-packet.ts';
 import { usesNamedRecallFocus, namedRecallFocus, matchesNamedRecallFocus, recallTemporalQualifier } from './recall-presentation.ts';
 import { analyzeRecallQuery, recallQueryExpansion, memoryEntityInfo, directNameAnswer, matchesRequestedFacet, topicCompatible, diverseSelection, metaNarrative, historicalPredicate, continuityProfile, continuityProfileRank, continuityTopic, continuityTopicRank, topicLabel, ENTITY_TYPE_PREDICATES, normalizedPredicate, type MemoryEntityInfo } from "./entity-model.ts";
 
@@ -1068,16 +1069,25 @@ export class Memory {
     eligible=eligible.filter(namedMatch);
     const allocation=plan.facets.includes('relationship')?8:plan.mode==='narrow'?3:plan.mode==='domain'?8:plan.mode==='profile'?12:plan.topics.length?6:100;
     let packet=focused?diverseSelection(eligible,allocation,plan,info):eligible;
-    const topicIds=new Set<string>();
+    const topicIds=new Set<string>(),continuityIds=new Set<string>(),locationIds=new Set<string>();
     if(sessionStart){
-      const current=[...scopes.flatMap(scope=>this.store.all('SELECT * FROM memories WHERE workspace_id=? AND scope=? AND kind!=\'episode\' ORDER BY recorded_from DESC,id LIMIT 80',a.workspace_id,scope)),...scopes.flatMap(scope=>this.store.all('SELECT * FROM memories WHERE workspace_id=? AND scope=? AND kind=\'episode\' ORDER BY recorded_from DESC,id LIMIT 80',a.workspace_id,scope))].flatMap(row=>{const state=recallState(row);return state&&!state.historical?[state]:[];});
+      // Old supported basics must not disappear just because newer project
+      // memories filled the generic startup window. These remain bounded,
+      // authorized candidates, not an exhaustive source search.
+      const basicRows=scopes.filter(scope=>scope.startsWith('user:')).flatMap(scope=>[LOCATION_PREDICATES,CURRENT_WORK_PREDICATES].flatMap(predicates=>this.store.all(`SELECT * FROM memories WHERE workspace_id=? AND scope=? AND kind!='episode' AND lower(replace(predicate,' ','_')) IN (${predicates.map(()=>'?').join(',')}) ORDER BY recorded_from DESC,id LIMIT 16`,a.workspace_id,scope,...predicates)));
+      const candidates=[...basicRows,...scopes.flatMap(scope=>this.store.all('SELECT * FROM memories WHERE workspace_id=? AND scope=? AND kind!=\'episode\' ORDER BY recorded_from DESC,id LIMIT 80',a.workspace_id,scope)),...scopes.flatMap(scope=>this.store.all('SELECT * FROM memories WHERE workspace_id=? AND scope=? AND kind=\'episode\' ORDER BY recorded_from DESC,id LIMIT 80',a.workspace_id,scope))];
+      const candidateIds=new Set<string>();
+      const current=candidates.filter(row=>candidateIds.has(row.id)?false:(candidateIds.add(row.id),true)).flatMap(row=>{const state=recallState(row);return state&&!state.historical?[state]:[];});
       const ranked=(pred:(m:any)=>boolean,limit:number)=>current.filter(pred).sort((a,b)=>continuityProfileRank(b,info(b))-continuityProfileRank(a,info(a))||String(a.object??'').length-String(b.object??'').length||String(b.recorded_from).localeCompare(String(a.recorded_from))||a.id.localeCompare(b.id)).slice(0,limit);
-      const profile=[...ranked(m=>continuityProfile(m,info(m))&&continuityProfileRank(m,info(m))>=80,2),...ranked(m=>continuityProfile(m,info(m))&&continuityProfileRank(m,info(m))===70,2)];
+      const locations=current.filter(continuityLocation).sort((a,b)=>sourceTime(b).localeCompare(sourceTime(a))||a.id.localeCompare(b.id)).slice(0,1);
+      for(const m of locations)locationIds.add(m.id);
+      const profile=[...ranked(m=>continuityProfile(m,info(m))&&continuityProfileRank(m,info(m))>=80,2),...locations,...ranked(m=>continuityProfile(m,info(m))&&continuityProfileRank(m,info(m))===70,2)];
       const seenLabel=new Set<string>();
-      const topics=current.filter(m=>continuityTopic(m,info(m))).sort((a,b)=>continuityTopicRank(b,info(b))-continuityTopicRank(a,info(a))||String(b.recorded_from).localeCompare(String(a.recorded_from))||a.id.localeCompare(b.id)).filter(m=>{const label=topicLabel(m).toLowerCase();if(!label||seenLabel.has(label))return false;seenLabel.add(label);return true;}).slice(0,2);
+      const topics=current.filter(m=>continuityTopic(m,info(m))&&!continuityLocation(m)).sort((a,b)=>continuityTopicRank(b,info(b))-continuityTopicRank(a,info(a))||sourceTime(b).localeCompare(sourceTime(a))||a.id.localeCompare(b.id)).filter(m=>{const label=topicLabel(m).toLowerCase();if(!label||seenLabel.has(label))return false;seenLabel.add(label);return true;}).slice(0,2);
       for(const m of topics)topicIds.add(m.id);
       const seen=new Set<string>();
       const continuity=[...profile,...topics].filter(m=>seen.has(m.id)?false:(seen.add(m.id),true));
+      for(const m of continuity)continuityIds.add(m.id);
       const thin=!plan.topics.length&&!plan.facets.length&&focus.trim().split(/\s+/).filter(Boolean).length<=8;
       packet=thin?continuity:[...continuity,...packet.filter(m=>!seen.has(m.id))];
     }
@@ -1090,7 +1100,7 @@ export class Memory {
     for (const m of packet) {
       // Compact background fact. Provenance, IDs and supports stay in the typed
       // recall payload and receipts, not in this model-facing line.
-      const line = topicIds.has(m.id) ? `recent: ${topicLabel(m)}` : modelFacingLine(m);
+      const line = continuityIds.has(m.id) ? sessionPacketLine(m,modelFacingLine,topicIds.has(m.id)) : modelFacingLine(m);
       const next = context ? context + "\n" + line : line;
       if (await budgetTokens(next) > budget) continue;
       context = next;
@@ -1121,7 +1131,7 @@ export class Memory {
       valid_at, recorded_at,
       freshness: { ...freshness, pending_count: freshness.pending_count as number, pending_included: 0, pending_omitted: freshness.pending_count as number,
         consistency: "Durable intake precedes asynchronous selective graph curation; pending transcripts are not recalled. Queue diagnostics are separate." },
-      retrieval: { focus: {mode:plan.mode,topics:plan.topics,facets:plan.facets,topic_shift:plan.topicShift,allocation,session_start:sessionStart}, semantic_status, embedding_model: qmodel ?? null,
+      retrieval: { ...(sessionStart?{session_start_location:selected.some(m=>locationIds.has(m.id))?'included_source_qualified':locationIds.size?'omitted_token_budget':'omitted_no_supported_location_in_bounded_selection'}:{}), focus: {mode:plan.mode,topics:plan.topics,facets:plan.facets,topic_shift:plan.topicShift,allocation,session_start:sessionStart}, semantic_status, embedding_model: qmodel ?? null,
         index: "fts5+random-hyperplane-lsh-v1", candidates_examined: rows.length, candidate_limit_per_index: 96,
         embedding_ms, service_ms: performance.now() - started, context_messages_used: snippets.length,
         semantic_min: semanticMin, weights, fading: "salience only; dormant truth remains eligible",
