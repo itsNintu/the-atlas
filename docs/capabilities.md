@@ -1,6 +1,13 @@
 # Capability map
 
-## Fresh recall latency and native projection
+## Fresh recall latency and general compact HTTP projection
+
+All of the following backend improvements work for **any authorized Atlas HTTP client**, not only
+Hermes. No agent runtime, plugin, local outbox or session store is required. The opt-in format's
+legacy name `native-v1` is retained for compatibility; it is a general compact response projection.
+See contract.md for a plain curl request and the unchanged default/full format. Caller connection
+pooling can help any HTTP library, but Hermes-local audit/hook instrumentation is separate from
+these Atlas product capabilities.
 
 The existing engine now avoids discarded generic retrieval on exact thin session starts, shares
 scoped entity/type hydration within a synchronous read, and reuses exact private resolved-query

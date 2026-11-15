@@ -437,6 +437,26 @@ specified separately in [brain-view.md](brain-view.md); memories/entities/suppor
 versions retain their persisted meanings and column identities.
 
 Recall accepts optional `response_format:"native-v1"` (or `"full"`; omitted remains full).
+Despite its compatibility name, **native-v1 is a general compact Atlas HTTP response format**:
+any authorized client can request it, with no Hermes runtime, plugin, session database or SDK.
+The fresh-read, query-embedding/coalescing and freshness optimizations are server-side for both
+formats and all authorized clients. Agent binding/grants remain ordinary Atlas authorization,
+not an agent-runtime integration requirement. For example, with an existing bound credential:
+
+```sh
+# ATLAS_TOKEN is an existing private bearer credential; never paste it in logs.
+curl --fail-with-body -sS https://atlas.creator.gg/v1/recall \
+  -H "Authorization: Bearer $ATLAS_TOKEN" \
+  -H 'Content-Type: application/json' \
+  --data '{"agent_id":"YOUR_BOUND_AGENT","thread_id":"my-thread","query":"What is my current project?","token_budget":1200,"response_format":"native-v1"}'
+```
+
+Replace `YOUR_BOUND_AGENT` with the exact administrator-bound agent ID. Omit `response_format`
+or send `"full"` for the original detailed response. Both use the same authenticated endpoint,
+selection, current graph, source/time semantics and `{api_version,request_id,data}` envelope.
+HTTP connection reuse is a caller/standard-HTTP concern: any client's keep-alive/pooling can
+reuse its own connections; Hermes-specific local audit and hook timings are not Atlas API features.
+
 Native-v1 preserves exact context, recall/feedback IDs, empty pending events, token/time/freshness
 and retrieval metadata. Its `memories` retain id, scope, version, valid/recorded times, optional
 history flags, conflict/evidence roots, support source identity (client/event/revision/role/author/
