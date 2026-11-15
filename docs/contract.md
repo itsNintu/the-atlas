@@ -436,6 +436,46 @@ normal support deduplication and model reconciliation apply. A graph-inspection 
 specified separately in [brain-view.md](brain-view.md); memories/entities/supports/changes/
 versions retain their persisted meanings and column identities.
 
+Recall accepts optional `response_format:"native-v1"` (or `"full"`; omitted remains full).
+Native-v1 preserves exact context, recall/feedback IDs, empty pending events, token/time/freshness
+and retrieval metadata. Its `memories` retain id, scope, version, valid/recorded times, optional
+history flags, conflict/evidence roots, support source identity (client/event/revision/role/author/
+observation time) and correction identity/type/meaning/time/source. It omits triples, excerpts,
+lineage and full changes on the wire only. Full evidence still drives selection and the final
+forget/grant/support fence. The default full API and authenticated graph retain full provenance;
+no second hydration request is required before an answer. Unknown formats fail400.
+
+Exact resolved query embeddings—not memory packets—are cached per Memory/store instance for
+60seconds with at most128 LRU entries and32 retained in-flight keys. Identical in-flight queries
+coalesce. Keys digest the exact redacted focus plus resolved context, workspace, principal,
+credential, agent, read-scope set and embedding provider/model/configuration/credential generation.
+Inference instance/function replacement also isolates entries. Validated actual model/dimensions
+are retained with the vector; failures, disabled and invalid vectors are not cached. Cache keys
+and diagnostics contain no raw query. Expiry is enforced on access (expired values are lazily
+removed); no durable query cache is written. Every hit still authorizes and reads the current graph.
+An undeclared provider deployment changing vectors under the same model/configuration identity
+requires a process/actor reload or the short TTL; it is not inferred from a model name alone.
+
+Thin session starts use exactly the existing continuity-only predicate: session_start, no resolved
+query topics/facets, at most eight focus words. They bypass the generic index/embedding packet
+that would otherwise be discarded. Substantive topical/faceted starts use ordinary retrieval.
+`retrieval.path`/`index` disclose `thin_start_continuity`/`fresh-continuity-only`, not a semantic
+search that did not occur. Source-qualified startup selection and token/grant/support fences remain.
+Request-local type/target metadata is shared only inside the synchronous selection segment, keyed
+by scoped entity/time and effective row inputs; final evidence is rebuilt after packing yields.
+
+Freshness uses a covering metadata index and exact current-head reverse lookup. It keeps the
+original authorization OR (own/shared overlap counted once), reset epoch, unconditional latest
+timestamps and time-conditioned pending/captured counts. There are no cached freshness counters,
+periodic snapshots or new write-path materializations. It still scales with authorized retained
+metadata, not a claimed constant-time aggregate. Additive indexes install on initialized hosted
+stores without replaying serving/root backfills.
+
+`retrieval.embedding_cache` reports hit/miss/coalesced/bypass/not_requested. Content-free
+selection/packing/final_fence/freshness phase milliseconds supplement embedding/service timings.
+These use the platform wall clock; hosted synchronous CPU can be undercounted. They do not
+identify network, actor queueing or CPU by subtracting service from HTTP elapsed.
+
 Recall request: `agent_id`, `thread_id`, `query` (up to16,000 characters), optional `token_budget`
 (0–100,000; default1,200), `valid_at`, `recorded_at`, `recent_context` (compatible validation up to32
 messages), and optional `session_start`. `session_start` is only the first turn of a new session.

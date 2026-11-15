@@ -3,6 +3,7 @@
 export const recallLookupIndexes = `
 CREATE INDEX IF NOT EXISTS memory_job_event ON memory_jobs(event_pk,id);
 CREATE INDEX IF NOT EXISTS memory_head_event ON memory_heads(event_pk);
+CREATE INDEX IF NOT EXISTS memory_event_freshness ON memory_events(workspace_id,reset_epoch,agent_id,role,author_id,status,operation,accepted_at,occurred_at,processed_at,id);
 `;
 export const memorySchema = `
 CREATE TABLE IF NOT EXISTS memory_bindings (principal_id TEXT PRIMARY KEY REFERENCES principals(id),workspace_id TEXT NOT NULL REFERENCES workspaces(id),agent_id TEXT NOT NULL,created_at TEXT NOT NULL);

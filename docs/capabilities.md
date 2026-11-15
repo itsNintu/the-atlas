@@ -1,5 +1,28 @@
 # Capability map
 
+## Fresh recall latency and native projection
+
+The existing engine now avoids discarded generic retrieval on exact thin session starts, shares
+scoped entity/type hydration within a synchronous read, and reuses exact private resolved-query
+embeddings (60s TTL,128 LRU entries,32 retained in-flight keys). No memory packet or freshness
+answer is cached. Graph reads, corrections, forgetting, history and current grants remain fresh.
+Freshness scans covering metadata plus current-head indexes, preserving exact own/shared overlap
+and date/reset semantics. It remains history-sized, not constant-time. Opt-in `native-v1` reduces
+wire/audit evidence duplication while retaining exact model context, feedback IDs, source/time and
+correction identities; default full API/graph provenance remains available. See contract.md.
+
+The lexical/embedding overlap option is deferred: after the smaller read optimizations, reusing
+pre-await candidate state would need a complete relevant mutation epoch or duplicated read work.
+No measured unique-miss benefit justifies that lifecycle expansion here. Complete SQL-side LSH
+aggregation is also deferred: current profiles do not attribute the residual delivery tail to
+LSH materialization, and a new bucket relation/query needs a separately demonstrated plan/benefit.
+Existing complete-hit aggregation/ranking and lexical-plus-semantic union are unchanged. No model,
+timeout, source admission, token budget, storage engine or provider switch was made.
+
+Copied-snapshot local profiling and actual hosted/native observations are distinct; deployment
+receipts carry their source/runtime identities. Neither a cache hit nor smaller JSON guarantees
+a new latency SLA or attributes the occasional two-second tail.
+
 ## Offline derived-brain clean slate
 
 A local OS operator can physically reset the complete derived brain with

@@ -9,7 +9,9 @@ export function correctionEvidence(memory:Memory,m:any,recorded_at:string) {
   for(const {id,depth} of queue) {
     if(seen.has(id)||seen.size>=8)continue;seen.add(id);
     const current=s.one('SELECT * FROM memories WHERE id=? AND workspace_id=? AND scope=?',id,m.workspace_id,m.scope);
-    if(!current||!memory.support(current,recorded_at).length)continue;
+    if(!current)continue;
+    const currentSupport=memory.support(current,recorded_at);
+    if(!currentSupport.length)continue;
     const inbound=s.all("SELECT c.*,t.subject,t.predicate,t.object,t.scope,t.workspace_id FROM memory_changes c JOIN memories t ON t.id=c.target_id WHERE c.replacement_id=? AND c.recorded_at<=? AND c.type IN ('correction','superseded') ORDER BY length(t.object),c.id LIMIT 24",id,recorded_at);
     for(const c of inbound) {
       if(c.scope!==m.scope||c.workspace_id!==m.workspace_id||!activeChanges(s,c.target_id,recorded_at).some(x=>x.id===c.id))continue;
@@ -20,9 +22,9 @@ export function correctionEvidence(memory:Memory,m:any,recorded_at:string) {
       if(!source)continue;
       // The replacement's support must actually retain this correcting source,
       // not merely a source paragraph reached through an unrelated transition.
-      if(!memory.support(current,recorded_at).some(x=>x.client_id===source.client_id&&x.event_id===source.event_id&&x.revision===source.revision))continue;
+      const retainedSupport=currentSupport.find(x=>x.client_id===source.client_id&&x.event_id===source.event_id&&x.revision===source.revision);
+      if(!retainedSupport)continue;
       const oldTerms=queryTerms(c.object),newTerms=queryTerms(m.object);
-      const retainedSupport=memory.support(current,recorded_at).find(x=>x.client_id===source.client_id&&x.event_id===source.event_id&&x.revision===source.revision);
       // Support excerpts are scoped by apply(): own-scope source excerpts may
       // retain context; shared claims retain only the published literal. Reading
       // source.content here would leak private siblings from an agent event.

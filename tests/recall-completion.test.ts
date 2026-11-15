@@ -87,7 +87,8 @@ test("three recalls complete inside native 25s timeout with 643 large pending ev
     const results = await Promise.all([f.recall(99744), f.recall(2000), f.recall(99744)]);
     const elapsed = performance.now() - start;
     expect(elapsed).toBeLessThan(25000);
-    expect(f.embeddings()).toBe(3);
+    expect(f.embeddings()).toBe(1); // Identical resolved queries coalesce despite different packing budgets.
+    expect(results.map(r=>r.retrieval.embedding_cache)).toEqual(['miss','coalesced','coalesced']);
     for (const r of results) {
       expect(r.retrieval.semantic_status).toBe("available");
       expect(r.tokens_used).toBe(memoryTokens(r.context));

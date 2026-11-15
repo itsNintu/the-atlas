@@ -29,9 +29,10 @@ test('opening an existing schema-2 database installs reverse lookup indexes with
  const directory=mkdtempSync(join(tmpdir(),'atlas-recall-index-'));const path=join(directory,'existing.sqlite');
  let s=new Store(path);try{
   const boot=s.bootstrap('Index migration');
-  s.run('DROP INDEX IF EXISTS memory_job_event');s.run('DROP INDEX IF EXISTS memory_head_event');
+  s.run('DROP INDEX IF EXISTS memory_job_event');s.run('DROP INDEX IF EXISTS memory_head_event');s.run('DROP INDEX memory_event_freshness');
   const before=s.all('SELECT * FROM credentials');s.close();s=new Store(path);
   expect(s.authenticate(boot.token).workspace_id).toBe(boot.workspace_id);
+  expect(s.one("SELECT name FROM sqlite_master WHERE name='memory_event_freshness'").name).toBe('memory_event_freshness');
   expect(s.all('SELECT * FROM credentials')).toEqual(before);
   const plans=supportPlans(s);
   expect(plans[0].plan).toContain('memory_job_event');expect(plans[1].plan).toContain('memory_head_event');
@@ -41,11 +42,12 @@ test('initialized hosted fast path adds nonunique indexes without replaying sche
  const base=new Store(':memory:');try{
   base.bootstrap('Hosted index upgrade');
   base.db.exec(`CREATE TABLE atlas_runtime_meta(singleton INTEGER PRIMARY KEY,schema_version INTEGER,serving_index_version INTEGER); INSERT INTO atlas_runtime_meta VALUES(1,${SCHEMA_VERSION},1)`);
-  base.run('DROP INDEX memory_job_event');base.run('DROP INDEX memory_head_event');
+  base.run('DROP INDEX memory_job_event');base.run('DROP INDEX memory_head_event');base.run('DROP INDEX memory_event_freshness');
   const before=base.all('SELECT * FROM credentials');
   const commands:string[]=[];const original=base.db.exec.bind(base.db);
   base.db.exec=(sql:string)=>{commands.push(sql);return original(sql);};
   const hosted=new Store('initialized-hosted',base.db);
+  expect(hosted.one("SELECT name FROM sqlite_master WHERE name='memory_event_freshness'").name).toBe('memory_event_freshness');
   const plans=supportPlans(hosted);
   expect(plans[0].plan).toContain('memory_job_event');expect(plans[1].plan).toContain('memory_head_event');
   expect(commands.join('\n')).not.toContain('INSERT OR IGNORE INTO memory_roots');

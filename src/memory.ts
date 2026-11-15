@@ -9,6 +9,9 @@ import {
   type Decision,
 } from "./inference.ts";
 import { setting, sleep } from "./config.ts";
+import {QueryEmbeddingCache} from "./query-embedding.ts";
+import {nativeMemory} from "./recall-delivery.ts";
+import {recallFreshness} from "./memory-freshness.ts";
 import { getEncoding } from "js-tiktoken";
 const tokenEncoding =
   setting("TOKEN_ENCODING") === "cl100k_base" ? "cl100k_base" : "o200k_base";
@@ -80,6 +83,7 @@ const relevance = (q: string, s: string) => {
 };
 
 export class Memory {
+  private queryEmbeddings=new QueryEmbeddingCache();
   constructor(
     public store: Store,
     public inference: MemoryInference = new Inference(),
@@ -802,11 +806,16 @@ export class Memory {
     ).filter(automaticStatusNotification).map((source:any)=>`${source.client_id}:${source.event_id}@${source.revision}`));
     return supports.filter((support:any)=>!automatic.has(`${support.client_id}:${support.event_id}@${support.revision}`));
   }
-  entityInfo(m:any, valid_at=now(), recorded_at=now()):MemoryEntityInfo {
-    const target=this.store.one('SELECT entity_id FROM memory_entity_targets WHERE memory_id=?',m.id);
-    const types=(entity:string|undefined)=>entity?this.store.all(
-      "SELECT * FROM memories WHERE workspace_id=? AND scope=? AND subject_id=? AND predicate IN ('is_a','instance_of','entity_type','has_type','type') LIMIT 24",
-      m.workspace_id,m.scope,entity).filter(row=>this.effective(row,valid_at,recorded_at)).map(row=>row.object):[];
+  entityInfo(m:any, valid_at=now(), recorded_at=now(), typeCache?:Map<string,string[]>, targetCache?:Map<string,any>):MemoryEntityInfo {
+    if(targetCache&&!targetCache.has(m.id))targetCache.set(m.id,this.store.one('SELECT entity_id FROM memory_entity_targets WHERE memory_id=?',m.id));
+    const target=targetCache?targetCache.get(m.id):this.store.one('SELECT entity_id FROM memory_entity_targets WHERE memory_id=?',m.id);
+    const types=(entity:string|undefined)=>{
+      if(!entity)return [];
+      const key=canonical([m.workspace_id,m.scope,entity,valid_at,recorded_at]);
+      if(typeCache?.has(key))return typeCache.get(key)!;
+      const result=this.store.all("SELECT * FROM memories WHERE workspace_id=? AND scope=? AND subject_id=? AND predicate IN ('is_a','instance_of','entity_type','has_type','type') LIMIT 24",m.workspace_id,m.scope,entity).filter(row=>this.effective(row,valid_at,recorded_at)).map(row=>row.object);
+      typeCache?.set(key,result);return result;
+    };
     return memoryEntityInfo(m,types(m.subject_id),types(target?.entity_id),Boolean(target?.entity_id));
   }
   candidateEntityMetadata(m:any) {
@@ -846,6 +855,8 @@ export class Memory {
     if (b.session_start != null && typeof b.session_start !== "boolean")
       fail(400, "invalid_request", "session_start must be boolean");
     const sessionStart = b.session_start === true;
+    if(b.response_format!=null&&!["full","native-v1"].includes(b.response_format))
+      fail(400,"invalid_request","response_format must be full or native-v1");
     // Only ambiguous followups use bounded caller context for query resolution;
     // this is not evidence and never pulls a pending transcript into recall.
     for (const x of b.recent_context ?? []) {
@@ -861,21 +872,25 @@ export class Memory {
     const expansionQuery = recallQueryExpansion(plan);
     const processQuery = asksAboutRecallProcess(focus);
     let qvector: number[] | undefined, qmodel: string | undefined;
-    let semantic_status = "not_requested", embedding_ms = 0;
+    let semantic_status = "not_requested", embedding_ms = 0, embedding_cache="not_requested";
+    // Exactly the existing predicate that discards the generic packet below.
+    const thinSessionStart=sessionStart&&!plan.topics.length&&!plan.facets.length&&focus.trim().split(/\s+/).filter(Boolean).length<=8;
     const greetingOnlySessionStart = sessionStart && /^(?:hey|hi|hello|yo)[!.\s]*$/i.test(query.trim());
-    if (query.trim() && budget && !greetingOnlySessionStart) {
+    if (query.trim() && budget && !greetingOnlySessionStart && !thinSessionStart) {
       const t = performance.now();
       try {
-        const result = await this.inference.embed([searchQuery]);
+        const result = await this.queryEmbeddings.get(this.inference,[a.workspace_id,a.id,a.credential_id,b.agent_id,[...scopes].sort()],searchQuery);
+        embedding_cache=result.cache;
         qvector = result.vectors[0]; qmodel = result.model;
         semantic_status = qvector ? "available" : "disabled";
       } catch (e) { semantic_status = e instanceof ApiError ? e.code : "embedding_failed"; }
       embedding_ms = performance.now() - t;
     }
     scopes = this.authorize(a, b.agent_id);
+    const selectionStarted=performance.now();
     const candidateRows = new Map<string,any>();
     const addCandidates=(rows:any[])=>{for(const row of rows)candidateRows.set(row.id,row);};
-    if (budget) {
+    if (budget && !thinSessionStart) {
       addCandidates(indexedCandidates(this.store, a.workspace_id, scopes, searchQuery, qvector, qmodel));
       if (expansionQuery) addCandidates(indexedCandidates(this.store, a.workspace_id, scopes, `${searchQuery} ${expansionQuery}`, undefined, undefined));
       // Broad self/domain questions intentionally materialize a bounded, varied
@@ -890,15 +905,16 @@ export class Memory {
     }
     // Materialize bounded direct target properties for grounded entity slots.
     // All additions remain same-scope and pass effective/support checks below.
-    for(const seed of [...candidateRows.values()].slice(0,96)) {
-      const info=this.entityInfo(seed,valid_at,recorded_at);
-      if(!plan.topics.length||!topicCompatible(plan,info))continue;
+    // These caches live only in the synchronous read segment after embedding.
+    // Key higher metadata by effective row identity, not just the memory ID.
+    const infos=new Map<string,MemoryEntityInfo>(),types=new Map<string,string[]>(),targets=new Map<string,any>();
+    const info=(m:any)=>{const key=canonical([m.id,m.workspace_id,m.scope,m.subject_id,m.subject,m.predicate,m.object]);if(!infos.has(key))infos.set(key,this.entityInfo(m,valid_at,recorded_at,types,targets));return infos.get(key)!;};
+    for(const seed of plan.topics.length?[...candidateRows.values()].slice(0,96):[]) {
+      if(!topicCompatible(plan,info(seed)))continue;
       const target=this.store.one('SELECT entity_id FROM memory_entity_targets WHERE memory_id=?',seed.id);
       if(target?.entity_id)addCandidates(this.store.all('SELECT * FROM memories WHERE workspace_id=? AND scope=? AND subject_id=? ORDER BY importance DESC,id LIMIT 12',a.workspace_id,seed.scope,target.entity_id));
     }
     const rows = [...candidateRows.values()];
-    const infos=new Map<string,MemoryEntityInfo>();
-    const info=(m:any)=>{if(!infos.has(m.id))infos.set(m.id,this.entityInfo(m,valid_at,recorded_at));return infos.get(m.id)!;};
     const focusedMatch=(m:any)=> {
       const i=info(m);
       if(plan.mode==='profile')return !m.scope.startsWith('agent:')&&!metaNarrative(m);
@@ -1088,9 +1104,9 @@ export class Memory {
       const seen=new Set<string>();
       const continuity=[...profile,...topics].filter(m=>seen.has(m.id)?false:(seen.add(m.id),true));
       for(const m of continuity)continuityIds.add(m.id);
-      const thin=!plan.topics.length&&!plan.facets.length&&focus.trim().split(/\s+/).filter(Boolean).length<=8;
-      packet=thin?continuity:[...continuity,...packet.filter(m=>!seen.has(m.id))];
+      packet=thinSessionStart?continuity:[...continuity,...packet.filter(m=>!seen.has(m.id))];
     }
+    const selection_ms=performance.now()-selectionStarted,packingStarted=performance.now();
     const selected: any[] = [], snapshots = new Map<string, any>();
     for (const m of packet) {
       const { lexical, semantic, direct, association, score, ...snapshot } = m;
@@ -1107,33 +1123,35 @@ export class Memory {
       const { embedding_json, embedding_model, fingerprint, ...safe } = m;
       selected.push(safe);
     }
+    const packing_ms=performance.now()-packingStarted,fenceStarted=performance.now();
     // Real event-loop yields above can admit forgetting/revocation. Fence exact
     // selected support identities, not merely memory versions or usage counters.
     const currentScopes = this.authorize(a, b.agent_id);
+    // Never reuse pre-packing hydration across real event-loop yields.
+    infos.clear();types.clear();targets.clear();
     const evidence = (m: any) => { if (!m) return null; const { use_count, last_used_at, ...rest } = m; return rest; };
     for (const m of selected) {
       const row = this.store.one("SELECT * FROM memories WHERE id=?", m.id);
       if (!currentScopes.includes(m.scope) || !row || canonical(evidence(recallState(row))) !== canonical(evidence(snapshots.get(m.id))))
         fail(409, "memory_context_changed", "Memory changed during recall; request fresh context", true);
     }
-    const freshness = this.store.one(`SELECT MAX(e.accepted_at) AS latest_accepted_at,MAX(e.processed_at) AS latest_processed_at,
-      COALESCE(SUM(CASE WHEN e.status='pending' AND e.operation='upsert' AND e.accepted_at<=? AND e.occurred_at<=? THEN 1 ELSE 0 END),0) AS pending_count,
-      COALESCE(SUM(CASE WHEN e.status='captured' AND e.operation='upsert' AND e.accepted_at<=? AND e.occurred_at<=? THEN 1 ELSE 0 END),0) AS capture_only_count
-      FROM memory_events e JOIN memory_heads h ON h.event_pk=e.id
-      WHERE e.reset_epoch=(SELECT epoch FROM derived_brain_reset_state WHERE singleton=1) AND e.workspace_id=? AND ((e.agent_id=? AND ?=1) OR (e.role='user' AND e.author_id='alex' AND ?=1))`,
-      recorded_at, valid_at, recorded_at, valid_at, a.workspace_id, b.agent_id, Number(currentScopes.includes(own(b.agent_id))), Number(currentScopes.includes("user:alex")));
+    const final_fence_ms=performance.now()-fenceStarted;
+    const freshnessStarted=performance.now();
+    const freshness=recallFreshness(this.store,a.workspace_id,b.agent_id,currentScopes,valid_at,recorded_at);
+    const freshness_ms=performance.now()-freshnessStarted;
     const recall_id = id("recall");
     this.store.run("INSERT INTO memory_recalls VALUES (?,?,?,?,?,?)", recall_id, a.id, b.agent_id, thread_id, JSON.stringify(selected.map(m => m.id)), now());
     return {
-      recall_id, context, memories: selected, pending_events: [] as any[],
+      ...(b.response_format==='native-v1'?{response_format:'native-v1'}:{}),
+      recall_id, context, memories: b.response_format==='native-v1'?selected.map(nativeMemory):selected, pending_events: [] as any[],
       tokens_used: memoryTokens(context), token_budget: budget, requested_token_budget: requested,
       token_accounting: `${tokenEncoding} compact model-facing lines; provenance stays in typed memories and receipts`,
       valid_at, recorded_at,
       freshness: { ...freshness, pending_count: freshness.pending_count as number, pending_included: 0, pending_omitted: freshness.pending_count as number,
         consistency: "Durable intake precedes asynchronous selective graph curation; pending transcripts are not recalled. Queue diagnostics are separate." },
       retrieval: { ...(sessionStart?{session_start_location:selected.some(m=>locationIds.has(m.id))?'included_source_qualified':locationIds.size?'omitted_token_budget':'omitted_no_supported_location_in_bounded_selection'}:{}), focus: {mode:plan.mode,topics:plan.topics,facets:plan.facets,topic_shift:plan.topicShift,allocation,session_start:sessionStart}, semantic_status, embedding_model: qmodel ?? null,
-        index: "fts5+random-hyperplane-lsh-v1", candidates_examined: rows.length, candidate_limit_per_index: 96,
-        embedding_ms, service_ms: performance.now() - started, context_messages_used: snippets.length,
+        index: thinSessionStart?"fresh-continuity-only":"fts5+random-hyperplane-lsh-v1", path:thinSessionStart?"thin_start_continuity":"query", candidates_examined: rows.length, candidate_limit_per_index: 96,
+        embedding_ms, embedding_cache, selection_ms, packing_ms, final_fence_ms, freshness_ms, timing_clock:"platform wall; hosted synchronous CPU may be undercounted", service_ms: performance.now() - started, context_messages_used: snippets.length,
         semantic_min: semanticMin, weights, fading: "salience only; dormant truth remains eligible",
         specificity: { topic_identifiers: anchors, admission: 'whole-query or independently grounded facet lexical; configured semantic threshold unchanged; topic hints rank only',
           source_time_focus: Number.isFinite(queryTime) ? new Date(queryTime).toISOString() : null,
