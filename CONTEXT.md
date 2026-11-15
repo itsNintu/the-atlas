@@ -1,5 +1,26 @@
 # Current project context
 
+## Hosted recall reliability repair — 2026-11-15
+
+Task `t_3dbe7837` localized current timeouts and HTTP503 to the shared Durable Object:
+read-only tail captured recall cancellations near25s and the explicit platform exception
+“Durable Object is overloaded. Requests queued for too long.” Health200 was not recall proof.
+Support hydration repeatedly scanned all retained `memory_jobs` via `event_pk`, and canonical
+identity repeatedly scanned `memory_heads` via `event_pk`. EXPLAIN plus isolated copied-production
+profiling established the missing reverse indexes, not embedding/network speculation.
+
+The repair adds NON-unique `memory_jobs(event_pk,id)` and `memory_heads(event_pk)` indexes on
+both fresh and already-initialized hosted Store opens. It does not rerun serving-index or roots
+backfills, alter recall eligibility/packet content, prune custody or extend timeouts. The copied
+stopped production snapshot startup fell1910.609→88.442ms (7memories), focused lexical spouse
+1021.712→62.077ms (1memory); offline figures are not hosted latency promises. Query-plan,
+existing-database and initialized-hosted-path regressions cover installation without credential
+or runtime-marker changes. Native prerequisite `t_3e1798c3` separately activated adapter1.2.10:
+failed recalls consume the turn's one attempt; new turns recover; safe diagnostics retain HTTP
+status/turn/elapsed without raw bodies/content. Historical generic HTTPError totals cannot all
+be assigned this newly observed overload cause. Windows project-home evidence records exact
+activation/live before-after identities; preserve unrelated canonical operational-memory dirt.
+
 ## Hosted operational-memory cleanup — 2026-11-10
 
 Task t_bbadabad was narrowed by Alex to operational-memory bloat only; cold latency and graph

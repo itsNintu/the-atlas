@@ -3,7 +3,7 @@ import { dirname } from "node:path";
 import { createRequire } from "node:module";
 import { createHash, randomBytes, randomUUID } from "node:crypto";
 import { schema, SCHEMA_VERSION } from "./schema.ts";
-import { memorySchema } from "./memory-schema.ts";
+import { memorySchema, recallLookupIndexes } from "./memory-schema.ts";
 import { installMemoryIndex, syncMemoryVectorBuckets } from "./memory-index.ts";
 import type { SQLiteDatabase } from "./sqlite.ts";
 import { currentResetEpoch } from "./reset-state.ts";
@@ -157,6 +157,9 @@ export class Store {
       );
       if (!database) this.db.exec(`PRAGMA user_version=${SCHEMA_VERSION}`);
     });
+    // Reverse event lookups are needed even on initialized hosted stores. Do
+    // not rerun the large serving-index/roots backfill to add these two indexes.
+    this.db.exec(recallLookupIndexes);
     if (database) {
       this.db.exec("CREATE TABLE IF NOT EXISTS atlas_runtime_meta(singleton INTEGER PRIMARY KEY CHECK(singleton=1),schema_version INTEGER NOT NULL,serving_index_version INTEGER NOT NULL)");
       this.run("INSERT INTO atlas_runtime_meta VALUES(1,?,?) ON CONFLICT(singleton) DO UPDATE SET schema_version=excluded.schema_version,serving_index_version=excluded.serving_index_version", SCHEMA_VERSION, 1);

@@ -1,4 +1,9 @@
 // Additive schema-2 tables. Alpha tables/credentials retain their bytes and identities.
+// Run on existing hosted stores too, without replaying serving-index backfills.
+export const recallLookupIndexes = `
+CREATE INDEX IF NOT EXISTS memory_job_event ON memory_jobs(event_pk,id);
+CREATE INDEX IF NOT EXISTS memory_head_event ON memory_heads(event_pk);
+`;
 export const memorySchema = `
 CREATE TABLE IF NOT EXISTS memory_bindings (principal_id TEXT PRIMARY KEY REFERENCES principals(id),workspace_id TEXT NOT NULL REFERENCES workspaces(id),agent_id TEXT NOT NULL,created_at TEXT NOT NULL);
 CREATE TABLE IF NOT EXISTS memory_grants (principal_id TEXT NOT NULL REFERENCES principals(id),scope TEXT NOT NULL,action TEXT NOT NULL CHECK(action IN ('read','write','delete')),PRIMARY KEY(principal_id,scope,action));
