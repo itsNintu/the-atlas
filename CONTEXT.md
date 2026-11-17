@@ -1,5 +1,40 @@
 # Current project context
 
+## 2026-11-17 interactive graph — deployed and verified
+
+Task `t_92bf384b` ships https://atlas.creator.gg/brain from implementation source
+`afc059f49f8564a6e5c53b659fb2d89aff9b4fd0`, Worker `27bfa9fd-ed4b-4492-befc-a89e75e71a01`;
+protected DO activation `2026-11-17T00:09:45.020204Z`. Exact-head CI `43985196844` passed:
+224 tests / 2,319 assertions, typecheck/build/public/helper/E2E/UI and both graph browser suites.
+
+The scoped persisted graph now has draggable nodes with attached-edge movement, click/tap and
+keyboard selection, adjacency highlighting, stable dragged coordinates, background pan,
+cursor-wheel/two-finger-pinch zoom, fit/full view and readable mobile dismiss/reopen details.
+Disconnected components pack in 2D rather than an unreadable strip. Source/history/search and
+valid/known snapshots remain; node size means loaded degree, geometry is not semantic meaning.
+Exact-label/scope server neighborhood navigation and snapshot-pinned eligible-edge paging reach
+beyond loaded results, still capped at100 edges/200 incident nodes and2,000 matching candidates.
+No People/accounts/alias-merging system or complete export was added; agent binding and person
+focus are distinct. Current grant/forget fences remain. Backend/native recall and ingestion unchanged.
+
+Final hosted Chromium140 checks used actual persisted data:87nodes/60edges initially, real
+mouse movement85px/-55px and touch45px/-45px with incident curves updated and no selection/pan,
+then selection/attributed-source inspection, pan, wheel/pinch, fit, unchanged-refresh stability,
+mobile sheet <=52dvh with visible close/reopen, no horizontal overflow and distinct60→59
+next-page edges for scope-qualified Alex navigation.12graph HTTP200 responses,0page errors.
+Desktop1440×1000 and touch-enabled390×844 are browser emulation, NOT an actual phone check.
+Live HTML/JS/CSS hashes match released files. No ingestion/replay/provider/credential/native
+activation change; local writer remains inactive/disabled. Failed Cloudflare10021 startup validations
+were resolved by the existing normal/minified deployment alternative, not a runtime/code workaround.
+
+Release worktree `/home/alex/work/projects/the-atlas-graph-t92`; older dirty canonical operational-
+memory work preserved, not deployed. Never deploy that older checkout over published main.
+Owner evidence is `D:/Projects/TheAtlas/evidence/graph-t92/` (screenshots + interactions.json +
+activation/release receipts). Real-data screenshots stay local/task/thread attachments, not public Git;
+reproducible scripts and synthetic interaction receipt are published. No broad memory re-benchmark
+or universal phone/browser/performance claim was made.
+
+
 ## Hosted recall reliability repair — 2026-11-15
 
 Task `t_3dbe7837` localized current timeouts and HTTP503 to the shared Durable Object:
