@@ -1,5 +1,6 @@
 import { setting } from "./config.ts";
 import { BrowserAuth } from "./browser-auth.ts";
+import { browserSignInError } from "./browser-signin-error.ts";
 import { Memory } from "./memory.ts";
 import { repairPlan, repairReconciliation } from "./memory-repair.ts";
 import { entityRepairPlan, repairMemoryEntity, authorizeEntityRepair } from './memory-entity-repair.ts';
@@ -693,7 +694,8 @@ export class App {
       return this.json({ api_version: "v1", request_id, ...result });
     } catch (e) {
       if (!(e instanceof ApiError))
-        console.error(JSON.stringify({ event: "atlas_request_error", request_id, error: String(e) }));
+        console.error(JSON.stringify({ event: "atlas_request_error", request_id,
+          error: new URL(request.url).pathname === "/auth/callback" ? "callback_failed" : String(e) }));
       const error =
         e instanceof ApiError
           ? e
@@ -703,6 +705,10 @@ export class App {
               "Internal error; inspect local diagnostics without source contents",
             );
       status = error.status;
+      // Callback is a browser destination, not an API consumer. Preserve denial
+      // and single-use semantics, but offer fixed safe recovery rather than JSON.
+      if (new URL(request.url).pathname === "/auth/callback")
+        return browserSignInError(status, request_id, error.code);
       return this.json(
         {
           api_version: "v1",

@@ -184,8 +184,9 @@ export class BrowserAuth {
       const form = new URLSearchParams(await boundedBody(request, 2048));
       const state = form.get("state"), ticket = form.get("ticket"), raw = cookie(request, LOGIN);
       if ([...form.keys()].some(k => !["state", "ticket"].includes(k)) || form.getAll("state").length !== 1 || form.getAll("ticket").length !== 1 ||
-          !state || !/^[a-f0-9]{64}$/.test(state) || !ticket || !/^caticket_[A-Za-z0-9_-]{43}$/.test(ticket) || !raw)
+          !state || !/^[a-f0-9]{64}$/.test(state) || !ticket || !/^caticket_[A-Za-z0-9_-]{43}$/.test(ticket))
         fail(400, "invalid_callback", "Valid sign-in transaction required");
+      if (!raw) fail(400, "invalid_login_cookie", "Sign-in browser transaction is missing or invalid");
       const txn = this.store.transaction(() => {
         const t = this.store.one("SELECT * FROM browser_login_transactions WHERE cookie_hash=? AND state=? AND consumed_at IS NULL AND expires_at>?", hash(raw!), state, Date.now());
         if (!t) fail(401, "invalid_login_transaction", "Sign-in expired or already consumed; start again");

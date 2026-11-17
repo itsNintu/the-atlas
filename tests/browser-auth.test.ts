@@ -55,6 +55,44 @@ function fixture() {
   return { ...f, app, auth, state, req, begin, callback, login, bind };
 }
 
+test("callback recovery is safe HTML, with no exchange or cookie mutation on invalid input", async () => {
+  const f = fixture(), t = await f.begin();
+  for (const cookie of ["", "__Host-atlas_login=bad", t.cookie + "; " + t.cookie]) {
+    const r = await f.callback({ ...t, cookie });
+    expect(r.status).toBe(400);
+    expect(r.headers.get("content-type")).toContain("text/html");
+    expect(r.headers.get("x-atlas-signin-error")).toBe("invalid_login_cookie");
+    expect(r.headers.getSetCookie()).toEqual([]);
+    expect(r.headers.get("cache-control")).toBe("no-store");
+    expect(r.headers.get("content-security-policy")).toContain("frame-ancestors 'none'");
+    const html = await r.text();
+    expect(html).toContain('href="/brain"'); expect(html).toContain('href="/auth/login"');
+    expect(html).toContain("Don’t refresh or resubmit");
+    for (const secret of [t.state, ticket, t.cookie.split("=")[1]]) expect(html).not.toContain(secret);
+  }
+  expect(f.state.calls).toHaveLength(0);
+  f.store.run("UPDATE browser_login_transactions SET expires_at=0");
+  const expired = await f.callback(t); expect(expired.status).toBe(401);
+  expect(expired.headers.get("x-atlas-signin-error")).toBe("invalid_login_transaction");
+  expect(f.state.calls).toHaveLength(0);
+  const get = await f.req("/auth/callback"); expect(get.headers.get("content-type")).toContain("text/html");
+  expect(await get.text()).toContain("Return to Atlas");
+});
+
+test("successful competing and post-success callbacks never exchange twice or clear a valid session", async () => {
+  const f = fixture(), t = await f.begin();
+  const [a, b] = await Promise.all([f.callback(t), f.callback(t)]);
+  expect([a.status, b.status].sort()).toEqual([303, 401]);
+  const success = a.status === 303 ? a : b, denied = a.status === 401 ? a : b;
+  const session = success.headers.getSetCookie().find(c => c.startsWith("__Host-atlas_session="))!.split(";")[0];
+  expect(denied.headers.getSetCookie()).toEqual([]);
+  const after = await f.callback({ ...t, cookie: session });
+  expect(after.status).toBe(400); expect(after.headers.getSetCookie()).toEqual([]);
+  expect(f.state.calls.filter(c => c.url.endsWith("/exchange"))).toHaveLength(1);
+  expect(f.store.all("SELECT * FROM browser_sessions")).toHaveLength(1);
+  expect((await (await f.req("/auth/session", session)).json() as any).authenticated).toBe(true);
+});
+
 test("fixed broker PKCE, secure cookies and server-only single-use transaction", async () => {
   const f = fixture(), t = await f.begin();
   const u = new URL(t.r.headers.get("location")!);
