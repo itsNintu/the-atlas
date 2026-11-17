@@ -24,6 +24,8 @@ jobs:
       - run: bunx playwright install chromium
         timeout-minutes: 3
       - run: bun run test:ui
+      - run: bun scripts/brain-ui-test.ts
+      - run: bun scripts/graph-interaction-test.ts
       - uses: actions/upload-artifact@v4
         if: always()
         with:

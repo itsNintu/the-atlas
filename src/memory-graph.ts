@@ -24,6 +24,15 @@ export function memoryGraph(memory: Memory, actor: Actor, body: any) {
   const include_history = body.include_history === true;
   const limit = integer(body.limit, "limit", 1, 100, 60);
   const query = body.query === undefined || body.query === "" ? "" : text(body.query, "query", 300).trim();
+  // Exact-label navigation is scope-qualified; never pool equal labels across scopes.
+  let focus: {scope:string,label:string} | undefined;
+  if (body.focus !== undefined) {
+    if (!body.focus || typeof body.focus !== 'object' || Array.isArray(body.focus)) fail(400, 'invalid_request', 'focus must be an object');
+    const scope = text(body.focus.scope, 'focus.scope', 300);
+    if (!scopes.includes(scope)) fail(403, 'memory_grant_required', 'Focus scope must be selected and authorized');
+    focus = {scope, label:text(body.focus.label, 'focus.label', 16000)};
+  }
+  const offset = integer(body.offset, 'offset', 0, 1900, 0);
   const store = memory.store;
   const slots = scopes.map(() => "?").join(",");
   // Bound synchronous inspection work independently of the display limit. Search
@@ -31,8 +40,10 @@ export function memoryGraph(memory: Memory, actor: Actor, body: any) {
   const rows = store.all(
     `SELECT * FROM memories WHERE workspace_id=? AND scope IN (${slots}) AND recorded_from<=? AND valid_from<=?
      AND (?='' OR instr(lower(subject||' '||predicate||' '||object),lower(?))>0)
+     AND (?='' OR (scope=? AND (subject=? COLLATE NOCASE OR object=? COLLATE NOCASE)))
      ORDER BY recorded_from DESC,id LIMIT 2001`,
     actor.workspace_id, ...scopes, recorded_at, valid_at, query, query,
+    focus?.scope ?? '', focus?.scope ?? '', focus?.label ?? '', focus?.label ?? '',
   );
   let truncated = rows.length > 2000;
   const visible: any[] = [];
@@ -53,10 +64,11 @@ export function memoryGraph(memory: Memory, actor: Actor, body: any) {
       const status = invalidation ? (invalidation.type === "correction" ? "corrected" : invalidation.type === 'superseded' ? 'superseded' : "retracted") : end && end <= valid_at ? "historical" : "inactive_lineage";
       visible.push({ ...m, valid_to: end, supports, status, historical_start_unknown:status==='historical'&&(end<=m.valid_from||changes.some(c=>c.type==='start_unknown')) });
     }
-    if (visible.length > limit) break;
+    if (visible.length > offset + limit) break;
   }
-  if (visible.length > limit) truncated = true;
-  const selected = visible.slice(0, limit);
+  const hasMore = visible.length > offset + limit;
+  if (hasMore) truncated = true;
+  const selected = visible.slice(offset, offset + limit);
   const nodes = new Map<string, any>();
   const node = (m: any, label: string, entity?: string) => {
     if(entity){entity=memory.canonicalEntity(actor.workspace_id,m.scope,entity,recorded_at);label=store.one('SELECT canonical FROM memory_entities WHERE id=?',entity).canonical;}
@@ -111,6 +123,8 @@ export function memoryGraph(memory: Memory, actor: Actor, body: any) {
     "SELECT j.status,COUNT(*) AS count,MIN(j.created_at) AS oldest_at FROM memory_jobs j JOIN memory_events e ON e.id=j.event_pk JOIN memory_heads h ON h.event_pk=e.id WHERE j.reset_epoch=(SELECT epoch FROM derived_brain_reset_state WHERE singleton=1) AND e.reset_epoch=(SELECT epoch FROM derived_brain_reset_state WHERE singleton=1) AND e.workspace_id=? AND e.agent_id=? AND e.operation='upsert' GROUP BY j.status", actor.workspace_id, body.agent_id,
   );
   return { nodes: [...nodes.values()], edges, changes: changes.slice(0, 200), snapshot: { valid_at, recorded_at }, truncated: truncated || changesTruncated || changes.length > 200,
+    page: {offset, returned:selected.length, next_offset:hasMore && offset + limit <= 1900 ? offset + limit : null, candidate_scan_truncated:rows.length > 2000},
+    focus:focus ?? null,
     scopes, available_scopes: allowed, processing: { agent_id: body.agent_id, jobs: processing, note: "Caller-agent intake only. Pending intake is not graph knowledge; other agents' shared digestion may lag." },
     limits: { edges: limit, candidate_scan: 2000, sources_per_edge: 20, versions_per_edge: 20, changes: 200 },
   };

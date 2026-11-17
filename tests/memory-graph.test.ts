@@ -67,6 +67,25 @@ test("retained known historical entities stay connected; source redaction and pr
  expect(JSON.stringify(graph(f,{query:"Porto"}))).not.toContain(link.event.event_id);f.store.close();
 });
 
+test("exact scope-qualified navigation finds off-page knowledge and pages eligible edges without pooling labels",()=>{
+ const f=brainFixture();seedBrain(f);
+ const first=graph(f,{limit:2}),second=graph(f,{limit:2,offset:first.page.next_offset});
+ expect(first.edges).toHaveLength(2);expect(second.edges).toHaveLength(2);
+ expect(second.edges.some(e=>first.edges.some(a=>a.id===e.id))).toBe(false);
+ const all=[];let offset=0;
+ for(;;){const g=graph(f,{limit:2,offset});all.push(...g.edges.map(e=>e.id));if(g.page.next_offset===null)break;offset=g.page.next_offset;}
+ expect(new Set(all).size).toBe(8);expect(all.length).toBe(8);
+ const g=graph(f,{focus:{scope:'user:alex',label:'Lantern'}});
+ expect(g.edges.length).toBeGreaterThan(0);expect(g.edges.every(e=>e.scope==='user:alex')).toBe(true);
+ expect(g.nodes.every(n=>n.scope==='user:alex')).toBe(true);
+ for(const e of g.edges)expect(g.nodes.find(n=>n.id===e.source)?.label==='Lantern'||g.nodes.find(n=>n.id===e.target)?.label==='Lantern').toBe(true);
+ expect(()=>graph(f,{focus:{scope:'agent:builder',label:'Hidden Builder'}})).toThrow();
+ expect(()=>graph(f,{scopes:['business:alex'],focus:{scope:'user:alex',label:'Mira'}})).toThrow();
+ expect(graph(f,{focus:{scope:'user:alex',label:'%'}}).edges).toHaveLength(0);
+ for(const body of [{offset:-1},{offset:1901},{offset:1.1},{focus:[]},{focus:{scope:'user:alex',label:''}}])expect(()=>graph(f,body)).toThrow();
+ f.store.close();
+});
+
 test("HTTP v1 envelope, authentication, no idempotency requirement and private static asset policy",async()=>{
  const f=brainFixture();seedBrain(f);const app=new App(f.store);app.memory=f.memory;
  const request=(body:any,token=f.boot.token)=>app.fetch(new Request("http://localhost/v1/memory/graph",{method:"POST",headers:{Authorization:`Bearer ${token}`,"Content-Type":"application/json"},body:JSON.stringify(body)}));

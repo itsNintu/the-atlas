@@ -30,6 +30,12 @@ Copied-snapshot local profiling and actual hosted/native observations are distin
 receipts carry their source/runtime identities. Neither a cache hit nor smaller JSON guarantees
 a new latency SLA or attributes the occasional two-second tail.
 
+## Interactive hosted knowledge graph
+
+The read-only `/brain` view offers a bounded force-directed SVG graph with draggable, selectable nodes and edges, adjacency highlighting, stable dragged positions, mouse pan/cursor zoom, touch pan/two-finger pinch, fit and full-view controls. Mobile selection uses a reachable, dismissible scrollable details sheet. Source excerpts, attribution, versions, current/history and valid/known snapshots remain available independently of graph labels. The accessible relationship list and keyboard selection remain.
+
+Existing bound-agent credentials and authorized scopes define perspective, not the selected person/node. Exact-label, scope-qualified server neighborhood reads plus eligible-edge paging reach knowledge outside the loaded page. Output remains at most 100 edges/200 incident nodes, with a disclosed 2,000 matching-candidate scan, not an exhaustive corpus export or new alias/People/account system. Loaded degree controls size; spatial distance has no meaning. See [brain view](brain-view.md) for controls, API bounds and desktop/touch-emulated verification.
+
 ## Offline derived-brain clean slate
 
 A local OS operator can physically reset the complete derived brain with
