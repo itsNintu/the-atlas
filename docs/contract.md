@@ -34,6 +34,12 @@ identity authority. A 10-minute server transaction retains the verifier and hash
 `ticket` and `state`, requires the exact agents Origin and transaction cookie, and consumes the
 transaction before its one exchange attempt. An uncertain exchange requires a fresh sign-in.
 The fixed backend is `https://colorless-mongoose-693.convex.site`; caller input cannot replace it.
+Callback denials retain their status and authorization checks but render safe browser recovery
+HTML with fixed `/brain` and `/auth/login` links, a generated request ID and nonsecret error code.
+They never clear cookies (another callback may have succeeded), replay the old exchange, or treat
+an existing session as proof of the rejected callback. Missing/malformed/duplicate transaction
+cookies have a distinct `invalid_login_cookie` reference; malformed fields remain `invalid_callback`.
+Returning to `/brain` independently validates any existing session through the normal path.
 
 `__Host-atlas_session` is a random 256-bit token, stored only as SHA-256. Both cookies use
 HttpOnly, Secure, SameSite=Lax and Path=/, with no Domain. Sessions expire by the earlier of

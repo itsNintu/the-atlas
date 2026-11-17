@@ -1,5 +1,33 @@
 # Current project context
 
+## 2026-11-17 owner-reported login callback repair — deployed
+
+Task `t_407c9e82`: reproduced competing manual/automatic submit defects, now one synchronous
+claim per authorization/callback form; Creator controls wait for hydration, preserving no-JS
+manual fallback. Callback denials remain denied but show safe Return to Atlas/new-sign-in HTML,
+not raw JSON; failures never erase a successful/newer session or replay the uncertain exchange.
+Origin/state/PKCE/one-use/ten-minute-cookie/current-membership/isolation controls unchanged.
+
+Atlas implementation `7df6a6b8263c898caaac6bac497e27220ee8c319`, Worker
+`d1c5d949-3578-4a5d-b1a9-8c62981aba84`, protected restart20004:10:21.886882Z;
+CI44015129251green,239tests/2702assertions/check/E2E/humanUI/public/dryrun.
+Creator implementation `040d8e2926096181304ae90f7216c85179f7b0a4`, app
+`R_ZDLk6DNgsGG5bOUNBZn`/Worker`2f8378ca-c2a3-474e-ab88-b97677f886a4`; normal
+rootcheck/build2117reportedtests(cacheincluded),OpenNext/audit/sourceguards/dryrun verified.
+Actual primary manual2events→1accepted→EXISTINGbrain12agents/graph200; logout→unauthenticated;
+recovery→existingbrain. Independent test28 auto→ownemptyworkspace/0agents, ownergraph403.
+Machine graph/zero-budgetrecall200,wrongagent403; all12legacybindings/grants exact, liveassets exact.
+
+Owner's historical `req_47d8cd73-5cec-4c5d-b3a4-8076e1e987bc` was pre-exchange400; grouped
+validation/no persisted historical trace cannot uniquely attribute it to expiry, fields or a late
+duplicate. Do not claim that exact trigger is proved. Earlier native-popup catch did not reproduce
+in default's one true native-signed-out/password/OTP trial; prepare/complete200, existing brain.
+Safe phase references now distinguish prepare/complete/continuation and cookie/form/transaction.
+No bearer workaround/newaccount/grantrotation/cookiecopy/nativefleet/physics/memory changes.
+Evidence `D:/Projects/TheAtlas/evidence/login-repair-t407/REPORT.md`; source release worktrees
+`the-atlas-login-repair-t407` and `creators/.releases/atlas-login-repair-t407/worktree`.
+Older canonical operational-memory dirt remains unbundled; never deploy it over this release.
+
 ## 2026-11-17 Creator Platform browser login — deployed and accepted
 
 Task `t_ecb5f288`: https://atlas.creator.gg/brain now offers **Sign in with Creator Labs**.
