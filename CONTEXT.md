@@ -1,5 +1,39 @@
 # Current project context
 
+## 2026-11-17 live force-responsive graph correction — deployed
+
+Task `t_2f415a77` corrects the owner's rejected static-drag feel using Alex's private Zep video.
+Implementation `615c49417882e40adbe8b0f08ff6a4c2c761657a`, Worker
+`731f51ce-0c07-4a23-9aca-e3634538bd3a`, protected DO activation
+`2026-11-17T00:40:30.764466+00:00`; exact-head CI `43989074163` passed all existing gates
+(224 tests / 2,319 assertions, check/build/public/helper/E2E/UI and both graph browser suites).
+
+A live fixed-step spring/charge/collision integrator now runs during mouse/touch node dragging:
+the held node follows input directly, connected and nearby nodes respond continuously, edges/labels
+track geometry, and damping/cooling settles after release. SVG accessibility and bounded 200-node
+scope are retained; no renderer/framework dependency or backend/ingestion/recall change.
+Selection does not re-layout; Fit/unchanged refresh retain the settled arrangement, not a frozen
+coordinate for just the dragged node. Touch cancellation and drag-to-pinch release the pin.
+
+Hosted Chromium140:87nodes/60edges; all11non-dragged hub neighbors moved while held on desktop
+and touch, with max neighbor-pair distance changes306.68/250.29world units,24/23distinct incident
+curve samples, unchanged camera and no accidental selection. Release to verified idle ~3.3s.
+Observed animation-frame intervals median16.7ms, p95 22.9ms desktop/19.2ms touch; event-to-next-rAF
+p95 1.9/4.0ms. These are headless-browser samples with recording enabled, not end-to-end hardware
+latency, source-video FPS, a universal60fps guarantee or physical-phone acceptance. Existing
+selection/adjacency/provenance, pan/wheel/pinch, mobile sheet/controls and paging checks pass;
+12graph200responses,0page errors. Updated acceptance now requires coupled neighbor motion.
+
+Private owner evidence: `D:/Projects/TheAtlas/evidence/graph-physics-t2f/` (interaction receipt,
+release/activation identity and ~13s desktop/~14s touch-emulated MP4s). Closeup demos show87/86
+loaded nodes respectively as live data advanced; touch marker/status is test-only, event-driven.
+Real graph footage and Alex's reference stay out of public Git. Normal upload hit10021; documented
+minified alternative deployed successfully. Live brain.js hash matches released source. Older dirty
+canonical work and retired WSL writer remain untouched; release worktree
+`/home/alex/work/projects/the-atlas-physics-t2f`. This supersedes static-drag acceptance below;
+it does not claim complete Zep parity or resolve unrelated operational-memory content.
+
+
 ## 2026-11-17 interactive graph — deployed and verified
 
 Task `t_92bf384b` ships https://atlas.creator.gg/brain from implementation source
