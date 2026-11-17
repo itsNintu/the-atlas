@@ -12,7 +12,7 @@
   const meaning = (e) => `${label(e.source)} → ${e.predicate} → ${label(e.target)}`;
   const button = (text, fn, cls) => { const b=el("button",text,cls); b.type="button"; b.onclick=fn; return b; };
   function clear() {
-    data=null; focus=null; selected=null; positions.clear(); selectedNode=null; remoteFocus=null; navigationSnapshot=null; offset=0; pointers.clear(); gesture=null; closeDetail(); $("scene").replaceChildren(); $("relations").replaceChildren(); $("changes").replaceChildren();
+    stopPhysics();data=null; focus=null; selected=null; positions.clear(); selectedNode=null; remoteFocus=null; navigationSnapshot=null; offset=0; pointers.clear(); gesture=null; closeDetail(); $("scene").replaceChildren(); $("relations").replaceChildren(); $("changes").replaceChildren();
     $("detail").replaceChildren(el("h2","No graph loaded")); $("counts").textContent=""; $("processing").textContent="";
   }
   async function load(initial=false) {
@@ -89,6 +89,72 @@
     }
     positions=new Map(p.map(n=>[n.id,n]));
   }
+  // Live spring/charge physics over the loaded graph (at most 200 endpoints).
+  // SVG retains accessible nodes and precise hit targets; only geometry changes
+  // per frame. Forces never change stored knowledge or the camera transform.
+  let physicsFrame=0, physicsAlpha=0, physicsTime=0, physicsAccumulator=0, physicsSpeed=0, pinned=null;
+  let springs=[], particles=[];
+  function stopPhysics(){
+    cancelAnimationFrame(physicsFrame);physicsFrame=0;physicsAlpha=0;pinned=null;
+    $("graph").dataset.physics="idle";
+  }
+  function preparePhysics(edges){
+    stopPhysics();particles=[...positions.values()];
+    const degree=new Map();
+    for(const e of edges)for(const id of [e.source,e.target])degree.set(id,(degree.get(id)||0)+1);
+    for(const n of particles){n.vx=0;n.vy=0;n.homeX=n.x;n.homeY=n.y;}
+    springs=edges.filter(e=>e.source!==e.target).map(e=>{
+      const a=positions.get(e.source),b=positions.get(e.target),da=degree.get(a.id),db=degree.get(b.id);
+      return {a,b,bias:da/(da+db),strength:.09/Math.sqrt(Math.min(da,db))};
+    });
+  }
+  function physicsStep(){
+    const target=pinned ? .42 : 0;
+    physicsAlpha+=(target-physicsAlpha)*(pinned ? .1 : .025);
+    const alpha=physicsAlpha;
+    // Equal/opposite repulsion and collision keep nearby nodes responsive too.
+    for(let i=0;i<particles.length;i++)for(let j=i+1;j<particles.length;j++){
+      const a=particles[i],b=particles[j];let dx=b.x-a.x,dy=b.y-a.y;
+      if(!dx&&!dy){dx=.01*(i+1);dy=.01;}
+      const d=Math.max(1,Math.hypot(dx,dy));
+      const force=(Math.min(6,2200/(d*d))+Math.max(0,52-d)*.12)*alpha;
+      const fx=dx/d*force,fy=dy/d*force;a.vx-=fx;a.vy-=fy;b.vx+=fx;b.vy+=fy;
+    }
+    for(const {a,b,bias,strength} of springs){
+      const dx=b.x+b.vx-a.x-a.vx,dy=b.y+b.vy-a.y-a.vy,d=Math.max(1,Math.hypot(dx,dy));
+      const force=(d-190)*strength*alpha,fx=dx/d*force,fy=dy/d*force;
+      a.vx+=fx*(1-bias);a.vy+=fy*(1-bias);b.vx-=fx*bias;b.vy-=fy*bias;
+    }
+    let speed=0;
+    for(const n of particles){
+      if(n.id===pinned){n.vx=0;n.vy=0;continue;}
+      // Very weak home force preserves disconnected component packing without
+      // freezing neighbors. Damping dissipates energy after pointer release.
+      n.vx=(n.vx+(n.homeX-n.x)*.0008*alpha)*.78;
+      n.vy=(n.vy+(n.homeY-n.y)*.0008*alpha)*.78;
+      n.x+=n.vx;n.y+=n.vy;speed=Math.max(speed,Math.hypot(n.vx,n.vy));
+    }
+    return speed;
+  }
+  function animatePhysics(time){
+    physicsAccumulator+=Math.min(50,time-physicsTime);physicsTime=time;
+    while(physicsAccumulator>=1000/60){physicsSpeed=physicsStep();physicsAccumulator-=1000/60;}
+    geometry();
+    if(!pinned&&physicsAlpha<.012&&physicsSpeed<.035){
+      for(const n of particles){n.vx=0;n.vy=0;}
+      physicsFrame=0;$("graph").dataset.physics="idle";return;
+    }
+    physicsFrame=requestAnimationFrame(animatePhysics);
+  }
+  function reheat(){
+    physicsAlpha=Math.max(physicsAlpha,.65);
+    if(!physicsFrame){physicsTime=performance.now();physicsAccumulator=0;$("graph").dataset.physics="active";physicsFrame=requestAnimationFrame(animatePhysics);}
+  }
+  function releaseNode(){
+    if(!pinned)return;
+    const n=positions.get(pinned);if(n){n.homeX=n.x;n.homeY=n.y;}
+    pinned=null;if(physicsFrame)reheat();
+  }
   function fit(){
     const p=[...positions.values()], rect=$("graph").getBoundingClientRect(), ratio=rect.width/Math.max(1,rect.height);
     if(!p.length)view={x:0,y:0,w:1100,h:1100/ratio};
@@ -141,6 +207,7 @@
     if(!data)return;
     const edges=focus?data.edges.filter(e=>e.source===focus||e.target===focus):data.edges;
     const ids=new Set(edges.flatMap(e=>[e.source,e.target]));const nodes=data.nodes.filter(n=>ids.has(n.id));layout(nodes,edges);
+    preparePhysics(edges);
     const scene=$("scene");scene.replaceChildren();edgeDraw.clear();nodeDraw.clear();
     for(const e of edges){
       const line=svg("path",{class:`edge ${!["active","conflict"].includes(e.status)?"history":""}`});
@@ -197,7 +264,7 @@
   const graph=$("graph"),pointers=new Map();let gesture=null,suppressClick=false;
   function startGesture(){
     const points=[...pointers.values()];
-    if(points.length>=2){const [a,b]=points;gesture={type:"pinch",distance:Math.max(1,Math.hypot(a.x-b.x,a.y-b.y)),v:{...view},anchor:world((a.x+b.x)/2,(a.y+b.y)/2)};}
+    if(points.length>=2){releaseNode();const [a,b]=points;gesture={type:"pinch",distance:Math.max(1,Math.hypot(a.x-b.x,a.y-b.y)),v:{...view},anchor:world((a.x+b.x)/2,(a.y+b.y)/2)};}
   }
   graph.addEventListener("wheel",e=>{e.preventDefault();zoom(e.deltaY>0?1.12:.89,{x:e.clientX,y:e.clientY});},{passive:false});
   graph.addEventListener("pointerdown",e=>{
@@ -207,6 +274,7 @@
     const node=e.target.closest(".node"),edge=e.target.closest("[data-edge]");
     if(node)$("scene").append(node);
     const p=world(e.clientX,e.clientY),id=node?.dataset.node;
+    if(id)pinned=id;
     gesture={type:id?"node":"pan",id,edge:edge?.dataset.edge,x:e.clientX,y:e.clientY,anchor:p,v:{...view},origin:id?{...positions.get(id)}:null,moved:false};
   });
   graph.addEventListener("pointermove",e=>{
@@ -222,14 +290,14 @@
     if(!gesture.moved)return;
     suppressClick=true;
     if(gesture.type==="node"){
-      const p=world(e.clientX,e.clientY),n=positions.get(gesture.id);n.x=gesture.origin.x+p.x-gesture.anchor.x;n.y=gesture.origin.y+p.y-gesture.anchor.y;geometry();
+      const p=world(e.clientX,e.clientY),n=positions.get(gesture.id);n.x=gesture.origin.x+p.x-gesture.anchor.x;n.y=gesture.origin.y+p.y-gesture.anchor.y;n.vx=0;n.vy=0;pinned=n.id;reheat();geometry();
     }else{
       view={...gesture.v};applyView();const p=world(e.clientX,e.clientY);view.x=gesture.v.x+gesture.anchor.x-p.x;view.y=gesture.v.y+gesture.anchor.y-p.y;applyView();
     }
   });
   function endPointer(e){
-    const g=gesture;pointers.delete(e.pointerId);
-    if(e.type!=="pointercancel"&&g&&!g.moved&&!suppressClick&&g.type!=="pinch"){
+    const g=gesture;releaseNode();pointers.delete(e.pointerId);
+    if(e.type==="pointerup"&&g&&!g.moved&&!suppressClick&&g.type!=="pinch"){
       if(g.id)inspectNode(data.nodes.find(n=>n.id===g.id));else if(g.edge)inspectEdge(data.edges.find(edge=>edge.id===g.edge));
       else {selected=null;selectedNode=null;highlight();closeDetail();}
     }
@@ -237,5 +305,6 @@
     if(pointers.size){suppressClick=true;const p=[...pointers.values()][0];gesture={type:"pan",x:p.x,y:p.y,anchor:world(p.x,p.y),v:{...view},moved:true};}
   }
   graph.addEventListener("pointerup",endPointer);graph.addEventListener("pointercancel",endPointer);
+  graph.addEventListener("lostpointercapture",e=>{if(pointers.has(e.pointerId))endPointer(e);});
   new ResizeObserver(()=>{const r=graph.getBoundingClientRect();if(!r.width||!r.height)return;const h=view.w*r.height/r.width;view.y+=(view.h-h)/2;view.h=h;applyView();}).observe(graph);
 })();

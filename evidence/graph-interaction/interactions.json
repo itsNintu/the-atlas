@@ -1,7 +1,7 @@
 {
   "result": "pass",
-  "run_at": "2026-11-17T00:08:10.646Z",
-  "origin": "http://127.0.0.1:40387",
+  "run_at": "2026-11-17T00:37:05.027Z",
+  "origin": "http://127.0.0.1:41851",
   "live_persisted_data": false,
   "synthetic_fixture": true,
   "actual_phone": false,
@@ -9,25 +9,46 @@
   "checks": [
     {
       "name": "mouse graph loaded",
-      "nodes": 65,
+      "nodes": 63,
       "edges": 60,
       "truncated": true,
       "viewport": "1440x1000 desktop"
     },
     {
-      "name": "mouse node drag updates node AND incident geometry without selecting/panning",
-      "before": "translate(468.2616982087889,468.580237404531)",
-      "after": "translate(606.0908855411427,379.3966456012432)",
-      "screen_delta": {
-        "x": 85.00000356633353,
-        "y": -55.00000120054801
+      "name": "mouse live coupled hub drag and release",
+      "before": "translate(474.4062238177554,462.25421601802924)",
+      "held": "translate(610.6273584151072,374.11109727957216)",
+      "settled": "translate(636.8895569430905,383.7798884177345)",
+      "screen_delta_while_held": {
+        "x": 84.99998588781602,
+        "y": -55.00000543051124
       },
-      "view_unchanged": true
+      "non_dragged_neighbors": 57,
+      "neighbors_moved_while_held": 57,
+      "max_neighbor_pair_distance_change": 178.79278940562529,
+      "continuous_edge_samples": 24,
+      "drag_ms": 2159,
+      "release_to_idle_ms": 3297,
+      "view_unchanged": true,
+      "performance": {
+        "raf_intervals": {
+          "count": 328,
+          "median_ms": 16.69999998807907,
+          "p95_ms": 17.5,
+          "max_ms": 24.19999998807907
+        },
+        "input_to_next_frame": {
+          "count": 25,
+          "median_ms": 0.699999988079071,
+          "p95_ms": 1.699999988079071,
+          "max_ms": 2.5
+        }
+      }
     },
     {
       "name": "mouse tap selects and highlights actual adjacency",
-      "connected_edges": 56,
-      "connected_nodes": 57
+      "connected_edges": 57,
+      "connected_nodes": 58
     },
     {
       "name": "mouse relationship selection opens persisted provenance and versions"
@@ -37,14 +58,14 @@
     },
     {
       "name": "wheel zooms at cursor",
-      "before": "-366.4897679462206 -82.96839329359904 1728.5401619432748 1289.76702456444",
-      "after": "-271.4200600370777 -12.084162617427637 1538.4007441295146 1147.8926518623516"
+      "before": "-347.45101846976166 -82.11709714964675 1708.3739167187957 1274.7197848922228",
+      "after": "-253.49045398447458 -12.059847033198253 1520.4527858797283 1134.5006085540783"
     },
     {
-      "name": "Fit and zoom controls preserve dragged positions"
+      "name": "Fit and zoom controls preserve settled positions"
     },
     {
-      "name": "Unchanged manual refresh retains dragged coordinates"
+      "name": "Unchanged manual refresh retains settled coordinates"
     },
     {
       "name": "server exact-label neighborhood navigation",
@@ -62,25 +83,46 @@
     },
     {
       "name": "touch graph loaded",
-      "nodes": 65,
+      "nodes": 63,
       "edges": 60,
       "truncated": true,
       "viewport": "390x844 touch emulation"
     },
     {
-      "name": "touch node drag updates node AND incident geometry without selecting/panning",
-      "before": "translate(468.2616982087889,468.580237404531)",
-      "after": "translate(579.8244989890655,357.01743662425434)",
-      "screen_delta": {
-        "x": 45.00001408255005,
-        "y": -45.00000177297187
+      "name": "touch live coupled hub drag and release",
+      "before": "translate(474.4062238177554,462.25421601802924)",
+      "held": "translate(585.0051055770377,351.6553342587469)",
+      "settled": "translate(608.2803659010453,356.87386913413405)",
+      "screen_delta_while_held": {
+        "x": 45.00001046135293,
+        "y": -44.999998044491235
       },
-      "view_unchanged": true
+      "non_dragged_neighbors": 57,
+      "neighbors_moved_while_held": 57,
+      "max_neighbor_pair_distance_change": 198.5619642615957,
+      "continuous_edge_samples": 23,
+      "drag_ms": 2337,
+      "release_to_idle_ms": 3297,
+      "view_unchanged": true,
+      "performance": {
+        "raf_intervals": {
+          "count": 339,
+          "median_ms": 16.69999998807907,
+          "p95_ms": 19.19999998807907,
+          "max_ms": 20.600000023841858
+        },
+        "input_to_next_frame": {
+          "count": 24,
+          "median_ms": 2.5,
+          "p95_ms": 3.199999988079071,
+          "max_ms": 3.5
+        }
+      }
     },
     {
       "name": "touch tap selects and highlights actual adjacency",
-      "connected_edges": 56,
-      "connected_nodes": 57
+      "connected_edges": 57,
+      "connected_nodes": 58
     },
     {
       "name": "touch relationship selection opens persisted provenance and versions"
@@ -90,11 +132,11 @@
     },
     {
       "name": "two-finger pinch zooms and pans",
-      "before": "-133.95866630003624 -92.39219400820889 961.9192236386166 1430.560443338197",
-      "after": "106.52114750183733 246.6541109244252 480.9596118193084 715.2802216690986"
+      "before": "-132.88764216084485 -174.00009977424628 953.6081139699446 1418.2002113768547",
+      "after": "105.51437746694089 162.11679921111352 476.8040569849723 709.1001056884273"
     },
     {
-      "name": "Fit and zoom controls preserve dragged positions"
+      "name": "Fit and zoom controls preserve settled positions"
     },
     {
       "name": "mobile full-view graph fills available screen; controls reachable; no horizontal overflow",
@@ -107,7 +149,7 @@
       "actual_phone": false
     },
     {
-      "name": "Unchanged manual refresh retains dragged coordinates"
+      "name": "Unchanged manual refresh retains settled coordinates"
     },
     {
       "name": "server exact-label neighborhood navigation",
@@ -122,6 +164,9 @@
       "name": "Next connections retrieves distinct off-page stored edges",
       "first_page": 60,
       "next_page": 48
+    },
+    {
+      "name": "Touch cancellation and node-drag-to-pinch release physics without selection or stuck pin"
     }
   ],
   "responseCounts": {

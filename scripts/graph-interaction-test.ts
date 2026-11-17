@@ -9,7 +9,7 @@ import { brainFixture, seedBrain } from './brain-fixture.ts';
 // The same browser gestures run against synthetic disk fixtures or the authorized
 // hosted graph. Hosted output stays under .private, never in public Git evidence.
 const live=!!process.env.ATLAS_GRAPH_URL, repo=join(import.meta.dir,'..');
-const out=join(repo,live?'.private/graph-t92/live':'evidence/graph-interaction');mkdirSync(out,{recursive:true});
+const out=join(repo,live?'.private/graph-physics/live':'evidence/graph-interaction');mkdirSync(out,{recursive:true});
 const dir=live?null:mkdtempSync(join(repo,'.private-graph-'));
 const f=dir?brainFixture(new Store(join(dir,'brain.sqlite'))):null;
 let server:ReturnType<typeof Bun.serve>|undefined;
@@ -28,11 +28,14 @@ async function readGraph(page:Page,act:()=>Promise<unknown>){
 async function center(page:Page,node:any){return node.evaluate((g:SVGGElement)=>{const p=new DOMPoint(0,0).matrixTransform(g.getScreenCTM()!);return {x:p.x,y:p.y};});}
 async function fit(page:Page){await page.locator('#fit').click();}
 async function nodeForGesture(page:Page){
- return page.locator('#scene .node.entity').first();
+ const hubs=await page.locator('#scene .node.entity').evaluateAll(ns=>ns.map(n=>({id:n.getAttribute('data-node')!})));
+ const degree=new Map<string,number>();for(const e of latest.edges)for(const id of [e.source,e.target])degree.set(id,(degree.get(id)||0)+1);
+ hubs.sort((a,b)=>(degree.get(b.id)||0)-(degree.get(a.id)||0));
+ return page.locator(`#scene .node[data-node="${hubs[0].id}"]`);
 }
 try{
  for(const mobile of [false,true]){
-  const context=await browser.newContext({viewport:mobile?{width:390,height:844}:{width:1440,height:1000},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:1});
+  const context=await browser.newContext({viewport:mobile?{width:390,height:844}:{width:1440,height:1000},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:1,...(live?{recordVideo:{dir:join(out,'video'),size:mobile?{width:390,height:844}:{width:1440,height:1000}}}:{})});
   const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
   page.on('response',async r=>{if(r.url().endsWith('/v1/memory/graph')){responseCounts[r.status()]=(responseCounts[r.status()]||0)+1;}});
   await page.goto(url);await page.locator('#token').fill(token!);await page.locator('#agent').fill(live?(process.env.ATLAS_GRAPH_AGENT||'default'):'default');await readGraph(page,()=>page.locator('#login button').click());
@@ -47,12 +50,46 @@ try{
   const pos=await center(page,node),dx=mobile?45:85,dy=mobile?-45:-55;
   const cdp=await context.newCDPSession(page);
   const touch=async(type:string,points:any[])=>cdp.send('Input.dispatchTouchEvent' as any,{type,touchPoints:points.map((p,i)=>({id:i,x:p.x,y:p.y,radiusX:2,radiusY:2,force:1}))});
-  if(mobile){await touch('touchStart',[pos]);for(let i=1;i<=6;i++)await touch('touchMove',[{x:pos.x+dx*i/6,y:pos.y+dy*i/6}]);await touch('touchEnd',[]);}
-  else{await page.mouse.move(pos.x,pos.y);await page.mouse.down();await page.mouse.move(pos.x+dx,pos.y+dy,{steps:6});await page.mouse.up();}
-  const after=await node.getAttribute('transform');assert.notEqual(after,before);assert.notEqual(await path.getAttribute('d'),pathBefore);assert.equal(await page.locator('#graph').getAttribute('viewBox'),view);
+  // Sample the actual SVG on animation frames, not only the dragged node.
+  const snapshot=()=>page.locator('#scene .node').evaluateAll(ns=>Object.fromEntries(ns.map(n=>{const m=(n as SVGGElement).transform.baseVal.consolidate()!.matrix;return [n.getAttribute('data-node')!,{x:m.e,y:m.f}];})));
+  const allBefore=await snapshot();
+  const neighbors=[...new Set<string>(latest.edges.filter((e:any)=>e.source===id||e.target===id).flatMap((e:any)=>[e.source,e.target]))].filter(x=>x!==id);
+  assert(neighbors.length>=2,'gesture must target a connected hub');
+  await page.evaluate(()=>{
+   const w=window as any;w.__physicsProbe={frames:[],last:0,events:[],running:true};
+   const probe=()=>{const p=w.__physicsProbe;if(!p.running)return;const t=performance.now();if(p.last)p.frames.push(t-p.last);p.last=t;requestAnimationFrame(probe);};requestAnimationFrame(probe);
+   document.querySelector('#graph')!.addEventListener('pointermove',()=>{const start=performance.now();requestAnimationFrame(()=>w.__physicsProbe.events.push(performance.now()-start));});
+  });
+  if(mobile)await touch('touchStart',[pos]);else{await page.mouse.move(pos.x,pos.y);await page.mouse.down();}
+  const dragStart=Date.now();const samples:any[]=[];
+  for(let i=1;i<=24;i++){
+   const target={x:pos.x+dx*i/24,y:pos.y+dy*i/24};
+   if(mobile)await touch('touchMove',[target]);else await page.mouse.move(target.x,target.y);
+   await page.waitForTimeout(35);
+   const actual=await center(page,node);if(i>=3)assert(Math.abs(actual.x-target.x)<1&&Math.abs(actual.y-target.y)<1,'pinned node must follow input');
+   samples.push({positions:await snapshot(),path:await path.getAttribute('d')});
+  }
+  await page.waitForTimeout(400);
+  const held=await snapshot(),heldTransform=await node.getAttribute('transform');
+  const otherMovement=neighbors.map(n=>Math.hypot(held[n].x-allBefore[n].x,held[n].y-allBefore[n].y));
+  assert(otherMovement.filter(d=>d>1).length>=2,'at least two neighbors must move while pointer held');
+  assert(neighbors.some(n=>Math.hypot(samples[5].positions[n].x-allBefore[n].x,samples[5].positions[n].y-allBefore[n].y)>.5),'neighbors must react early in the gesture, not only on release');
+  const distance=(s:any,a:string,b:string)=>Math.hypot(s[a].x-s[b].x,s[a].y-s[b].y);
+  const pairChanges=neighbors.slice(1).map(n=>Math.abs(distance(held,neighbors[0],n)-distance(allBefore,neighbors[0],n)));
+  assert(Math.max(...pairChanges)>1,'non-dragged neighbors must rearrange relative to each other');
+  assert.equal(await page.locator('#graph').getAttribute('viewBox'),view);
   assert.equal(await node.getAttribute('aria-pressed'),'false');
-  const moved=await center(page,node);assert(Math.abs(moved.x-pos.x-dx)<1);assert(Math.abs(moved.y-pos.y-dy)<1);
-  record(`${mobile?'touch':'mouse'} node drag updates node AND incident geometry without selecting/panning`,{before,after,screen_delta:{x:moved.x-pos.x,y:moved.y-pos.y},view_unchanged:true});
+  assert(new Set(samples.map(s=>s.path)).size>20,'incident edges must update throughout the gesture');
+  assert.notEqual(heldTransform,before);assert.notEqual(await path.getAttribute('d'),pathBefore);
+  const movedHeld=await center(page,node);
+  if(mobile)await touch('touchEnd',[]);else await page.mouse.up();
+  const releasedAt=Date.now();await page.waitForTimeout(250);const relaxing=await snapshot();
+  assert(neighbors.some(n=>Math.hypot(relaxing[n].x-held[n].x,relaxing[n].y-held[n].y)>.1),'release must continue relaxation');
+  await expect(page.locator('#graph')).toHaveAttribute('data-physics','idle',{timeout:10000});
+  const settled=await snapshot();await page.waitForTimeout(150);assert.deepEqual(await snapshot(),settled,'simulation stops after settling');
+  const perf=await page.evaluate(()=>{const p=(window as any).__physicsProbe;p.running=false;const stats=(xs:number[])=>{xs.sort((a,b)=>a-b);return {count:xs.length,median_ms:xs[Math.floor(xs.length*.5)],p95_ms:xs[Math.floor(xs.length*.95)],max_ms:Math.max(...xs)};};return {raf_intervals:stats(p.frames),input_to_next_frame:stats(p.events)};});
+  const after=await node.getAttribute('transform'),moved=await center(page,node);
+  record(`${mobile?'touch':'mouse'} live coupled hub drag and release`,{before,held:heldTransform,settled:after,screen_delta_while_held:{x:movedHeld.x-pos.x,y:movedHeld.y-pos.y},non_dragged_neighbors:neighbors.length,neighbors_moved_while_held:otherMovement.filter(d=>d>1).length,max_neighbor_pair_distance_change:Math.max(...pairChanges),continuous_edge_samples:new Set(samples.map(s=>s.path)).size,drag_ms:releasedAt-dragStart,release_to_idle_ms:Date.now()-releasedAt,view_unchanged:true,performance:perf});
   await page.screenshot({path:join(out,mobile?'mobile-drag.png':'desktop-drag.png')});
   if(mobile)await page.touchscreen.tap(moved.x,moved.y);else await page.mouse.click(moved.x,moved.y);
   await expect(node).toHaveAttribute('aria-pressed','true');await expect(page.locator('#detail h2')).not.toBeEmpty();assert(await page.locator('#scene .edge.connected').count()>0);
@@ -81,13 +118,13 @@ try{
   }else{await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.wheel(0,-150);await page.waitForTimeout(100);}
   const v3=await page.locator('#graph').getAttribute('viewBox');assert.notEqual(v3,v2);assert(Number(v3!.split(' ')[2])<Number(v2!.split(' ')[2]));record(mobile?'two-finger pinch zooms and pans':'wheel zooms at cursor',{before:v2,after:v3});
   await page.locator('#zoom-out').click();assert.notEqual(await page.locator('#graph').getAttribute('viewBox'),v3);await fit(page);
-  const stable=await node.getAttribute('transform');assert.equal(stable,after);record('Fit and zoom controls preserve dragged positions');
+  const stable=await node.getAttribute('transform');assert.equal(stable,after);record('Fit and zoom controls preserve settled positions');
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   if(mobile){
    const b=(await page.locator('#graph').boundingBox())!;assert(b.width>=380&&b.height>450);record('mobile full-view graph fills available screen; controls reachable; no horizontal overflow',{graph_box:b,actual_phone:false});
   }
   await page.locator('#expand-map').click();
-  await readGraph(page,()=>page.locator('#refresh').click());assert.equal(await node.getAttribute('transform'),after);record('Unchanged manual refresh retains dragged coordinates');
+  await readGraph(page,()=>page.locator('#refresh').click());assert.equal(await node.getAttribute('transform'),after);record('Unchanged manual refresh retains settled coordinates');
   // Fetch a fresh bounded page. Exercise off-page navigation and paging over HTTP.
   await page.locator('#query').fill(live?'Alex':'Lantern');await readGraph(page,()=>page.locator('#refresh').click());await expect(page.locator('#relations .relation').first()).toBeVisible();
   const seed=page.locator('#scene .node.entity').first();await seed.focus();await page.keyboard.press('Enter');
@@ -100,8 +137,23 @@ try{
    assert(!latest.edges.some((e:any)=>firstIds.includes(e.id)));record('Next connections retrieves distinct off-page stored edges',{first_page:firstIds.length,next_page:latest.edges.length});
    await readGraph(page,()=>page.locator('#previous').click());await expect(page.locator('#previous')).toBeDisabled();
   }
+  if(mobile){
+   // Real CDP touch cancellation and a second finger joining an active node drag.
+   const hub=await nodeForGesture(page);let p=await center(page,hub);
+   await touch('touchStart',[p]);await touch('touchMove',[{x:p.x+20,y:p.y-20}]);await touch('touchCancel',[]);
+   await expect(hub).toHaveAttribute('aria-pressed','false');
+   await expect(page.locator('#graph')).toHaveAttribute('data-physics','idle',{timeout:10000});
+   p=await center(page,hub);const v=await page.locator('#graph').getAttribute('viewBox');
+   await touch('touchStart',[p]);await touch('touchMove',[{x:p.x+20,y:p.y}]);
+   await touch('touchStart',[{x:p.x+20,y:p.y},{x:p.x+70,y:p.y}]);
+   await touch('touchMove',[{x:p.x-5,y:p.y},{x:p.x+95,y:p.y}]);await touch('touchEnd',[]);
+   assert.notEqual(await page.locator('#graph').getAttribute('viewBox'),v);
+   await expect(hub).toHaveAttribute('aria-pressed','false');
+   await expect(page.locator('#graph')).toHaveAttribute('data-physics','idle',{timeout:10000});
+   record('Touch cancellation and node-drag-to-pinch release physics without selection or stuck pin');
+  }
   assert.deepEqual(await page.evaluate(()=>({l:localStorage.length,s:sessionStorage.length,c:document.cookie})),{l:0,s:0,c:''});
-  await context.close();
+  const video=page.video();await context.close();if(video)await video.saveAs(join(out,mobile?'mobile.webm':'desktop.webm'));
  }
  assert.deepEqual(errors,[]);
  const report={result:'pass',run_at:new Date().toISOString(),origin:new URL(url).origin,live_persisted_data:live,synthetic_fixture:!live,actual_phone:false,browser:browser.version(),checks,responseCounts,page_errors:errors,screenshots:['desktop-drag.png','desktop-inspect.png','mobile-drag.png','mobile-inspect.png']};
