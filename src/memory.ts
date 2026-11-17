@@ -15,8 +15,10 @@ import {recallFreshness} from "./memory-freshness.ts";
 import { getEncoding } from "js-tiktoken";
 const tokenEncoding =
   setting("TOKEN_ENCODING") === "cl100k_base" ? "cl100k_base" : "o200k_base";
-const tokenizer = getEncoding(tokenEncoding);
-export const memoryTokens = (s: string) => tokenizer.encode(s, [], []).length;
+// Build the large BPE tables on first use, not during Worker module startup.
+// Keep the configured encoding and exact token counts; only initialization moves.
+let tokenizer: ReturnType<typeof getEncoding> | undefined;
+export const memoryTokens = (s: string) => (tokenizer ??= getEncoding(tokenEncoding)).encode(s, [], []).length;
 function modelFacingLine(m: any, timeOverride?: string) {
   const author = String(m.supports?.[0]?.author_id ?? "");
   const owner = !author || author === "alex" || author.endsWith("/alex");
