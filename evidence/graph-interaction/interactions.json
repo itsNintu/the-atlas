@@ -1,7 +1,7 @@
 {
   "result": "pass",
-  "run_at": "2026-11-17T01:34:33.960Z",
-  "origin": "http://127.0.0.1:46735",
+  "run_at": "2026-11-17T01:43:51.747Z",
+  "origin": "http://127.0.0.1:36197",
   "live_persisted_data": false,
   "synthetic_fixture": true,
   "actual_phone": false,
@@ -16,7 +16,7 @@
     },
     {
       "name": "Creator Labs fonts, arrowless edges and sparse overview labels",
-      "nodeLabels": 2,
+      "nodeLabels": 1,
       "edgeLabels": 0,
       "nodes": 63,
       "arrows": false,
@@ -25,17 +25,23 @@
     },
     {
       "name": "Zoom progressively reveals non-overlapping labels",
-      "overview": 2,
+      "overview": 1,
       "zoom_counts": [
         2,
         2,
-        46,
-        38,
+        2,
+        35,
         25,
-        14,
-        10
+        21,
+        13,
+        10,
+        7,
+        3,
+        3,
+        1
       ],
-      "visible_labels": 24
+      "previously_hidden_revealed": 34,
+      "visible_labels": 6
     },
     {
       "name": "Hover reveals actual neighborhood without selection"
@@ -51,32 +57,32 @@
     },
     {
       "name": "mouse live coupled hub drag and release",
-      "before": "translate(461.63581622804656,458.4158855543813)",
-      "held": "translate(584.7304116779889,378.7664414397129)",
-      "settled": "translate(612.2720492543768,378.1766176802955)",
+      "before": "translate(482.6386831054949,452.358564625059)",
+      "held": "translate(607.0197075014729,371.8767253100144)",
+      "settled": "translate(624.8932330967566,387.293903983845)",
       "screen_delta_while_held": {
-        "x": 85.00000624390418,
-        "y": -55.0000003213774
+        "x": 85.00001235865125,
+        "y": -54.999981007660836
       },
       "non_dragged_neighbors": 57,
       "neighbors_moved_while_held": 57,
-      "max_neighbor_pair_distance_change": 211.29906399767074,
+      "max_neighbor_pair_distance_change": 195.71834483053337,
       "continuous_edge_samples": 24,
-      "drag_ms": 2165,
-      "release_to_idle_ms": 3304,
+      "drag_ms": 2227,
+      "release_to_idle_ms": 3311,
       "view_unchanged": true,
       "performance": {
         "raf_intervals": {
-          "count": 328,
+          "count": 332,
           "median_ms": 16.69999998807907,
-          "p95_ms": 18.5,
-          "max_ms": 22.100000023841858
+          "p95_ms": 18.599999964237213,
+          "max_ms": 22.69999998807907
         },
         "input_to_next_frame": {
           "count": 25,
-          "median_ms": 1.9000000357627869,
-          "p95_ms": 2.800000011920929,
-          "max_ms": 2.900000035762787
+          "median_ms": 2.100000023841858,
+          "p95_ms": 3.199999988079071,
+          "max_ms": 3.400000035762787
         }
       }
     },
@@ -93,8 +99,8 @@
     },
     {
       "name": "wheel zooms at cursor",
-      "before": "-309.4469231994928 -103.91780237356505 1642.2266520771002 1329.421575490986",
-      "after": "-127.81729636554064 43.11570980866668 1278.9674026183773 1035.3545640244008"
+      "before": "-475.8423503534151 -105.83988095640555 1659.389160754831 1343.3150348967679",
+      "after": "-292.31455802960124 42.730238900242625 1292.3335778160638 1046.1748010891945"
     },
     {
       "name": "Fit and zoom controls preserve settled positions"
@@ -141,39 +147,45 @@
         2,
         2,
         2,
-        12,
-        6
+        11,
+        9,
+        7,
+        4,
+        3,
+        3,
+        3
       ],
-      "visible_labels": 20
+      "previously_hidden_revealed": 12,
+      "visible_labels": 9
     },
     {
       "name": "touch live coupled hub drag and release",
-      "before": "translate(461.63581622804656,458.4158855543813)",
-      "held": "translate(567.6729484305188,352.3787533519091)",
-      "settled": "translate(593.4625424354233,350.44749015381876)",
+      "before": "translate(482.6386831054949,452.358564625059)",
+      "held": "translate(590.5604805568481,344.4367671737058)",
+      "settled": "translate(606.9474694118043,357.35310718817794)",
       "screen_delta_while_held": {
-        "x": 45.000016214563175,
-        "y": -45.00000326352438
+        "x": 45.00000688560692,
+        "y": -44.9999941607353
       },
       "non_dragged_neighbors": 57,
       "neighbors_moved_while_held": 57,
-      "max_neighbor_pair_distance_change": 211.9118765179842,
+      "max_neighbor_pair_distance_change": 199.0988106406949,
       "continuous_edge_samples": 23,
-      "drag_ms": 2433,
-      "release_to_idle_ms": 3305,
+      "drag_ms": 2497,
+      "release_to_idle_ms": 3311,
       "view_unchanged": true,
       "performance": {
         "raf_intervals": {
-          "count": 344,
+          "count": 348,
           "median_ms": 16.69999998807907,
-          "p95_ms": 19.19999998807907,
-          "max_ms": 22.30000001192093
+          "p95_ms": 19.30000001192093,
+          "max_ms": 24.5
         },
         "input_to_next_frame": {
           "count": 24,
-          "median_ms": 2.400000035762787,
-          "p95_ms": 3,
-          "max_ms": 3.5
+          "median_ms": 2.600000023841858,
+          "p95_ms": 4.399999976158142,
+          "max_ms": 4.799999952316284
         }
       }
     },
@@ -190,8 +202,8 @@
     },
     {
       "name": "two-finger pinch zooms and pans",
-      "before": "-113.22321857107472 -368.45676254820825 918.9884777598282 1776.7110570023347",
-      "after": "116.5238963907322 58.0481499554968 459.4942388799141 888.3555285011673"
+      "before": "-116.65749572922607 -380.56331475923514 935.3222220462017 1808.2896292893233",
+      "after": "117.17305648719363 53.52213260407626 467.66111102310083 904.1448146446617"
     },
     {
       "name": "Fit and zoom controls preserve settled positions"
