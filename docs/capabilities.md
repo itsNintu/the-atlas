@@ -32,9 +32,17 @@ a new latency SLA or attributes the occasional two-second tail.
 
 ## Interactive hosted knowledge graph
 
+Local source now includes Creator Labs browser sign-in through native Platform SSO, HttpOnly
+sessions, per-request live membership validation, explicit account-to-agent mappings and read-only
+browser fences. Empty new accounts get onboarding without legacy owner grants. The machine bearer
+API and an explicitly collapsed developer connection remain available. Synthetic backend and
+desktop/mobile browser tests cover the local implementation; real hosted broker integration,
+stable owner proof/binding and release acceptance belong to the parent task. No real account
+acceptance is claimed here. See [browser auth contract](contract.md#creator-browser-authentication-local-source-implementation).
+
 The read-only `/brain` view offers a bounded force-directed SVG graph with draggable, selectable nodes and edges, adjacency highlighting, live spring/repulsion physics during dragging with coupled neighbor movement and damped settling after release, mouse/Space-drag pan and pointer-centered Ctrl-wheel zoom, touch pan/two-finger pinch, fit and full-view controls. Creator Labs typography/mark and monochrome chrome frame subtle arrowless edges; direction stays in details. Zoom/density-aware collision-managed labels and hover/selection neighborhoods progressively reveal meaning rather than displaying every caption. Mobile selection uses a reachable, dismissible scrollable details sheet. Source excerpts, attribution, versions, current/history and valid/known snapshots remain available independently of graph labels. The accessible relationship list and keyboard selection remain.
 
-Existing bound-agent credentials and authorized scopes define perspective, not the selected person/node. Exact-label, scope-qualified server neighborhood reads plus eligible-edge paging reach knowledge outside the loaded page. Output remains at most 100 edges/200 incident nodes, with a disclosed 2,000 matching-candidate scan, not an exhaustive corpus export or new alias/People/account system. Loaded degree controls size; spatial distance has no meaning. See [brain view](brain-view.md) for controls, API bounds and desktop/touch-emulated verification.
+Explicit browser account mappings or existing bound-agent credentials and current scopes define perspective, not the selected person/node. Exact-label, scope-qualified server neighborhood reads plus eligible-edge paging reach knowledge outside the loaded page. Output remains at most 100 edges/200 incident nodes, with a disclosed 2,000 matching-candidate scan, not an exhaustive corpus export or new alias/People directory. Loaded degree controls size; spatial distance has no meaning. See [brain view](brain-view.md) for controls, API bounds and desktop/touch-emulated verification.
 
 ## Offline derived-brain clean slate
 

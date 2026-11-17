@@ -30,7 +30,9 @@ async function composition(page:Page,label:string){
  });
  assert(m.scroll<=m.width,`${label} overflow ${JSON.stringify(m)}`);assert(m.logo);assert.equal(m.transform,"none");
  assert(m.bodyFont.includes("Space Grotesk"));assert(m.buttonFont.includes("IBM Plex Mono"));assert.equal(m.background,"rgb(11, 12, 12)");
- assert(m.fonts.every(f=>f.status==="loaded"));assert.equal(m.accentButtons,0);assert(m.inputSizes.every(s=>s>=16),`${label} input sizes ${m.inputSizes}`);metrics.push({label,...m});
+ // Accepted graph chrome has compact 10px selectors/12px filters; the evidence
+ // inspector retains its 16px form baseline. Do not restyle graph controls here.
+ assert(m.fonts.every(f=>f.status==="loaded"));assert.equal(m.accentButtons,0);assert(m.inputSizes.every(s=>s>=(new URL(page.url()).pathname==="/brain"?10:16)),`${label} input sizes ${m.inputSizes}`);metrics.push({label,...m});
 }
 try{
  const context=await browser.newContext({viewport:{width:1500,height:1100}}),page=await context.newPage();
@@ -41,8 +43,8 @@ try{
  }
  for(const path of ["/brand/sources.json","/brand/README.md","/brand/missing.ttf","/brand/../app.ts"]){assert.equal((await fetch(origin+path)).status,404)}
  checks.push("Exact static allowlist serves identical CSS/SVG/font bytes with correct MIME/nosniff; unknown/private paths fail closed");
- await page.goto(origin+"/brain");await expect(page).toHaveTitle("The Atlas · Durable brain");
- await composition(page,"brain entry desktop");await page.locator("#login button").focus();
+ await page.goto(origin+"/brain");await expect(page).toHaveTitle("The Atlas · Knowledge graph");
+ await page.locator("#machine-connection summary").click();await composition(page,"brain entry desktop");await page.keyboard.press("Tab");await page.locator("#login button").focus();
  assert.equal(await page.locator("#login button").evaluate(e=>getComputedStyle(e).outlineStyle),"solid");
  await capture(page,"brain-entry-focus-desktop.png");
  await page.locator("#login button").hover();await capture(page,"brain-entry-hover-desktop.png");
@@ -51,7 +53,7 @@ try{
  await page.locator("#graph .node[aria-label^='Lantern,']").focus();await page.keyboard.press("Enter");await expect(page.locator("#detail h2")).toHaveText("Lantern");
  await page.getByRole("button",{name:"Focus this neighborhood"}).click();await expect(page.locator("#relations .relation")).toHaveCount(3);await page.locator("#clear-focus").click();
  const view=await page.locator("#graph").getAttribute("viewBox");await page.locator("#zoom-in").click();assert.notEqual(await page.locator("#graph").getAttribute("viewBox"),view);await page.locator("#fit").click();
- await page.locator("summary").click();await page.locator("#history").check();await expect(page.locator("#relations .relation")).toHaveCount(9);
+ await page.locator("#filters summary").click();await page.locator("#history").check();await expect(page.locator("#relations .relation")).toHaveCount(9);
  await page.locator("#relations .relation").filter({hasText:"Ivo"}).click();await expect(page.locator("#detail")).toContainText("historical");await expect(page.locator("#detail")).toContainText("state_change");
  await composition(page,"brain history desktop");await capture(page,"brain-desktop.png");
  const dash=await page.locator(".edge.history").first().evaluate(e=>getComputedStyle(e).strokeDasharray);assert.notEqual(dash,"none");
@@ -77,7 +79,7 @@ try{
  checks.push("Inspector real authenticated project/space creation, queue ingestion, source payload inspection, grants disclosure and correction form editing preserved; desktop/390/320 layout without overflow");
  assert.deepEqual(await page.evaluate(()=>({l:localStorage.length,s:sessionStorage.length,c:document.cookie})),{l:0,s:0,c:""});assert(!page.url().includes(f.boot.token));
  await page.reload();await expect(page.locator("#connect")).toBeVisible();await composition(page,"inspector entry 320");await page.locator("#login button").focus();await capture(page,"inspector-entry-focus-320.png");
- await page.getByRole("link",{name:"Explore durable brain"}).click();await expect(page).toHaveTitle("The Atlas · Durable brain");
+ await page.getByRole("link",{name:"Explore durable brain"}).click();await expect(page).toHaveTitle("The Atlas · Knowledge graph");
  assert.deepEqual(errors,[]);checks.push("No browser storage/cookies/URL credential persistence; reload disconnects and cross-view navigation works; no page/CSP/console errors");
  const result={run_at:new Date().toISOString(),result:"pass",browser:browser.version(),synthetic_data_only:true,actual_http:true,actual_sqlite_disk:true,production_activation:false,checks,metrics,page_errors:errors,screenshots,reused_evidence:["evidence/brain-view/browser.json (full graph behavior)","reports/dreaming-source.json (unaffected memory/provider coverage)"]};
  await Bun.write(join(out,"browser.json"),JSON.stringify(result,null,2)+"\n");console.log(JSON.stringify(result,null,2));

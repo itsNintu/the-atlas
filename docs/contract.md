@@ -22,6 +22,66 @@ source/business timestamps. They are diagnostics, not event times. This exceptio
 must be versioned before changing. Read-only health is `/healthz`. All `/v1` endpoints require a
 bearer credential. Bodies require `Content-Type: application/json`; writes require `Idempotency-Key`.
 `POST /v1/context` and `/v1/graph` are read-only queries and do not need idempotency keys.
+The browser-only graph exception below uses an HttpOnly session; machine bearer clients keep
+their existing authorization and behavior.
+
+## Creator browser authentication (local source implementation)
+
+`GET /auth/login` redirects to the fixed `https://agents.creator.gg/atlas/sign-in` broker with
+only random state and the SHA-256 PKCE challenge in the URL. Native Creator Platform SSO is the
+identity authority. A 10-minute server transaction retains the verifier and hashed random
+`__Host-atlas_login` cookie. `POST /auth/callback` accepts a bounded 2 KiB form containing only
+`ticket` and `state`, requires the exact agents Origin and transaction cookie, and consumes the
+transaction before its one exchange attempt. An uncertain exchange requires a fresh sign-in.
+The fixed backend is `https://colorless-mongoose-693.convex.site`; caller input cannot replace it.
+
+`__Host-atlas_session` is a random 256-bit token, stored only as SHA-256. Both cookies use
+HttpOnly, Secure, SameSite=Lax and Path=/, with no Domain. Sessions expire by the earlier of
+Creator expiry and 30 days. The dedicated Creator grant stays only in protected SQLite session
+storage and is removed on local revocation. There is no existing project encryption-key facility;
+no additional credential setup is introduced. Never export this table as public evidence.
+
+`GET /auth/session` returns `{authenticated:false}` for absent/expired local sessions, or
+`{authenticated:true,account:{issuer,company_id,workspace_id,location_id,user_id,workspace_name},
+agents:[{agent_id,name}],expires_at}`. Each session/API read validates live Creator identity with
+`GET /atlas/identity`; the full five-field tuple must match exactly. Backend 401/403 remain
+401/403 and revoke local access; unavailable/malformed upstream replies fail closed as 503.
+`POST /auth/logout` revokes local sessions and hidden credentials before its single best-effort
+Creator logout request, clears cookies and returns `{ok:true,creator_revocation}`. An
+`unconfirmed` external revocation is not retried automatically. Auth responses use no-store and
+no-referrer. Browser mutations require the exact Atlas Origin and compatible fetch metadata.
+
+Browser API access is limited to `GET /v1/me` and `POST /v1/memory/graph`; the graph includes
+its own evidence, so no additional evidence endpoint is needed. `/v1/status` is excluded because
+its provider diagnostics are global. A supplied Authorization header always uses the original
+bearer path; an invalid bearer never falls back to cookies. Browser actors are explicitly read-only
+at both the route allowlist and Store administration/write gates. Hidden per-session/principal
+credential hashes are newly generated and never reuse machine keys. Current mapping, binding,
+session, credential and scope grants fence reads after awaits and before response delivery.
+
+The exact issuer/company/Creator-workspace/location/user tuple keys `browser_accounts`. A new
+identity receives a new Atlas workspace and a nonadmin human with no memory/space grants or
+agent binding. It has `agents:[]`; email and first-login ownership are never authority.
+`browser_agent_access` explicitly selects same-workspace bound principals, and only bindings with
+their own current `agent:ID` read grant appear in the agent picker.
+
+The existing Cloudflare operations-token gate protects:
+
+- `POST /internal/operations/v1/browser-binding` with strict
+  `{identity:{issuer,company_id,workspace_id,location_id,user_id},atlas_workspace_id,
+  principal_ids:[...],expected_unbound:true}`. All selected principals must be bound in that
+  exact workspace with unambiguous agent IDs. Exact repeats are idempotent; existing explicit
+  conflicts are rejected. An automatic account with only its untouched empty human mapping may
+  be explicitly bound after external owner proof; its sessions are revoked and a new nonadmin
+  human is created in the selected workspace. Old empty rows remain; machine principals,
+  credentials and grants are never moved or replaced.
+- `GET /internal/operations/v1/browser-binding-inventory` lists only workspace/principal,
+  binding and grant metadata, with no messages, session data or credential material.
+
+Tables install additively even on the initialized hosted fast path, without serving-index or
+history backfill. They are preserved account state in the offline derived-reset manifest.
+This source implementation and synthetic tests do not establish real SSO, owner binding or
+deployment acceptance. Those are the parent integration boundary.
 
 ## Authorization
 

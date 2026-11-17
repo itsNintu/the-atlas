@@ -1,8 +1,9 @@
-/* Read-only graph. Credential lives only in this closure, never browser storage. */
+/* Read-only graph. Human authentication uses an HttpOnly session. */
 (() => {
   const $ = (id) => document.getElementById(id);
   const idleDetail=$("detail").cloneNode(true);
   let token = "", agent = "", data = null, focus = null, selected = null, generation = 0, controller;
+  let humanSession = null, logoutPending = false;
   let offset=0, remoteFocus=null, selectedNode=null, fitNext=true, navigationSnapshot=null, lastCriteria="";
   let view = { x: 0, y: 0, w: 1100, h: 700 }, positions = new Map();
   const ns = "http://www.w3.org/2000/svg";
@@ -24,9 +25,9 @@
       if (!initial && !scopes.length) throw Error("Select at least one authorized scope.");
       const body={ agent_id:agent, offset, ...(remoteFocus?{focus:remoteFocus}:{}), query:$("query").value.trim(), limit:Number($("limit").value), include_history:$("history").checked,
         ...(!initial ? {scopes}:{}), ...($("valid").value.trim()?{valid_at:$("valid").value.trim()}:{}), ...($("recorded").value.trim()?{recorded_at:$("recorded").value.trim()}:{}), ...(navigationSnapshot||{}), };
-      const r=await fetch("/v1/memory/graph", {method:"POST", headers:{Authorization:`Bearer ${token}`,"Content-Type":"application/json"},body:JSON.stringify(body),signal:controller.signal});
+      const r=await fetch("/v1/memory/graph", {method:"POST", credentials:"same-origin", headers:{...(token?{Authorization:`Bearer ${token}`} : {}),"Content-Type":"application/json"},body:JSON.stringify(body),signal:controller.signal});
       const reply=await r.json(); if(seq!==generation)return;
-      if(!r.ok) throw Error(`${reply.error.code}: ${reply.error.message}`);
+      if(!r.ok) { if(r.status===401 && humanSession) loggedOut(); throw Error(`${reply.error.code}: ${reply.error.message}`); }
       data=reply.data;
       $("previous").disabled=offset===0;
       $("next").disabled=data.page.next_offset===null;
@@ -36,7 +37,7 @@
       if(initial){
         $("scopes").replaceChildren(el("legend","Authorized scopes"),...data.available_scopes.map(s=>{const l=el("label",undefined,"check"), i=el("input");i.type="checkbox";i.value=s;i.checked=true;i.onchange=()=>resetLoad();l.append(i,document.createTextNode(s));return l;}));
       }
-      $("connect").hidden=true; $("workspace").hidden=false; $("disconnect").hidden=false; $("identity").textContent=agent;
+      $("connect").hidden=true; $("workspace").hidden=false; $("disconnect").hidden=false; $("identity").textContent=humanSession?`${humanSession.account.workspace_name} / ${agent}`:agent;
       const jobs=data.processing.jobs; const pending=jobs.filter(j=>["queued","running","retry"].includes(j.status)).reduce((n,j)=>n+j.count,0), failed=jobs.filter(j=>j.status==="failed").reduce((n,j)=>n+j.count,0);
       $("processing").textContent=`${pending} awaiting / processing · ${failed} failed · ${data.processing.note}`;
       $("counts").textContent=`${data.nodes.length} nodes / ${data.edges.length} relationships`;
@@ -331,8 +332,37 @@
     if(e.versions_truncated)d.append(el("p","Version list bounded to 20 entries."));
     d.append(el("h3","Changes to this claim"));for(const c of data.changes.filter(c=>c.target_id===e.id))d.append(el("p",`${c.type}${c.invalidated_at?` — INVALIDATED PROCESSING DECISION (${c.invalidation_reason}, known ${c.invalidated_at}); not a domain state change`:''} · effective ${c.effective_at} · known ${c.recorded_at}${c.replacement_id?" · replacement "+c.replacement_id:""}`));
   }
-  $("login").onsubmit=async e=>{e.preventDefault();token=$("token").value;$("token").value="";agent=$("agent").value.trim();await load(true);if(!data)token="";};
-  $("disconnect").onclick=()=>{token="";++generation;controller?.abort();clear();location.reload();};
+  function resetAgent() {
+    ++generation;controller?.abort();clear();$("live").checked=false;$("scopes").replaceChildren();
+    for(const key of ["query","valid","recorded"])$(key).value="";
+    $("history").checked=false;fitNext=true;lastCriteria="";
+  }
+  function loggedOut() {
+    token="";agent="";humanSession=null;clear();$("live").checked=false;
+    $("workspace").hidden=true;$("account-panel").hidden=true;$("connect").hidden=false;$("disconnect").hidden=true;
+    $("account-name").textContent="";$("agents").replaceChildren();$("identity").textContent="";
+  }
+  async function restore() {
+    const seq=generation;
+    try {
+      const r=await fetch("/auth/session",{credentials:"same-origin",cache:"no-store"});const s=await r.json();
+      if(seq!==generation)return;
+      if(!r.ok)throw Error(s.error?.message||"Sign-in could not be restored. Try again.");
+      if(!s.authenticated)return;
+      humanSession=s;logoutPending=false;token="";$("connect").hidden=true;$("disconnect").hidden=false;$("disconnect").textContent="Sign out";$("account-panel").hidden=false;
+      $("account-name").textContent=`${s.account.workspace_name} / ${s.account.user_id}`;
+      $("agents").replaceChildren(...s.agents.map(a=>{const o=el("option",`${a.name} / ${a.agent_id}`);o.value=a.agent_id;return o;}));
+      $("agent-picker").hidden=!s.agents.length;$("onboarding").hidden=!!s.agents.length;
+      if(s.agents.length){agent=s.agents[0].agent_id;resetAgent();await load(true);}
+    } catch(e) { if(seq===generation)$("error").textContent=e.message; }
+  }
+  $("agents").onchange=async()=>{agent=$("agents").value;resetAgent();await load(true);};
+  $("login").onsubmit=async e=>{e.preventDefault();++generation;humanSession=null;token=$("token").value;$("token").value="";agent=$("agent").value.trim();$("disconnect").textContent="Disconnect machine";resetAgent();await load(true);if(!data)token="";};
+  $("disconnect").onclick=async()=>{
+    const human=!!humanSession||logoutPending;++generation;controller?.abort();loggedOut();
+    if(human)try{logoutPending=true;const r=await fetch("/auth/logout",{method:"POST",credentials:"same-origin"});const b=await r.json();if(!r.ok)throw Error(b.error?.message||"Sign out failed; try again.");logoutPending=false;if(b.creator_revocation==="unconfirmed")$("error").textContent="Signed out of Atlas. Creator grant revocation could not be confirmed.";}
+    catch(e){$("error").textContent="Sign out could not be confirmed. "+e.message;$("disconnect").hidden=false;$("disconnect").textContent="Retry sign out";}
+  };
   $("controls").onsubmit=e=>{e.preventDefault();$("filters").open=false;resetLoad();};
   $("history").onchange=()=>resetLoad();$("limit").onchange=()=>resetLoad();
   $("fit").onclick=fit;$("zoom-in").onclick=()=>zoom(.8);$("zoom-out").onclick=()=>zoom(1.25);
@@ -344,7 +374,7 @@
   $("expand-map").onclick=()=>{const expanded=$("explorer").classList.toggle("expanded");$("expand-map").textContent=expanded?"Exit full view":"Full view";requestAnimationFrame(fit);};
   document.addEventListener("keydown",e=>{if(e.key==="Escape"){$("filters").open=false;$("graph-help").open=false;closeDetail();if($("explorer").classList.contains("expanded"))$("expand-map").click();}});
   document.addEventListener("pointerdown",e=>{for(const id of ["filters","graph-help"]){const panel=$(id);if(panel.open&&!panel.contains(e.target))panel.open=false;}});
-  setInterval(()=>{if(token&&$("live").checked&&!document.hidden&&!pointers.size)load();},15000);
+  setInterval(()=>{if((token||humanSession)&&agent&&$("live").checked&&!document.hidden&&!pointers.size)load();},15000);
   const graph=$("graph"),pointers=new Map();let gesture=null,suppressClick=false,spaceDown=false;
   function gestureCursor(){
     graph.classList.toggle("space-pan",spaceDown);
@@ -449,4 +479,5 @@
   graph.addEventListener("lostpointercapture",e=>{if(pointers.has(e.pointerId))endPointer(e);});
   new ResizeObserver(()=>{const r=graph.getBoundingClientRect();if(!r.width||!r.height)return;const h=view.w*r.height/r.width;view.y+=(view.h-h)/2;view.h=h;applyView();}).observe(graph);
   document.fonts?.ready.then(()=>{labelWidths.clear();placeLabels();});
+  restore();
 })();

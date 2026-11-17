@@ -38,7 +38,7 @@ try{
   const context=await browser.newContext({viewport:mobile?{width:390,height:844}:{width:1440,height:1000},isMobile:mobile,hasTouch:mobile,deviceScaleFactor:1,...(live?{recordVideo:{dir:join(out,'video'),size:mobile?{width:390,height:844}:{width:1440,height:1000}}}:{})});
   const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
   page.on('response',async r=>{if(r.url().endsWith('/v1/memory/graph')){responseCounts[r.status()]=(responseCounts[r.status()]||0)+1;}});
-  await page.goto(url);await page.locator('#token').fill(token!);await page.locator('#agent').fill(live?(process.env.ATLAS_GRAPH_AGENT||'default'):'default');await readGraph(page,()=>page.locator('#login button').click());
+  await page.goto(url);await page.locator('#machine-connection summary').click();await page.locator('#token').fill(token!);await page.locator('#agent').fill(live?(process.env.ATLAS_GRAPH_AGENT||'default'):'default');await readGraph(page,()=>page.locator('#login button').click());
   await expect(page.locator('#workspace')).toBeVisible();await expect(page.locator('#scene .node').first()).toBeVisible();
   assert(await page.locator('#scene .node').count()>1);await page.locator('#expand-map').click();await fit(page);
   record(`${mobile?'touch':'mouse'} graph loaded`,{nodes:await page.locator('#scene .node').count(),edges:latest.edges.length,truncated:latest.truncated,viewport:mobile?'390x844 touch emulation':'1440x1000 desktop'});

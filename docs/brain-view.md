@@ -1,8 +1,21 @@
 # Durable brain view
 
-Open **`/brain` on your existing private Atlas origin** (also linked from the evidence inspector at `/`). Connect using an existing profile-bound bearer credential and its bound agent ID (`default`, `builder`, etc.). Admin credentials need the same binding and explicit memory grants; the page cannot impersonate another profile. The hosted production view is https://atlas.creator.gg/brain. Agent perspective comes from the credential binding; node/person focus is separate and cannot impersonate another agent.
+Open **`/brain` on your Atlas origin** and choose **Sign in with Creator Labs**. The local source
+implementation uses native Creator Platform SSO through the fixed broker and restores an HttpOnly
+browser session after reload. The account display shows the actual Creator workspace/user; the
+agent selector contains only explicitly mapped bindings with current own-scope read grants.
+New accounts show “Your Atlas is ready. No agents are connected to this account yet” with a Creator
+Platform link. They never load the legacy owner's graph. Sign out clears the picture and session;
+refresh stays signed out. Real hosted SSO and stable owner binding require parent acceptance.
+The hosted production view is https://atlas.creator.gg/brain. Agent perspective comes from the
+explicit account mapping and binding; node/person focus remains separate.
 
-The credential is used only in Authorization headers and tab memory. Never put it in a URL, screenshot, shared report or browser storage. Reload/disconnect drops the credential. Serve the private app over trusted loopback or HTTPS, not an exposed plain-HTTP host.
+Browser sessions use Secure, HttpOnly cookies, with no browser storage or bearer fields in the
+normal sign-in flow. The existing machine API is unchanged. **Developer / API: machine connection**
+is an explicitly collapsed fallback for existing profile-bound bearer credentials and the graph
+regression scripts. That credential stays only in tab memory/Authorization headers; reload drops
+it. The evidence inspector `/` remains a developer interface. Never put credentials in URLs,
+screenshots, shared reports or browser storage. Browser SSO uses the fixed HTTPS Atlas audience.
 
 ## Explore
 
@@ -23,7 +36,9 @@ as an invented valid start. Source evidence and original versions remain inspect
 
 ## Read-only API
 
-`POST /v1/memory/graph` requires `Content-Type: application/json` and `Authorization: Bearer <private credential>`; **no Idempotency-Key** is needed. Example request body:
+`POST /v1/memory/graph` requires `Content-Type: application/json` and either the human browser
+session or the existing machine `Authorization: Bearer <private credential>`;
+**no Idempotency-Key** is needed. Example machine request body:
 
 ```json
 {
@@ -55,6 +70,8 @@ bun run check
 bun test tests/memory-graph.test.ts
 bun scripts/brain-ui-test.ts
 bun scripts/graph-interaction-test.ts
+bun test tests/browser-auth.test.ts
+bun scripts/browser-auth-ui-test.ts
 ```
 
 The browser script starts a real loopback HTTP App with on-disk SQLite, generated temporary credentials and explicit **fictional persisted fixtures**; it does not mock fetch or claim model extraction. It checks scope isolation, pending diagnostics, search/empty state, node/relationship/source selection, focus/reset, pan/zoom/fit, valid/recorded snapshots, history, new persisted knowledge, source forgetting, polling, revocation/stale-data clearing and no credential browser storage, at 1500×1100 and 390×844. Receipts and screenshots are under `evidence/brain-view/`. Live Luna-backed native digestion/activation is the separate downstream operation, not claimed by these fixtures.

@@ -4,6 +4,7 @@ import { createRequire } from "node:module";
 import { createHash, randomBytes, randomUUID } from "node:crypto";
 import { schema, SCHEMA_VERSION } from "./schema.ts";
 import { memorySchema, recallLookupIndexes } from "./memory-schema.ts";
+import { browserAuthSchema } from "./browser-auth-schema.ts";
 import { installMemoryIndex, syncMemoryVectorBuckets } from "./memory-index.ts";
 import type { SQLiteDatabase } from "./sqlite.ts";
 import { currentResetEpoch } from "./reset-state.ts";
@@ -28,6 +29,9 @@ export type Actor = {
   kind: string;
   name: string;
   credential_id: string;
+  browser_session_hash?: string;
+  browser_identity_key?: string;
+  browser_agent_id?: string;
 };
 export type Assertion = {
   subject: string;
@@ -160,6 +164,7 @@ export class Store {
     // Reverse event lookups are needed even on initialized hosted stores. Do
     // not rerun the large serving-index/roots backfill to add these two indexes.
     this.db.exec(recallLookupIndexes);
+    this.db.exec(browserAuthSchema);
     if (database) {
       this.db.exec("CREATE TABLE IF NOT EXISTS atlas_runtime_meta(singleton INTEGER PRIMARY KEY CHECK(singleton=1),schema_version INTEGER NOT NULL,serving_index_version INTEGER NOT NULL)");
       this.run("INSERT INTO atlas_runtime_meta VALUES(1,?,?) ON CONFLICT(singleton) DO UPDATE SET schema_version=excluded.schema_version,serving_index_version=excluded.serving_index_version", SCHEMA_VERSION, 1);
@@ -252,6 +257,21 @@ export class Store {
     return actor;
   }
   active(a: Actor) {
+    if (a.browser_session_hash) {
+      const s = this.one(`SELECT 1 FROM browser_sessions s
+        JOIN browser_accounts b ON b.identity_key=s.identity_key
+        JOIN browser_credentials c ON c.session_hash=s.token_hash AND c.principal_id=? AND c.credential_id=?
+        JOIN principals p ON p.id=c.principal_id AND p.workspace_id=b.workspace_id
+        WHERE s.token_hash=? AND s.identity_key=? AND b.workspace_id=?
+          AND s.revoked_at IS NULL AND s.grant_token IS NOT NULL AND s.expires_at>?`,
+        a.id, a.credential_id, a.browser_session_hash, a.browser_identity_key, a.workspace_id, Date.now());
+      if (!s) fail(401, "browser_session_expired", "Browser session is no longer active");
+      if (a.browser_agent_id !== undefined && !this.one(`SELECT 1 FROM browser_agent_access x
+        JOIN memory_bindings b ON b.principal_id=x.principal_id AND b.workspace_id=?
+        JOIN memory_grants g ON g.principal_id=b.principal_id AND g.scope='agent:'||b.agent_id AND g.action='read'
+        WHERE x.identity_key=? AND x.principal_id=? AND b.agent_id=?`, a.workspace_id, a.browser_identity_key, a.id, a.browser_agent_id))
+        fail(403, "browser_agent_denied", "Browser agent access was revoked");
+    }
     if (
       !this.one(
         "SELECT id FROM credentials WHERE id=? AND principal_id=? AND revoked_at IS NULL",
@@ -262,6 +282,7 @@ export class Store {
       fail(401, "unauthorized", "Credential was revoked during this request");
   }
   admin(a: Actor) {
+    if (a.browser_session_hash) fail(403, "browser_read_only", "Browser sessions cannot administer workspaces");
     if (!a.is_admin)
       fail(403, "forbidden", "Workspace administration permission required");
   }
@@ -308,6 +329,7 @@ export class Store {
     authorize: () => void,
     act: () => any,
   ) {
+    if (a.browser_session_hash) fail(403, "browser_read_only", "Browser sessions cannot mutate knowledge or credentials");
     text(key, "Idempotency-Key", 200);
     return this.transaction(() => {
       this.active(a);

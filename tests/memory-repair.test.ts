@@ -415,10 +415,17 @@ test("independent concurrent subjects commit without a workspace cap; related co
     f.event("concurrent-B", { thread_id: "thread-B" });
     const first = f.w.runOnce(),
       second = f.w.runOnce();
-    await Bun.sleep(5);
+    // Wait for both injected calls, rather than assuming all preflight yields
+    // finish inside 5ms on a loaded test host. Keep a bounded failure deadline.
+    for (let n = 0; n < 100 && Object.keys(releases).length < 2; n++)
+      await Bun.sleep(5);
     expect(Object.keys(releases).length).toBe(2);
     releases["concurrent-A"]();
-    await Bun.sleep(10);
+    // Scheduler fairness may assign A to either runOnce promise. Observe A's
+    // persisted completion while B is still held, rather than guessing order.
+    const aStatus = () => f.s.one("SELECT j.status FROM memory_jobs j JOIN memory_events e ON e.id=j.event_pk WHERE e.event_id='concurrent-A'").status;
+    for (let n = 0; n < 100 && aStatus() === "running"; n++) await Bun.sleep(5);
+    expect(aStatus()).toBe("succeeded");
     releases["concurrent-B"]();
     await Promise.all([first, second]);
     const statuses = f.s

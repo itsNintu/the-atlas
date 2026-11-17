@@ -16,7 +16,7 @@ try{
  page.on("response",r=>{if(r.url().endsWith("/v1/memory/graph"))http.push(r.status());});
  await page.goto(url);await expect(page).toHaveTitle("The Atlas · Knowledge graph");
  assert.deepEqual(await page.evaluate(()=>({l:localStorage.length,s:sessionStorage.length,c:document.cookie})),{l:0,s:0,c:""});
- await page.locator("#token").fill(f.boot.token);await page.locator("#login button").click();
+ await page.locator("#machine-connection summary").click();await page.locator("#token").fill(f.boot.token);await page.locator("#login button").click();
  await expect(page.locator("#workspace")).toBeVisible();await expect(page.locator("#token")).toHaveValue("");await expect(page.locator("#relations .relation")).toHaveCount(8);
  await expect(page.locator("#processing")).toContainText("1 awaiting / processing");assert(!await page.locator("#scene").textContent().then(t=>(t||"").includes("Hidden Builder")));
  checks.push("Actual authenticated HTTP API reads on-disk persisted fixture; pending chatter excluded and caller-only processing state visible; private other-agent graph absent");

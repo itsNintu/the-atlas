@@ -1,4 +1,5 @@
 import { setting } from "./config.ts";
+import { BrowserAuth } from "./browser-auth.ts";
 import { Memory } from "./memory.ts";
 import { repairPlan, repairReconciliation } from "./memory-repair.ts";
 import { entityRepairPlan, repairMemoryEntity, authorizeEntityRepair } from './memory-entity-repair.ts';
@@ -56,12 +57,14 @@ function page(rows: any[], url: URL, binding: string) {
 }
 export class App {
   memory: Memory;
+  browserAuth: BrowserAuth;
   constructor(
     public store: Store,
     public provider: ExtractionProvider = new OpenAICompatible(),
     public assets?: Record<string, string | ArrayBuffer | Uint8Array>,
   ) {
     this.memory = new Memory(store);
+    this.browserAuth = new BrowserAuth(store);
   }
   async fetch(request: Request): Promise<Response> {
     const request_id = id("req"),
@@ -104,10 +107,18 @@ export class App {
           schema_version: SCHEMA_VERSION,
           request_id,
         });
+      if (path.startsWith("/auth/")) {
+        const response = await this.browserAuth.route(request); status = response.status; return response;
+      }
       if (!path.startsWith("/v1/")) fail(404, "not_found", "Route not found");
-      const a = this.store.authenticate(
+      const bearer = request.headers.has("authorization");
+      const machineActor = bearer ? this.store.authenticate(
         request.headers.get("authorization")?.replace(/^Bearer /, ""),
-      );
+      ) : undefined;
+      if (!bearer) {
+        if (!this.browserAuth.hasCookie(request)) this.store.authenticate(undefined);
+        this.browserAuth.allow(request);
+      }
       let b: any = {};
       if (!["GET", "HEAD"].includes(method)) {
         if (
@@ -151,6 +162,9 @@ export class App {
             "Workspace and identity come from the credential, not request fields",
           );
       }
+      const browser = !bearer ? await this.browserAuth.session(request) : null;
+      if (!bearer && !browser) fail(401, "unauthorized", "Creator sign-in required");
+      const a = machineActor ?? this.browserAuth.actor(browser!, path === "/v1/memory/graph" ? b.agent_id ?? null : undefined);
       this.store.active(a); // Revalidate after streamed body consumption.
       const write = (authorize: () => void, act: () => any) =>
         this.store.write(
@@ -248,7 +262,7 @@ export class App {
         };
       else if (method === "GET" && path === "/v1/me")
         result = {
-          principal: a,
+          principal: browser ? { id: a.id, workspace_id: a.workspace_id, name: a.name, kind: a.kind, is_admin: 0 } : a,
           workspace: this.store.one(
             "SELECT * FROM workspaces WHERE id=?",
             a.workspace_id,
@@ -675,6 +689,7 @@ export class App {
           },
         );
       } else fail(404, "not_found", "Route not found");
+      if (browser) { this.browserAuth.current(browser); this.store.active(a); }
       return this.json({ api_version: "v1", request_id, ...result });
     } catch (e) {
       if (!(e instanceof ApiError))
@@ -719,6 +734,7 @@ export class App {
       headers: {
         "Cache-Control": "no-store",
         "X-Content-Type-Options": "nosniff",
+        "Referrer-Policy": "no-referrer",
       },
     });
   }

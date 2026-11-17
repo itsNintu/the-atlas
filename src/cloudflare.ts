@@ -1,5 +1,6 @@
 import { DurableObject } from "cloudflare:workers";
 import { App } from "./app.ts";
+import { boundedBody } from "./browser-auth.ts";
 import { Store } from "./store.ts";
 import { DurableObjectSQLite } from "./sqlite.ts";
 import { Worker as SourceWorker } from "./worker.ts";
@@ -129,6 +130,16 @@ export class AtlasDurableObject extends DurableObject<AtlasEnvironment> {
     if (url.pathname.startsWith("/internal/operations/v1/")) {
       try {
         migrationAuthorized(request, this.env.THE_ATLAS_OPERATIONS_TOKEN);
+        if (request.method === "POST" && url.pathname === "/internal/operations/v1/browser-binding") {
+          if (!request.headers.get("content-type")?.startsWith("application/json"))
+            throw new ApiError(415, "unsupported_media_type", "JSON required", false);
+          let body;
+          try { body = JSON.parse(await boundedBody(request, 32_768)); }
+          catch (e) { if (e instanceof ApiError) throw e; throw new ApiError(400, "invalid_json", "Malformed JSON", false); }
+          return Response.json(this.app.browserAuth.bind(body), { headers: { "Cache-Control": "no-store", "Referrer-Policy": "no-referrer" } });
+        }
+        if (request.method === "GET" && url.pathname === "/internal/operations/v1/browser-binding-inventory")
+          return Response.json(this.app.browserAuth.inventory(), { headers: { "Cache-Control": "no-store", "Referrer-Policy": "no-referrer" } });
         if (request.method === "GET" && url.pathname.endsWith("/manifest"))
           return Response.json(migrationManifest(this.store), { headers: { "Cache-Control": "no-store" } });
         if (request.method === "POST" && url.pathname.endsWith("/restart")) {
