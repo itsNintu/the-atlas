@@ -42,7 +42,55 @@ try{
   await expect(page.locator('#workspace')).toBeVisible();await expect(page.locator('#scene .node').first()).toBeVisible();
   assert(await page.locator('#scene .node').count()>1);await page.locator('#expand-map').click();await fit(page);
   record(`${mobile?'touch':'mouse'} graph loaded`,{nodes:await page.locator('#scene .node').count(),edges:latest.edges.length,truncated:latest.truncated,viewport:mobile?'390x844 touch emulation':'1440x1000 desktop'});
+  await page.mouse.move(0,0);await page.evaluate(()=>document.fonts.ready);
+  const design=await page.evaluate(()=>({nodeLabels:document.querySelectorAll('.node text.label-visible').length,edgeLabels:document.querySelectorAll('.edge-label.label-visible').length,nodes:document.querySelectorAll('.node').length,arrows:Array.from(document.querySelectorAll('.edge')).some(e=>getComputedStyle(e).markerEnd!=='none'),fonts:document.fonts.check('14px "Space Grotesk"')&&document.fonts.check('12px "IBM Plex Mono"'),font:getComputedStyle(document.body).fontFamily}));
+  assert(!design.arrows);assert(design.fonts);assert(design.nodeLabels<design.nodes);assert.equal(design.edgeLabels,0);
+  await page.screenshot({path:join(out,mobile?'mobile-overview.png':'desktop-overview.png')});
+  record('Creator Labs fonts, arrowless edges and sparse overview labels',design);
   const firstNode=await nodeForGesture(page),id=await firstNode.getAttribute('data-node');
+  const labelCounts=[];const zoomPoint=await center(page,firstNode);
+  await page.mouse.move(zoomPoint.x,zoomPoint.y);
+  // Wheel dispatch here changes only the camera; move off canvas before counts
+  // so hover emphasis cannot masquerade as zoom-dependent eligibility.
+  for(let i=0;i<7;i++){
+   await page.locator('#graph').dispatchEvent('wheel',{deltaY:-100,clientX:zoomPoint.x,clientY:zoomPoint.y,ctrlKey:true});
+   await page.mouse.move(0,0);
+   labelCounts.push(await page.locator('.node text.label-visible').count());
+  }
+  const labelRects=await page.locator('.node text.label-visible,.edge-label.label-visible').evaluateAll(ts=>ts.map(t=>{const r=t.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};}));
+  for(let a=0;a<labelRects.length;a++)for(let b=a+1;b<labelRects.length;b++){const x=labelRects[a],y=labelRects[b];assert(!(x.x<y.x+y.w-1&&x.x+x.w>y.x+1&&x.y<y.y+y.h-1&&x.y+x.h>y.y+1),'visible graph labels must not collide');}
+  assert(labelCounts.some(n=>n>design.nodeLabels),'zoom should reveal additional eligible node labels');
+  await page.screenshot({path:join(out,mobile?'mobile-zoom-labels.png':'desktop-zoom-labels.png')});
+  record('Zoom progressively reveals non-overlapping labels',{overview:design.nodeLabels,zoom_counts:labelCounts,visible_labels:labelRects.length});
+  await fit(page);
+  if(!mobile){
+   const p=await center(page,firstNode);await page.mouse.move(p.x,p.y);
+   assert(await page.locator('.edge.connected').count()>0);assert(await page.locator('.node.hovered').count()===1);
+   await page.screenshot({path:join(out,'desktop-hover.png')});
+   record('Hover reveals actual neighborhood without selection');
+   await page.mouse.move(0,0);
+   const positionsBefore=await page.locator('.node').evaluateAll(ns=>ns.map(n=>n.getAttribute('transform')));
+   const cameraBefore=await page.locator('#graph').getAttribute('viewBox');
+   await page.keyboard.down('Space');await expect(page.locator('#graph')).toHaveClass(/space-pan/);
+   await page.mouse.move(p.x,p.y);await page.mouse.down();await page.mouse.move(p.x+66,p.y+32,{steps:8});
+   await expect(page.locator('#graph')).toHaveClass(/is-panning/);await page.mouse.up();await page.keyboard.up('Space');
+   assert.notEqual(await page.locator('#graph').getAttribute('viewBox'),cameraBefore);
+   assert.deepEqual(await page.locator('.node').evaluateAll(ns=>ns.map(n=>n.getAttribute('transform'))),positionsBefore);
+   await expect(firstNode).toHaveAttribute('aria-pressed','false');
+   record('Space-drag starting on a node pans without changing physics or selecting');
+   await page.keyboard.down('Space');await page.evaluate(()=>window.dispatchEvent(new Event('blur')));await expect(page.locator('#graph')).not.toHaveClass(/space-pan/);await page.keyboard.up('Space');
+   await page.locator('#query').focus();await page.keyboard.type('two words');await expect(page.locator('#query')).toHaveValue('two words');await expect(page.locator('#graph')).not.toHaveClass(/space-pan/);await page.locator('#query').fill('');
+   await page.evaluate(()=>{const e=document.createElement('div');e.id='test-editor';e.contentEditable='true';document.body.appendChild(e);e.focus();});await page.keyboard.type('a b');assert.equal(await page.locator('#test-editor').innerText(),'a b');await expect(page.locator('#graph')).not.toHaveClass(/space-pan/);await page.locator('#test-editor').evaluate(e=>e.remove());
+   record('Space keyup/blur clears pan; input and contenteditable spaces remain typing');
+   const box=(await page.locator('#graph').boundingBox())!,cursor={x:box.x+box.width*.38,y:box.y+box.height*.44};
+   const anchor=await page.locator('#graph').evaluate((g:SVGSVGElement,p)=>{const q=new DOMPoint(p.x,p.y).matrixTransform(g.getScreenCTM()!.inverse());return {x:q.x,y:q.y};},cursor);
+   const scrollBefore=await page.evaluate(()=>({y:scrollY,scale:visualViewport!.scale,dpr:devicePixelRatio}));const v=await page.locator('#graph').getAttribute('viewBox');
+   await page.mouse.move(cursor.x,cursor.y);await page.keyboard.down('Control');await page.mouse.wheel(0,-120);await page.keyboard.up('Control');await page.waitForTimeout(150);
+   assert(Number((await page.locator('#graph').getAttribute('viewBox'))!.split(' ')[2])<Number(v!.split(' ')[2]));
+   const projected=await page.locator('#graph').evaluate((g:SVGSVGElement,p)=>{const q=new DOMPoint(p.x,p.y).matrixTransform(g.getScreenCTM()!);return {x:q.x,y:q.y};},anchor);
+   assert(Math.hypot(projected.x-cursor.x,projected.y-cursor.y)<.5);assert.deepEqual(await page.evaluate(()=>({y:scrollY,scale:visualViewport!.scale,dpr:devicePixelRatio})),scrollBefore);
+   record('Ctrl-wheel zoom anchors pointer and does not zoom/scroll page');await fit(page);
+  }
   const node=page.locator(`#scene .node[data-node="${id}"]`);
   const before=await node.getAttribute('transform'),view=await page.locator('#graph').getAttribute('viewBox');
   const incident=latest.edges.find((e:any)=>e.source===id||e.target===id)!;

@@ -1,6 +1,7 @@
 /* Read-only graph. Credential lives only in this closure, never browser storage. */
 (() => {
   const $ = (id) => document.getElementById(id);
+  const idleDetail=$("detail").cloneNode(true);
   let token = "", agent = "", data = null, focus = null, selected = null, generation = 0, controller;
   let offset=0, remoteFocus=null, selectedNode=null, fitNext=true, navigationSnapshot=null, lastCriteria="";
   let view = { x: 0, y: 0, w: 1100, h: 700 }, positions = new Map();
@@ -12,7 +13,7 @@
   const meaning = (e) => `${label(e.source)} → ${e.predicate} → ${label(e.target)}`;
   const button = (text, fn, cls) => { const b=el("button",text,cls); b.type="button"; b.onclick=fn; return b; };
   function clear() {
-    stopPhysics();data=null; focus=null; selected=null; positions.clear(); selectedNode=null; remoteFocus=null; navigationSnapshot=null; offset=0; pointers.clear(); gesture=null; closeDetail(); $("scene").replaceChildren(); $("relations").replaceChildren(); $("changes").replaceChildren();
+    resetGesture();stopPhysics();data=null; focus=null; selected=null; positions.clear();nodeDraw.clear();edgeDraw.clear();nodeDegree.clear();connectedNodes.clear();connectedEdges.clear(); selectedNode=null; remoteFocus=null; navigationSnapshot=null; offset=0; closeDetail(); $("scene").replaceChildren(); $("relations").replaceChildren(); $("changes").replaceChildren();
     $("detail").replaceChildren(el("h2","No graph loaded")); $("counts").textContent=""; $("processing").textContent="";
   }
   async function load(initial=false) {
@@ -46,7 +47,7 @@
       lastCriteria=criteria();
       render(); if(selected)inspectEdge(data.edges.find(e=>e.id===selected));
       else if(selectedNode)inspectNode(data.nodes.find(n=>n.id===selectedNode));
-      else { $("detail").replaceChildren(el("h2","Select a connection"),el("p","Tap a node or relationship to inspect its evidence.")); closeDetail(); }
+      else { $("detail").replaceChildren(...Array.from(idleDetail.childNodes,n=>n.cloneNode(true))); closeDetail(); }
     } catch(e){ if(seq!==generation||e.name==="AbortError")return; clear(); $("status").textContent="Graph not loaded. No stale knowledge is displayed."; $("error").textContent=e.message; $("live").checked=false; }
   }
   function layout(nodes, edges) {
@@ -156,24 +157,28 @@
     pinned=null;if(physicsFrame)reheat();
   }
   function fit(){
-    const p=[...positions.values()], rect=$("graph").getBoundingClientRect(), ratio=rect.width/Math.max(1,rect.height);
-    if(!p.length)view={x:0,y:0,w:1100,h:1100/ratio};
+    const p=[...positions.values()],rect=$("graph").getBoundingClientRect(),width=Math.max(1,rect.width),height=Math.max(1,rect.height);
+    if(!p.length)view={x:0,y:0,w:1100,h:1100*height/width};
     else {
-      const minX=Math.min(...p.map(p=>p.x))-90,maxX=Math.max(...p.map(p=>p.x))+90,minY=Math.min(...p.map(p=>p.y))-90,maxY=Math.max(...p.map(p=>p.y))+90;
-      const w=Math.max(300,maxX-minX,(maxY-minY)*ratio),h=w/ratio;
-      view={x:(minX+maxX-w)/2,y:(minY+maxY-h)/2,w,h};
+      // Reserve CSS-pixel space for the floating tools and lower affordances.
+      // A fixed world-space margin disappears when a dense graph is fitted.
+      const minX=Math.min(...p.map(p=>p.x)),maxX=Math.max(...p.map(p=>p.x)),minY=Math.min(...p.map(p=>p.y)),maxY=Math.max(...p.map(p=>p.y));
+      const top=82,bottom=56,side=width<600?32:54,availableH=Math.max(80,height-top-bottom);
+      const unit=Math.max(300/width,(maxX-minX)/Math.max(80,width-side*2),(maxY-minY)/availableH);
+      const w=unit*width,h=unit*height;
+      view={x:(minX+maxX-w)/2,y:minY-top*unit-(availableH*unit-(maxY-minY))/2,w,h};
     }
     applyView();
   }
   function applyView(){
     $("graph").setAttribute("viewBox",`${view.x} ${view.y} ${view.w} ${view.h}`);
-    $("graph").classList.toggle("close-zoom",view.w<850);
     const unit=view.w/Math.max(1,$("graph").getBoundingClientRect().width);
-    for(const t of $("scene").querySelectorAll("text")){t.setAttribute("font-size",12*unit);t.setAttribute("stroke-width",3*unit);}
-    for(const c of $("scene").querySelectorAll(".node circle")){
-      const r=Math.max(Number(c.dataset.radius),5*unit);c.setAttribute("r",r);
-      c.parentNode.querySelector("text").setAttribute("y",Math.max(41,r+16*unit));
+    $("zoom-level").textContent=`${Math.round(100/unit)}%`;
+    for(const [id,g] of nodeDraw){
+      const r=nodeRadius(id);g.querySelector(".node-core").setAttribute("r",r*unit);
+      g.querySelector(".node-hit").setAttribute("r",Math.max(17,r+6)*unit);
     }
+    placeLabels();
   }
   // Transform through the SVG CTM, not its bounding box: letterboxing matters.
   function world(x,y){return new DOMPoint(x,y).matrixTransform($("graph").getScreenCTM().inverse());}
@@ -182,7 +187,77 @@
     const f=Math.max(120,Math.min(12000,view.w*factor))/view.w;
     view={x:a.x+(view.x-a.x)*f,y:a.y+(view.y-a.y)*f,w:view.w*f,h:view.h*f};applyView();
   }
-  const edgeDraw=new Map(),nodeDraw=new Map();
+  const edgeDraw=new Map(),nodeDraw=new Map(),nodeDegree=new Map();
+  let hoverNode=null,hoverEdge=null,connectedNodes=new Set(),connectedEdges=new Set();
+  const labelMeasure=document.createElement("canvas").getContext("2d"),labelWidths=new Map();
+  function nodeRadius(id){return Math.min(10,4.5+Math.log2((nodeDegree.get(id)||0)+1)*1.2);}
+  function textWidth(text,edge=false){
+    const key=`${edge}:${text}`;
+    if(!labelWidths.has(key)){
+      labelMeasure.font=edge?'10px "IBM Plex Mono",monospace':'500 11.5px "Space Grotesk",Arial,sans-serif';
+      labelWidths.set(key,labelMeasure.measureText(text).width+8);
+    }
+    return labelWidths.get(key);
+  }
+  // Labels are laid out in CSS pixels, independent of world zoom. The bounded
+  // greedy pass reserves every visible node, then labels by interaction/degree.
+  // A label never earns visibility just because it exists in the loaded page.
+  function placeLabels(){
+    const rect=$("graph").getBoundingClientRect();if(!rect.width||!rect.height)return;
+    const unit=view.w/rect.width,width=rect.width,height=rect.height;
+    const screen=p=>({x:(p.x-view.x)/unit,y:(p.y-view.y)/unit});
+    const occupied=[];
+    const overlaps=b=>occupied.some(a=>b.x<a.x+a.w&&b.x+b.w>a.x&&b.y<a.y+a.h&&b.y+b.h>a.y);
+    const within=b=>b.x>=10&&b.x+b.w<=width-10&&b.y>=64&&b.y+b.h<=height-38;
+    const active=!!(selectedNode||selected||hoverNode||hoverEdge);
+    for(const [id,g] of nodeDraw){
+      const t=g.querySelector("text");t.classList.remove("label-visible");g.querySelector(".label-leader").classList.remove("label-visible");
+      t.setAttribute("font-size",11.5*unit);t.setAttribute("stroke-width",4*unit);
+      const p=screen(positions.get(id)),r=nodeRadius(id)+3;
+      if(p.x+r>0&&p.x-r<width&&p.y+r>0&&p.y-r<height)occupied.push({x:p.x-r,y:p.y-r,w:r*2,h:r*2});
+    }
+    const rank=id=>id===selectedNode?10000:id===hoverNode?9000:connectedNodes.has(id)?5000+(nodeDegree.get(id)||0):nodeDegree.get(id)||0;
+    const ordered=[...nodeDraw].sort((a,b)=>rank(b[0])-rank(a[0])||a[0].localeCompare(b[0]));
+    const budget=Math.max(8,Math.floor(width*height/12500));let shown=0;
+    for(const [id,g] of ordered){
+      const degree=nodeDegree.get(id)||0,local=connectedNodes.has(id),primary=id===selectedNode||id===hoverNode;
+      if(active&&!local)continue;
+      if(!local&&!(unit<.8||(degree>=2&&unit<1.45)||(degree>=3&&unit<2.8)||(degree>=6&&unit<14)))continue;
+      if(!primary&&shown>=budget)continue;
+      const t=g.querySelector("text"),p=screen(positions.get(id)),w=textWidth(t.firstChild.textContent),h=17,r=nodeRadius(id)+8;
+      // Nearby slots first. Important hubs/focus may use a short neutral leader
+      // rather than silently losing their name inside a crowded neighborhood.
+      const options=[];
+      for(const gap of primary||degree>=6?[r,r+18,r+36,r+60]:[r])options.push(
+        {x:p.x+gap,y:p.y-h/2,a:"start",tx:gap,ty:4,gap},
+        {x:p.x-gap-w,y:p.y-h/2,a:"end",tx:-gap,ty:4,gap},
+        {x:p.x-w/2,y:p.y+gap,a:"middle",tx:0,ty:gap+12,gap},
+        {x:p.x-w/2,y:p.y-gap-h,a:"middle",tx:0,ty:-gap-4,gap},
+        {x:p.x+gap,y:p.y-gap-h,a:"start",tx:gap,ty:-gap-4,gap},
+        {x:p.x-gap-w,y:p.y-gap-h,a:"end",tx:-gap,ty:-gap-4,gap});
+      const b=options.find(b=>within({...b,w,h})&&!overlaps({...b,w,h}));
+      if(!b)continue;
+      occupied.push({...b,w,h});shown++;
+      t.setAttribute("text-anchor",b.a);t.setAttribute("x",b.tx*unit);t.setAttribute("y",b.ty*unit);t.classList.add("label-visible");
+      if(b.gap>r){
+        const leader=g.querySelector(".label-leader"),x=Math.max(b.x,Math.min(p.x,b.x+w))-p.x,y=Math.max(b.y,Math.min(p.y,b.y+h))-p.y;
+        leader.setAttribute("d",`M0 0 L${x*unit} ${y*unit}`);leader.classList.add("label-visible");
+      }
+    }
+    let edgeShown=0;
+    const edges=[...edgeDraw].sort((a,b)=>Number(b[0]===selected||b[0]===hoverEdge)-Number(a[0]===selected||a[0]===hoverEdge));
+    for(const [id,d] of edges){
+      const t=d.txt;t.classList.remove("label-visible");t.setAttribute("font-size",10*unit);t.setAttribute("stroke-width",5*unit);
+      const primary=id===selected||id===hoverEdge;
+      if(!d.labelPoint||(!primary&&!(connectedEdges.has(id)||(!active&&unit<.6))))continue;
+      if(!primary&&edgeShown>=(active?10:14))continue;
+      const p=screen(d.labelPoint),w=textWidth(t.firstChild.textContent,true),h=15;
+      const options=[-11,9,-27].map(dy=>({x:p.x-w/2,y:p.y+dy-h/2,w,h,dy}));
+      const b=options.find(b=>within(b)&&!overlaps(b));if(!b)continue;
+      occupied.push(b);edgeShown++;
+      t.setAttribute("x",d.labelPoint.x);t.setAttribute("y",d.labelPoint.y+(b.dy+3)*unit);t.classList.add("label-visible");
+    }
+  }
   function geometry(){
     const parallel=new Map();
     for(const e of data?.edges||[]){
@@ -190,18 +265,24 @@
       const a=positions.get(e.source),b=positions.get(e.target),dx=b.x-a.x,dy=b.y-a.y,d=Math.max(1,Math.hypot(dx,dy));
       const key=[e.source,e.target].sort().join("|"),idx=parallel.get(key)||0;parallel.set(key,idx+1);
       const bend=idx*30,mx=(a.x+b.x)/2-dy/d*bend,my=(a.y+b.y)/2+dx/d*bend;
-      const path=a===b?`M${a.x-15} ${a.y-12} C${a.x-90} ${a.y-110},${a.x+90} ${a.y-110},${a.x+15} ${a.y-12}`:`M${a.x+dx/d*19} ${a.y+dy/d*19} Q${mx} ${my} ${b.x-dx/d*23} ${b.y-dy/d*23}`;
-      draw.line.setAttribute("d",path);draw.hit.setAttribute("d",path);draw.txt.setAttribute("x",mx);draw.txt.setAttribute("y",a===b?a.y-75:my-8);
+      const path=a===b?`M${a.x} ${a.y} C${a.x-90} ${a.y-110},${a.x+90} ${a.y-110},${a.x} ${a.y}`:`M${a.x} ${a.y} Q${mx} ${my} ${b.x} ${b.y}`;
+      draw.line.setAttribute("d",path);draw.hit.setAttribute("d",path);
+      draw.labelPoint=a===b?{x:a.x,y:a.y-82.5}:{x:(a.x+b.x)/4+mx/2,y:(a.y+b.y)/4+my/2};
     }
     for(const [id,g] of nodeDraw){const p=positions.get(id);g.setAttribute("transform",`translate(${p.x},${p.y})`);}
+    placeLabels();
   }
   function highlight(){
-    const connected=new Set(),edgeIds=new Set();
-    if(selectedNode){connected.add(selectedNode);for(const e of data.edges)if(e.source===selectedNode||e.target===selectedNode){connected.add(e.source);connected.add(e.target);edgeIds.add(e.id);}}
-    else if(selected){const e=data.edges.find(e=>e.id===selected);if(e){connected.add(e.source);connected.add(e.target);edgeIds.add(e.id);}}
-    const active=!!(selected||selectedNode);
-    for(const [id,g] of nodeDraw){g.classList.toggle("selected",id===selectedNode);g.classList.toggle("connected",active&&connected.has(id));g.classList.toggle("dimmed",active&&!connected.has(id));g.setAttribute("aria-pressed",String(id===selectedNode));}
-    for(const [id,d] of edgeDraw){d.line.classList.toggle("selected",id===selected);d.line.classList.toggle("connected",edgeIds.has(id));d.txt.classList.toggle("connected",edgeIds.has(id));d.line.classList.toggle("dimmed",active&&!edgeIds.has(id));d.txt.classList.toggle("dimmed",active&&!edgeIds.has(id));}
+    connectedNodes=new Set();connectedEdges=new Set();
+    for(const id of [selectedNode,hoverNode])if(id){
+      connectedNodes.add(id);
+      for(const e of data?.edges||[])if(e.source===id||e.target===id){connectedNodes.add(e.source);connectedNodes.add(e.target);connectedEdges.add(e.id);}
+    }
+    for(const id of [selected,hoverEdge])if(id){const e=data?.edges.find(e=>e.id===id);if(e){connectedNodes.add(e.source);connectedNodes.add(e.target);connectedEdges.add(e.id);}}
+    const active=!!(selected||selectedNode||hoverNode||hoverEdge);
+    for(const [id,g] of nodeDraw){g.classList.toggle("selected",id===selectedNode);g.classList.toggle("hovered",id===hoverNode);g.classList.toggle("connected",active&&connectedNodes.has(id));g.classList.toggle("dimmed",active&&!connectedNodes.has(id));g.setAttribute("aria-pressed",String(id===selectedNode));}
+    for(const [id,d] of edgeDraw)for(const part of [d.line,d.txt]){part.classList.toggle("selected",id===selected);part.classList.toggle("hovered",id===hoverEdge);part.classList.toggle("connected",connectedEdges.has(id));part.classList.toggle("dimmed",active&&!connectedEdges.has(id));}
+    placeLabels();
   }
   function render(){
     if(!data)return;
@@ -215,11 +296,13 @@
       const txt=svg("text",{class:"edge-label","data-edge":e.id},short(e.predicate.replaceAll("_"," "),23));txt.append(svg("title",{},meaning(e)));
       scene.append(line,hit,txt);edgeDraw.set(e.id,{line,hit,txt});
     }
-    const degree=new Map();for(const e of edges)for(const id of [e.source,e.target])degree.set(id,(degree.get(id)||0)+1);
+    hoverNode=null;hoverEdge=null;nodeDegree.clear();labelWidths.clear();
+    for(const e of edges)for(const id of [e.source,e.target])nodeDegree.set(id,(nodeDegree.get(id)||0)+1);
     for(const n of nodes){
-      const g=svg("g",{class:`node ${n.kind} ${(degree.get(n.id)||0)>2?"hub":""}`,tabindex:"0",role:"button","aria-label":`${n.label}, ${n.kind}, ${n.scope}`,"data-node":n.id});
-      g.append(svg("circle",{r:Math.min(25,12+Math.log2((degree.get(n.id)||0)+1)*3),"data-radius":Math.min(25,12+Math.log2((degree.get(n.id)||0)+1)*3)}),svg("text",{y:41},short(n.label)),svg("title",{},`${n.label} · ${n.kind} · ${n.scope}`));
-      g.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();inspectNode(n);}};scene.append(g);nodeDraw.set(n.id,g);
+      const g=svg("g",{class:`node ${n.kind} ${(nodeDegree.get(n.id)||0)>2?"hub":""}`,tabindex:"0",role:"button","aria-label":`${n.label}, ${n.kind}, ${n.scope}`,"data-node":n.id});
+      g.append(svg("path",{class:"label-leader","aria-hidden":"true"}),svg("circle",{class:"node-core",r:nodeRadius(n.id),"data-radius":nodeRadius(n.id)}),svg("circle",{class:"node-hit",r:17,"aria-hidden":"true"}),svg("text",{},short(n.label,36)),svg("title",{},`${n.label} · ${n.kind} · ${n.scope}`));
+      // Space belongs exclusively to camera panning; Enter is the node action.
+      g.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();inspectNode(n);}};scene.append(g);nodeDraw.set(n.id,g);
     }
     geometry();highlight();applyView();
     $("empty").hidden=edges.length>0;
@@ -250,7 +333,7 @@
   }
   $("login").onsubmit=async e=>{e.preventDefault();token=$("token").value;$("token").value="";agent=$("agent").value.trim();await load(true);if(!data)token="";};
   $("disconnect").onclick=()=>{token="";++generation;controller?.abort();clear();location.reload();};
-  $("controls").onsubmit=e=>{e.preventDefault();resetLoad();};
+  $("controls").onsubmit=e=>{e.preventDefault();$("filters").open=false;resetLoad();};
   $("history").onchange=()=>resetLoad();$("limit").onchange=()=>resetLoad();
   $("fit").onclick=fit;$("zoom-in").onclick=()=>zoom(.8);$("zoom-out").onclick=()=>zoom(1.25);
   $("clear-focus").onclick=()=>{if(remoteFocus){resetLoad();return;}focus=null;fitNext=true;render();};
@@ -259,27 +342,79 @@
   $("close-detail").onclick=()=>{closeDetail();$("show-detail").focus();};
   $("show-detail").onclick=openDetail;
   $("expand-map").onclick=()=>{const expanded=$("explorer").classList.toggle("expanded");$("expand-map").textContent=expanded?"Exit full view":"Full view";requestAnimationFrame(fit);};
-  document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeDetail();if($("explorer").classList.contains("expanded"))$("expand-map").click();}});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"){$("filters").open=false;$("graph-help").open=false;closeDetail();if($("explorer").classList.contains("expanded"))$("expand-map").click();}});
+  document.addEventListener("pointerdown",e=>{for(const id of ["filters","graph-help"]){const panel=$(id);if(panel.open&&!panel.contains(e.target))panel.open=false;}});
   setInterval(()=>{if(token&&$("live").checked&&!document.hidden&&!pointers.size)load();},15000);
-  const graph=$("graph"),pointers=new Map();let gesture=null,suppressClick=false;
+  const graph=$("graph"),pointers=new Map();let gesture=null,suppressClick=false,spaceDown=false;
+  function gestureCursor(){
+    graph.classList.toggle("space-pan",spaceDown);
+    graph.classList.toggle("is-panning",!!gesture&&(gesture.type==="pan"||gesture.type==="pinch"));
+    graph.classList.toggle("is-dragging",!!gesture&&gesture.type==="node"&&gesture.moved);
+  }
+  function pointerNode(x,y){
+    const p=world(x,y),unit=view.w/Math.max(1,graph.getBoundingClientRect().width);let nearest=null,distance=17*unit;
+    // Expanded hit circles can overlap at overview zoom. Resolve by distance,
+    // not SVG paint order, so a neighbor's invisible target cannot steal a node.
+    for(const [id,g] of nodeDraw){const n=positions.get(id),d=Math.hypot(n.x-p.x,n.y-p.y);if(d<distance){distance=d;nearest=g;}}
+    return nearest;
+  }
+  function setHover(target,x,y){
+    const node=(x===undefined?target?.closest?.(".node"):pointerNode(x,y))?.dataset.node||null,edge=node?null:target?.closest?.("[data-edge]")?.dataset.edge||null;
+    if(node===hoverNode&&edge===hoverEdge)return;hoverNode=node;hoverEdge=edge;highlight();
+  }
+  function resetGesture(){
+    spaceDown=false;releaseNode();gesture=null;suppressClick=true;
+    const ids=[...pointers.keys()];pointers.clear();
+    for(const id of ids)if(graph.hasPointerCapture(id))graph.releasePointerCapture(id);
+    setHover(null);gestureCursor();
+  }
+  function typingTarget(target){return target instanceof Element&&!!target.closest("input,textarea,select,[contenteditable]:not([contenteditable='false']),[role='textbox'],.cm-editor,.monaco-editor");}
+  // Capture Space before SVG node handlers. Typing controls retain native Space.
+  document.addEventListener("keydown",e=>{
+    if((e.code!=="Space"&&e.key!==" ")||typingTarget(e.target)||e.altKey||e.metaKey||e.ctrlKey)return;
+    if($("workspace").hidden)return;
+    spaceDown=true;
+    // Native toolbar actions still activate with Space when no graph drag
+    // follows. Pointerdown moves focus to the graph before Space is released.
+    if(!e.target.closest?.("button,summary,a"))e.preventDefault();
+    if(gesture&&gesture.type==="node"){
+      releaseNode();suppressClick=true;const p=[...pointers.values()][0];
+      gesture={type:"pan",x:p.x,y:p.y,anchor:world(p.x,p.y),v:{...view},moved:false,spacePan:true};
+    }
+    gestureCursor();
+  },true);
+  document.addEventListener("keyup",e=>{if(e.code==="Space"||e.key===" "){spaceDown=false;gestureCursor();}},true);
+  window.addEventListener("blur",resetGesture);
+  document.addEventListener("visibilitychange",()=>{if(document.hidden)resetGesture();});
+  graph.addEventListener("focusin",e=>setHover(e.target));
+  graph.addEventListener("focusout",e=>{if(!graph.contains(e.relatedTarget))setHover(null);});
+  graph.addEventListener("pointerleave",()=>{if(!pointers.size)setHover(null);});
   function startGesture(){
     const points=[...pointers.values()];
-    if(points.length>=2){releaseNode();const [a,b]=points;gesture={type:"pinch",distance:Math.max(1,Math.hypot(a.x-b.x,a.y-b.y)),v:{...view},anchor:world((a.x+b.x)/2,(a.y+b.y)/2)};}
+    if(points.length>=2){
+      releaseNode();suppressClick=true;const [a,b]=points;
+      gesture={type:"pinch",moved:true,distance:Math.max(1,Math.hypot(a.x-b.x,a.y-b.y)),v:{...view},anchor:world((a.x+b.x)/2,(a.y+b.y)/2)};
+      gestureCursor();
+    }
   }
-  graph.addEventListener("wheel",e=>{e.preventDefault();zoom(e.deltaY>0?1.12:.89,{x:e.clientX,y:e.clientY});},{passive:false});
+  // A non-passive handler also owns Ctrl+wheel: never browser/page zoom here.
+  graph.addEventListener("wheel",e=>{e.preventDefault();zoom(Math.exp(Math.max(-.25,Math.min(.25,e.deltaY*(e.deltaMode===1?.035:.002)))),{x:e.clientX,y:e.clientY});},{passive:false});
   graph.addEventListener("pointerdown",e=>{
     if(e.button!==0)return;
-    graph.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});suppressClick=false;
+    e.preventDefault();graph.focus({preventScroll:true});graph.setPointerCapture(e.pointerId);pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    setHover(null);
     if(pointers.size>=2){startGesture();return;}
-    const node=e.target.closest(".node"),edge=e.target.closest("[data-edge]");
+    suppressClick=spaceDown;
+    const node=spaceDown?null:pointerNode(e.clientX,e.clientY),edge=spaceDown?null:e.target.closest("[data-edge]");
     if(node)$("scene").append(node);
     const p=world(e.clientX,e.clientY),id=node?.dataset.node;
     if(id)pinned=id;
-    gesture={type:id?"node":"pan",id,edge:edge?.dataset.edge,x:e.clientX,y:e.clientY,anchor:p,v:{...view},origin:id?{...positions.get(id)}:null,moved:false};
+    gesture={type:id?"node":"pan",id,edge:edge?.dataset.edge,x:e.clientX,y:e.clientY,anchor:p,v:{...view},origin:id?{...positions.get(id)}:null,moved:false,spacePan:spaceDown};
+    gestureCursor();
   });
   graph.addEventListener("pointermove",e=>{
-    if(!pointers.has(e.pointerId)||!gesture)return;
-    pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+    if(!pointers.has(e.pointerId)||!gesture){if(e.pointerType!=="touch"&&!spaceDown)setHover(e.target,e.clientX,e.clientY);return;}
+    e.preventDefault();pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
     if(gesture.type==="pinch"){
       const [a,b]=[...pointers.values()];if(!b)return;
       const f=Math.max(120,Math.min(12000,gesture.v.w*gesture.distance/Math.max(1,Math.hypot(a.x-b.x,a.y-b.y))))/gesture.v.w;
@@ -288,7 +423,7 @@
     }
     if(Math.hypot(e.clientX-gesture.x,e.clientY-gesture.y)>6)gesture.moved=true;
     if(!gesture.moved)return;
-    suppressClick=true;
+    suppressClick=true;gestureCursor();
     if(gesture.type==="node"){
       const p=world(e.clientX,e.clientY),n=positions.get(gesture.id);n.x=gesture.origin.x+p.x-gesture.anchor.x;n.y=gesture.origin.y+p.y-gesture.anchor.y;n.vx=0;n.vy=0;pinned=n.id;reheat();geometry();
     }else{
@@ -296,15 +431,22 @@
     }
   });
   function endPointer(e){
+    if(!pointers.has(e.pointerId))return;
     const g=gesture;releaseNode();pointers.delete(e.pointerId);
-    if(e.type==="pointerup"&&g&&!g.moved&&!suppressClick&&g.type!=="pinch"){
+    if(e.type==="pointerup"&&g&&!g.moved&&!suppressClick&&!g.spacePan&&g.type!=="pinch"){
       if(g.id)inspectNode(data.nodes.find(n=>n.id===g.id));else if(g.edge)inspectEdge(data.edges.find(edge=>edge.id===g.edge));
       else {selected=null;selectedNode=null;highlight();closeDetail();}
     }
     gesture=null;
-    if(pointers.size){suppressClick=true;const p=[...pointers.values()][0];gesture={type:"pan",x:p.x,y:p.y,anchor:world(p.x,p.y),v:{...view},moved:true};}
+    if(pointers.size){
+      suppressClick=true;
+      if(pointers.size>=2)startGesture();
+      else {const p=[...pointers.values()][0];gesture={type:"pan",x:p.x,y:p.y,anchor:world(p.x,p.y),v:{...view},moved:true};}
+    }
+    gestureCursor();
   }
   graph.addEventListener("pointerup",endPointer);graph.addEventListener("pointercancel",endPointer);
   graph.addEventListener("lostpointercapture",e=>{if(pointers.has(e.pointerId))endPointer(e);});
   new ResizeObserver(()=>{const r=graph.getBoundingClientRect();if(!r.width||!r.height)return;const h=view.w*r.height/r.width;view.y+=(view.h-h)/2;view.h=h;applyView();}).observe(graph);
+  document.fonts?.ready.then(()=>{labelWidths.clear();placeLabels();});
 })();
