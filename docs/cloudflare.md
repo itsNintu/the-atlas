@@ -103,8 +103,10 @@ curl -o /dev/null -w '%{http_code}\n' https://atlas.creator.gg/brain
 bun x wrangler deployments list
 ```
 
-The graph/dashboard and API require the same migrated per-agent credentials as before. There is
-no temporary `trycloudflare` URL, public unauthenticated brain, or Windows/WSL forwarding path.
+The human graph at `/brain` uses **Sign in with Creator Labs**, native Platform SSO and an
+HttpOnly Atlas session. Existing API consumers and the developer evidence inspector retain their
+migrated per-agent credentials; the browser login does not replace or rotate those credentials.
+There is no temporary `trycloudflare` URL, public unauthenticated brain, or Windows/WSL forwarding path.
 The existing zone Bot Fight Mode remains enabled; the supported native 1.2.6 client identifies
 itself as `Hermes-Atlas/1.2.6` instead of generic Python urllib. Do not weaken zone security for
 unrelated callers.

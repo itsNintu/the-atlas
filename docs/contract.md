@@ -25,7 +25,7 @@ bearer credential. Bodies require `Content-Type: application/json`; writes requi
 The browser-only graph exception below uses an HttpOnly session; machine bearer clients keep
 their existing authorization and behavior.
 
-## Creator browser authentication (local source implementation)
+## Creator browser authentication
 
 `GET /auth/login` redirects to the fixed `https://agents.creator.gg/atlas/sign-in` broker with
 only random state and the SHA-256 PKCE challenge in the URL. Native Creator Platform SSO is the
@@ -80,8 +80,10 @@ The existing Cloudflare operations-token gate protects:
 
 Tables install additively even on the initialized hosted fast path, without serving-index or
 history backfill. They are preserved account state in the offline derived-reset manifest.
-This source implementation and synthetic tests do not establish real SSO, owner binding or
-deployment acceptance. Those are the parent integration boundary.
+Hosted release acceptance on 17 November 2026 verifies actual native Platform sign-in/return,
+existing-owner binding, independently isolated first Atlas entry, session/logout and unchanged
+machine authorization. This is the existing active connected Platform administrator membership
+contract, not an undocumented OpenID provider or the separate free-email profile identity.
 
 ## Authorization
 

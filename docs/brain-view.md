@@ -1,12 +1,13 @@
 # Durable brain view
 
-Open **`/brain` on your Atlas origin** and choose **Sign in with Creator Labs**. The local source
+Open **`/brain` on your Atlas origin** and choose **Sign in with Creator Labs**. The hosted
 implementation uses native Creator Platform SSO through the fixed broker and restores an HttpOnly
 browser session after reload. The account display shows the actual Creator workspace/user; the
 agent selector contains only explicitly mapped bindings with current own-scope read grants.
 New accounts show “Your Atlas is ready. No agents are connected to this account yet” with a Creator
 Platform link. They never load the legacy owner's graph. Sign out clears the picture and session;
-refresh stays signed out. Real hosted SSO and stable owner binding require parent acceptance.
+refresh stays signed out. Hosted owner/independent-account login, native return and isolation
+passed on 17 November 2026; stable owner binding preserves the existing graph and machine grants.
 The hosted production view is https://atlas.creator.gg/brain. Agent perspective comes from the
 explicit account mapping and binding; node/person focus remains separate.
 

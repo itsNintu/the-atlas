@@ -1,5 +1,46 @@
 # Current project context
 
+## 2026-11-17 Creator Platform browser login — deployed and accepted
+
+Task `t_ecb5f288`: https://atlas.creator.gg/brain now offers **Sign in with Creator Labs**.
+Actual Platform identity at platform.creator.gg is brokered through existing verified native SSO
+at agents.creator.gg, not the separate free-email profile system. State/PKCE + one-use form POST,
+Secure HttpOnly Atlas cookies, per-request live membership checks and explicit server-side
+account/agent authorization replace manual bearer entry in the normal human flow.
+
+Atlas source `000dcb99e1e98d96aaf3f58a93e8f99e2bbec5a9`, Worker
+`cd5ebd07-835d-478e-881b-4025a9a07a50`; protected restart receipt200 at
+2026-11-17T02:41:38.176915Z, exact live HTML/JS/CSS hashes match. Creator broker source
+`6fc5f58a857c7d4047189d1bca3978cb4eba020b`, additive production Convex deployment,
+app `KLoXWhZLg3Wstfmwy9sCu` / Worker `dc6e47f0-130c-42fe-85b9-19d1cba29cf3`.
+Exact-source CI44004652467 (Atlas) and44004667700 (Creator) both green. Atlas237tests /
+2647assertions + frozen install/check/build/public/helper/E2E/UI/human-auth/origin/graph suites;
+Creator required root check/build2115reportedtests (cache included), OpenNext/audit/source guards,
+Wrangler4.163dryrun/release and Convex1.50 additive/no-index-deletion checks pass.
+
+Default-owned helper `t_6946d5ef` verified actual primary + independent existing test28 native
+user/company/location/Creator-workspace tuples via real SSO/current membership, retained separate
+parent-bound browsers, and kept credentials/mailbox sessions in their owning context. Exact primary
+binding now reaches the CURRENT legacy brain and12authorized agent graphs without moving existing
+machine principals/grants/data. Test28's first Atlas entry creates an independent nonadmin empty
+workspace with0agents; no legacy Alex scopes are inherited. Live graph default200/69nodes60edges,
+8identifier/bearer/write probes denied (400/401/403, no data), parent portal logout→Atlas401,
+native Platform popup→automatic Atlas return, owner mobile reload/signout/refresh/relogin pass.
+Machine graph/zero-budget recall200, wrong-agent403, all12legacy bindings/grants exactly unchanged.
+
+Private owner evidence `D:/Projects/TheAtlas/evidence/platform-login-tecb/`; protected binding and
+activation receipts in release worktree `.private/browser-auth/`. No credentials/tickets/provider
+proofs in URLs or evidence. Chromium390x844 is viewport emulation, not physical-phone acceptance;
+new accounts start empty, not automatic agent import. Existing active connected Platform admin
+membership contract is reused. Accepted graph physics/labels/gestures and recall evidence are
+unchanged/reused; no hosted physics re-audit or native fleet reload. Human graph is read-only;
+`/` and collapsed Developer/API connection retain machine bearer auth. A real browser probe fixed
+no-referrer→Origin:null on native cross-origin form POST using strict-origin on the broker success
+form (origin only, no credential/path/query). No SSO key/provider/Marketplace grant rotation.
+
+Release worktree `/home/alex/work/projects/the-atlas-login-tecb`; older dirty canonical operational-
+memory work and retired local writer stay untouched. Do not deploy the older canonical checkout.
+
 ## 2026-11-17 Creator Labs graph design and gestures — deployed
 
 Task `t_64ca3cc1` deploys source `66d9dae62a8ff8b464d7bf3ce5c8291656055eae`, Worker
