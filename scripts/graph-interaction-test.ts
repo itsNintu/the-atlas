@@ -48,20 +48,24 @@ try{
   await page.screenshot({path:join(out,mobile?'mobile-overview.png':'desktop-overview.png')});
   record('Creator Labs fonts, arrowless edges and sparse overview labels',design);
   const firstNode=await nodeForGesture(page),id=await firstNode.getAttribute('data-node');
-  const labelCounts=[];const zoomPoint=await center(page,firstNode);
-  await page.mouse.move(zoomPoint.x,zoomPoint.y);
-  // Wheel dispatch here changes only the camera; move off canvas before counts
-  // so hover emphasis cannot masquerade as zoom-dependent eligibility.
-  for(let i=0;i<7;i++){
+  const initialLabels=await page.locator('.node text.label-visible').evaluateAll(ts=>ts.map(t=>t.parentElement!.getAttribute('data-node')));
+  // Zoom around an initially hidden endpoint, not an overview hub: a hub-
+  // anchored narrow viewport can legitimately clip every newly eligible leaf.
+  const zoomPoint=await page.locator('.node text:not(.label-visible)').evaluateAll(ts=>{
+   const g=document.querySelector('#graph')!.getBoundingClientRect();
+   return ts.map(t=>{const p=new DOMPoint(0,0).matrixTransform((t.parentElement as unknown as SVGGElement).getScreenCTM()!);return {x:p.x,y:p.y};}).filter(p=>p.x>g.x+30&&p.x<g.right-30&&p.y>g.y+90&&p.y<g.bottom-50).sort((a,b)=>Math.hypot(a.x-g.x-g.width/2,a.y-g.y-g.height/2)-Math.hypot(b.x-g.x-g.width/2,b.y-g.y-g.height/2))[0];
+  });assert(zoomPoint,'fixture must expose a hidden endpoint inside the canvas');
+  const labelCounts=[],newlyVisible=new Set();
+  for(let i=0;i<12;i++){
    await page.locator('#graph').dispatchEvent('wheel',{deltaY:-100,clientX:zoomPoint.x,clientY:zoomPoint.y,ctrlKey:true});
-   await page.mouse.move(0,0);
-   labelCounts.push(await page.locator('.node text.label-visible').count());
+   const ids=await page.locator('.node text.label-visible').evaluateAll(ts=>ts.map(t=>t.parentElement!.getAttribute('data-node')));
+   labelCounts.push(ids.length);for(const id of ids)if(!initialLabels.includes(id))newlyVisible.add(id);
   }
   const labelRects=await page.locator('.node text.label-visible,.edge-label.label-visible').evaluateAll(ts=>ts.map(t=>{const r=t.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height};}));
   for(let a=0;a<labelRects.length;a++)for(let b=a+1;b<labelRects.length;b++){const x=labelRects[a],y=labelRects[b];assert(!(x.x<y.x+y.w-1&&x.x+x.w>y.x+1&&x.y<y.y+y.h-1&&x.y+x.h>y.y+1),'visible graph labels must not collide');}
-  assert(labelCounts.some(n=>n>design.nodeLabels),'zoom should reveal additional eligible node labels');
+  assert(newlyVisible.size>0,'zoom should reveal previously hidden eligible node labels');
   await page.screenshot({path:join(out,mobile?'mobile-zoom-labels.png':'desktop-zoom-labels.png')});
-  record('Zoom progressively reveals non-overlapping labels',{overview:design.nodeLabels,zoom_counts:labelCounts,visible_labels:labelRects.length});
+  record('Zoom progressively reveals non-overlapping labels',{overview:design.nodeLabels,zoom_counts:labelCounts,previously_hidden_revealed:newlyVisible.size,visible_labels:labelRects.length});
   await fit(page);
   if(!mobile){
    const p=await center(page,firstNode);await page.mouse.move(p.x,p.y);
