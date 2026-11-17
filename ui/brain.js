@@ -71,12 +71,21 @@
     const seen=new Set(),components=[];
     for(const n of nodes){if(seen.has(n.id))continue;const todo=[n.id],part=[];while(todo.length){const id=todo.pop();if(seen.has(id))continue;seen.add(id);part.push(by.get(id));for(const next of neighbours.get(id))todo.push(next);}components.push(part);}
     components.sort((a,b)=>b.length-a.length);
-    if(components.length>1){
-      const largest=components[0];const width=Math.max(600,Math.max(...largest.map(n=>n.x))-Math.min(...largest.map(n=>n.x))+240);
-      components.forEach((part,i)=>{const cx=(Math.min(...part.map(n=>n.x))+Math.max(...part.map(n=>n.x)))/2,cy=(Math.min(...part.map(n=>n.y))+Math.max(...part.map(n=>n.y)))/2;
-        const destX=i===0?width/2:width+220+Math.floor((i-1)/2)*450,destY=i===0?350:170+((i-1)%2)*360;
-        for(const n of part){if(!positions.has(n.id)){n.x+=destX-cx;n.y+=destY-cy;}}
+    if(components.length>1 && !nodes.some(n=>positions.has(n.id))){
+      // Pack component boxes in two dimensions. A long strip makes global Fit
+      // technically complete but unusably tiny, especially on a phone.
+      const boxes=components.map(part=>{
+        const x=Math.min(...part.map(n=>n.x)),y=Math.min(...part.map(n=>n.y));
+        return {part,x,y,w:Math.max(...part.map(n=>n.x))-x+160,h:Math.max(...part.map(n=>n.y))-y+160};
       });
+      const rect=$("graph").getBoundingClientRect(),ratio=rect.width/Math.max(1,rect.height);
+      const width=Math.max(...boxes.map(b=>b.w),Math.sqrt(boxes.reduce((a,b)=>a+b.w*b.h,0)*ratio));
+      let x=0,y=0,rowHeight=0;
+      for(const b of boxes){
+        if(x && x+b.w>width){x=0;y+=rowHeight;rowHeight=0;}
+        for(const n of b.part){n.x+=x+80-b.x;n.y+=y+80-b.y;}
+        x+=b.w;rowHeight=Math.max(rowHeight,b.h);
+      }
     }
     positions=new Map(p.map(n=>[n.id,n]));
   }
@@ -95,6 +104,10 @@
     $("graph").classList.toggle("close-zoom",view.w<850);
     const unit=view.w/Math.max(1,$("graph").getBoundingClientRect().width);
     for(const t of $("scene").querySelectorAll("text")){t.setAttribute("font-size",12*unit);t.setAttribute("stroke-width",3*unit);}
+    for(const c of $("scene").querySelectorAll(".node circle")){
+      const r=Math.max(Number(c.dataset.radius),5*unit);c.setAttribute("r",r);
+      c.parentNode.querySelector("text").setAttribute("y",Math.max(41,r+16*unit));
+    }
   }
   // Transform through the SVG CTM, not its bounding box: letterboxing matters.
   function world(x,y){return new DOMPoint(x,y).matrixTransform($("graph").getScreenCTM().inverse());}
@@ -138,7 +151,7 @@
     const degree=new Map();for(const e of edges)for(const id of [e.source,e.target])degree.set(id,(degree.get(id)||0)+1);
     for(const n of nodes){
       const g=svg("g",{class:`node ${n.kind} ${(degree.get(n.id)||0)>2?"hub":""}`,tabindex:"0",role:"button","aria-label":`${n.label}, ${n.kind}, ${n.scope}`,"data-node":n.id});
-      g.append(svg("circle",{r:Math.min(25,12+Math.log2((degree.get(n.id)||0)+1)*3)}),svg("text",{y:41},short(n.label)),svg("title",{},`${n.label} · ${n.kind} · ${n.scope}`));
+      g.append(svg("circle",{r:Math.min(25,12+Math.log2((degree.get(n.id)||0)+1)*3),"data-radius":Math.min(25,12+Math.log2((degree.get(n.id)||0)+1)*3)}),svg("text",{y:41},short(n.label)),svg("title",{},`${n.label} · ${n.kind} · ${n.scope}`));
       g.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();inspectNode(n);}};scene.append(g);nodeDraw.set(n.id,g);
     }
     geometry();highlight();applyView();

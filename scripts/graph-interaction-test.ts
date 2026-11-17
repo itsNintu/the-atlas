@@ -59,7 +59,7 @@ try{
   assert(await page.locator('#scene .node.dimmed').count()>0||await page.locator('#scene .node.connected').count()===await page.locator('#scene .node').count());
   record(`${mobile?'touch':'mouse'} tap selects and highlights actual adjacency`,{connected_edges:await page.locator('#scene .edge.connected').count(),connected_nodes:await page.locator('#scene .node.connected').count()});
   if(mobile){
-   await expect(page.locator('#close-detail')).toBeInViewport();await page.locator('#close-detail').tap();await expect(page.locator('#inspector')).toBeHidden();await page.locator('#show-detail').tap();await expect(page.locator('#inspector')).toBeVisible();
+   await expect(page.locator('#close-detail')).toBeInViewport();assert((await page.locator('#inspector').boundingBox())!.height<=844*.53);await page.locator('#close-detail').tap();await expect(page.locator('#inspector')).toBeHidden();await page.locator('#show-detail').tap();await expect(page.locator('#inspector')).toBeVisible();
   }
   // Source drill-through stays independent of the graph's render budget.
   await page.locator('#detail .relation').first().click();await expect(page.locator('#detail')).toContainText('Attributed sources');await expect(page.locator('#detail .source').first()).toBeVisible();
