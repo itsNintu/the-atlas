@@ -1,0 +1,14 @@
+{
+  "description": "Atlas capture (local outbox first) and one bounded recall per prompt",
+  "hooks": {
+    "UserPromptSubmit": [
+      { "hooks": [ { "type": "command", "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/run.sh\" prompt \"${CLAUDE_PLUGIN_DATA}\"", "timeout": 20 } ] }
+    ],
+    "Stop": [
+      { "hooks": [ { "type": "command", "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/run.sh\" stop \"${CLAUDE_PLUGIN_DATA}\"", "timeout": 15 } ] }
+    ],
+    "SessionEnd": [
+      { "hooks": [ { "type": "command", "command": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/run.sh\" end \"${CLAUDE_PLUGIN_DATA}\"", "timeout": 10 } ] }
+    ]
+  }
+}

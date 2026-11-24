@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "atlas": {
+      "type": "http",
+      "url": "${ATLAS_URL:-https://atlas.creator.gg}/mcp",
+      "headersHelper": "sh \"${CLAUDE_PLUGIN_ROOT}/scripts/run.sh\" headers"
+    }
+  }
+}

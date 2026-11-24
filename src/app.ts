@@ -18,6 +18,7 @@ import {
   type ExtractionProvider,
 } from "./provider.ts";
 import { readFileSync } from "node:fs";
+import { Mcp } from "./mcp.ts";
 
 const actions = ["read", "write", "delete"];
 const chars = (s: string) => Array.from(s).length;
@@ -59,6 +60,7 @@ function page(rows: any[], url: URL, binding: string) {
 export class App {
   memory: Memory;
   browserAuth: BrowserAuth;
+  mcp: Mcp;
   constructor(
     public store: Store,
     public provider: ExtractionProvider = new OpenAICompatible(),
@@ -66,6 +68,7 @@ export class App {
   ) {
     this.memory = new Memory(store);
     this.browserAuth = new BrowserAuth(store);
+    this.mcp = new Mcp(this);
   }
   async fetch(request: Request): Promise<Response> {
     const request_id = id("req"),
@@ -110,6 +113,10 @@ export class App {
         });
       if (path.startsWith("/auth/")) {
         const response = await this.browserAuth.route(request); status = response.status; return response;
+      }
+      // Remote MCP adapter; bearer agent credentials only, never browser cookies.
+      if (path === "/mcp") {
+        const response = await this.mcp.fetch(request); status = response.status; return response;
       }
       if (!path.startsWith("/v1/")) fail(404, "not_found", "Route not found");
       const bearer = request.headers.has("authorization");

@@ -194,8 +194,9 @@ operation; inspect current source/job state rather than assuming it remains curr
 ## Versioning boundary
 
 Schema user_version rejects newer data. Schema 1 upgrades additively to schema 2 with original source/fact/credential identities retained; the dreaming serving-index extension is additive within schema 2. Offline pre-upgrade backup is the rollback boundary. Restoring old source over a newly indexed DB is not a safe writer rollback: new triggers invoke the registered index function. Restore the stopped full DB backup instead. Future migrations need fixture backups and rollback tests. REST contract changes must be explicit.
-There is no claimed SDK, MCP, connector or experience-learning compatibility simply because these
-entities could later be represented. Server transport-level oversized requests may be rejected by
+The remote MCP adapter at `POST /mcp` (see capabilities.md) is a thin in-process client of this API
+with bearer agent credentials. There is no claimed SDK, connector or experience-learning
+compatibility simply because these entities could later be represented. Server transport-level oversized requests may be rejected by
 Bun before the structured API envelope; ordinary API validation uses the envelope above.
 
 ## Automatic event memory: durable intake, selective graph and indexed recall

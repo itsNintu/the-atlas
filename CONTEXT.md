@@ -548,7 +548,8 @@ Read README.md, docs/contract.md, docs/capabilities.md and docs/operations.md fo
 limitations. Reuse/fork/port/new code remain valid engineering choices. No full-platform checklist,
 full-Zep parity or specific hosting/toolchain requirement should be inferred. Useful next experiments
 are live provider evaluation and indexed retrieval/provenance profiling if concurrency demands it.
-The working CLI is not an SDK/MCP/connector or automatic agent-capture claim.
+The working CLI is not an SDK/connector or automatic agent-capture claim. The remote MCP adapter
+(`POST /mcp`, capabilities.md) is bearer-only, model-relayed capture, not automatic harness capture.
 
 Publication verification belongs to the actual GitHub repository/release and exact-head Actions run;
 use fresh remote readbacks, not this local context file, to establish current remote state.
