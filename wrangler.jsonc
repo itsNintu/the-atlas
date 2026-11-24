@@ -21,7 +21,8 @@
     "THE_ATLAS_CODEX_REASONING_EFFORT": "low",
     "THE_ATLAS_JEV_MODEL": "jev-1.14.0",
     "THE_ATLAS_JEV_CONCURRENCY": "4",
-    "THE_ATLAS_EMBEDDING_MODEL": "text-embedding-3-small"
+    "THE_ATLAS_EMBEDDING_MODEL": "text-embedding-3-small",
+    "THE_ATLAS_MCP_OWNER_AGENTS": "claude-code"
   },
   "durable_objects": {
     "bindings": [
