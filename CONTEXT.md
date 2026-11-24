@@ -1,5 +1,12 @@
 # Current project context
 
+## 2026-11-24 MCP and Claude Code plugin - deployed
+
+Worker `99670c52-fdda-409b-b62c-e5cb1929f71e` (PR 1), then a protected operations restart: `/mcp` returned
+404 from the existing Durable Object until that restart. Agent `claude-code` provisioned with the
+ordinary script. A live plugin session connected, recalled, and captured two events durably; those
+two test events were then deleted. Plugin 1.0.1 captures human-origin prompts only.
+
 ## 2026-11-17 owner-reported login callback repair — deployed
 
 Task `t_407c9e82`: reproduced competing manual/automatic submit defects, now one synchronous

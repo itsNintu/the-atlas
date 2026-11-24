@@ -25,7 +25,7 @@ const INSTRUCTIONS = [
 const AUTOMATIC_INSTRUCTIONS = [
   "The Atlas is long-term memory shared with your other agents.",
   "This client captures the conversation and recalls memory for each prompt automatically;",
-  "use `recall` or `graph` only for an extra lookup mid-task, and `forget` when asked to forget something.",
+  "use `recall` or `graph` only for an extra lookup mid-task.",
 ].join(" ");
 
 const roleSchema = { type: "string", enum: ["user", "assistant"] };
@@ -177,8 +177,9 @@ export class Mcp {
   }
 
   private async dispatch(actor: Actor, authorization: string, m: any, automatic: boolean): Promise<{ result: any } | { error: any }> {
-    // Automatic capture owns remembering; a model-relayed copy would duplicate it.
-    const tools = automatic ? TOOLS.filter((t) => t.name !== "remember") : TOOLS;
+    // Automatic capture owns remembering (a relayed copy would duplicate it), and the model
+    // never sees hook message ids, so forget-by-message-id cannot work there.
+    const tools = automatic ? TOOLS.filter((t) => !["remember", "forget"].includes(t.name)) : TOOLS;
     switch (m.method) {
       case "initialize": {
         const requested = m.params?.protocolVersion;

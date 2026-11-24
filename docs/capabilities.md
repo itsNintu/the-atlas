@@ -10,10 +10,11 @@ command/notification prefixes) and assistant reply text through a durable local 
 (`client_id: claude-code`, identity+revision committed before delivery, identical replay). Tool
 calls/results, thinking, sidechains, meta entries and synthetic messages are never captured. It
 bundles the MCP server with a `headersHelper` that reads the private credential file and marks
-capture as automatic, which hides `remember`. Boundaries: no recall-use feedback yet; slash-command
+capture as automatic, which hides `remember` and `forget`. Scripted sessions are not captured. Boundaries: no recall-use feedback; no deletion tool for hook-captured messages; resumed sessions
+are captured from their start; slash-command
 arguments are not captured; Bun is required on each host. Covered by `tests/claude-code-plugin.test.ts`.
 
-## Remote MCP adapter (implemented and tested; not yet deployed)
+## Remote MCP adapter (deployed 2026-11-24)
 
 `POST /mcp` is a stateless MCP Streamable HTTP endpoint (JSON responses, no server-initiated SSE)
 served by the same App/Worker. It is a thin client of the existing `/v1` API and mirrors the

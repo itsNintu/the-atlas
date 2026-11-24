@@ -11,8 +11,10 @@ A Claude Code plugin that gives Claude long-term Atlas memory, working the same 
   replays the identical body, so outages lose nothing.
 - **Pre-answer recall.** On `UserPromptSubmit`, one bounded `/v1/recall` request (no retries in the
   same turn) adds a compact memory packet to Claude's context. Failures are silent and audited locally.
-- **MCP tools.** The bundled `atlas` server (`/mcp`) offers `recall`, `graph`, `forget` and `status`
-  for lookups mid-task. Because capture is automatic, the model-relayed `remember` tool is hidden.
+- **MCP tools.** The bundled `atlas` server (`/mcp`) offers `recall`, `graph` and `status`
+  for lookups mid-task. Because capture is automatic, the model-relayed `remember` and its
+  message-id `forget` are hidden. Scripted sessions (`claude -p`) are not captured. Resuming an old
+  session captures its earlier messages too.
 
 Every hook exits 0, so memory can never block a turn. Hooks need [Bun](https://bun.sh).
 
