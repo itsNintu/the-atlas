@@ -1,0 +1,12 @@
+{
+  "name": "the-atlas",
+  "description": "The Atlas: source-linked graph/context memory for agents",
+  "owner": { "name": "The Atlas maintainers" },
+  "plugins": [
+    {
+      "name": "atlas-memory",
+      "source": "./plugins/atlas-memory",
+      "description": "Automatic Atlas capture and pre-answer recall for Claude Code, plus Atlas MCP tools"
+    }
+  ]
+}

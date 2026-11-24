@@ -77,12 +77,23 @@ bun run bench         # disclosed local generated workloads, not a scale guarant
 [Capabilities and limitations](docs/capabilities.md) · [Measurements](docs/measurements.md) ·
 [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md)
 
+## Claude Code plugin and MCP
+
+The `atlas-memory` Claude Code plugin captures conversation automatically and recalls memory before
+each answer, like the Hermes adapter. It also bundles the Atlas remote MCP server (`POST /mcp`).
+
+```
+/plugin install atlas-memory --marketplace itsNintu/the-atlas
+```
+
+Setup and behavior: [plugins/atlas-memory/README.md](plugins/atlas-memory/README.md).
+
 ## Scope and tradeoffs
 
 This is a useful single-node bootstrap, not Zep parity or an enterprise service. Lexical ranking scans
 at most 5,000 time-filtered authorized facts/request; pagination is keyset-based, not a snapshot.
-There is no automatic entity resolution, learned procedures, connector sync, SDK/MCP, automatic
-harness capture, SSO, managed hosting or production SLA. Those are possible extensions, not claims
+There is no automatic entity resolution, learned procedures, connector sync, SDK, OAuth MCP, automatic
+harness capture beyond the Hermes and Claude Code adapters, SSO, managed hosting or production SLA. Those are possible extensions, not claims
 made by this release. SQLite makes install and transactional lifecycle recovery simple; local
 measurements show synchronous single-process retrieval becomes a bottleneck under concurrency.
 

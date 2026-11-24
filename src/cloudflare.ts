@@ -206,7 +206,7 @@ export class AtlasDurableObject extends DurableObject<AtlasEnvironment> {
       }
     }
     const response = await this.app.fetch(request);
-    if (!["GET", "HEAD"].includes(request.method) && url.pathname.startsWith("/v1/"))
+    if (!["GET", "HEAD"].includes(request.method) && (url.pathname.startsWith("/v1/") || url.pathname === "/mcp"))
       this.ctx.waitUntil(this.ensureAlarm(10));
     return response;
   }

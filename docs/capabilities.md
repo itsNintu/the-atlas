@@ -1,5 +1,40 @@
 # Capability map
 
+## Claude Code plugin (`plugins/atlas-memory`)
+
+The repository is also a Claude Code plugin marketplace. The `atlas-memory` plugin ports the Hermes
+adapter's lifecycle to Claude Code hooks: `UserPromptSubmit` makes one bounded native-v1 recall and
+adds the packet as context; `Stop`/`SessionEnd` read Claude Code's own transcript and deliver only
+typed human prompts (`origin.kind: human`, minus injected reminders and complete machine-form
+command/notification prefixes) and assistant reply text through a durable local SQLite outbox
+(`client_id: claude-code`, identity+revision committed before delivery, identical replay). Tool
+calls/results, thinking, sidechains, meta entries and synthetic messages are never captured. It
+bundles the MCP server with a `headersHelper` that reads the private credential file and marks
+capture as automatic, which hides `remember`. Boundaries: no recall-use feedback yet; slash-command
+arguments are not captured; Bun is required on each host. Covered by `tests/claude-code-plugin.test.ts`.
+
+## Remote MCP adapter (implemented and tested; not yet deployed)
+
+`POST /mcp` is a stateless MCP Streamable HTTP endpoint (JSON responses, no server-initiated SSE)
+served by the same App/Worker. It is a thin client of the existing `/v1` API and mirrors the
+Hermes `atlas-memory` plugin: the same per-agent bearer credential (from `POST /v1/memory/agents`),
+the same `native-v1` recall request and the same event envelope. Each tool call is dispatched
+in-process through `App.fetch`, so authorization, agent binding, idempotency, admission and audit
+are the API's own. The agent comes from the credential's server-side binding, never a tool argument.
+
+Tools: `recall` (compact packet for the latest user message), `remember` (verbatim user/assistant
+messages as `client_id: mcp` events, keyed by thread and message id; unchanged resends are no-ops,
+changes revise, long messages split at 90k like the plugin), `forget` (delete by message id),
+`graph` (literal-filter memory listing) and `status`. Tool roles and automatic status notices are
+refused by the existing admission rules. User messages are attributed to the owner (`alex`) only
+for agents listed in `THE_ATLAS_MCP_OWNER_AGENTS`, like the plugin's explicit `owner_native_ids`;
+otherwise they are `mcp:user:unknown`.
+
+Boundaries: bearer credentials only (no MCP OAuth, so not yet addable as a claude.ai web
+connector); no automatic capture: the client model decides what to remember, so MCP capture is
+model-relayed rather than transcript-journaled like the plugin; no recall-use feedback tool; no
+local outbox, so a failed `remember` must be retried by the caller. Covered by `tests/mcp.test.ts`.
+
 ## Fresh recall latency and general compact HTTP projection
 
 All of the following backend improvements work for **any authorized Atlas HTTP client**, not only
@@ -420,7 +455,7 @@ an imported platform checklist or a full-Zep completion standard.
 | Operations                               | Local alpha                                   | Health, safe request diagnostics, queue/errors, audit, offline backup instructions; no managed failover/SLA |
 | Open source                              | See release/readback evidence                 | Apache-2.0, lockfile, CI and obtainable alpha source artifact                                               |
 
-**Not shipped / not implied:** automatic capture from an agent harness, SDK/MCP adapter, connector sync,
+**Not shipped / not implied:** automatic capture from an agent harness, SDK, connector sync,
 learned procedures, SSO/advanced policies/retention engine, arbitrary graph query language, entity/alias
 resolution, summarization/observations, rerankers, distributed architecture, compliance certification,
 provider cost/quality benchmark or Zep/enterprise parity. Add these only when a concrete product need
@@ -434,8 +469,8 @@ justifies them; absence is not an invented mandatory platform obligation.
    retrieval and batch provenance reads before changing the entire storage architecture.
 3. Harden public exposure: TLS termination, request/rate limits appropriate to the deployment,
    credential lifecycle management and a deliberate backup-retention policy.
-4. Add a small SDK/MCP or harness adapter only against a real client workflow; the CLI is the complete
-   working agent surface today, not a claim that adapters already work.
+4. A remote MCP adapter now exists (see the top of this map); add SDK or further harness adapters only
+   against a real client workflow.
 
 ## Focused entity relationships and conversational recall (source)
 

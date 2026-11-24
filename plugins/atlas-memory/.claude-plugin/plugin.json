@@ -1,0 +1,11 @@
+{
+  "name": "atlas-memory",
+  "displayName": "Atlas memory",
+  "version": "1.0.0",
+  "description": "Automatic scoped Atlas capture and compact query-specific pre-answer recall for Claude Code, plus the Atlas MCP tools.",
+  "author": { "name": "The Atlas maintainers" },
+  "homepage": "https://github.com/itsNintu/the-atlas",
+  "repository": "https://github.com/itsNintu/the-atlas",
+  "license": "Apache-2.0",
+  "keywords": ["memory", "atlas", "recall"]
+}
