@@ -17,7 +17,7 @@ import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { join } from "node:path";
 
-export const VERSION = "1.0.0";
+export const VERSION = "1.0.1";
 export const CLIENT_ID = "claude-code";
 const PART = 90_000;
 const USER_AGENT = `Atlas-Claude-Code/${VERSION}`;
@@ -72,7 +72,8 @@ export function transcriptMessages(path: string): Message[] {
     if (d.isSidechain || d.isMeta || d.isCompactSummary || !d.message) continue;
     const content = d.message.content;
     if (d.type === "user") {
-      if (d.origin && d.origin.kind !== "human") continue;
+      // Scripted prompts (claude -p, automations) carry no human origin; never attribute them to a person.
+      if (d.origin?.kind !== "human") continue;
       if (Array.isArray(content) && content.some((b: any) => b?.type === "tool_result")) continue;
       const text = stripReminders(typeof content === "string" ? content
         : Array.isArray(content) ? content.filter((b: any) => b?.type === "text").map((b: any) => String(b.text ?? "")).join("\n\n") : "").trim();
@@ -90,6 +91,8 @@ export function transcriptMessages(path: string): Message[] {
       else { const m: Message = { key: "a:" + id, role: "assistant", content: text, occurred_at: iso(d.timestamp) }; assistant.set(id, m); out.push(m); }
     }
   }
+  // A session no person typed into is execution, not communication.
+  if (!out.some((m) => m.role === "user")) return [];
   return out.map((m) => ({ ...m, content: m.content.trim() }));
 }
 

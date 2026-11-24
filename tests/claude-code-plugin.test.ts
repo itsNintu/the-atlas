@@ -48,6 +48,12 @@ test("transcript parsing admits only typed human prompts and assistant reply tex
     ]);
     expect(JSON.stringify(messages)).not.toContain("SECRET");
     expect(transcriptMessages(join(dir, "missing.jsonl"))).toEqual([]);
+    const scripted = join(dir, "scripted.jsonl");
+    writeFileSync(scripted, [
+      { type: "user", uuid: "p", message: { role: "user", content: "scripted prompt" } },
+      { type: "assistant", uuid: "q", message: { id: "msg_p", content: [{ type: "text", text: "scripted reply" }] } },
+    ].map(line).join("\n"));
+    expect(transcriptMessages(scripted)).toEqual([]);
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
 
@@ -131,7 +137,7 @@ test("headers helper returns the private bearer and marks automatic capture; MCP
       method: "POST", headers: { ...headers, "Content-Type": "application/json" },
       body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "tools/list" }),
     }).then((r) => r.json()) as any;
-    expect(list.result.tools.map((t: any) => t.name).sort()).toEqual(["forget", "graph", "recall", "status"]);
+    expect(list.result.tools.map((t: any) => t.name).sort()).toEqual(["graph", "recall", "status"]);
     const call = await fetch(`http://localhost:${s.server.port}/mcp`, {
       method: "POST", headers: { ...headers, "Content-Type": "application/json" },
       body: JSON.stringify({ jsonrpc: "2.0", id: 2, method: "tools/call", params: { name: "remember", arguments: {} } }),
